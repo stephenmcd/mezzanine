@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.core.forms &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.forms</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.core.forms</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
+
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.forms.utils</span> <span class="kn">import</span> <span class="n">to_current_timezone</span>
+<span class="kn">from</span> <span class="nn">django.forms.widgets</span> <span class="kn">import</span> <span class="n">SelectDateWidget</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.static</span> <span class="kn">import</span> <span class="n">static_lazy</span> <span class="k">as</span> <span class="n">static</span>
+
+
+<div class="viewcode-block" id="Html5Mixin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.Html5Mixin">[docs]</a><span class="k">class</span> <span class="nc">Html5Mixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin for form classes. Adds HTML5 features to forms for client</span>
+<span class="sd">    side validation by the browser, like a &quot;required&quot; attribute and</span>
+<span class="sd">    &quot;email&quot; and &quot;url&quot; input types.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;fields&quot;</span><span class="p">):</span>
+            <span class="n">first_field</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># Autofocus first non-hidden field</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">first_field</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">field</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">is_hidden</span><span class="p">:</span>
+                    <span class="n">first_field</span> <span class="o">=</span> <span class="n">field</span>
+                    <span class="n">first_field</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;autofocus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">FORMS_USE_HTML5</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">input_type</span> <span class="o">=</span> <span class="s2">&quot;email&quot;</span>
+                    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">forms</span><span class="o">.</span><span class="n">URLField</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">input_type</span> <span class="o">=</span> <span class="s2">&quot;url&quot;</span>
+                <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">required</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;required&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="TinyMceWidget"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.TinyMceWidget">[docs]</a><span class="k">class</span> <span class="nc">TinyMceWidget</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Textarea</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Setup the JS files and targetting CSS class for a textarea to</span>
+<span class="sd">    use TinyMCE.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">media</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/tinymce/tinymce.min.js&quot;</span><span class="p">),</span>
+            <span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/tinymce/jquery.tinymce.min.js&quot;</span><span class="p">),</span>
+            <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">TINYMCE_SETUP_JS</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="n">css</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/tinymce/tinymce.css&quot;</span><span class="p">)]}</span>
+        <span class="k">return</span> <span class="n">forms</span><span class="o">.</span><span class="n">Media</span><span class="p">(</span><span class="n">js</span><span class="o">=</span><span class="n">js</span><span class="p">,</span> <span class="n">css</span><span class="o">=</span><span class="n">css</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mceEditor&quot;</span>
+
+    <span class="k">def</span> <span class="nf">use_required_attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">):</span>
+        <span class="c1"># TinyMCE does not put content back into the &lt;textarea&gt;, so we want to</span>
+        <span class="c1"># allow it to submit when empty.</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="OrderWidget"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.OrderWidget">[docs]</a><span class="k">class</span> <span class="nc">OrderWidget</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">HiddenInput</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add up and down arrows for ordering controls next to a hidden</span>
+<span class="sd">    form field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">is_hidden</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="OrderWidget.render"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.OrderWidget.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">rendered</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">arrows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;&lt;img src=&#39;</span><span class="si">%s</span><span class="s2">admin/img/admin/arrow-</span><span class="si">%s</span><span class="s2">.gif&#39; /&gt;&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">STATIC_URL</span><span class="p">,</span> <span class="n">arrow</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">arrow</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;up&quot;</span><span class="p">,</span> <span class="s2">&quot;down&quot;</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">arrows</span> <span class="o">=</span> <span class="s2">&quot;&lt;span class=&#39;ordering&#39;&gt;</span><span class="si">%s</span><span class="s2">&lt;/span&gt;&quot;</span> <span class="o">%</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arrows</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rendered</span> <span class="o">+</span> <span class="n">mark_safe</span><span class="p">(</span><span class="n">arrows</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DynamicInlineAdminForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.DynamicInlineAdminForm">[docs]</a><span class="k">class</span> <span class="nc">DynamicInlineAdminForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Form for ``DynamicInlineAdmin`` that can be collapsed and sorted</span>
+<span class="sd">    with drag and drop using ``OrderWidget``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Media</span><span class="p">:</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="c1"># Ensure Django&#39;s noConflict jQuery has loaded BEFORE our scripts</span>
+            <span class="s2">&quot;admin/js/jquery.init.js&quot;</span><span class="p">,</span>
+            <span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/js/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">settings</span><span class="o">.</span><span class="n">JQUERY_UI_FILENAME</span><span class="p">),</span>
+            <span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/js/admin/dynamic_inline.js&quot;</span><span class="p">),</span>
+        <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="SplitSelectDateTimeWidget"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.SplitSelectDateTimeWidget">[docs]</a><span class="k">class</span> <span class="nc">SplitSelectDateTimeWidget</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">SplitDateTimeWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combines Django&#39;s ``SelectDateTimeWidget`` and ``SelectDateWidget``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">date_format</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">date_widget</span> <span class="o">=</span> <span class="n">SelectDateWidget</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">)</span>
+        <span class="n">time_widget</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">TimeInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="n">attrs</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">time_format</span><span class="p">)</span>
+        <span class="n">forms</span><span class="o">.</span><span class="n">MultiWidget</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">(</span><span class="n">date_widget</span><span class="p">,</span> <span class="n">time_widget</span><span class="p">),</span> <span class="n">attrs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SplitSelectDateTimeWidget.decompress"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.SplitSelectDateTimeWidget.decompress">[docs]</a>    <span class="k">def</span> <span class="nf">decompress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">datetime</span><span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">to_current_timezone</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">value</span><span class="o">.</span><span class="n">date</span><span class="p">(),</span> <span class="n">value</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="SplitSelectDateTimeWidget.value_from_datadict"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.SplitSelectDateTimeWidget.value_from_datadict">[docs]</a>    <span class="k">def</span> <span class="nf">value_from_datadict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">x</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">(</span><span class="n">SplitSelectDateTimeWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">value_from_datadict</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">name</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CheckboxSelectMultiple"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.CheckboxSelectMultiple">[docs]</a><span class="k">class</span> <span class="nc">CheckboxSelectMultiple</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wraps render with a CSS class for styling.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dont_use_model_field_default_for_empty_data</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="CheckboxSelectMultiple.render"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.CheckboxSelectMultiple.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">rendered</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mark_safe</span><span class="p">(</span><span class="s2">&quot;&lt;span class=&#39;multicheckbox&#39;&gt;</span><span class="si">%s</span><span class="s2">&lt;/span&gt;&quot;</span> <span class="o">%</span> <span class="n">rendered</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="get_edit_form"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.forms.get_edit_form">[docs]</a><span class="k">def</span> <span class="nf">get_edit_form</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">field_names</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the in-line editing form for editing a single model field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Map these form fields to their types defined in the forms app so</span>
+    <span class="c1"># we can make use of their custom widgets.</span>
+    <span class="kn">from</span> <span class="nn">mezzanine.forms</span> <span class="kn">import</span> <span class="n">fields</span>
+
+    <span class="n">widget_overrides</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">forms</span><span class="o">.</span><span class="n">DateField</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">DATE</span><span class="p">,</span>
+        <span class="n">forms</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">DATE_TIME</span><span class="p">,</span>
+        <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">EMAIL</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">EditForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        In-line editing form for editing a single model field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">app</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">HiddenInput</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">HiddenInput</span><span class="p">)</span>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">HiddenInput</span><span class="p">)</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">HiddenInput</span><span class="p">)</span>
+
+        <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="n">fields</span> <span class="o">=</span> <span class="n">field_names</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">field_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">widget</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">WIDGETS</span><span class="p">[</span><span class="n">widget_overrides</span><span class="p">[</span><span class="n">field_class</span><span class="p">]]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">widget</span><span class="p">()</span>
+                <span class="n">css_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">css_class</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">field_class</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">css_class</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">uuid</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">FORMS_USE_HTML5</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">required</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;required&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">initial</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;app&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="p">,</span>
+        <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">field_names</span><span class="p">,</span>
+        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">object_name</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">EditForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">obj</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="n">initial</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.forms</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

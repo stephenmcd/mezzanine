@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.core.managers &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.managers</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.core.managers</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">iand</span><span class="p">,</span> <span class="n">ior</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">punctuation</span>
+
+<span class="kn">import</span> <span class="nn">django</span>
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">apps</span>
+<span class="kn">from</span> <span class="nn">django.contrib.sites.managers</span> <span class="kn">import</span> <span class="n">CurrentSiteManager</span> <span class="k">as</span> <span class="n">DjangoCSM</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">CharField</span><span class="p">,</span> <span class="n">Manager</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">TextField</span>
+<span class="kn">from</span> <span class="nn">django.db.models.manager</span> <span class="kn">import</span> <span class="n">ManagerDescriptor</span>
+<span class="kn">from</span> <span class="nn">django.db.models.query</span> <span class="kn">import</span> <span class="n">QuerySet</span>
+<span class="kn">from</span> <span class="nn">django.utils.timezone</span> <span class="kn">import</span> <span class="n">now</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.sites</span> <span class="kn">import</span> <span class="n">current_site_id</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">home_slug</span>
+
+<span class="k">if</span> <span class="n">django</span><span class="o">.</span><span class="n">VERSION</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ManagerDescriptor"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.ManagerDescriptor">[docs]</a>    <span class="k">class</span> <span class="nc">ManagerDescriptor</span><span class="p">(</span><span class="n">ManagerDescriptor</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This class exists purely to skip the abstract model check</span>
+<span class="sd">        in the __get__ method of Django&#39;s ManagerDescriptor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">instance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="s2">&quot;Manager isn&#39;t accessible via </span><span class="si">%s</span><span class="s2"> instances&quot;</span> <span class="o">%</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+                <span class="p">)</span>
+
+            <span class="c1"># In ManagerDescriptor.__get__, an exception is raised here</span>
+            <span class="c1"># if cls is abstract</span>
+
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">swapped</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="s2">&quot;Manager isn&#39;t available; &quot;</span>
+                    <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&#39; has been swapped for &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="p">,</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">object_name</span><span class="p">,</span>
+                        <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">swapped</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">managers_map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">name</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="PublishedManager"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.PublishedManager">[docs]</a><span class="k">class</span> <span class="nc">PublishedManager</span><span class="p">(</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides filter for restricting items returned by status and</span>
+<span class="sd">    publish date when the given user is not a staff member.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="PublishedManager.published"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.PublishedManager.published">[docs]</a>    <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For non-staff users, return items with a published status and</span>
+<span class="sd">        whose publish and expiry dates fall before and after the</span>
+<span class="sd">        current date when specified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">mezzanine.core.models</span> <span class="kn">import</span> <span class="n">CONTENT_STATUS_PUBLISHED</span>
+
+        <span class="k">if</span> <span class="n">for_user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">for_user</span><span class="o">.</span><span class="n">is_staff</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">Q</span><span class="p">(</span><span class="n">publish_date__lte</span><span class="o">=</span><span class="n">now</span><span class="p">())</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">publish_date__isnull</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">Q</span><span class="p">(</span><span class="n">expiry_date__gte</span><span class="o">=</span><span class="n">now</span><span class="p">())</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">expiry_date__isnull</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">Q</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">CONTENT_STATUS_PUBLISHED</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">get_by_natural_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slug</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">slug</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="search_fields_to_dict"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.search_fields_to_dict">[docs]</a><span class="k">def</span> <span class="nf">search_fields_to_dict</span><span class="p">(</span><span class="n">fields</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    In ``SearchableQuerySet`` and ``SearchableManager``, search fields</span>
+<span class="sd">    can either be a sequence, or a dict of fields mapped to weights.</span>
+<span class="sd">    This function converts sequences to a dict mapped to even weights,</span>
+<span class="sd">    so that we&#39;re consistently dealing with a dict of fields mapped to</span>
+<span class="sd">    weights, eg: (&quot;title&quot;, &quot;content&quot;) -&gt; {&quot;title&quot;: 1, &quot;content&quot;: 1}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">int</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">fields</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">fields</span></div>
+
+
+<div class="viewcode-block" id="SearchableQuerySet"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableQuerySet">[docs]</a><span class="k">class</span> <span class="nc">SearchableQuerySet</span><span class="p">(</span><span class="n">QuerySet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    QuerySet providing main search functionality for</span>
+<span class="sd">    ``SearchableManager``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search_ordered</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search_terms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;search_fields&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SearchableQuerySet.search"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableQuerySet.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">search_fields</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build a queryset matching words in the given search query,</span>
+<span class="sd">        treating quoted terms as exact phrases and taking into</span>
+<span class="sd">        account + and - symbols as modifiers controlling which terms</span>
+<span class="sd">        to require and exclude.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># ### DETERMINE FIELDS TO SEARCH ###</span>
+
+        <span class="c1"># Use search_fields arg if given, otherwise use search_fields</span>
+        <span class="c1"># initially configured by the manager class.</span>
+        <span class="k">if</span> <span class="n">search_fields</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span> <span class="o">=</span> <span class="n">search_fields_to_dict</span><span class="p">(</span><span class="n">search_fields</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">none</span><span class="p">()</span>
+
+        <span class="c1"># ### BUILD LIST OF TERMS TO SEARCH FOR ###</span>
+
+        <span class="c1"># Remove extra spaces, put modifiers inside quoted terms.</span>
+        <span class="n">terms</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;+ &quot;</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;+&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;+&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;- &quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;-&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;&quot;-&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># Strip punctuation other than modifiers from terms and create</span>
+        <span class="c1"># terms list, first from quoted terms and then remaining words.</span>
+        <span class="n">terms</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;+-&quot;</span> <span class="k">else</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">punctuation</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">terms</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">terms</span><span class="p">[::</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="c1"># Remove stop words from terms that aren&#39;t quoted or use</span>
+        <span class="c1"># modifiers, since words with these are an explicit part of</span>
+        <span class="c1"># the search query. If doing so ends up with an empty term</span>
+        <span class="c1"># list, then keep the stop words.</span>
+        <span class="n">terms_no_stopwords</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">terms</span> <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">STOP_WORDS</span><span class="p">]</span>
+        <span class="n">get_positive_terms</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">terms</span><span class="p">:</span> <span class="p">[</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">punctuation</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">terms</span> <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;-&quot;</span>
+        <span class="p">]</span>
+        <span class="n">positive_terms</span> <span class="o">=</span> <span class="n">get_positive_terms</span><span class="p">(</span><span class="n">terms_no_stopwords</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">positive_terms</span><span class="p">:</span>
+            <span class="n">terms</span> <span class="o">=</span> <span class="n">terms_no_stopwords</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">positive_terms</span> <span class="o">=</span> <span class="n">get_positive_terms</span><span class="p">(</span><span class="n">terms</span><span class="p">)</span>
+        <span class="c1"># Append positive terms (those without the negative modifier)</span>
+        <span class="c1"># to the internal list for sorting when results are iterated.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">positive_terms</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">none</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_search_terms</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">positive_terms</span><span class="p">)</span>
+
+        <span class="c1"># ### BUILD QUERYSET FILTER ###</span>
+
+        <span class="c1"># Create the queryset combining each set of terms.</span>
+        <span class="n">excluded</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">reduce</span><span class="p">(</span>
+                <span class="n">iand</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="o">~</span><span class="n">Q</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">__icontains&quot;</span> <span class="o">%</span> <span class="n">f</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">:]})</span>
+                    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="p">],</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">terms</span>
+            <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span>
+        <span class="p">]</span>
+        <span class="n">required</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">reduce</span><span class="p">(</span>
+                <span class="n">ior</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Q</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">__icontains&quot;</span> <span class="o">%</span> <span class="n">f</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">:]})</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span><span class="o">.</span><span class="n">keys</span><span class="p">()],</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">terms</span>
+            <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;+&quot;</span>
+        <span class="p">]</span>
+        <span class="n">optional</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">reduce</span><span class="p">(</span>
+                <span class="n">ior</span><span class="p">,</span> <span class="p">[</span><span class="n">Q</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">__icontains&quot;</span> <span class="o">%</span> <span class="n">f</span><span class="p">:</span> <span class="n">t</span><span class="p">})</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">terms</span>
+            <span class="k">if</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s2">&quot;+-&quot;</span>
+        <span class="p">]</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">if</span> <span class="n">excluded</span><span class="p">:</span>
+            <span class="n">queryset</span> <span class="o">=</span> <span class="n">queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">iand</span><span class="p">,</span> <span class="n">excluded</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">required</span><span class="p">:</span>
+            <span class="n">queryset</span> <span class="o">=</span> <span class="n">queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">iand</span><span class="p">,</span> <span class="n">required</span><span class="p">))</span>
+        <span class="c1"># Optional terms aren&#39;t relevant to the filter if there are</span>
+        <span class="c1"># terms that are explicitly required.</span>
+        <span class="k">elif</span> <span class="n">optional</span><span class="p">:</span>
+            <span class="n">queryset</span> <span class="o">=</span> <span class="n">queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">reduce</span><span class="p">(</span><span class="n">ior</span><span class="p">,</span> <span class="n">optional</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">queryset</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure attributes are copied to subsequent queries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_clone</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_search_terms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_terms</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_search_fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span>
+        <span class="n">clone</span><span class="o">.</span><span class="n">_search_ordered</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_ordered</span>
+        <span class="k">return</span> <span class="n">clone</span>
+
+<div class="viewcode-block" id="SearchableQuerySet.order_by"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableQuerySet.order_by">[docs]</a>    <span class="k">def</span> <span class="nf">order_by</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">field_names</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mark the filter as being ordered if search has occurred.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_ordered</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_search_ordered</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_search_terms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="o">*</span><span class="n">field_names</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SearchableQuerySet.annotate_scores"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableQuerySet.annotate_scores">[docs]</a>    <span class="k">def</span> <span class="nf">annotate_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If search has occurred and no ordering has occurred, decorate</span>
+<span class="sd">        each result with the number of search terms so that it can be</span>
+<span class="sd">        sorted by the number of occurrence of terms.</span>
+
+<span class="sd">        In the case of search fields that span model relationships, we</span>
+<span class="sd">        cannot accurately match occurrences without some very</span>
+<span class="sd">        complicated traversal code, which we won&#39;t attempt. So in this</span>
+<span class="sd">        case, namely when there are no matches for a result (count=0),</span>
+<span class="sd">        and search fields contain relationships (double underscores),</span>
+<span class="sd">        we assume one match for one of the fields, and use the average</span>
+<span class="sd">        weight of all search fields with relationships.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">iterator</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_terms</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_ordered</span><span class="p">:</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">related_weights</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">field</span><span class="p">:</span>
+                        <span class="n">related_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_terms</span><span class="p">:</span>
+                        <span class="n">field_value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">field</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">field_value</span><span class="p">:</span>
+                            <span class="n">count</span> <span class="o">+=</span> <span class="n">field_value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="o">*</span> <span class="n">weight</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">count</span> <span class="ow">and</span> <span class="n">related_weights</span><span class="p">:</span>
+                    <span class="n">count</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">related_weights</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">related_weights</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">publish_date</span><span class="p">:</span>
+                    <span class="n">age</span> <span class="o">=</span> <span class="p">(</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">result</span><span class="o">.</span><span class="n">publish_date</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">/</span> <span class="n">age</span><span class="o">**</span><span class="n">settings</span><span class="o">.</span><span class="n">SEARCH_AGE_SCALE_FACTOR</span>
+
+                <span class="n">results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">result_count</span> <span class="o">=</span> <span class="n">count</span>
+            <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span></div></div>
+
+
+<div class="viewcode-block" id="SearchableManager"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableManager">[docs]</a><span class="k">class</span> <span class="nc">SearchableManager</span><span class="p">(</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manager providing a chainable queryset.</span>
+<span class="sd">    Adapted from http://www.djangosnippets.org/snippets/562/</span>
+<span class="sd">    search method supports spanning across models that subclass the</span>
+<span class="sd">    model being used to search.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;search_fields&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SearchableManager.get_search_fields"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableManager.get_search_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_search_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the search field names mapped to weights as a dict.</span>
+<span class="sd">        Used in ``get_queryset`` below to tell ``SearchableQuerySet``</span>
+<span class="sd">        which search fields to use. Also used by ``DisplayableAdmin``</span>
+<span class="sd">        to populate Django admin&#39;s ``search_fields`` attribute.</span>
+
+<span class="sd">        Search fields can be populated via</span>
+<span class="sd">        ``SearchableManager.__init__``, which then get stored in</span>
+<span class="sd">        ``SearchableManager._search_fields``, which serves as an</span>
+<span class="sd">        approach for defining an explicit set of fields to be used.</span>
+
+<span class="sd">        Alternatively and more commonly, ``search_fields`` can be</span>
+<span class="sd">        defined on models themselves. In this case, we look at the</span>
+<span class="sd">        model and all its base classes, and build up the search</span>
+<span class="sd">        fields from all of those, so the search fields are implicitly</span>
+<span class="sd">        built up from the inheritence chain.</span>
+
+<span class="sd">        Finally if no search fields have been defined at all, we</span>
+<span class="sd">        fall back to any fields that are ``CharField`` or ``TextField``</span>
+<span class="sd">        instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">search_fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search_fields</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">search_fields</span><span class="p">:</span>
+            <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">):</span>
+                <span class="n">super_fields</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s2">&quot;search_fields&quot;</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">search_fields</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">search_fields_to_dict</span><span class="p">(</span><span class="n">super_fields</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">search_fields</span><span class="p">:</span>
+            <span class="n">search_fields</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">CharField</span><span class="p">,</span> <span class="n">TextField</span><span class="p">)):</span>
+                    <span class="n">search_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">search_fields</span> <span class="o">=</span> <span class="n">search_fields_to_dict</span><span class="p">(</span><span class="n">search_fields</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">search_fields</span></div>
+
+<div class="viewcode-block" id="SearchableManager.get_queryset"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableManager.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">search_fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_search_fields</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">SearchableQuerySet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">search_fields</span><span class="o">=</span><span class="n">search_fields</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SearchableManager.contribute_to_class"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableManager.contribute_to_class">[docs]</a>    <span class="k">def</span> <span class="nf">contribute_to_class</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Newer versions of Django explicitly prevent managers being</span>
+<span class="sd">        accessed from abstract classes, which is behaviour the search</span>
+<span class="sd">        API has always relied on. Here we reinstate it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">contribute_to_class</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ManagerDescriptor</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="SearchableManager.search"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.SearchableManager.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Proxy to queryset&#39;s search method for the manager&#39;s model and</span>
+<span class="sd">        any models that subclass from this manager&#39;s model if the</span>
+<span class="sd">        model is abstract.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">SEARCH_MODEL_CHOICES</span><span class="p">:</span>
+            <span class="c1"># No choices defined - build a list of leaf models (those</span>
+            <span class="c1"># without subclasses) that inherit from Displayable.</span>
+            <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span> <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)]</span>
+            <span class="n">parents</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">ior</span><span class="p">,</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_parent_list</span><span class="p">())</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span><span class="p">])</span>
+            <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models</span> <span class="k">if</span> <span class="n">m</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parents</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="p">,</span> <span class="s2">&quot;abstract&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="c1"># When we&#39;re combining model subclasses for an abstract</span>
+            <span class="c1"># model (eg Displayable), we only want to use models that</span>
+            <span class="c1"># are represented by the ``SEARCH_MODEL_CHOICES`` setting.</span>
+            <span class="c1"># Now this setting won&#39;t contain an exact list of models</span>
+            <span class="c1"># we should use, since it can define superclass models such</span>
+            <span class="c1"># as ``Page``, so we check the parent class list of each</span>
+            <span class="c1"># model when determining whether a model falls within the</span>
+            <span class="c1"># ``SEARCH_MODEL_CHOICES`` setting.</span>
+            <span class="n">search_choices</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">models</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">parents</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">SEARCH_MODEL_CHOICES</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">model</span> <span class="o">=</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="o">*</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span>
+                    <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">search_choices</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">errors</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+                    <span class="s2">&quot;Could not load the model(s) &quot;</span>
+                    <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> defined in the &#39;SEARCH_MODEL_CHOICES&#39; setting.&quot;</span>
+                    <span class="o">%</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_models</span><span class="p">():</span>
+                <span class="c1"># Model is actually a subclasses of what we&#39;re</span>
+                <span class="c1"># searching (eg Displayabale)</span>
+                <span class="n">is_subclass</span> <span class="o">=</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+                <span class="c1"># Model satisfies the search choices list - either</span>
+                <span class="c1"># there are no search choices, model is directly in</span>
+                <span class="c1"># search choices, or its parent is.</span>
+                <span class="n">this_parents</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_parent_list</span><span class="p">())</span>
+                <span class="n">in_choices</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">search_choices</span> <span class="ow">or</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">search_choices</span>
+                <span class="n">in_choices</span> <span class="o">=</span> <span class="n">in_choices</span> <span class="ow">or</span> <span class="n">this_parents</span> <span class="o">&amp;</span> <span class="n">search_choices</span>
+                <span class="k">if</span> <span class="n">is_subclass</span> <span class="ow">and</span> <span class="p">(</span><span class="n">in_choices</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">search_choices</span><span class="p">):</span>
+                    <span class="c1"># Add to models we&#39;ll seach. Also maintain a parent</span>
+                    <span class="c1"># set, used below for further refinement of models</span>
+                    <span class="c1"># list to search.</span>
+                    <span class="n">models</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+                    <span class="n">parents</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">this_parents</span><span class="p">)</span>
+            <span class="c1"># Strip out any models that are superclasses of models,</span>
+            <span class="c1"># specifically the Page model which will generally be the</span>
+            <span class="c1"># superclass for all custom content types, since if we</span>
+            <span class="c1"># query the Page model as well, we will get duplicate</span>
+            <span class="c1"># results.</span>
+            <span class="n">models</span> <span class="o">-=</span> <span class="n">parents</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">]</span>
+        <span class="n">all_results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;for_user&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">queryset</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">(</span><span class="n">for_user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                <span class="n">queryset</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
+            <span class="n">all_results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">queryset</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">annotate_scores</span><span class="p">())</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">all_results</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">result_count</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="CurrentSiteManager"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.CurrentSiteManager">[docs]</a><span class="k">class</span> <span class="nc">CurrentSiteManager</span><span class="p">(</span><span class="n">DjangoCSM</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extends Django&#39;s site manager to first look up site by ID stored in</span>
+<span class="sd">    the request, the session, then domain for the current request</span>
+<span class="sd">    (accessible via threadlocals in ``mezzanine.core.request``), the</span>
+<span class="sd">    environment variable ``MEZZANINE_SITE_ID`` (which can be used by</span>
+<span class="sd">    management commands with the ``--site`` arg, finally falling back</span>
+<span class="sd">    to ``settings.SITE_ID`` if none of those match a site.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">use_in_migrations</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DjangoCSM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__field_name</span> <span class="o">=</span> <span class="n">field_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__is_validated</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="CurrentSiteManager.get_queryset"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.CurrentSiteManager.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__is_validated</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_get_field_name</span><span class="p">()</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__field_name</span> <span class="o">+</span> <span class="s2">&quot;__id__exact&quot;</span><span class="p">:</span> <span class="n">current_site_id</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">DjangoCSM</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="DisplayableManager"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.DisplayableManager">[docs]</a><span class="k">class</span> <span class="nc">DisplayableManager</span><span class="p">(</span><span class="n">CurrentSiteManager</span><span class="p">,</span> <span class="n">PublishedManager</span><span class="p">,</span> <span class="n">SearchableManager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manually combines ``CurrentSiteManager``, ``PublishedManager``</span>
+<span class="sd">    and ``SearchableManager`` for the ``Displayable`` model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DisplayableManager.url_map"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.managers.DisplayableManager.url_map">[docs]</a>    <span class="k">def</span> <span class="nf">url_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_user</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dictionary of urls mapped to Displayable subclass</span>
+<span class="sd">        instances, including a fake homepage instance if none exists.</span>
+<span class="sd">        Used in ``mezzanine.core.sitemaps``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">class</span> <span class="nc">Home</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Home&quot;</span><span class="p">)</span>
+
+        <span class="n">home</span> <span class="o">=</span> <span class="n">Home</span><span class="p">()</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">home</span><span class="p">,</span> <span class="s2">&quot;get_absolute_url&quot;</span><span class="p">,</span> <span class="n">home_slug</span><span class="p">)</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="p">{</span><span class="n">home</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">():</span> <span class="n">home</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_models</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="p">,</span> <span class="s2">&quot;published&quot;</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">(</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">(</span><span class="n">for_user</span><span class="o">=</span><span class="n">for_user</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">slug__startswith</span><span class="o">=</span><span class="s2">&quot;http://&quot;</span><span class="p">)</span>
+                        <span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">slug__startswith</span><span class="o">=</span><span class="s2">&quot;https://&quot;</span><span class="p">)</span>
+                    <span class="p">):</span>
+                        <span class="n">items</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">()]</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="k">return</span> <span class="n">items</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.managers</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

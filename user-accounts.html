@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Public User Accounts &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Search Engine" href="search-engine.html" />
+    <link rel="prev" title="Frequently Asked Questions" href="frequently-asked-questions.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="search-engine.html" title="Search Engine"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="frequently-asked-questions.html" title="Frequently Asked Questions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Public User Accounts</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="public-user-accounts">
+<h1>Public User Accounts<a class="headerlink" href="#public-user-accounts" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine provides the ability for public users to create their own
+accounts for logging into your Mezzanine powered site. Features that can
+be restricted to logged-in users include the ability to post comments,
+make purchases (using <a class="reference external" href="http://cartridge.jupo.org">Cartridge</a>), view
+restricted pages, and anything else you’d like to implement.  You can also
+define what a user’s profile consists of, allowing users to create their
+own profile page for their account.</p>
+<p>The accounts functionality is provided by the app
+<a class="reference internal" href="packages.html#module-mezzanine.accounts" title="mezzanine.accounts"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.accounts</span></code></a>. Adding it to your
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> setting will enable signup, login,
+account updating, and password retrieval features for the public site.</p>
+<section id="profiles">
+<h2>Profiles<a class="headerlink" href="#profiles" title="Permalink to this heading">¶</a></h2>
+<p>Profiles are implemented via the <a class="reference internal" href="configuration.html#accounts-profile-model"><span class="std std-ref">ACCOUNTS_PROFILE_MODEL</span></a> setting.
+With <a class="reference internal" href="packages.html#module-mezzanine.accounts" title="mezzanine.accounts"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.accounts</span></code></a> installed, you can create a profile model
+in one of your apps, with each of the profile fields defined, as well
+as a related field to Django’s user model. For example suppose we
+wanted to capture bios and dates of birth for each user:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># In myapp/models.py</span>
+
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">MyProfile</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span><span class="s2">&quot;auth.User&quot;</span><span class="p">)</span>
+    <span class="n">date_of_birth</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">bio</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+
+
+<span class="c1"># In settings.py</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mezzanine.accounts&quot;</span><span class="p">,</span>
+    <span class="c1"># Many more</span>
+<span class="p">)</span>
+
+<span class="n">ACCOUNTS_PROFILE_MODEL</span> <span class="o">=</span> <span class="s2">&quot;myapp.MyProfile&quot;</span>
+</pre></div>
+</div>
+<p>The bio and date of birth fields will be available in the signup and
+update profile forms, as well as in the user’s public profile page.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default users will only be able to view and edit their own profile
+information. The setting <a class="reference internal" href="configuration.html#accounts-profile-views-enabled"><span class="std std-ref">ACCOUNTS_PROFILE_VIEWS_ENABLED</span></a> can be set
+to <code class="docutils literal notranslate"><span class="pre">True</span></code> to enable public profile pages.</p>
+</div>
+</section>
+<section id="restricting-account-fields">
+<h2>Restricting Account Fields<a class="headerlink" href="#restricting-account-fields" title="Permalink to this heading">¶</a></h2>
+<p>By default, Mezzanine will expose all relevant user and profile fields
+available in the signup and update profile forms, and the user’s
+profile page. However you may want to store extra fields in user
+profiles, but not expose these fields to the user. You may also want to
+have no profile model at all, and strip the signup and update profile
+forms down to only the minimum required fields on the user model, such
+as username and password.</p>
+<p>Mezzanine defines the setting <a class="reference internal" href="configuration.html#accounts-profile-form-exclude-fields"><span class="std std-ref">ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS</span></a>
+which allows you to define a sequence of field names, for both the user
+and profile models, that won’t be exposed to the user in any way.
+Suppose we define a <code class="docutils literal notranslate"><span class="pre">DateTimeField</span></code> on the profile model called
+<code class="docutils literal notranslate"><span class="pre">signup_date</span></code> which we don’t want exposed. We also might not bother
+asking the user for their first and last name, which are fields defined by
+Django’s user model. In our <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> module we would define:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;first_name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;last_name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;signup_date&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>If you don’t want to expose the <code class="docutils literal notranslate"><span class="pre">username</span></code> field to the user, Mezzanine
+provides the setting <a class="reference internal" href="configuration.html#accounts-no-username"><span class="std std-ref">ACCOUNTS_NO_USERNAME</span></a>, which when set to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>, will expose the <code class="docutils literal notranslate"><span class="pre">email</span></code> field as the sole login for the user.</p>
+<p>To further customize the profile form you can provide a custom form class using
+the <a class="reference internal" href="configuration.html#accounts-profile-form-class"><span class="std std-ref">ACCOUNTS_PROFILE_FORM_CLASS</span></a> setting.</p>
+</section>
+<section id="account-verification">
+<h2>Account Verification<a class="headerlink" href="#account-verification" title="Permalink to this heading">¶</a></h2>
+<p>By default, with <a class="reference internal" href="packages.html#module-mezzanine.accounts" title="mezzanine.accounts"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.accounts</span></code></a> installed, any public visitor
+to the site can sign up for an account and will be logged in after
+signup. However you may wish to validate that new accounts are only
+created by real people with real email addresses. To enable this,
+Mezzanine provides the setting <a class="reference internal" href="configuration.html#accounts-verification-required"><span class="std std-ref">ACCOUNTS_VERIFICATION_REQUIRED</span></a>,
+which when set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, will send new user an email with a
+verification link that they must click on, in order to activate their
+account.</p>
+</section>
+<section id="account-approval">
+<h2>Account Approval<a class="headerlink" href="#account-approval" title="Permalink to this heading">¶</a></h2>
+<p>You may also wish to manually activate newly created public accounts.
+To enable this, Mezzanine provides the setting
+<a class="reference internal" href="configuration.html#accounts-approval-required"><span class="std std-ref">ACCOUNTS_APPROVAL_REQUIRED</span></a>, which when set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, will set
+newly created accounts as inactive, requiring a staff member to activate
+each account in the admin interface. A list of email addresses can be
+configured in the Settings section of the admin, which will then be notified by
+email each time a new account is created and requires activation. Users
+are then sent a notification when their accounts are activated by a staff
+member.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Public User Accounts</a><ul>
+<li><a class="reference internal" href="#profiles">Profiles</a></li>
+<li><a class="reference internal" href="#restricting-account-fields">Restricting Account Fields</a></li>
+<li><a class="reference internal" href="#account-verification">Account Verification</a></li>
+<li><a class="reference internal" href="#account-approval">Account Approval</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="frequently-asked-questions.html"
+                          title="previous chapter">Frequently Asked Questions</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="search-engine.html"
+                          title="next chapter">Search Engine</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/user-accounts.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="search-engine.html" title="Search Engine"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="frequently-asked-questions.html" title="Frequently Asked Questions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Public User Accounts</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

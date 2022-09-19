@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.blog.templatetags.blog_tags &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mezzanine.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.templatetags.blog_tags</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.blog.templatetags.blog_tags</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_user_model</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Count</span><span class="p">,</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">timezone</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine</span> <span class="kn">import</span> <span class="n">template</span>
+<span class="kn">from</span> <span class="nn">mezzanine.blog.forms</span> <span class="kn">import</span> <span class="n">BlogPostForm</span>
+<span class="kn">from</span> <span class="nn">mezzanine.blog.models</span> <span class="kn">import</span> <span class="n">BlogCategory</span><span class="p">,</span> <span class="n">BlogPost</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.models</span> <span class="kn">import</span> <span class="n">Keyword</span>
+
+<span class="n">User</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
+
+<span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="blog_months"><a class="viewcode-back" href="../../../../packages.html#mezzanine.blog.templatetags.blog_tags.blog_months">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">as_tag</span>
+<span class="k">def</span> <span class="nf">blog_months</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Put a list of dates for blog posts into the template context.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">()</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s2">&quot;publish_date&quot;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tz</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">get_current_timezone</span><span class="p">()</span>
+    <span class="n">dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">astimezone</span><span class="p">(</span><span class="n">tz</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">]</span>
+    <span class="n">date_dicts</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">datetime</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">]</span>
+    <span class="n">month_dicts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">date_dict</span> <span class="ow">in</span> <span class="n">date_dicts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">date_dict</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">month_dicts</span><span class="p">:</span>
+            <span class="n">month_dicts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">date_dict</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">date_dict</span> <span class="ow">in</span> <span class="n">month_dicts</span><span class="p">:</span>
+        <span class="n">date_dict</span><span class="p">[</span><span class="s2">&quot;post_count&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_dicts</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">date_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">month_dicts</span></div>
+
+
+<div class="viewcode-block" id="blog_categories"><a class="viewcode-back" href="../../../../packages.html#mezzanine.blog.templatetags.blog_tags.blog_categories">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">as_tag</span>
+<span class="k">def</span> <span class="nf">blog_categories</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Put a list of categories for blog posts into the template context.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">()</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">BlogCategory</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">blogposts__in</span><span class="o">=</span><span class="n">posts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">categories</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">post_count</span><span class="o">=</span><span class="n">Count</span><span class="p">(</span><span class="s2">&quot;blogposts&quot;</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="blog_authors"><a class="viewcode-back" href="../../../../packages.html#mezzanine.blog.templatetags.blog_tags.blog_authors">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">as_tag</span>
+<span class="k">def</span> <span class="nf">blog_authors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Put a list of authors (users) for blog posts into the template context.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">()</span>
+    <span class="n">authors</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">blogposts__in</span><span class="o">=</span><span class="n">blog_posts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">authors</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">post_count</span><span class="o">=</span><span class="n">Count</span><span class="p">(</span><span class="s2">&quot;blogposts&quot;</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="blog_recent_posts"><a class="viewcode-back" href="../../../../packages.html#mezzanine.blog.templatetags.blog_tags.blog_recent_posts">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">as_tag</span>
+<span class="k">def</span> <span class="nf">blog_recent_posts</span><span class="p">(</span><span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Put a list of recently published blog posts into the template</span>
+<span class="sd">    context. A tag title or slug, category title or slug or author&#39;s</span>
+<span class="sd">    username can also be specified to filter the recent posts returned.</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        {% blog_recent_posts 5 as recent_posts %}</span>
+<span class="sd">        {% blog_recent_posts limit=5 tag=&quot;django&quot; as recent_posts %}</span>
+<span class="sd">        {% blog_recent_posts limit=5 category=&quot;python&quot; as recent_posts %}</span>
+<span class="sd">        {% blog_recent_posts 5 username=admin as recent_posts %}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">()</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+    <span class="n">title_or_slug</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">Q</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">s</span><span class="p">)</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tag</span> <span class="o">=</span> <span class="n">Keyword</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">title_or_slug</span><span class="p">(</span><span class="n">tag</span><span class="p">))</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">keywords__keyword</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">Keyword</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">category</span> <span class="o">=</span> <span class="n">BlogCategory</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">title_or_slug</span><span class="p">(</span><span class="n">category</span><span class="p">))</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">categories</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">BlogCategory</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">author</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">author</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">User</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">blog_posts</span><span class="p">[:</span><span class="n">limit</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="quick_blog"><a class="viewcode-back" href="../../../../packages.html#mezzanine.blog.templatetags.blog_tags.quick_blog">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;admin/includes/quick_blog.html&quot;</span><span class="p">,</span> <span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">quick_blog</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Admin dashboard tag for the quick blog form.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span><span class="p">[</span><span class="s2">&quot;form&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">BlogPostForm</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.templatetags.blog_tags</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

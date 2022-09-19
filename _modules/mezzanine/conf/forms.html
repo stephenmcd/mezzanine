@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.conf.forms &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../conf.html" accesskey="U">mezzanine.conf</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.conf.forms</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.conf.forms</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.template.defaultfilters</span> <span class="kn">import</span> <span class="n">urlize</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">activate</span><span class="p">,</span> <span class="n">get_language</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">registry</span><span class="p">,</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.conf.models</span> <span class="kn">import</span> <span class="n">Setting</span>
+
+<span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+    <span class="kn">from</span> <span class="nn">modeltranslation.utils</span> <span class="kn">import</span> <span class="n">build_localized_fieldname</span>
+
+
+<span class="n">FIELD_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nb">bool</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">,</span>
+    <span class="nb">int</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">,</span>
+    <span class="nb">float</span><span class="p">:</span> <span class="n">forms</span><span class="o">.</span><span class="n">FloatField</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="SettingsForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.conf.forms.SettingsForm">[docs]</a><span class="k">class</span> <span class="nc">SettingsForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Form for settings - creates a field for each setting in</span>
+<span class="sd">    ``mezzanine.conf`` that is marked as editable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Create a form field for each editable setting&#39;s from its type.</span>
+        <span class="n">active_language</span> <span class="o">=</span> <span class="n">get_language</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+            <span class="n">setting</span> <span class="o">=</span> <span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;editable&quot;</span><span class="p">]:</span>
+                <span class="n">field_class</span> <span class="o">=</span> <span class="n">FIELD_TYPES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">setting</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span> <span class="ow">and</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;translatable&quot;</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGES</span><span class="p">):</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">activate</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+                        <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span>
+                            <span class="k">pass</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_init_field</span><span class="p">(</span>
+                                <span class="n">setting</span><span class="p">,</span>
+                                <span class="n">field_class</span><span class="p">,</span>
+                                <span class="n">name</span><span class="p">,</span>
+                                <span class="n">code</span><span class="p">,</span>
+                                <span class="n">active_language</span><span class="p">,</span>
+                            <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_init_field</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">field_class</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">activate</span><span class="p">(</span><span class="n">active_language</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_init_field</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">setting</span><span class="p">,</span>
+        <span class="n">field_class</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">active_language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a field whether it is built with a custom name for a</span>
+<span class="sd">        specific translation language or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">initial</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">code</span>
+            <span class="ow">and</span> <span class="n">code</span> <span class="o">!=</span> <span class="n">active_language</span>
+            <span class="ow">and</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span>
+            <span class="ow">and</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;translatable&quot;</span><span class="p">]</span>
+        <span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">initial</span> <span class="o">=</span> <span class="n">Setting</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">except</span> <span class="n">Setting</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+            <span class="s2">&quot;initial&quot;</span><span class="p">:</span> <span class="n">initial</span><span class="p">,</span>
+            <span class="s2">&quot;help_text&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_help</span><span class="p">(</span><span class="n">setting</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]),</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">]:</span>
+            <span class="n">field_class</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">]</span>
+        <span class="n">field_instance</span> <span class="o">=</span> <span class="n">field_class</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">code_name</span> <span class="o">=</span> <span class="s2">&quot;_modeltranslation_&quot;</span> <span class="o">+</span> <span class="n">code</span> <span class="k">if</span> <span class="n">code</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span> <span class="o">+</span> <span class="n">code_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_instance</span>
+        <span class="n">css_class</span> <span class="o">=</span> <span class="n">field_class</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">field_instance</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">css_class</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="n">field_instance</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot; modeltranslation&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate and apply a group heading to each field and order by</span>
+<span class="sd">        the heading.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">())</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">field</span><span class="p">:</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+        <span class="n">misc</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Miscellaneous&quot;</span><span class="p">)</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+            <span class="n">groups</span><span class="p">[</span><span class="n">group</span><span class="p">(</span><span class="n">field</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">field</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fields</span><span class="p">):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">fields</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">group</span><span class="p">(</span><span class="n">field</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">groups</span><span class="p">[</span><span class="n">fields</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">group</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">fields</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">misc</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">fields</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="n">misc</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">group</span><span class="p">)))</span>
+
+<div class="viewcode-block" id="SettingsForm.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.conf.forms.SettingsForm.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save each of the settings to the DB.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">active_language</span> <span class="o">=</span> <span class="n">get_language</span><span class="p">()</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registry</span><span class="p">:</span>
+                <span class="n">name</span><span class="p">,</span> <span class="n">code</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_modeltranslation_&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">code</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">setting_obj</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Setting</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;translatable&quot;</span><span class="p">]:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">activate</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span>
+                        <span class="k">pass</span>
+                    <span class="k">finally</span><span class="p">:</span>
+                        <span class="n">setting_obj</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                        <span class="n">activate</span><span class="p">(</span><span class="n">active_language</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Duplicate the value of the setting for every language</span>
+                    <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGES</span><span class="p">):</span>
+                        <span class="nb">setattr</span><span class="p">(</span>
+                            <span class="n">setting_obj</span><span class="p">,</span> <span class="n">build_localized_fieldname</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">code</span><span class="p">),</span> <span class="n">value</span>
+                        <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">setting_obj</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">setting_obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SettingsForm.format_help"><a class="viewcode-back" href="../../../packages.html#mezzanine.conf.forms.SettingsForm.format_help">[docs]</a>    <span class="k">def</span> <span class="nf">format_help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Format the setting&#39;s description into HTML.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">bold</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;``&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">):</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">description</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">bold</span><span class="p">)):</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span> <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;&lt;b&gt;</span><span class="si">%s</span><span class="s2">&lt;/b&gt;&quot;</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">urlize</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="n">autoescape</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mark_safe</span><span class="p">(</span><span class="n">description</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">))</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../conf.html" >mezzanine.conf</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.conf.forms</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

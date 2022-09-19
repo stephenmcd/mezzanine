@@ -1,0 +1,458 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Frequently Asked Questions &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Public User Accounts" href="user-accounts.html" />
+    <link rel="prev" title="Deployment" href="deployment.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="user-accounts.html" title="Public User Accounts"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="deployment.html" title="Deployment"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Frequently Asked Questions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="frequently-asked-questions">
+<h1>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Permalink to this heading">¶</a></h1>
+<p>These are some of the most frequently asked questions on the
+<a class="reference external" href="http://groups.google.com/group/mezzanine-users">Mezzanine mailing list</a>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="#prerequisites"><span class="std std-ref">What do I need to know to use Mezzanine?</span></a></p></li>
+<li><p><a class="reference internal" href="#static-files"><span class="std std-ref">Why aren’t my JavaScript and CSS files showing up?</span></a></p></li>
+<li><p><a class="reference internal" href="#wysiwyg-filtering"><span class="std std-ref">Why does the WYSIWYG editor strip out my custom HTML?</span></a></p></li>
+<li><p><a class="reference internal" href="#homepage"><span class="std std-ref">Why isn’t the homepage a Page object I can edit via the admin?</span></a></p></li>
+<li><p><a class="reference internal" href="#project-vs-app"><span class="std std-ref">Why is Mezzanine a Django project, and not a Django app?</span></a></p></li>
+<li><p><a class="reference internal" href="#templates"><span class="std std-ref">Where are all the templates I can modify?</span></a></p></li>
+<li><p><a class="reference internal" href="#themes"><span class="std std-ref">How do I create/install a theme?</span></a></p></li>
+<li><p><a class="reference internal" href="#not-invented-here"><span class="std std-ref">Why does Mezzanine contain its own [FEATURE] instead of using [PACKAGE]?</span></a></p></li>
+<li><p><a class="reference internal" href="#existing-projects"><span class="std std-ref">How can I add Mezzanine to an existing Django project?</span></a></p></li>
+<li><p><a class="reference internal" href="#grappelli-filebrowser-forks"><span class="std std-ref">Why are Grappelli and Filebrowser forked?</span></a></p></li>
+<li><p><a class="reference internal" href="#what-is-pillow"><span class="std std-ref">What is this Pillow dependency?</span></a></p></li>
+<li><p><a class="reference internal" href="#missing-features"><span class="std std-ref">Why doesn’t Mezzanine have [FEATURE]?</span></a></p></li>
+<li><p><a class="reference internal" href="#cartridge-without-mezzanine"><span class="std std-ref">Can I use Cartridge without Mezzanine?</span></a></p></li>
+<li><p><a class="reference internal" href="#contributing"><span class="std std-ref">I don’t know how to code, how can I contribute?</span></a></p></li>
+</ul>
+</div></blockquote>
+<section id="what-do-i-need-to-know-to-use-mezzanine">
+<span id="prerequisites"></span><h2>What do I need to know to use Mezzanine?<a class="headerlink" href="#what-do-i-need-to-know-to-use-mezzanine" title="Permalink to this heading">¶</a></h2>
+<p>First and foremost, Mezzanine is based on the <a class="reference external" href="https://www.djangoproject.com/">Django framework</a>. All aspects of working with
+Mezzanine will benefit from a good understanding of how Django works.
+Many questions that are asked within the Mezzanine
+community can easily be answered by reading the <a class="reference external" href="https://docs.djangoproject.com/en/">Django documentation</a>.</p>
+<p>Setting up a development environment, and deploying a Mezzanine site,
+is the same process as doing so with a regular Django site. Areas such
+as version control, installing Python packages, and setting up a web
+server  such as <a class="reference external" href="http://httpd.apache.org/">Apache</a> or <a class="reference external" href="http://nginx.org/">NGINX</a>, will all be touched upon.</p>
+<p>Modifying the look and feel of a Mezzanine powered site requires at
+least an understanding of HTML, CSS and <a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/templates/" title="(in Django v4.2)"><span class="xref std std-doc">Django’s templating system</span></a>.</p>
+<p>Extending Mezzanine by <a class="reference internal" href="content-architecture.html#creating-custom-content-types"><span class="std std-ref">Creating Custom Content Types</span></a> or using
+additional Django apps, will require some knowledge of programming with
+<a class="reference external" href="http://python.org">Python</a>, as well as a good understanding of
+Django’s components, such as
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/db/models/" title="(in Django v4.2)"><span>Models</span></a>,
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/http/views/" title="(in Django v4.2)"><span>Writing views</span></a>,
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/http/urls/" title="(in Django v4.2)"><span>URL dispatcher</span></a>,
+and <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/" title="(in Django v4.2)"><span>The Django admin site</span></a>.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="why-aren-t-my-javascript-and-css-files-showing-up">
+<span id="static-files"></span><h2>Why aren’t my JavaScript and CSS files showing up?<a class="headerlink" href="#why-aren-t-my-javascript-and-css-files-showing-up" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine makes exclusive use of <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/" title="(in Django v4.2)"><span>The staticfiles app</span></a>,
+for managing static files such as JavaScript, CSS, and images.</p>
+<p>When the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-DEBUG" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">DEBUG</span></code></a> setting is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, as it would be during
+development, the URL defined by the setting <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-STATIC_URL" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_URL</span></code></a> (usually
+<code class="docutils literal notranslate"><span class="pre">/static/</span></code>), will host any files found in the <code class="docutils literal notranslate"><span class="pre">static</span></code> directory
+of any application listed in the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> setting.</p>
+<p>When <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-DEBUG" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">DEBUG</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, as it would be for your deployed
+production site, you must run the <code class="docutils literal notranslate"><span class="pre">collectstatic</span></code> command on your
+live site, which will copy all of the files from the <code class="docutils literal notranslate"><span class="pre">static</span></code>
+directory in each application, to the location defined by the
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-STATIC_ROOT" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a> setting. You then need to configure an alias in your
+web server’s config (Apache, NGINX, etc) that maps the URL defined by
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-STATIC_URL" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">STATIC_URL</span></code></a> to serve files from this directory.</p>
+<p>Long story short, Django doesn’t serve static content when deployed in
+production, leaving this up to the public facing web server, which is
+absolutely the best tool for this job. Consult <a class="reference external" href="https://docs.djangoproject.com/en/dev/howto/static-files/">Django’s staticfiles
+guide</a>
+for more information.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="why-does-the-wysiwyg-editor-strip-out-my-custom-html">
+<span id="wysiwyg-filtering"></span><h2>Why does the WYSIWYG editor strip out my custom HTML?<a class="headerlink" href="#why-does-the-wysiwyg-editor-strip-out-my-custom-html" title="Permalink to this heading">¶</a></h2>
+<p>By default, Mezzanine strips out potentially dangerous HTML from
+fields controlled by the WYSIWYG editor, such as tags and attributes
+that could be used to inject JavaScript into a page. If this
+didn’t occur, a clever staff member could potentially add JavaScript
+to a page, that when viewed by an administrator (a staff member with
+superuser status), would cause the administrator’s browser to post an
+update via the admin, that updates the staff member’s user account and
+assigns them superuser status.</p>
+<p>The above scenario is a fairly obscure one, so it’s possible to
+customise the level of filtering that occurs. Three levels of
+filtering are implemented by default, that can be controlled in
+the settings section of the admin. These are High (the default), Low
+(which allows extra tags such as those required for embedding videos),
+and None (no filtering occurs). This is implemented via the
+<a class="reference internal" href="configuration.html#richtext-filter-level"><span class="std std-ref">RICHTEXT_FILTER_LEVEL</span></a> setting.</p>
+<p>If your situation is one where your staff members are completely
+trusted, and custom HTML within WYSIWYG fields is required, then you
+can modify the filter level accordingly. Further customisation is
+possible via the <a class="reference internal" href="configuration.html#richtext-allowed-tags"><span class="std std-ref">RICHTEXT_ALLOWED_TAGS</span></a>,
+<a class="reference internal" href="configuration.html#richtext-allowed-attributes"><span class="std std-ref">RICHTEXT_ALLOWED_ATTRIBUTES</span></a> and <a class="reference internal" href="configuration.html#richtext-allowed-styles"><span class="std std-ref">RICHTEXT_ALLOWED_STYLES</span></a>
+settings, which can have extra allowed values appended to using
+the <code class="docutils literal notranslate"><span class="pre">append</span></code> argument in Mezzanine’s settings API. See the
+<a class="reference internal" href="configuration.html#registering-settings"><span class="std std-ref">Registering Settings</span></a> section for more information.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin">
+<span id="homepage"></span><h2>Why isn’t the homepage a Page object I can edit via the admin?<a class="headerlink" href="#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin" title="Permalink to this heading">¶</a></h2>
+<p>In our experience, the homepage of a beautiful, content driven website,
+is quite different from other pages of the site, that all fall under
+sets of repeatable page types. The homepage also differs greatly from
+site to site. Given this, Mezzanine doesn’t presume how your homepage
+will be structured and managed. It’s up to you to implement how it
+works per site.</p>
+<p>By default, the homepage provided with Mezzanine is a static template,
+namely <code class="docutils literal notranslate"><span class="pre">mezzanine/core/templates/index.html</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">templates/index.html</span></code> if stored directly in your project). You can
+change the <code class="docutils literal notranslate"><span class="pre">urlpattern</span></code> for the homepage in your project’s
+<code class="docutils literal notranslate"><span class="pre">urls.py</span></code> module. Be certain to take a look at the <a class="reference external" href="https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template/project_name/urls.py">urls.py module</a>,
+as it contains several examples of different types of homepages.
+In <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> you’ll find examples of pointing the homepage to a
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> object in the page tree, or pointing the homepage to the blog
+post listing page, which is useful for sites that are primarily blogs.</p>
+<p>Of course with Django’s models, admin classes, and template tags, the
+sky is the limit and you’re free to set up the homepage to be managed
+in any way you like.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="why-is-mezzanine-a-django-project-and-not-a-django-app">
+<span id="project-vs-app"></span><h2>Why is Mezzanine a Django project, and not a Django app?<a class="headerlink" href="#why-is-mezzanine-a-django-project-and-not-a-django-app" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine comes with many features that are related to content driven
+websites, yet are quite distinct from each other. For example
+user-built forms and blog posts are both common requirements for a
+website, yet aren’t particularly related to each other. So Mezzanine
+as a whole is a collection of different Django apps, all packaged
+together to work seamlessly.</p>
+<p>Mezzanine provides its own <a class="reference external" href="https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template">project template</a>,
+with <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> and <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> modules that configure all of
+Mezzanine’s apps, which you can (and should) modify per project.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="where-are-all-the-templates-i-can-modify">
+<span id="templates"></span><h2>Where are all the templates I can modify?<a class="headerlink" href="#where-are-all-the-templates-i-can-modify" title="Permalink to this heading">¶</a></h2>
+<p>Each of the templates Mezzanine provides can be found in the
+<code class="docutils literal notranslate"><span class="pre">templates</span></code> directory of each Django app that Mezzanine is comprised
+of. Take the time to explore the structure of these, starting with the
+base template <code class="docutils literal notranslate"><span class="pre">mezzanine/core/templates/base.html</span></code> (or
+<code class="docutils literal notranslate"><span class="pre">templates/base.html</span></code> if stored directly in your project) which is
+the foundation for the entire site, going more granular as needed.</p>
+<p>Once you’re familiar with the templates you’d like to modify, copy them
+into your project’s <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory and modify them there. You
+can also use the <code class="docutils literal notranslate"><span class="pre">collecttemplates</span></code> command to copy templates over
+automatically. Run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">collecttemplates</span> <span class="pre">--help</span></code> for
+more info. Be mindful that this means the copied templates will always
+be used, rather than the ones stored within Mezzanine itself, which is
+something to keep in mind if you upgrade to a newer version of
+Mezzanine.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="how-do-i-create-install-a-theme">
+<span id="themes"></span><h2>How do I create/install a theme?<a class="headerlink" href="#how-do-i-create-install-a-theme" title="Permalink to this heading">¶</a></h2>
+<p>Prior to version 1.0, Mezzanine had a set of features for creating
+and installing themes. These mostly were in place to address handling
+static files, since at that time Mezzanine was not integrated with
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/">Django’s staticfiles app</a>.
+Mezzanine 1.0 makes full use of <code class="docutils literal notranslate"><span class="pre">staticfiles</span></code>, and so the theming
+features were removed since they became redundant.</p>
+<p>From that point on, a theme in Mezzanine can be implemented entirely
+as a standard Django app. Simply create a Django app with
+<code class="docutils literal notranslate"><span class="pre">templates</span></code> and <code class="docutils literal notranslate"><span class="pre">static</span></code> directories, copy the relevant HTML,
+CSS and JavaScript files into it from Mezzanine that you wish to
+modify, and then add the theme app’s name to your project’s
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> setting. Be sure to add the theme to the top of
+the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> list, so that its templates are found before
+Mezzanine’s versions of the templates.</p>
+<p>Have you created a cool theme that you’d like to share with the
+community? Package your theme up and put it on <a class="reference external" href="http://pypi.python.org/pypi">PyPI</a> and let us know via the <a class="reference external" href="http://groups.google.com/group/mezzanine-users">mailing list</a>- that way people
+can automatically install it along with their Mezzanine project.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="why-does-mezzanine-contain-its-own-feature-instead-of-using-package">
+<span id="not-invented-here"></span><h2>Why does Mezzanine contain its own [FEATURE] instead of using [PACKAGE]?<a class="headerlink" href="#why-does-mezzanine-contain-its-own-feature-instead-of-using-package" title="Permalink to this heading">¶</a></h2>
+<p>To be honest you could implement most of Mezzanine’s features by gluing
+together dozens of smaller, stand-alone, open source Django apps.
+Several larger Django site-building frameworks take this approach, and
+it’s a noble one. The downside to this is that a significant portion
+of time on your project will be spent maintaining the glue between
+these apps, as their development evolves independently from each other,
+as well as from your project itself. At best you’ll be able to work with
+the apps’ developers to ease this evolution, at worst you’ll be stuck
+hacking work-arounds for incompatibilities between the apps.</p>
+<p>One of the core goals of Mezzanine is to avoid this situation, by
+providing all of the features commonly required by content driven
+sites, with just the right level of extensibility to customize your
+Mezzanine powered site as required. By taking this approach, the team
+behind Mezzanine is in complete control over its components, and can
+ensure they work together seamlessly.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="how-can-i-add-mezzanine-to-an-existing-django-project">
+<span id="existing-projects"></span><h2>How can I add Mezzanine to an existing Django project?<a class="headerlink" href="#how-can-i-add-mezzanine-to-an-existing-django-project" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine is a Django project made up of multiple Django apps, and is
+geared towards being used as the basis for new Django projects, however
+adding Mezzanine to an existing Django project should be as simple as
+adding the necessary settings and urlpatterns.</p>
+<p>Mezzanine contains a <a class="reference external" href="https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/project_template">project_template directory</a>,
+which it uses to create new projects. In here you’ll find the
+necessary <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> and <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> modules, containing the
+project-level setup for Mezzanine. Of particular note are the following
+settings:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-TEMPLATES" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a></p></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-MIDDLEWARE" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PACKAGE_NAME_GRAPPELLI</span></code> and <code class="docutils literal notranslate"><span class="pre">PACKAGE_NAME_FILEBROWSER</span></code> (for
+<a class="reference external" href="https://github.com/sehmaschine/django-grappelli">django-grappelli</a> and
+<a class="reference external" href="https://github.com/sehmaschine/django-filebrowser">django-filebrowser</a>
+integration)</p></li>
+<li><p>The call to <a class="reference internal" href="packages.html#mezzanine.utils.conf.set_dynamic_settings" title="mezzanine.utils.conf.set_dynamic_settings"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.utils.conf.set_dynamic_settings()</span></code></a> at the
+very end of the <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> module.</p></li>
+</ul>
+</div></blockquote>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="why-are-grappelli-and-filebrowser-forked">
+<span id="grappelli-filebrowser-forks"></span><h2>Why are Grappelli and Filebrowser forked?<a class="headerlink" href="#why-are-grappelli-and-filebrowser-forked" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference external" href="https://github.com/sehmaschine/django-grappelli">Grappelli</a> and
+<a class="reference external" href="https://github.com/sehmaschine/django-filebrowser">Filebrowser</a> are
+fantastic Django apps, and Mezzanine’s admin interface would be much
+poorer without them. When Mezzanine was first created, both of these apps
+had packaging issues that went unaddressed for quite some time.
+Development of Mezzanine moved extremely quickly during its early days,
+and so the forks <a class="reference external" href="https://github.com/stephenmcd/grappelli-safe">grappelli_safe</a>
+and <a class="reference external" href="https://github.com/stephenmcd/filebrowser-safe">filebrowser_safe</a>
+were created to allow Mezzanine to be packaged up and installed in a
+single step.</p>
+<p>Over time the packaging issues were resolved, but Grappelli and
+Filebrowser took paths that weren’t desired in Mezzanine.
+They’re only used in Mezzanine for skinning the admin, and providing
+a generic media library. Extra features that have been added to
+Grappelli and Filebrowser along the way, haven’t been necessary for
+Mezzanine.</p>
+<p>Over time, small changes have also been made to the <code class="docutils literal notranslate"><span class="pre">grappelli_safe</span></code>
+and <code class="docutils literal notranslate"><span class="pre">filebrowser_safe</span></code> forks, in order to integrate them more closely
+with Mezzanine. So to this day, the forks are still used as
+dependencies. They’re stable, and have relatively low activity.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="what-is-this-pillow-dependency">
+<span id="what-is-pillow"></span><h2>What is this Pillow dependency?<a class="headerlink" href="#what-is-this-pillow-dependency" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine makes use of <a class="reference external" href="http://www.pythonware.com/products/pil/">Python Imaging Library</a> (PIL) for generating
+thumbnails. Having PIL as a dependency that gets automatically
+installed with Mezzanine has caused issues for some people, due to
+certain issues with PIL’s own packaging setup.</p>
+<p><a class="reference external" href="http://pypi.python.org/pypi/Pillow">Pillow</a> is simply a packaging
+wrapper around PIL that addresses these issues, and ensures PIL is
+automatically installed correctly when installing Mezzanine. Pillow is
+only used when PIL is not already installed.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="why-doesn-t-mezzanine-have-feature">
+<span id="missing-features"></span><h2>Why doesn’t Mezzanine have [FEATURE]?<a class="headerlink" href="#why-doesn-t-mezzanine-have-feature" title="Permalink to this heading">¶</a></h2>
+<p>The best answer to this might be found by searching the <a class="reference external" href="http://groups.google.com/group/mezzanine-users">mailing
+list</a>, where many
+features that aren’t currently in Mezzanine have been thoroughly
+discussed.</p>
+<p>Sometimes the conclusion is that certain features aren’t within the
+scope of what Mezzanine aims to be. Sometimes they’re great ideas, yet
+no one has had the time to implement them yet. In the case of the
+latter, the quickest way to get your feature added is to get working on
+it yourself.</p>
+<p>Communication via the mailing list is key though. Features have been
+developed and rejected before, simply because they were relatively
+large in size, and developed in a silo without any feedback from the
+community. Unfortunately these types of contributions are difficult
+to accept, since they have the greatest resource requirements in
+understanding everything involved, without any previous communication.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="can-i-use-cartridge-without-mezzanine">
+<span id="cartridge-without-mezzanine"></span><h2>Can I use Cartridge without Mezzanine?<a class="headerlink" href="#can-i-use-cartridge-without-mezzanine" title="Permalink to this heading">¶</a></h2>
+<p>No. <a class="reference external" href="http://cartridge.jupo.org">Cartridge</a> (an ecommerce app)
+heavily leverages Mezzanine, and in fact it is implemented as an
+advanced example of a Mezzanine content type, where each shop category
+is a page in Mezzanine’s navigation tree. This allows for a very
+flexible shop structure, where hierarchical categories can be set up
+to create your shop.</p>
+<p>You could very well use Cartridge and Mezzanine to build a pure
+Cartridge site, without using any of Mezzanine’s features that
+aren’t relevant to Cartridge. However more often than not, you’ll
+find that general content pages and forms, will be required to some
+extent anyway.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+<section id="i-don-t-know-how-to-code-how-can-i-contribute">
+<span id="contributing"></span><h2>I don’t know how to code, how can I contribute?<a class="headerlink" href="#i-don-t-know-how-to-code-how-can-i-contribute" title="Permalink to this heading">¶</a></h2>
+<p>You’re in luck! Programming is by far the most abundant skill
+contributed to Mezzanine, and subsequently the least needed. There are
+many ways to contribute without writing any code:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Answering questions on the <a class="reference external" href="http://groups.google.com/group/mezzanine-users">mailing list</a></p></li>
+<li><p>Triaging <a class="reference external" href="https://github.com/stephenmcd/mezzanine/issues">issues on GitHub</a></p></li>
+<li><p>Improving the documentation</p></li>
+<li><p>Promoting Mezzanine via blogs, <a class="reference external" href="http://twitter.com">Twitter</a>, etc.</p></li>
+</ul>
+</div></blockquote>
+<p>If you don’t have time for any of these things, and still want to
+contribute back to Mezzanine, donations are always welcome and can be
+made via Flattr or PayPal on the <a class="reference external" href="http://mezzanine.jupo.org">Mezzanine homepage</a>.
+Donations help to support the continued development of Mezzanine, and go
+towards paying for infrastructure, such as hosting for the demo site.</p>
+<p><a class="reference external" href="#">Back to top</a></p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#what-do-i-need-to-know-to-use-mezzanine">What do I need to know to use Mezzanine?</a></li>
+<li><a class="reference internal" href="#why-aren-t-my-javascript-and-css-files-showing-up">Why aren’t my JavaScript and CSS files showing up?</a></li>
+<li><a class="reference internal" href="#why-does-the-wysiwyg-editor-strip-out-my-custom-html">Why does the WYSIWYG editor strip out my custom HTML?</a></li>
+<li><a class="reference internal" href="#why-isn-t-the-homepage-a-page-object-i-can-edit-via-the-admin">Why isn’t the homepage a Page object I can edit via the admin?</a></li>
+<li><a class="reference internal" href="#why-is-mezzanine-a-django-project-and-not-a-django-app">Why is Mezzanine a Django project, and not a Django app?</a></li>
+<li><a class="reference internal" href="#where-are-all-the-templates-i-can-modify">Where are all the templates I can modify?</a></li>
+<li><a class="reference internal" href="#how-do-i-create-install-a-theme">How do I create/install a theme?</a></li>
+<li><a class="reference internal" href="#why-does-mezzanine-contain-its-own-feature-instead-of-using-package">Why does Mezzanine contain its own [FEATURE] instead of using [PACKAGE]?</a></li>
+<li><a class="reference internal" href="#how-can-i-add-mezzanine-to-an-existing-django-project">How can I add Mezzanine to an existing Django project?</a></li>
+<li><a class="reference internal" href="#why-are-grappelli-and-filebrowser-forked">Why are Grappelli and Filebrowser forked?</a></li>
+<li><a class="reference internal" href="#what-is-this-pillow-dependency">What is this Pillow dependency?</a></li>
+<li><a class="reference internal" href="#why-doesn-t-mezzanine-have-feature">Why doesn’t Mezzanine have [FEATURE]?</a></li>
+<li><a class="reference internal" href="#can-i-use-cartridge-without-mezzanine">Can I use Cartridge without Mezzanine?</a></li>
+<li><a class="reference internal" href="#i-don-t-know-how-to-code-how-can-i-contribute">I don’t know how to code, how can I contribute?</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="deployment.html"
+                          title="previous chapter">Deployment</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="user-accounts.html"
+                          title="next chapter">Public User Accounts</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/frequently-asked-questions.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="user-accounts.html" title="Public User Accounts"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="deployment.html" title="Deployment"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Frequently Asked Questions</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

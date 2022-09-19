@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.utils.sites &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.sites</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.utils.sites</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.sites.models</span> <span class="kn">import</span> <span class="n">Site</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.request</span> <span class="kn">import</span> <span class="n">current_request</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.conf</span> <span class="kn">import</span> <span class="n">middlewares_or_subclasses_installed</span>
+
+<span class="n">SITE_PERMISSION_MIDDLEWARE</span> <span class="o">=</span> <span class="s2">&quot;mezzanine.core.middleware.SitePermissionMiddleware&quot;</span>
+
+
+<div class="viewcode-block" id="current_site_id"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.sites.current_site_id">[docs]</a><span class="k">def</span> <span class="nf">current_site_id</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Responsible for determining the current ``Site`` instance to use</span>
+<span class="sd">    when retrieving data for any ``SiteRelated`` models. If we&#39;re inside an</span>
+<span class="sd">    override_current_site_id context manager, return the overriding site ID.</span>
+<span class="sd">    Otherwise, try to determine the site using the following methods in order:</span>
+
+<span class="sd">      - ``site_id`` in session. Used in the admin so that admin users</span>
+<span class="sd">        can switch sites and stay on the same domain for the admin.</span>
+<span class="sd">      - The id of the Site object corresponding to the hostname in the current</span>
+<span class="sd">        request. This result is cached.</span>
+<span class="sd">      - ``MEZZANINE_SITE_ID`` environment variable, so management</span>
+<span class="sd">        commands or anything else outside of a request can specify a</span>
+<span class="sd">        site.</span>
+<span class="sd">      - ``SITE_ID`` setting.</span>
+
+<span class="sd">    If a current request exists and the current site is not overridden, the</span>
+<span class="sd">    site ID is stored on the request object to speed up subsequent calls.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">override_current_site_id</span><span class="o">.</span><span class="n">thread_local</span><span class="p">,</span> <span class="s2">&quot;site_id&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">override_current_site_id</span><span class="o">.</span><span class="n">thread_local</span><span class="o">.</span><span class="n">site_id</span>
+
+    <span class="kn">from</span> <span class="nn">mezzanine.utils.cache</span> <span class="kn">import</span> <span class="n">cache_get</span><span class="p">,</span> <span class="n">cache_installed</span><span class="p">,</span> <span class="n">cache_set</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">current_request</span><span class="p">()</span>
+    <span class="n">site_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;site_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">site_id</span><span class="p">:</span>
+        <span class="n">site_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;site_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">site_id</span><span class="p">:</span>
+            <span class="n">domain</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_host</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">cache_installed</span><span class="p">():</span>
+                <span class="c1"># Don&#39;t use Mezzanine&#39;s cache_key_prefix here, since it</span>
+                <span class="c1"># uses this very function we&#39;re in right now to create a</span>
+                <span class="c1"># per-site cache key.</span>
+                <span class="n">bits</span> <span class="o">=</span> <span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">CACHE_MIDDLEWARE_KEY_PREFIX</span><span class="p">,</span> <span class="n">domain</span><span class="p">)</span>
+                <span class="n">cache_key</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.site_id.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bits</span>
+                <span class="n">site_id</span> <span class="o">=</span> <span class="n">cache_get</span><span class="p">(</span><span class="n">cache_key</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">site_id</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">site</span> <span class="o">=</span> <span class="n">Site</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">domain__iexact</span><span class="o">=</span><span class="n">domain</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">Site</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">site_id</span> <span class="o">=</span> <span class="n">site</span><span class="o">.</span><span class="n">id</span>
+                    <span class="k">if</span> <span class="n">cache_installed</span><span class="p">():</span>
+                        <span class="n">cache_set</span><span class="p">(</span><span class="n">cache_key</span><span class="p">,</span> <span class="n">site_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">site_id</span><span class="p">:</span>
+        <span class="n">site_id</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;MEZZANINE_SITE_ID&quot;</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">SITE_ID</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span> <span class="ow">and</span> <span class="n">site_id</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;TESTING&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">site_id</span>
+    <span class="k">return</span> <span class="n">site_id</span></div>
+
+
+<div class="viewcode-block" id="override_current_site_id"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.sites.override_current_site_id">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">override_current_site_id</span><span class="p">(</span><span class="n">site_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Context manager that overrides the current site id for code executed</span>
+<span class="sd">    within it. Used to access SiteRelated objects outside the current site.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">override_current_site_id</span><span class="o">.</span><span class="n">thread_local</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">site_id</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">raise</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">override_current_site_id</span><span class="o">.</span><span class="n">thread_local</span><span class="o">.</span><span class="n">site_id</span></div>
+
+
+<span class="n">override_current_site_id</span><span class="o">.</span><span class="n">thread_local</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">local</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="has_site_permission"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.sites.has_site_permission">[docs]</a><span class="k">def</span> <span class="nf">has_site_permission</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks if a staff user has staff-level access for the current site.</span>
+<span class="sd">    The actual permission lookup occurs in ``SitePermissionMiddleware``</span>
+<span class="sd">    which then marks the request with the ``has_site_permission`` flag,</span>
+<span class="sd">    so that we only query the db once per request, so this function</span>
+<span class="sd">    serves as the entry point for everything else to check access. We</span>
+<span class="sd">    also fall back to an ``is_staff`` check if the middleware is not</span>
+<span class="sd">    installed, to ease migration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">middlewares_or_subclasses_installed</span><span class="p">([</span><span class="n">SITE_PERMISSION_MIDDLEWARE</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="n">user</span><span class="o">.</span><span class="n">is_staff</span> <span class="ow">and</span> <span class="n">user</span><span class="o">.</span><span class="n">is_active</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="s2">&quot;has_site_permission&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="host_theme_path"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.sites.host_theme_path">[docs]</a><span class="k">def</span> <span class="nf">host_theme_path</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the directory of the theme associated with the given host.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Set domain to None, which we&#39;ll then query for in the first</span>
+    <span class="c1"># iteration of HOST_THEMES. We use the current site_id rather</span>
+    <span class="c1"># than a request object here, as it may differ for admin users.</span>
+    <span class="n">domain</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">theme</span><span class="p">)</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">HOST_THEMES</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">domain</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">domain</span> <span class="o">=</span> <span class="n">Site</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">current_site_id</span><span class="p">())</span><span class="o">.</span><span class="n">domain</span>
+        <span class="k">if</span> <span class="n">host</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">domain</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">__import__</span><span class="p">(</span><span class="n">theme</span><span class="p">)</span>
+                <span class="n">module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">theme</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="vm">__file__</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.sites</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

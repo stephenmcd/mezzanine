@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.utils.views &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.views</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.utils.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">urlopen</span>
+
+<span class="kn">import</span> <span class="nn">django</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_permission_codename</span>
+<span class="kn">from</span> <span class="nn">django.core.paginator</span> <span class="kn">import</span> <span class="n">EmptyPage</span><span class="p">,</span> <span class="n">InvalidPage</span><span class="p">,</span> <span class="n">Paginator</span>
+<span class="kn">from</span> <span class="nn">django.forms</span> <span class="kn">import</span> <span class="n">EmailField</span><span class="p">,</span> <span class="n">Textarea</span><span class="p">,</span> <span class="n">URLField</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+<span class="kn">from</span> <span class="nn">django.template.response</span> <span class="kn">import</span> <span class="n">TemplateResponse</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">import</span> <span class="nn">mezzanine</span>
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.deprecation</span> <span class="kn">import</span> <span class="n">is_authenticated</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.importing</span> <span class="kn">import</span> <span class="n">import_dotted_path</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.sites</span> <span class="kn">import</span> <span class="n">has_site_permission</span>
+
+
+<div class="viewcode-block" id="is_editable"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.views.is_editable">[docs]</a><span class="k">def</span> <span class="nf">is_editable</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` if the object is editable for the request. First</span>
+<span class="sd">    check for a custom ``editable`` handler on the object, otherwise</span>
+<span class="sd">    use the logged in user and check change permissions for the</span>
+<span class="sd">    object&#39;s model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;is_editable&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_editable</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">codename</span> <span class="o">=</span> <span class="n">get_permission_codename</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">_meta</span><span class="p">)</span>
+        <span class="n">perm</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">codename</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">has_site_permission</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_perm</span><span class="p">(</span><span class="n">perm</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ip_for_request"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.views.ip_for_request">[docs]</a><span class="k">def</span> <span class="nf">ip_for_request</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ip address for request - first checks ``HTTP_X_FORWARDED_FOR``</span>
+<span class="sd">    header, since app will generally be behind a public web server.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">META</span>
+    <span class="k">return</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;HTTP_X_FORWARDED_FOR&quot;</span><span class="p">,</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;REMOTE_ADDR&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="is_spam_akismet"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.views.is_spam_akismet">[docs]</a><span class="k">def</span> <span class="nf">is_spam_akismet</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Identifies form data as being spam, using the http://akismet.com</span>
+<span class="sd">    service. The Akismet API key should be specified in the</span>
+<span class="sd">    ``AKISMET_API_KEY`` setting. This function is the default spam</span>
+<span class="sd">    handler defined in the ``SPAM_FILTERS`` setting.</span>
+
+<span class="sd">    The name, email, url and comment fields are all guessed from the</span>
+<span class="sd">    form fields:</span>
+
+<span class="sd">    * name: First field labelled &quot;Name&quot;, also taking i18n into account.</span>
+<span class="sd">    * email: First ``EmailField`` field.</span>
+<span class="sd">    * url: First ``URLField`` field.</span>
+<span class="sd">    * comment: First field with a ``Textarea`` widget.</span>
+
+<span class="sd">    If the actual comment can&#39;t be extracted, spam checking is passed.</span>
+
+<span class="sd">    The referrer field expects a hidden form field to pass the referrer</span>
+<span class="sd">    through, since the HTTP_REFERER will be the URL the form is posted</span>
+<span class="sd">    from. The hidden referrer field is made available by default with</span>
+<span class="sd">    the ``{% fields_for %}`` templatetag used for rendering form fields.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">AKISMET_API_KEY</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">protocol</span> <span class="o">=</span> <span class="s2">&quot;http&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">is_secure</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;https&quot;</span>
+    <span class="n">host</span> <span class="o">=</span> <span class="n">protocol</span> <span class="o">+</span> <span class="s2">&quot;://&quot;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">get_host</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;blog&quot;</span><span class="p">:</span> <span class="n">host</span><span class="p">,</span>
+        <span class="s2">&quot;user_ip&quot;</span><span class="p">:</span> <span class="n">ip_for_request</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+        <span class="s2">&quot;user_agent&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;HTTP_USER_AGENT&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;referrer&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;referrer&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;permalink&quot;</span><span class="p">:</span> <span class="n">host</span> <span class="o">+</span> <span class="n">url</span><span class="p">,</span>
+        <span class="s2">&quot;comment_type&quot;</span><span class="p">:</span> <span class="s2">&quot;comment&quot;</span> <span class="k">if</span> <span class="s2">&quot;comment&quot;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span> <span class="k">else</span> <span class="s2">&quot;form&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">data_field</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">label</span> <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+            <span class="n">data_field</span> <span class="o">=</span> <span class="s2">&quot;comment_author&quot;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">EmailField</span><span class="p">):</span>
+            <span class="n">data_field</span> <span class="o">=</span> <span class="s2">&quot;comment_author_email&quot;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">URLField</span><span class="p">):</span>
+            <span class="n">data_field</span> <span class="o">=</span> <span class="s2">&quot;comment_author_url&quot;</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">widget</span><span class="p">,</span> <span class="n">Textarea</span><span class="p">):</span>
+            <span class="n">data_field</span> <span class="o">=</span> <span class="s2">&quot;comment_content&quot;</span>
+        <span class="k">if</span> <span class="n">data_field</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_field</span><span class="p">):</span>
+            <span class="n">cleaned_data</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">data_field</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleaned_data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">data_field</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleaned_data</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;comment_content&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">api_url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">.rest.akismet.com/1.1/comment-check&quot;</span> <span class="o">%</span> <span class="n">settings</span><span class="o">.</span><span class="n">AKISMET_API_KEY</span>
+    <span class="n">versions</span> <span class="o">=</span> <span class="p">(</span><span class="n">django</span><span class="o">.</span><span class="n">get_version</span><span class="p">(),</span> <span class="n">mezzanine</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Django/</span><span class="si">%s</span><span class="s2"> | Mezzanine/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">versions</span><span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
+            <span class="n">Request</span><span class="p">(</span><span class="n">api_url</span><span class="p">,</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">headers</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="c1"># Python 3 returns response as a bytestring, Python 2 as a regular str</span>
+    <span class="k">return</span> <span class="n">response</span> <span class="ow">in</span> <span class="p">(</span><span class="sa">b</span><span class="s2">&quot;true&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_spam"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.views.is_spam">[docs]</a><span class="k">def</span> <span class="nf">is_spam</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Main entry point for spam handling - called from the comment view and</span>
+<span class="sd">    page processor for ``mezzanine.forms``, to check if posted content is</span>
+<span class="sd">    spam. Spam filters are configured via the ``SPAM_FILTERS`` setting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">spam_filter_path</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">SPAM_FILTERS</span><span class="p">:</span>
+        <span class="n">spam_filter</span> <span class="o">=</span> <span class="n">import_dotted_path</span><span class="p">(</span><span class="n">spam_filter_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spam_filter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="paginate"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.views.paginate">[docs]</a><span class="k">def</span> <span class="nf">paginate</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">page_num</span><span class="p">,</span> <span class="n">per_page</span><span class="p">,</span> <span class="n">max_paging_links</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a paginated page for the given objects, giving it a custom</span>
+<span class="sd">    ``visible_page_range`` attribute calculated from ``max_paging_links``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">per_page</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="n">per_page</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">page_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">page_num</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">page_num</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page_num</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="n">EmptyPage</span><span class="p">,</span> <span class="n">InvalidPage</span><span class="p">):</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span><span class="p">)</span>
+    <span class="n">page_range</span> <span class="o">=</span> <span class="n">objects</span><span class="o">.</span><span class="n">paginator</span><span class="o">.</span><span class="n">page_range</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">page_range</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_paging_links</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+            <span class="n">objects</span><span class="o">.</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span> <span class="o">-</span> <span class="n">max_paging_links</span><span class="p">,</span>
+            <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">objects</span><span class="o">.</span><span class="n">number</span> <span class="o">-</span> <span class="p">(</span><span class="n">max_paging_links</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">page_range</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">page_range</span><span class="p">)[</span><span class="n">start</span> <span class="p">:</span> <span class="n">start</span> <span class="o">+</span> <span class="n">max_paging_links</span><span class="p">]</span>
+    <span class="n">objects</span><span class="o">.</span><span class="n">visible_page_range</span> <span class="o">=</span> <span class="n">page_range</span>
+    <span class="k">return</span> <span class="n">objects</span></div>
+
+
+<div class="viewcode-block" id="render"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.views.render">[docs]</a><span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">templates</span><span class="p">,</span> <span class="n">dictionary</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">context_instance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mimics ``django.shortcuts.render`` but uses a TemplateResponse for</span>
+<span class="sd">    ``mezzanine.core.middleware.TemplateForDeviceMiddleware``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;mezzanine.utils.views.render is deprecated and will be removed &quot;</span>
+        <span class="s2">&quot;in a future version. Please update your project to use Django&#39;s &quot;</span>
+        <span class="s2">&quot;TemplateResponse, which now provides equivalent functionality.&quot;</span><span class="p">,</span>
+        <span class="ne">DeprecationWarning</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">dictionary</span> <span class="o">=</span> <span class="n">dictionary</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">context_instance</span><span class="p">:</span>
+        <span class="n">context_instance</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">context_instance</span> <span class="o">=</span> <span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TemplateResponse</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">templates</span><span class="p">,</span> <span class="n">context_instance</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="set_cookie"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.views.set_cookie">[docs]</a><span class="k">def</span> <span class="nf">set_cookie</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">expiry_seconds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">secure</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set cookie wrapper that allows number of seconds to be given as the</span>
+<span class="sd">    expiry time, and ensures values are correctly encoded.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">expiry_seconds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">expiry_seconds</span> <span class="o">=</span> <span class="mi">90</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="mi">60</span>  <span class="c1"># Default to 90 days.</span>
+    <span class="n">expires</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
+        <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">expiry_seconds</span><span class="p">),</span>
+        <span class="s2">&quot;</span><span class="si">%a</span><span class="s2">, </span><span class="si">%d</span><span class="s2">-%b-%Y %H:%M:%S GMT&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Django doesn&#39;t seem to support unicode cookie keys correctly on</span>
+    <span class="c1"># Python 2. Work around by encoding it. See</span>
+    <span class="c1"># https://code.djangoproject.com/ticket/19802</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">expires</span><span class="o">=</span><span class="n">expires</span><span class="p">,</span> <span class="n">secure</span><span class="o">=</span><span class="n">secure</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="n">name</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">),</span> <span class="n">value</span><span class="p">,</span> <span class="n">expires</span><span class="o">=</span><span class="n">expires</span><span class="p">,</span> <span class="n">secure</span><span class="o">=</span><span class="n">secure</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.views</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

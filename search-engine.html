@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Search Engine &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Public User Accounts" href="user-accounts.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="user-accounts.html" title="Public User Accounts"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Search Engine</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="search-engine">
+<h1>Search Engine<a class="headerlink" href="#search-engine" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine provides a built-in search engine that allows site visitors to
+search across different types of content. It includes several tools that
+enable developers to adjust the scope of the site search. It also includes
+a Search API to programmatically interact with the search engine,
+customize the way the search engine accesses different types of content,
+and perform search queries that are broken down and used to query models
+for results.</p>
+<section id="search-form">
+<h2>Search Form<a class="headerlink" href="#search-form" title="Permalink to this heading">¶</a></h2>
+<p>Developers can easily customize the scope of the searches via the <code class="docutils literal notranslate"><span class="pre">{%</span>
+<span class="pre">search_form</span> <span class="pre">%}</span></code> template tag. A default list of searchable models can be
+specified in the <a class="reference internal" href="configuration.html#search-model-choices"><span class="std std-ref">SEARCH_MODEL_CHOICES</span></a> setting. The actual HTML form can
+be customized in the <code class="docutils literal notranslate"><span class="pre">includes/search_form.html</span></code> template.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In <a class="reference internal" href="configuration.html#search-model-choices"><span class="std std-ref">SEARCH_MODEL_CHOICES</span></a> and <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">search_form</span> <span class="pre">%}</span></code>, all model names
+must be strings in the format <code class="docutils literal notranslate"><span class="pre">app_label.model_name</span></code>. These models
+can be part of Mezzanine’s core, or part of third party applications.
+However, all these model must subclass <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> or <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a>.</p>
+</div>
+<p>Using <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">search_form</span> <span class="pre">&quot;all&quot;</span> <span class="pre">%}</span></code> will render a search form with a
+dropdown menu, letting the user choose on what type of content the
+search will be performed. The dropdown will be populated with all of
+the models found in <a class="reference internal" href="configuration.html#search-model-choices"><span class="std std-ref">SEARCH_MODEL_CHOICES</span></a>.</p>
+<p>By passing a sequence of space-separated models to the tag, only those
+models will be made available as choices to the user. For example,
+to offer search for only the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Product</span></code>
+models (provided Cartridge is installed), you can use:
+<code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">search_form</span> <span class="pre">&quot;pages.Page</span> <span class="pre">shop.Product&quot;</span> <span class="pre">%}</span></code>.</p>
+<p>If you don’t want to provide users with a dropdown menu, you can
+limit the search scope to a single model, by passing the model name
+as a parameter. For example, to create a blog-only search form, you can
+use <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">search_form</span> <span class="pre">&quot;blog.BlogPost&quot;</span> <span class="pre">%}</span></code>.</p>
+<p>If no parameter is passed to <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">search_form</span> <span class="pre">%}</span></code>, no drop-down will
+be provided, and the search will be performed on all models defined in
+the <a class="reference internal" href="configuration.html#search-model-choices"><span class="std std-ref">SEARCH_MODEL_CHOICES</span></a> setting.</p>
+<p>Finally, by setting <a class="reference internal" href="configuration.html#search-model-choices"><span class="std std-ref">SEARCH_MODEL_CHOICES</span></a> to <code class="docutils literal notranslate"><span class="pre">None</span></code>, the search
+form will not contain a drop-down, but in this case all models that
+subclass <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> will be automatically searched.</p>
+</section>
+<section id="search-api">
+<h2>Search API<a class="headerlink" href="#search-api" title="Permalink to this heading">¶</a></h2>
+<p>The main search API is provided by <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager" title="mezzanine.core.managers.SearchableManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.managers.SearchableManager</span></code></a>. This is a Django model manager that provides a custom
+<a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager.search" title="mezzanine.core.managers.SearchableManager.search"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SearchableManager.search()</span></code></a> method. Adding search functionality to
+any model is as simple as using the <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager" title="mezzanine.core.managers.SearchableManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchableManager</span></code></a> as a
+manager for your model.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By following the previous example outlined in
+<a class="reference internal" href="content-architecture.html#creating-custom-content-types"><span class="std std-ref">Creating Custom Content Types</span></a> no extra work is required to have
+your custom content included in search queries, as the default search
+functionality in Mezzanine (defined in
+<a class="reference internal" href="packages.html#mezzanine.core.views.search" title="mezzanine.core.views.search"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.core.views.search()</span></code></a>) automatically covers any models
+that inherit from <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.Page</span></code></a> or
+<a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Displayable</span></code></a>.</p>
+</div>
+<p>In its most simple form, the <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager.search" title="mezzanine.core.managers.SearchableManager.search"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SearchableManager.search()</span></code></a>
+method takes a single string argument containing a search
+query and returns a Django queryset representing the results.
+For example, to search for all pages using the
+term <strong>plans prices projects</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;plans prices projects&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It’s also possible to explicitly control which fields will be used for the
+search. For example to search <code class="docutils literal notranslate"><span class="pre">Page.title</span></code> and <code class="docutils literal notranslate"><span class="pre">Page.content</span></code> only:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;plans prices projects&quot;</span>
+<span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">search_fields</span><span class="o">=</span><span class="n">search_fields</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">search_fields</span></code> is not provided in the call to <code class="docutils literal notranslate"><span class="pre">search</span></code>, the fields
+used will be the default fields specified for the model. These are
+specified by providing a <code class="docutils literal notranslate"><span class="pre">search_fields</span></code> attribute on any model that
+uses the <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager" title="mezzanine.core.managers.SearchableManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchableManager</span></code></a>. For example, if we wanted to add
+search capabilities to our <a class="reference internal" href="packages.html#mezzanine.galleries.models.GalleryImage" title="mezzanine.galleries.models.GalleryImage"><code class="xref py py-class docutils literal notranslate"><span class="pre">GalleryImage</span></code></a> model from the previous
+example in <a class="reference internal" href="content-architecture.html#creating-custom-content-types"><span class="std std-ref">Creating Custom Content Types</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.managers</span> <span class="kn">import</span> <span class="n">SearchableManager</span>
+
+<span class="k">class</span> <span class="nc">Gallery</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="c1"># Added the title and description fields here for the search example.</span>
+<span class="k">class</span> <span class="nc">GalleryImage</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">gallery</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Gallery&quot;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;galleries&quot;</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">SearchableManager</span><span class="p">()</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">search_fields</span></code> are not specified using any of the approaches
+above, then all <code class="docutils literal notranslate"><span class="pre">CharField</span></code> and <code class="docutils literal notranslate"><span class="pre">TextField</span></code> fields defined on
+the model are used. This isn’t the case for <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> subclasses
+though, since the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model defines a <code class="docutils literal notranslate"><span class="pre">search_fields</span></code>
+attribute which your subclass will also contain, so you’ll need to
+explicitly define <code class="docutils literal notranslate"><span class="pre">search_fields</span></code> yourself.</p>
+</div>
+</section>
+<section id="ordering-results">
+<h2>Ordering Results<a class="headerlink" href="#ordering-results" title="Permalink to this heading">¶</a></h2>
+<p>By default, results are ordered by the number of matches found within the
+fields searched and their age.</p>
+<p>It is possible to control the relative weight of a match found within one
+field over a match found in another field. Given the first example of
+searching <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instances, you might decide that a match within
+the <code class="docutils literal notranslate"><span class="pre">title</span></code> field is worth 5 times as much as a match in the
+<code class="docutils literal notranslate"><span class="pre">description</span></code> field. These relative weights can be defined in the same
+fashion as outlined above for defining the fields to be used in a search
+by using a slightly different format for the <code class="docutils literal notranslate"><span class="pre">search_fields</span></code> argument:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;plans prices projects&quot;</span>
+<span class="n">search_fields</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">search_fields</span><span class="o">=</span><span class="n">search_fields</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As shown, a dictionary or mapping sequence can be used to associate
+weights to fields in any of the cases described above where
+<code class="docutils literal notranslate"><span class="pre">search_fields</span></code> can be defined.</p>
+<p>It is also possible to control the weight given to a match by its age by
+customizing the <a class="reference internal" href="configuration.html#search-age-scale-factor"><span class="std std-ref">SEARCH_AGE_SCALE_FACTOR</span></a> setting. Setting this to a
+high number gives more weight to the age, ranking newer matches higher
+with less regard to their original weight. Setting it to zero disables
+weighing matches by their age entirely.</p>
+</section>
+<section id="searching-heterogeneous-models">
+<h2>Searching Heterogeneous Models<a class="headerlink" href="#searching-heterogeneous-models" title="Permalink to this heading">¶</a></h2>
+<p>So far we’ve looked at how to search across a single model, but what if we
+want to search across different types of models at once? This is possible
+through the use of abstract models. <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager" title="mezzanine.core.managers.SearchableManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchableManager</span></code></a> is
+designed so that if it is accessed directly through an abstract model, it
+will search across every model that subclasses the abstract model. This
+makes it possible to group together different types of models for the
+purpose of combined search. Continuing on from our <code class="docutils literal notranslate"><span class="pre">GalleryImage</span></code>
+example, suppose we also have a <code class="docutils literal notranslate"><span class="pre">Document</span></code> model containing files
+uploaded and that we wanted a combined search across these models which
+could both be conceptually defined as assets. We would then go ahead and
+create an abstract model called <code class="docutils literal notranslate"><span class="pre">Asset</span></code> for the sake of grouping these
+together for search:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Asset</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">SearchableManager</span><span class="p">()</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">class</span> <span class="nc">GalleryImage</span><span class="p">(</span><span class="n">Asset</span><span class="p">):</span>
+    <span class="n">gallery</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Gallery&quot;</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;galleries&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Document</span><span class="p">(</span><span class="n">Asset</span><span class="p">):</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;documents&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By accessing <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager" title="mezzanine.core.managers.SearchableManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchableManager</span></code></a> directly via the <code class="docutils literal notranslate"><span class="pre">Asset</span></code>
+abstract model we can search across the <code class="docutils literal notranslate"><span class="pre">GalleryImage</span></code> and <code class="docutils literal notranslate"><span class="pre">Document</span></code>
+models at once:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Asset</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;My&quot;</span><span class="p">)</span>
+<span class="go">[&lt;GalleryImage: My Image 1&gt;, &lt;Document: My Doc&gt;, &lt;GalleryImage: My Image 2&gt;]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It was mentioned earlier that the <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager.search" title="mezzanine.core.managers.SearchableManager.search"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SearchableManager.search()</span></code></a> method
+returns a Django queryset meaning that you can then chain together further
+queryset methods onto the result. However when searching across
+heterogeneous models via an abstract model, this is not the case and the
+result is a list of model instances. This means further manipulation of the
+queryset will no longer be possible.</p>
+<p>Also of importance is the <a class="reference internal" href="configuration.html#search-model-choices"><span class="std std-ref">SEARCH_MODEL_CHOICES</span></a> setting mentioned
+above. When searching across heterogeneous models via an abstract
+model, the models searched will only be used if they are defined
+within the <code class="docutils literal notranslate"><span class="pre">SEARCH_MODEL_CHOICES</span></code> setting, either explicitly, or
+implicitly by a model’s parent existing in <code class="docutils literal notranslate"><span class="pre">SEARCH_MODEL_CHOICES</span></code>.</p>
+</div>
+</section>
+<section id="query-behaviour">
+<h2>Query Behaviour<a class="headerlink" href="#query-behaviour" title="Permalink to this heading">¶</a></h2>
+<p>When a call to <a class="reference internal" href="packages.html#mezzanine.core.managers.SearchableManager.search" title="mezzanine.core.managers.SearchableManager.search"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SearchableManager.search()</span></code></a> is performed, the query
+entered is processed through several steps until it is translated into a
+Django queryset. By default the query is broken up into keywords, so the
+query <code class="docutils literal notranslate"><span class="pre">plans</span> <span class="pre">prices</span> <span class="pre">projects</span></code> would return results that contain any of
+the words <strong>plans</strong> or <strong>prices</strong> or <strong>projects</strong>.</p>
+<p>The query can contain several special operators which allow for this
+behaviour to be controlled further. Quotes around exact phrases will
+ensure that the phrase is searched for specifically, for example the query
+<code class="docutils literal notranslate"><span class="pre">&quot;plans</span> <span class="pre">prices&quot;</span> <span class="pre">projects</span></code> will return results matching the exact phrase
+<strong>plans prices</strong> or the word <strong>projects</strong>, in contrast to the previous
+example.</p>
+<p>You can also prefix both words and phrases with + or - symbols. The +
+symbol will ensure the word or phrase is contained in all results, and the
+- symbol will ensure that no results will be returned containing the word
+or phrase. For example the query <code class="docutils literal notranslate"><span class="pre">+&quot;plans</span> <span class="pre">prices&quot;</span> <span class="pre">-projects</span></code> would return
+results that must contain the phrase <strong>plans prices</strong> and must not contain
+the word <strong>projects</strong>.</p>
+<p>Once the query has been parsed into words and phrases to be included or
+excluded, a second step is performed where the query is stripped of common
+words know as <strong>stop words</strong>. These are common words such as <strong>and</strong>,
+<strong>the</strong> or <strong>like</strong> that are generally not meaningful and cause irrelevant
+results to be returned. The list of stop words is stored in the setting
+<a class="reference internal" href="configuration.html#stop-words"><span class="std std-ref">STOP_WORDS</span></a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Search Engine</a><ul>
+<li><a class="reference internal" href="#search-form">Search Form</a></li>
+<li><a class="reference internal" href="#search-api">Search API</a></li>
+<li><a class="reference internal" href="#ordering-results">Ordering Results</a></li>
+<li><a class="reference internal" href="#searching-heterogeneous-models">Searching Heterogeneous Models</a></li>
+<li><a class="reference internal" href="#query-behaviour">Query Behaviour</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="user-accounts.html"
+                          title="previous chapter">Public User Accounts</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="configuration.html"
+                          title="next chapter">Configuration</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/search-engine.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="user-accounts.html" title="Public User Accounts"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Search Engine</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

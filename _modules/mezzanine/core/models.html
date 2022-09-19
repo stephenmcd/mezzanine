@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.core.models &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.models</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.core.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">apps</span>
+<span class="kn">from</span> <span class="nn">django.contrib.contenttypes.fields</span> <span class="kn">import</span> <span class="n">GenericForeignKey</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.db.models.base</span> <span class="kn">import</span> <span class="n">ModelBase</span>
+<span class="kn">from</span> <span class="nn">django.template.defaultfilters</span> <span class="kn">import</span> <span class="n">truncatewords_html</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="kn">import</span> <span class="n">format_html</span><span class="p">,</span> <span class="n">strip_tags</span>
+<span class="kn">from</span> <span class="nn">django.utils.timesince</span> <span class="kn">import</span> <span class="n">timesince</span>
+<span class="kn">from</span> <span class="nn">django.utils.timezone</span> <span class="kn">import</span> <span class="n">now</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.fields</span> <span class="kn">import</span> <span class="n">OrderField</span><span class="p">,</span> <span class="n">RichTextField</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.managers</span> <span class="kn">import</span> <span class="n">CurrentSiteManager</span><span class="p">,</span> <span class="n">DisplayableManager</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.fields</span> <span class="kn">import</span> <span class="n">KeywordsField</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.html</span> <span class="kn">import</span> <span class="n">TagCloser</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.models</span> <span class="kn">import</span> <span class="n">base_concrete_model</span><span class="p">,</span> <span class="n">get_user_model_name</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.sites</span> <span class="kn">import</span> <span class="n">current_request</span><span class="p">,</span> <span class="n">current_site_id</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">admin_url</span><span class="p">,</span> <span class="n">slugify</span><span class="p">,</span> <span class="n">unique_slug</span>
+
+<span class="n">user_model_name</span> <span class="o">=</span> <span class="n">get_user_model_name</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">wrapped_manager</span><span class="p">(</span><span class="n">klass</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">modeltranslation.manager</span> <span class="kn">import</span> <span class="n">MultilingualManager</span>
+
+        <span class="k">class</span> <span class="nc">Mgr</span><span class="p">(</span><span class="n">MultilingualManager</span><span class="p">,</span> <span class="n">klass</span><span class="p">):</span>
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">Mgr</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">klass</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="SiteRelated"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.SiteRelated">[docs]</a><span class="k">class</span> <span class="nc">SiteRelated</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract model for all things site-related. Adds a foreignkey to</span>
+<span class="sd">    Django&#39;s ``Site`` model, and filters by site with all querysets.</span>
+<span class="sd">    See ``mezzanine.utils.sites.current_site_id`` for implementation</span>
+<span class="sd">    details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">wrapped_manager</span><span class="p">(</span><span class="n">CurrentSiteManager</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">site</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;sites.Site&quot;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SiteRelated.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.SiteRelated.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">update_site</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the site to the current site when the record is first</span>
+<span class="sd">        created, or the ``update_site`` argument is explicitly set</span>
+<span class="sd">        to ``True``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">update_site</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">current_site_id</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Slugged"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Slugged">[docs]</a><span class="k">class</span> <span class="nc">Slugged</span><span class="p">(</span><span class="n">SiteRelated</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract model that handles auto-generating slugs. Each slugged</span>
+<span class="sd">    object is also affiliated with a specific site object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Title&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">slug</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;URL&quot;</span><span class="p">),</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Leave blank to have the URL auto-generated from &quot;</span> <span class="s2">&quot;the title.&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span>
+
+<div class="viewcode-block" id="Slugged.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Slugged.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If no slug is provided, generates one before saving.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_unique_slug</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Slugged.generate_unique_slug"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Slugged.generate_unique_slug">[docs]</a>    <span class="k">def</span> <span class="nf">generate_unique_slug</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a unique slug by passing the result of get_slug() to</span>
+<span class="sd">        utils.urls.unique_slug, which appends an index if necessary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># For custom content types, use the ``Page`` instance for</span>
+        <span class="c1"># slug lookup.</span>
+        <span class="n">concrete_model</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">Slugged</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">slug_qs</span> <span class="o">=</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">unique_slug</span><span class="p">(</span><span class="n">slug_qs</span><span class="p">,</span> <span class="s2">&quot;slug&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slug</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Slugged.get_slug"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Slugged.get_slug">[docs]</a>    <span class="k">def</span> <span class="nf">get_slug</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows subclasses to implement their own slug creation logic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;title&quot;</span>
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">modeltranslation.utils</span> <span class="kn">import</span> <span class="n">build_localized_fieldname</span>
+
+            <span class="n">attr</span> <span class="o">=</span> <span class="n">build_localized_fieldname</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGE_CODE</span><span class="p">)</span>
+        <span class="c1"># Get self.title_xx where xx is the default language, if any.</span>
+        <span class="c1"># Get self.title otherwise.</span>
+        <span class="k">return</span> <span class="n">slugify</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">admin_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">format_html</span><span class="p">(</span>
+            <span class="s2">&quot;&lt;a href=&#39;</span><span class="si">{}</span><span class="s2">&#39;&gt;</span><span class="si">{}</span><span class="s2">&lt;/a&gt;&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">(),</span> <span class="n">gettext</span><span class="p">(</span><span class="s2">&quot;View on site&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="n">admin_link</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="MetaData"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.MetaData">[docs]</a><span class="k">class</span> <span class="nc">MetaData</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract model that provides meta data for content.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_meta_title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Title&quot;</span><span class="p">),</span>
+        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+            <span class="s2">&quot;Optional title to be used in the HTML title tag. &quot;</span>
+            <span class="s2">&quot;If left blank, the main title field will be used.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Description&quot;</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gen_description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Generate description&quot;</span><span class="p">),</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+            <span class="s2">&quot;If checked, the description will be automatically &quot;</span>
+            <span class="s2">&quot;generated from content. Uncheck if you want to manually &quot;</span>
+            <span class="s2">&quot;set a custom description.&quot;</span>
+        <span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="n">KeywordsField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Keywords&quot;</span><span class="p">))</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="MetaData.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.MetaData.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the description field on save.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_description</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">strip_tags</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">description_from_content</span><span class="p">())</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MetaData.meta_title"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.MetaData.meta_title">[docs]</a>    <span class="k">def</span> <span class="nf">meta_title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Accessor for the optional ``_meta_title`` field, which returns</span>
+<span class="sd">        the string version of the instance if not provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meta_title</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="MetaData.description_from_content"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.MetaData.description_from_content">[docs]</a>    <span class="k">def</span> <span class="nf">description_from_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the first block or sentence of the first content-like</span>
+<span class="sd">        field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1"># Use the first RichTextField, or TextField if none found.</span>
+        <span class="k">for</span> <span class="n">field_type</span> <span class="ow">in</span> <span class="p">(</span><span class="n">RichTextField</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">description</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">field_type</span><span class="p">)</span> <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;description&quot;</span><span class="p">:</span>
+                        <span class="n">description</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">description</span><span class="p">:</span>
+                            <span class="kn">from</span> <span class="nn">mezzanine.core.templatetags.mezzanine_tags</span> <span class="kn">import</span> <span class="p">(</span>
+                                <span class="n">richtext_filters</span><span class="p">,</span>
+                            <span class="p">)</span>
+
+                            <span class="n">description</span> <span class="o">=</span> <span class="n">richtext_filters</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+                            <span class="k">break</span>
+        <span class="c1"># Fall back to the title if description couldn&#39;t be determined.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">description</span><span class="p">:</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="c1"># Strip everything after the first block or sentence.</span>
+        <span class="n">ends</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br /&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br/&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;/ul&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;. &quot;</span><span class="p">,</span> <span class="s2">&quot;! &quot;</span><span class="p">,</span> <span class="s2">&quot;? &quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">ends</span><span class="p">:</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">description</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">end</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pos</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="n">TagCloser</span><span class="p">(</span><span class="n">description</span><span class="p">[:</span><span class="n">pos</span><span class="p">])</span><span class="o">.</span><span class="n">html</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">truncatewords_html</span><span class="p">(</span><span class="n">description</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="n">unicode</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># Python 3.</span>
+        <span class="k">return</span> <span class="n">description</span></div></div>
+
+
+<div class="viewcode-block" id="TimeStamped"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.TimeStamped">[docs]</a><span class="k">class</span> <span class="nc">TimeStamped</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides created and updated timestamps on models.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">created</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">updated</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TimeStamped.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.TimeStamped.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">_now</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">updated</span> <span class="o">=</span> <span class="n">_now</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">created</span> <span class="o">=</span> <span class="n">_now</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<span class="n">CONTENT_STATUS_DRAFT</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">CONTENT_STATUS_PUBLISHED</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">CONTENT_STATUS_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">CONTENT_STATUS_DRAFT</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Draft&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">CONTENT_STATUS_PUBLISHED</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Published&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="n">SHORT_URL_UNSET</span> <span class="o">=</span> <span class="s2">&quot;unset&quot;</span>
+
+
+<div class="viewcode-block" id="Displayable"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable">[docs]</a><span class="k">class</span> <span class="nc">Displayable</span><span class="p">(</span><span class="n">Slugged</span><span class="p">,</span> <span class="n">MetaData</span><span class="p">,</span> <span class="n">TimeStamped</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract model that provides features of a visible page on the</span>
+<span class="sd">    website such as publishing fields. Basis of Mezzanine pages,</span>
+<span class="sd">    blog posts, and Cartridge products.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">status</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Status&quot;</span><span class="p">),</span>
+        <span class="n">choices</span><span class="o">=</span><span class="n">CONTENT_STATUS_CHOICES</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">CONTENT_STATUS_PUBLISHED</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span>
+            <span class="s2">&quot;With Draft chosen, will only be shown for admin users &quot;</span> <span class="s2">&quot;on the site.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">publish_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Published from&quot;</span><span class="p">),</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;With Published chosen, won&#39;t be shown until this time&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">db_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">expiry_date</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Expires on&quot;</span><span class="p">),</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;With Published chosen, won&#39;t be shown after this time&quot;</span><span class="p">),</span>
+        <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">short_url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">in_sitemap</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Show in sitemap&quot;</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">wrapped_manager</span><span class="p">(</span><span class="n">DisplayableManager</span><span class="p">)</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;keywords&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Displayable.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set default for ``publish_date``. We can&#39;t use ``auto_now_add`` on</span>
+<span class="sd">        the field as it will be blank when a blog post is created from</span>
+<span class="sd">        the quick blog form in the admin dashboard.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">publish_date</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">publish_date</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">get_admin_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">admin_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Displayable.publish_date_since"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.publish_date_since">[docs]</a>    <span class="k">def</span> <span class="nf">publish_date_since</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the time since ``publish_date``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">timesince</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">publish_date</span><span class="p">)</span></div>
+
+    <span class="n">publish_date_since</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Published from&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Displayable.published"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.published">[docs]</a>    <span class="k">def</span> <span class="nf">published</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For non-staff users, return True when status is published and</span>
+<span class="sd">        the publish and expiry dates fall before and after the</span>
+<span class="sd">        current date when specified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">CONTENT_STATUS_PUBLISHED</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">publish_date</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">publish_date</span> <span class="o">&lt;=</span> <span class="n">now</span><span class="p">())</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expiry_date</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">expiry_date</span> <span class="o">&gt;=</span> <span class="n">now</span><span class="p">())</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Displayable.get_absolute_url"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.get_absolute_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Raise an error if called on a subclass without</span>
+<span class="sd">        ``get_absolute_url`` defined, to ensure all search results</span>
+<span class="sd">        contains a URL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;The model </span><span class="si">%s</span><span class="s2"> does not have &quot;</span> <span class="s2">&quot;get_absolute_url defined&quot;</span> <span class="o">%</span> <span class="n">name</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Displayable.get_absolute_url_with_host"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.get_absolute_url_with_host">[docs]</a>    <span class="k">def</span> <span class="nf">get_absolute_url_with_host</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns host + ``get_absolute_url`` - used by the various</span>
+<span class="sd">        ``short_url`` mechanics below.</span>
+
+<span class="sd">        Technically we should use ``self.site.domain``, here, however</span>
+<span class="sd">        if we were to invoke the ``short_url`` mechanics on a list of</span>
+<span class="sd">        data (eg blog post list view), we&#39;d trigger a db query per</span>
+<span class="sd">        item. Using ``current_request`` should provide the same</span>
+<span class="sd">        result, since site related data should only be loaded based</span>
+<span class="sd">        on the current host anyway.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">current_request</span><span class="p">()</span><span class="o">.</span><span class="n">build_absolute_uri</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Displayable.set_short_url"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.set_short_url">[docs]</a>    <span class="k">def</span> <span class="nf">set_short_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the ``short_url`` attribute if the model does not</span>
+<span class="sd">        already have one. Used by the ``set_short_url_for`` template</span>
+<span class="sd">        tag and ``TweetableAdmin``.</span>
+
+<span class="sd">        If no sharing service is defined (bitly is the one implemented,</span>
+<span class="sd">        but others could be by overriding ``generate_short_url``), the</span>
+<span class="sd">        ``SHORT_URL_UNSET`` marker gets stored in the DB. In this case,</span>
+<span class="sd">        ``short_url`` is temporarily (eg not persisted) set to</span>
+<span class="sd">        host + ``get_absolute_url`` - this is so that we don&#39;t</span>
+<span class="sd">        permanently store ``get_absolute_url``, since it may change</span>
+<span class="sd">        over time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_url</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_url</span> <span class="o">==</span> <span class="n">SHORT_URL_UNSET</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">short_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_short_url</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">short_url</span> <span class="o">==</span> <span class="n">SHORT_URL_UNSET</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">short_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_absolute_url_with_host</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Displayable.generate_short_url"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.generate_short_url">[docs]</a>    <span class="k">def</span> <span class="nf">generate_short_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a new short URL generated using bit.ly if credentials for the</span>
+<span class="sd">        service have been specified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">BITLY_ACCESS_TOKEN</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api-ssl.bit.ly/v3/shorten?</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">urlencode</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;access_token&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">BITLY_ACCESS_TOKEN</span><span class="p">,</span>
+                    <span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_absolute_url_with_host</span><span class="p">(),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;status_code&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">response</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;url&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">SHORT_URL_UNSET</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_next_or_previous_by_publish_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_next</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves next or previous object by publish date. We implement</span>
+<span class="sd">        our own version instead of Django&#39;s so we can hook into the</span>
+<span class="sd">        published manager and concrete subclasses.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;publish_date__gt&quot;</span> <span class="k">if</span> <span class="n">is_next</span> <span class="k">else</span> <span class="s2">&quot;publish_date__lt&quot;</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="s2">&quot;publish_date&quot;</span> <span class="k">if</span> <span class="n">is_next</span> <span class="k">else</span> <span class="s2">&quot;-publish_date&quot;</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span><span class="n">arg</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">publish_date</span><span class="p">}</span>
+        <span class="n">concrete_model</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">Displayable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">queryset</span> <span class="o">=</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">queryset</span> <span class="o">=</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">queryset</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">order</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+<div class="viewcode-block" id="Displayable.get_next_by_publish_date"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.get_next_by_publish_date">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_by_publish_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves next object by publish date.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_or_previous_by_publish_date</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Displayable.get_previous_by_publish_date"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Displayable.get_previous_by_publish_date">[docs]</a>    <span class="k">def</span> <span class="nf">get_previous_by_publish_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves previous object by publish date.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_or_previous_by_publish_date</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="RichText"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.RichText">[docs]</a><span class="k">class</span> <span class="nc">RichText</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides a Rich Text field for managing general content and making</span>
+<span class="sd">    it searchable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">content</span> <span class="o">=</span> <span class="n">RichTextField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Content&quot;</span><span class="p">))</span>
+
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">,)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="OrderableBase"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.OrderableBase">[docs]</a><span class="k">class</span> <span class="nc">OrderableBase</span><span class="p">(</span><span class="n">ModelBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks for ``order_with_respect_to`` on the model&#39;s inner ``Meta``</span>
+<span class="sd">    class and if found, copies it to a custom attribute and deletes it</span>
+<span class="sd">    since it will cause errors when used with ``ForeignKey(&quot;self&quot;)``.</span>
+<span class="sd">    Also creates the ``ordering`` attribute on the ``Meta`` class if</span>
+<span class="sd">    not yet provided.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;Meta&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
+
+            <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+            <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;Meta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Meta</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;Meta&quot;</span><span class="p">],</span> <span class="s2">&quot;order_with_respect_to&quot;</span><span class="p">):</span>
+            <span class="n">order_field</span> <span class="o">=</span> <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;Meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">order_with_respect_to</span>
+            <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;order_with_respect_to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">order_field</span>
+            <span class="k">del</span> <span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;Meta&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">order_with_respect_to</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;Meta&quot;</span><span class="p">],</span> <span class="s2">&quot;ordering&quot;</span><span class="p">):</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;Meta&quot;</span><span class="p">],</span> <span class="s2">&quot;ordering&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">,))</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Orderable"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Orderable">[docs]</a><span class="k">class</span> <span class="nc">Orderable</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">OrderableBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract model that provides a custom ordering integer field</span>
+<span class="sd">    similar to using Meta&#39;s ``order_with_respect_to``, since to</span>
+<span class="sd">    date (Django 1.2) this doesn&#39;t work with ``ForeignKey(&quot;self&quot;)``,</span>
+<span class="sd">    or with Generic Relations. We may also want this feature for</span>
+<span class="sd">    models that aren&#39;t ordered with respect to a particular field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_order</span> <span class="o">=</span> <span class="n">OrderField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Order&quot;</span><span class="p">),</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Orderable.with_respect_to"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Orderable.with_respect_to">[docs]</a>    <span class="k">def</span> <span class="nf">with_respect_to</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a dict to use as a filter for ordering operations</span>
+<span class="sd">        containing the original ``Meta.order_with_respect_to`` value</span>
+<span class="sd">        if provided. If the field is a Generic Relation, the dict</span>
+<span class="sd">        returned contains names and values for looking up the</span>
+<span class="sd">        relation&#39;s ``ct_field`` and ``fk_field`` attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_with_respect_to</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># No ``order_with_respect_to`` specified on the model.</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="c1"># Support for generic relations.</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">GenericForeignKey</span><span class="p">):</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">ct_field</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">fk_field</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">names</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span></div>
+
+<div class="viewcode-block" id="Orderable.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Orderable.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the initial ordering value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_respect_to</span><span class="p">()</span>
+            <span class="n">lookup</span><span class="p">[</span><span class="s2">&quot;_order__isnull&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">concrete_model</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">Orderable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_order</span> <span class="o">=</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Orderable.delete"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Orderable.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the ordering values for siblings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_respect_to</span><span class="p">()</span>
+        <span class="n">lookup</span><span class="p">[</span><span class="s2">&quot;_order__gte&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span>
+        <span class="n">concrete_model</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">Orderable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">after</span> <span class="o">=</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)</span>
+        <span class="n">after</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_order</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">F</span><span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_next_or_previous_by_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">is_next</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves next or previous object by order. We implement our</span>
+<span class="sd">        own version instead of Django&#39;s so we can hook into the</span>
+<span class="sd">        published manager, concrete subclasses and our custom</span>
+<span class="sd">        ``with_respect_to`` method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">with_respect_to</span><span class="p">()</span>
+        <span class="n">lookup</span><span class="p">[</span><span class="s2">&quot;_order&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">is_next</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">concrete_model</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">Orderable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">queryset</span> <span class="o">=</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">queryset</span> <span class="o">=</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">queryset</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">concrete_model</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+<div class="viewcode-block" id="Orderable.get_next_by_order"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Orderable.get_next_by_order">[docs]</a>    <span class="k">def</span> <span class="nf">get_next_by_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves next object by order.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_or_previous_by_order</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Orderable.get_previous_by_order"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Orderable.get_previous_by_order">[docs]</a>    <span class="k">def</span> <span class="nf">get_previous_by_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves previous object by order.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_next_or_previous_by_order</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Ownable"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Ownable">[docs]</a><span class="k">class</span> <span class="nc">Ownable</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract model that provides ownership of an object for a user.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="n">user_model_name</span><span class="p">,</span>
+        <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">),</span>
+        <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(class)s</span><span class="s2">s&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Ownable.is_editable"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.Ownable.is_editable">[docs]</a>    <span class="k">def</span> <span class="nf">is_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Restrict in-line editing to the objects&#39;s owner and superusers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_id</span></div></div>
+
+
+<div class="viewcode-block" id="ContentTyped"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.ContentTyped">[docs]</a><span class="k">class</span> <span class="nc">ContentTyped</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mixin for models that can be subclassed to create custom types. In order to use</span>
+<span class="sd">    them:</span>
+
+<span class="sd">    - Inherit model from ContentTyped.</span>
+<span class="sd">    - Call the set_content_model() method in the model&#39;s save() method.</span>
+<span class="sd">    - Inherit that model&#39;s ModelAdmin from ContentTypesAdmin.</span>
+<span class="sd">    - Include &quot;admin/includes/content_typed_change_list.html&quot; in the change_list.html</span>
+<span class="sd">      template.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">content_model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="ContentTyped.get_content_model_name"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.ContentTyped.get_content_model_name">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_content_model_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the name of the OneToOneField django automatically creates for</span>
+<span class="sd">        child classes in multi-table inheritance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">object_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ContentTyped.get_content_models"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.ContentTyped.get_content_models">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_content_models</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all subclasses of the concrete model.&quot;&quot;&quot;</span>
+        <span class="n">concrete_model</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">ContentTyped</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">m</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_models</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">m</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">concrete_model</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">concrete_model</span><span class="p">)</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="ContentTyped.set_content_model"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.ContentTyped.set_content_model">[docs]</a>    <span class="k">def</span> <span class="nf">set_content_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set content_model to the child class&#39;s related name, or None if this is</span>
+<span class="sd">        the base class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_model</span><span class="p">:</span>
+            <span class="n">is_base_class</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">ContentTyped</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">content_model</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="kc">None</span> <span class="k">if</span> <span class="n">is_base_class</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_content_model_name</span><span class="p">()</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ContentTyped.get_content_model"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.ContentTyped.get_content_model">[docs]</a>    <span class="k">def</span> <span class="nf">get_content_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return content model, or if this is the base class return it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_model</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_model</span> <span class="k">else</span> <span class="bp">self</span></div></div>
+
+
+<div class="viewcode-block" id="SitePermission"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.models.SitePermission">[docs]</a><span class="k">class</span> <span class="nc">SitePermission</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Permission relationship between a user and a site that&#39;s</span>
+<span class="sd">    used instead of ``User.is_staff``, for admin and inline-editing</span>
+<span class="sd">    access.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">OneToOneField</span><span class="p">(</span>
+        <span class="n">user_model_name</span><span class="p">,</span>
+        <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span>
+        <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">),</span>
+        <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(class)s</span><span class="s2">s&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">sites</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s2">&quot;sites.Site&quot;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Sites&quot;</span><span class="p">))</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Site permission&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Site permissions&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.models</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

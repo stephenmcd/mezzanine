@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.pages.models &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.pages.models</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.pages.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urljoin</span>
+
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">resolve</span><span class="p">,</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.models</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ContentTyped</span><span class="p">,</span>
+    <span class="n">Displayable</span><span class="p">,</span>
+    <span class="n">Orderable</span><span class="p">,</span>
+    <span class="n">RichText</span><span class="p">,</span>
+    <span class="n">wrapped_manager</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.fields</span> <span class="kn">import</span> <span class="n">MenusField</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.managers</span> <span class="kn">import</span> <span class="n">PageManager</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.sites</span> <span class="kn">import</span> <span class="n">override_current_site_id</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">path_to_slug</span>
+
+
+<div class="viewcode-block" id="BasePage"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.BasePage">[docs]</a><span class="k">class</span> <span class="nc">BasePage</span><span class="p">(</span><span class="n">Orderable</span><span class="p">,</span> <span class="n">Displayable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exists solely to store ``PageManager`` as the main manager.</span>
+<span class="sd">    If it&#39;s defined on ``Page``, a concrete model, then each</span>
+<span class="sd">    ``Page`` subclass loses the custom manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">wrapped_manager</span><span class="p">(</span><span class="n">PageManager</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">abstract</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Page"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page">[docs]</a><span class="k">class</span> <span class="nc">Page</span><span class="p">(</span><span class="n">BasePage</span><span class="p">,</span> <span class="n">ContentTyped</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A page in the page tree. This is the base class that custom content types</span>
+<span class="sd">    need to subclass.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span>
+        <span class="s2">&quot;Page&quot;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;children&quot;</span>
+    <span class="p">)</span>
+    <span class="n">in_menus</span> <span class="o">=</span> <span class="n">MenusField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Show in menus&quot;</span><span class="p">),</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">titles</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">login_required</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Login required&quot;</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;If checked, only logged in users can view this page&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Page&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Pages&quot;</span><span class="p">)</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;titles&quot;</span><span class="p">,)</span>
+        <span class="n">order_with_respect_to</span> <span class="o">=</span> <span class="s2">&quot;parent&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">titles</span>
+
+<div class="viewcode-block" id="Page.get_absolute_url"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.get_absolute_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_absolute_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        URL for a page - for ``Link`` page types, simply return its</span>
+<span class="sd">        slug since these don&#39;t have an actual URL pattern. Also handle</span>
+<span class="sd">        the special case of the homepage being a page object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_model</span> <span class="o">==</span> <span class="s2">&quot;link&quot;</span><span class="p">:</span>
+            <span class="c1"># Ensure the URL is absolute.</span>
+            <span class="n">slug</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">slug</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">slug</span>
+        <span class="k">if</span> <span class="n">slug</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;home&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;slug&quot;</span><span class="p">:</span> <span class="n">slug</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="Page.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the titles field using the titles up the parent chain</span>
+<span class="sd">        and set the initial value for ordering.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_content_model</span><span class="p">()</span>
+        <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">]</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">while</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">titles</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">parent</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">titles</span> <span class="o">=</span> <span class="s2">&quot; / &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">titles</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Page.description_from_content"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.description_from_content">[docs]</a>    <span class="k">def</span> <span class="nf">description_from_content</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Override ``Displayable.description_from_content`` to load the</span>
+<span class="sd">        content type subclass for when ``save`` is called directly on a</span>
+<span class="sd">        ``Page`` instance, so that all fields defined on the subclass</span>
+<span class="sd">        are available for generating the description.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">==</span> <span class="n">Page</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_model</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_content_model</span><span class="p">()</span><span class="o">.</span><span class="n">description_from_content</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">description_from_content</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Page.get_ascendants"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.get_ascendants">[docs]</a>    <span class="k">def</span> <span class="nf">get_ascendants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">for_user</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the ascendants for the page. Ascendants are cached in</span>
+<span class="sd">        the ``_ascendants`` attribute, which is populated when the page</span>
+<span class="sd">        is loaded via ``Page.objects.with_ascendants_for_slug``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_id</span><span class="p">:</span>
+            <span class="c1"># No parents at all, bail out.</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_ascendants&quot;</span><span class="p">):</span>
+            <span class="c1"># _ascendants has not been either page.get_ascendants or</span>
+            <span class="c1"># Page.objects.assigned by with_ascendants_for_slug, so</span>
+            <span class="c1"># run it to see if we can retrieve all parents in a single</span>
+            <span class="c1"># query, which will occur if the slugs for each of the pages</span>
+            <span class="c1"># have not been customised.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">:</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;for_user&quot;</span><span class="p">:</span> <span class="n">for_user</span><span class="p">}</span>
+                <span class="k">with</span> <span class="n">override_current_site_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_id</span><span class="p">):</span>
+                    <span class="n">pages</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">with_ascendants_for_slug</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ascendants</span> <span class="o">=</span> <span class="n">pages</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_ascendants</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ascendants</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ascendants</span><span class="p">:</span>
+            <span class="c1"># Page has a parent but with_ascendants_for_slug failed to</span>
+            <span class="c1"># find them due to custom slugs, so retrieve the parents</span>
+            <span class="c1"># recursively.</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">while</span> <span class="n">child</span><span class="o">.</span><span class="n">parent_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ascendants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ascendants</span></div>
+
+<div class="viewcode-block" id="Page.get_slug"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.get_slug">[docs]</a>    <span class="k">def</span> <span class="nf">get_slug</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively build the slug from the chain of parents.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slug</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_slug</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">slug</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">slug</span></div>
+
+<div class="viewcode-block" id="Page.set_slug"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.set_slug">[docs]</a>    <span class="k">def</span> <span class="nf">set_slug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_slug</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Changes this page&#39;s slug, and all other pages whose slugs</span>
+<span class="sd">        start with this page&#39;s slug.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slug_prefix</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">slug__startswith</span><span class="o">=</span><span class="n">slug_prefix</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">page</span><span class="o">.</span><span class="n">overridden</span><span class="p">():</span>
+                <span class="n">page</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="n">new_slug</span> <span class="o">+</span> <span class="n">page</span><span class="o">.</span><span class="n">slug</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">)</span> <span class="p">:]</span>
+                <span class="n">page</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">=</span> <span class="n">new_slug</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Page.set_parent"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.set_parent">[docs]</a>    <span class="k">def</span> <span class="nf">set_parent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change the parent of this page, changing this page&#39;s slug to match</span>
+<span class="sd">        the new parent if necessary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">self_slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span>
+        <span class="n">old_parent_slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">slug</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">new_parent_slug</span> <span class="o">=</span> <span class="n">new_parent</span><span class="o">.</span><span class="n">slug</span> <span class="k">if</span> <span class="n">new_parent</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="c1"># Make sure setting the new parent won&#39;t cause a cycle.</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">new_parent</span>
+        <span class="k">while</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">pk</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                    <span class="s2">&quot;You can&#39;t set a page or its child as&quot;</span> <span class="s2">&quot; a parent.&quot;</span>
+                <span class="p">)</span>
+            <span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">new_parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">self_slug</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">content_model</span> <span class="o">==</span> <span class="s2">&quot;link&quot;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">old_parent_slug</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_slug</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">new_parent_slug</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">)))</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">old_parent_slug</span><span class="p">):</span>
+                <span class="n">new_slug</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">old_parent_slug</span><span class="p">,</span> <span class="n">new_parent_slug</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_slug</span><span class="p">(</span><span class="n">new_slug</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Page.overridden"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.overridden">[docs]</a>    <span class="k">def</span> <span class="nf">overridden</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns ``True`` if the page&#39;s slug has an explicitly defined</span>
+<span class="sd">        urlpattern and is therefore considered to be overridden.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">mezzanine.pages.views</span> <span class="kn">import</span> <span class="n">page</span>
+
+        <span class="n">page_url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;slug&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="p">})</span>
+        <span class="n">resolved_view</span> <span class="o">=</span> <span class="n">resolve</span><span class="p">(</span><span class="n">page_url</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">resolved_view</span> <span class="o">!=</span> <span class="n">page</span></div>
+
+<div class="viewcode-block" id="Page.can_add"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.can_add">[docs]</a>    <span class="k">def</span> <span class="nf">can_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dynamic ``add`` permission for content types to override.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">!=</span> <span class="s2">&quot;/&quot;</span></div>
+
+<div class="viewcode-block" id="Page.can_change"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.can_change">[docs]</a>    <span class="k">def</span> <span class="nf">can_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dynamic ``change`` permission for content types to override.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Page.can_delete"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.can_delete">[docs]</a>    <span class="k">def</span> <span class="nf">can_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dynamic ``delete`` permission for content types to override.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Page.can_move"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.can_move">[docs]</a>    <span class="k">def</span> <span class="nf">can_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dynamic ``move`` permission for content types to override. Controls</span>
+<span class="sd">        whether a given page move in the page tree is permitted. When the</span>
+<span class="sd">        permission is denied, raises a ``PageMoveException`` with a single</span>
+<span class="sd">        argument (message explaining the reason).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Page.set_helpers"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.set_helpers">[docs]</a>    <span class="k">def</span> <span class="nf">set_helpers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called from the ``page_menu`` template tag and assigns a</span>
+<span class="sd">        handful of properties based on the current page, that are used</span>
+<span class="sd">        within the various types of menus.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current_page</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;_current_page&quot;</span><span class="p">]</span>
+        <span class="n">current_page_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">current_page</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">current_parent_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">current_page</span><span class="p">,</span> <span class="s2">&quot;parent_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Am I a child of the current page?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_current_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_id</span> <span class="o">==</span> <span class="n">current_page_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_current_child</span>  <span class="c1"># Backward compatibility</span>
+        <span class="c1"># Is my parent the same as the current page&#39;s?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_current_sibling</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_id</span> <span class="o">==</span> <span class="n">current_parent_id</span>
+        <span class="c1"># Am I the current page?</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># No request context, most likely when tests are run.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_current</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">is_current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span> <span class="o">==</span> <span class="n">path_to_slug</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path_info</span><span class="p">)</span>
+
+        <span class="c1"># Is the current page me or any page up the parent chain?</span>
+        <span class="k">def</span> <span class="nf">is_c_or_a</span><span class="p">(</span><span class="n">page_id</span><span class="p">):</span>
+            <span class="n">parent_id</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_parent_page_ids&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">page_id</span> <span class="ow">or</span> <span class="p">(</span><span class="n">parent_id</span> <span class="ow">and</span> <span class="n">is_c_or_a</span><span class="p">(</span><span class="n">parent_id</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_current_or_ascendant</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">is_c_or_a</span><span class="p">(</span><span class="n">current_page_id</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_current_parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">current_parent_id</span>
+        <span class="c1"># Am I a primary page?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_primary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_id</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="c1"># What&#39;s an ID I can use in HTML?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">html_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slug</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="c1"># Default branch level - gets assigned in the page_menu tag.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">branch_level</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+    <span class="k">def</span> <span class="nf">in_menu_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_menus</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">PAGE_MENU_TEMPLATES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_menus</span> <span class="ow">and</span> <span class="n">t</span> <span class="o">==</span> <span class="n">template_name</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Page.get_template_name"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Page.get_template_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_template_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Subclasses can implement this to provide a template to use</span>
+<span class="sd">        in ``mezzanine.pages.views.page``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+
+
+<div class="viewcode-block" id="RichTextPage"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.RichTextPage">[docs]</a><span class="k">class</span> <span class="nc">RichTextPage</span><span class="p">(</span><span class="n">Page</span><span class="p">,</span> <span class="n">RichText</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements the default type of page with a single Rich Text</span>
+<span class="sd">    content field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Rich text page&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Rich text pages&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Link"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.Link">[docs]</a><span class="k">class</span> <span class="nc">Link</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A general content type for creating external links in the page</span>
+<span class="sd">    menu.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Link&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Links&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PageMoveException"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.models.PageMoveException">[docs]</a><span class="k">class</span> <span class="nc">PageMoveException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Raised by ``can_move()`` when the move permission is denied. Takes</span>
+<span class="sd">    an optinal single argument: a message explaining the denial.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="n">msg</span> <span class="ow">or</span> <span class="n">gettext</span><span class="p">(</span><span class="s2">&quot;Illegal page move&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">msg</span>
+
+    <span class="n">__unicode__</span> <span class="o">=</span> <span class="fm">__str__</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.pages.models</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

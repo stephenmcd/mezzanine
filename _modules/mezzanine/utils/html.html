@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.utils.html &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.html</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.utils.html</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">html.entities</span> <span class="kn">import</span> <span class="n">name2codepoint</span>
+<span class="kn">from</span> <span class="nn">html.parser</span> <span class="kn">import</span> <span class="n">HTMLParser</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.utils.deprecation</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+
+<span class="n">SELF_CLOSING_TAGS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;br&quot;</span><span class="p">,</span> <span class="s2">&quot;img&quot;</span><span class="p">]</span>
+<span class="n">NON_SELF_CLOSING_TAGS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="s2">&quot;iframe&quot;</span><span class="p">]</span>
+<span class="n">ABSOLUTE_URL_TAGS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;img&quot;</span><span class="p">:</span> <span class="s2">&quot;src&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="s2">&quot;iframe&quot;</span><span class="p">:</span> <span class="s2">&quot;src&quot;</span><span class="p">}</span>
+
+<span class="c1"># Tags and attributes added to richtext filtering whitelist when the</span>
+<span class="c1"># RICHTEXT_FILTER_LEVEL is set to low. General use-case for these is</span>
+<span class="c1"># allowing embedded video, but we will add to this fixed list over</span>
+<span class="c1"># time as more use-cases come up. We won&#39;t ever add script tags or</span>
+<span class="c1"># events (onclick etc) to this list. To enable those, filtering can</span>
+<span class="c1"># be turned off in the settings admin.</span>
+<span class="n">LOW_FILTER_TAGS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;iframe&quot;</span><span class="p">,</span> <span class="s2">&quot;embed&quot;</span><span class="p">,</span> <span class="s2">&quot;video&quot;</span><span class="p">,</span> <span class="s2">&quot;param&quot;</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;object&quot;</span><span class="p">)</span>
+<span class="n">LOW_FILTER_ATTRS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;allowfullscreen&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;autostart&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;loop&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;hidden&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;playcount&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;volume&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;controls&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;classid&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="absolute_urls"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.html.absolute_urls">[docs]</a><span class="k">def</span> <span class="nf">absolute_urls</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts relative URLs into absolute URLs. Used for RSS feeds to</span>
+<span class="sd">    provide more complete HTML for item descriptions, but could also</span>
+<span class="sd">    be used as a general richtext filter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+    <span class="kn">from</span> <span class="nn">mezzanine.core.request</span> <span class="kn">import</span> <span class="n">current_request</span>
+
+    <span class="n">request</span> <span class="o">=</span> <span class="n">current_request</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dom</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">ABSOLUTE_URL_TAGS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">dom</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
+                    <span class="n">node</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">build_absolute_uri</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dom</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">html</span></div>
+
+
+<div class="viewcode-block" id="decode_entities"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.html.decode_entities">[docs]</a><span class="k">def</span> <span class="nf">decode_entities</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove HTML entities from a string.</span>
+<span class="sd">    Adapted from http://effbot.org/zone/re-sub.htm#unescape-html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">html</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&amp;#&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">html</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&amp;#x&quot;</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">html</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">html</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">html</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">name2codepoint</span><span class="p">[</span><span class="n">html</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">html</span>
+
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&amp;#?\w+;&quot;</span><span class="p">,</span> <span class="n">decode</span><span class="p">,</span> <span class="n">html</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="escape"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.html.escape">[docs]</a><span class="nd">@mark_safe</span>
+<span class="k">def</span> <span class="nf">escape</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Escapes HTML according to the rules defined by the settings</span>
+<span class="sd">    ``RICHTEXT_FILTER_LEVEL``, ``RICHTEXT_ALLOWED_TAGS``,</span>
+<span class="sd">    ``RICHTEXT_ALLOWED_ATTRIBUTES``, ``RICHTEXT_ALLOWED_STYLES``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">bleach</span> <span class="kn">import</span> <span class="n">ALLOWED_PROTOCOLS</span><span class="p">,</span> <span class="n">clean</span>
+    <span class="kn">from</span> <span class="nn">bleach.css_sanitizer</span> <span class="kn">import</span> <span class="n">CSSSanitizer</span>
+
+    <span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+    <span class="kn">from</span> <span class="nn">mezzanine.core</span> <span class="kn">import</span> <span class="n">defaults</span>
+
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">RICHTEXT_FILTER_LEVEL</span> <span class="o">==</span> <span class="n">defaults</span><span class="o">.</span><span class="n">RICHTEXT_FILTER_LEVEL_NONE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">html</span>
+    <span class="n">tags</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">RICHTEXT_ALLOWED_TAGS</span>
+    <span class="n">attrs</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">RICHTEXT_ALLOWED_ATTRIBUTES</span>
+    <span class="n">css_sanitizer</span> <span class="o">=</span> <span class="n">CSSSanitizer</span><span class="p">(</span>
+        <span class="n">allowed_css_properties</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">RICHTEXT_ALLOWED_STYLES</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">RICHTEXT_FILTER_LEVEL</span> <span class="o">==</span> <span class="n">defaults</span><span class="o">.</span><span class="n">RICHTEXT_FILTER_LEVEL_LOW</span><span class="p">:</span>
+        <span class="n">tags</span> <span class="o">+=</span> <span class="n">LOW_FILTER_TAGS</span>
+        <span class="n">attrs</span> <span class="o">+=</span> <span class="n">LOW_FILTER_ATTRS</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">clean</span><span class="p">(</span>
+        <span class="n">html</span><span class="p">,</span>
+        <span class="n">tags</span><span class="o">=</span><span class="n">tags</span><span class="p">,</span>
+        <span class="n">attributes</span><span class="o">=</span><span class="n">attrs</span><span class="p">,</span>
+        <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">strip_comments</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">css_sanitizer</span><span class="o">=</span><span class="n">css_sanitizer</span><span class="p">,</span>
+        <span class="n">protocols</span><span class="o">=</span><span class="n">ALLOWED_PROTOCOLS</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;tel&quot;</span><span class="p">],</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="thumbnails"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.html.thumbnails">[docs]</a><span class="nd">@mark_safe</span>
+<span class="k">def</span> <span class="nf">thumbnails</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a HTML string, converts paths in img tags to thumbnail</span>
+<span class="sd">    paths, using Mezzanine&#39;s ``thumbnail`` template tag. Used as</span>
+<span class="sd">    one of the default values in the ``RICHTEXT_FILTERS`` setting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+    <span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+    <span class="kn">from</span> <span class="nn">mezzanine.core.templatetags.mezzanine_tags</span> <span class="kn">import</span> <span class="n">thumbnail</span>
+
+    <span class="c1"># If MEDIA_URL isn&#39;t in the HTML string, there aren&#39;t any</span>
+    <span class="c1"># images to replace, so bail early.</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">html</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">html</span>
+
+    <span class="n">dom</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">html</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">dom</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s2">&quot;img&quot;</span><span class="p">):</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">src_in_media</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">)</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">src_in_media</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">height</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="n">img</span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span> <span class="o">+</span> <span class="n">thumbnail</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+    <span class="c1"># BS adds closing br tags, which the browser interprets as br tags.</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">dom</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&lt;/br&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TagCloser"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.html.TagCloser">[docs]</a><span class="k">class</span> <span class="nc">TagCloser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    HTMLParser that closes open tags. Takes a HTML string as its first</span>
+<span class="sd">    arg, and populate a ``html`` attribute on the parser with the</span>
+<span class="sd">    original HTML arg and any required closing tags.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">):</span>
+        <span class="n">HTMLParser</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">html</span> <span class="o">=</span> <span class="n">html</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">html</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">html</span> <span class="o">+=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;&lt;/</span><span class="si">%s</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="n">tag</span> <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SELF_CLOSING_TAGS</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.html</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

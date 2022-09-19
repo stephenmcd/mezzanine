@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.forms.forms &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.forms.forms</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.forms.forms</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">split</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
+
+<span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.core.files.storage</span> <span class="kn">import</span> <span class="n">FileSystemStorage</span>
+<span class="kn">from</span> <span class="nn">django.forms.widgets</span> <span class="kn">import</span> <span class="n">SelectDateWidget</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django.utils.timezone</span> <span class="kn">import</span> <span class="n">now</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.forms</span> <span class="kn">import</span> <span class="n">fields</span>
+<span class="kn">from</span> <span class="nn">mezzanine.forms.models</span> <span class="kn">import</span> <span class="n">FieldEntry</span><span class="p">,</span> <span class="n">FormEntry</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.email</span> <span class="kn">import</span> <span class="n">split_addresses</span> <span class="k">as</span> <span class="n">split_choices</span>
+
+<span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystemStorage</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">FORMS_UPLOAD_ROOT</span><span class="p">)</span>
+
+<span class="c1">##############################</span>
+<span class="c1"># Each type of export filter #</span>
+<span class="c1">##############################</span>
+
+<span class="c1"># Text matches</span>
+<span class="n">FILTER_CHOICE_CONTAINS</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">FILTER_CHOICE_DOESNT_CONTAIN</span> <span class="o">=</span> <span class="s2">&quot;2&quot;</span>
+
+<span class="c1"># Exact matches</span>
+<span class="n">FILTER_CHOICE_EQUALS</span> <span class="o">=</span> <span class="s2">&quot;3&quot;</span>
+<span class="n">FILTER_CHOICE_DOESNT_EQUAL</span> <span class="o">=</span> <span class="s2">&quot;4&quot;</span>
+
+<span class="c1"># Greater/less than</span>
+<span class="n">FILTER_CHOICE_BETWEEN</span> <span class="o">=</span> <span class="s2">&quot;5&quot;</span>
+
+<span class="c1"># Multiple values</span>
+<span class="n">FILTER_CHOICE_CONTAINS_ANY</span> <span class="o">=</span> <span class="s2">&quot;6&quot;</span>
+<span class="n">FILTER_CHOICE_CONTAINS_ALL</span> <span class="o">=</span> <span class="s2">&quot;7&quot;</span>
+<span class="n">FILTER_CHOICE_DOESNT_CONTAIN_ANY</span> <span class="o">=</span> <span class="s2">&quot;8&quot;</span>
+<span class="n">FILTER_CHOICE_DOESNT_CONTAIN_ALL</span> <span class="o">=</span> <span class="s2">&quot;9&quot;</span>
+
+<span class="c1">##########################</span>
+<span class="c1"># Export filters grouped #</span>
+<span class="c1">##########################</span>
+
+<span class="c1"># Text fields</span>
+<span class="n">TEXT_FILTER_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Nothing&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_CONTAINS</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Contains&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_DOESNT_CONTAIN</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Doesn&#39;t contain&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_EQUALS</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Equals&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_DOESNT_EQUAL</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Doesn&#39;t equal&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="c1"># Choices with single value entries</span>
+<span class="n">CHOICE_FILTER_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Nothing&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_CONTAINS_ANY</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Equals any&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_DOESNT_CONTAIN_ANY</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Doesn&#39;t equal any&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="c1"># Choices with multiple value entries</span>
+<span class="n">MULTIPLE_FILTER_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Nothing&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_CONTAINS_ANY</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Contains any&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_CONTAINS_ALL</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Contains all&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_DOESNT_CONTAIN_ANY</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Doesn&#39;t contain any&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_DOESNT_CONTAIN_ALL</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Doesn&#39;t contain all&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="c1"># Dates</span>
+<span class="n">DATE_FILTER_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Nothing&quot;</span><span class="p">)),</span>
+    <span class="p">(</span><span class="n">FILTER_CHOICE_BETWEEN</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Is between&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+
+<span class="c1"># The filter function for each filter type</span>
+<span class="n">FILTER_FUNCS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">FILTER_CHOICE_CONTAINS</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">field</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+    <span class="n">FILTER_CHOICE_DOESNT_CONTAIN</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">field</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+    <span class="n">FILTER_CHOICE_EQUALS</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">field</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+    <span class="n">FILTER_CHOICE_DOESNT_EQUAL</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="n">val</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="n">field</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+    <span class="n">FILTER_CHOICE_BETWEEN</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val_from</span><span class="p">,</span> <span class="n">val_to</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="p">(</span>
+        <span class="p">(</span><span class="ow">not</span> <span class="n">val_from</span> <span class="ow">or</span> <span class="n">val_from</span> <span class="o">&lt;=</span> <span class="n">field</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">val_to</span> <span class="ow">or</span> <span class="n">val_to</span> <span class="o">&gt;=</span> <span class="n">field</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">FILTER_CHOICE_CONTAINS_ANY</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">set</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">split_choices</span><span class="p">(</span><span class="n">field</span><span class="p">)),</span>
+    <span class="n">FILTER_CHOICE_CONTAINS_ALL</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">set</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">split_choices</span><span class="p">(</span><span class="n">field</span><span class="p">)),</span>
+    <span class="n">FILTER_CHOICE_DOESNT_CONTAIN_ANY</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">split_choices</span><span class="p">(</span><span class="n">field</span><span class="p">)),</span>
+    <span class="n">FILTER_CHOICE_DOESNT_CONTAIN_ALL</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">,</span> <span class="n">field</span><span class="p">:</span> <span class="nb">set</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="n">split_choices</span><span class="p">(</span><span class="n">field</span><span class="p">)),</span>
+<span class="p">}</span>
+
+<span class="c1"># Export form fields for each filter type grouping</span>
+<span class="n">text_filter_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">TEXT_FILTER_CHOICES</span>
+<span class="p">)</span>
+<span class="n">choice_filter_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">CHOICE_FILTER_CHOICES</span>
+<span class="p">)</span>
+<span class="n">multiple_filter_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">MULTIPLE_FILTER_CHOICES</span>
+<span class="p">)</span>
+<span class="n">date_filter_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">DATE_FILTER_CHOICES</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="FormForForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.forms.FormForForm">[docs]</a><span class="k">class</span> <span class="nc">FormForForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Form with a set of fields dynamically assigned, directly based on the</span>
+<span class="sd">    given ``forms.models.Form`` instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">FormEntry</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">,</span> <span class="s2">&quot;entry_time&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dynamically add each of the form fields for the given form model</span>
+<span class="sd">        instance and its related field model instances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="n">form</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">visible</span><span class="p">()</span>
+        <span class="n">initial</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;initial&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="c1"># If a FormEntry instance is given to edit, populate initial</span>
+        <span class="c1"># with its field values.</span>
+        <span class="n">field_entries</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;instance&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">field_entry</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;instance&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+                <span class="n">field_entries</span><span class="p">[</span><span class="n">field_entry</span><span class="o">.</span><span class="n">field_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">value</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Create the form fields.</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span><span class="p">:</span>
+            <span class="n">field_key</span> <span class="o">=</span> <span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">field</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">field_class</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">CLASSES</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">field_type</span><span class="p">]</span>
+            <span class="n">field_widget</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">WIDGETS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">field_type</span><span class="p">)</span>
+            <span class="n">field_args</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">field</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+                <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="n">field</span><span class="o">.</span><span class="n">required</span><span class="p">,</span>
+                <span class="s2">&quot;help_text&quot;</span><span class="p">:</span> <span class="n">field</span><span class="o">.</span><span class="n">help_text</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">arg_names</span> <span class="o">=</span> <span class="n">field_class</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+            <span class="k">if</span> <span class="s2">&quot;max_length&quot;</span> <span class="ow">in</span> <span class="n">arg_names</span><span class="p">:</span>
+                <span class="n">field_args</span><span class="p">[</span><span class="s2">&quot;max_length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">FORMS_FIELD_MAX_LENGTH</span>
+            <span class="k">if</span> <span class="s2">&quot;choices&quot;</span> <span class="ow">in</span> <span class="n">arg_names</span><span class="p">:</span>
+                <span class="n">choices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">get_choices</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">field_type</span> <span class="o">==</span> <span class="n">fields</span><span class="o">.</span><span class="n">SELECT</span> <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">default</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">choices</span>
+                <span class="p">]:</span>
+                    <span class="n">choices</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">placeholder_text</span><span class="p">))</span>
+                <span class="n">field_args</span><span class="p">[</span><span class="s2">&quot;choices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">choices</span>
+            <span class="k">if</span> <span class="n">field_widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">field_args</span><span class="p">[</span><span class="s2">&quot;widget&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_widget</span>
+            <span class="c1">#</span>
+            <span class="c1">#   Initial value for field, in order of preference:</span>
+            <span class="c1">#</span>
+            <span class="c1"># - If a form model instance is given (eg we&#39;re editing a</span>
+            <span class="c1">#   form response), then use the instance&#39;s value for the</span>
+            <span class="c1">#   field.</span>
+            <span class="c1"># - If the developer has provided an explicit &quot;initial&quot;</span>
+            <span class="c1">#   dict, use it.</span>
+            <span class="c1"># - The default value for the field instance as given in</span>
+            <span class="c1">#   the admin.</span>
+            <span class="c1">#</span>
+            <span class="n">initial_val</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">initial_val</span> <span class="o">=</span> <span class="n">field_entries</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">initial_val</span> <span class="o">=</span> <span class="n">initial</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">initial_val</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Template</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">default</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">initial_val</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="o">.</span><span class="n">MULTIPLE</span><span class="p">):</span>
+                    <span class="n">initial_val</span> <span class="o">=</span> <span class="n">split_choices</span><span class="p">(</span><span class="n">initial_val</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">field</span><span class="o">.</span><span class="n">field_type</span> <span class="o">==</span> <span class="n">fields</span><span class="o">.</span><span class="n">CHECKBOX</span><span class="p">:</span>
+                    <span class="n">initial_val</span> <span class="o">=</span> <span class="n">initial_val</span> <span class="o">!=</span> <span class="s2">&quot;False&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initial</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_val</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_class</span><span class="p">(</span><span class="o">**</span><span class="n">field_args</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">field_type</span> <span class="o">==</span> <span class="n">fields</span><span class="o">.</span><span class="n">DOB</span><span class="p">:</span>
+                <span class="n">_now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+                <span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">_now</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">_now</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="mi">120</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">years</span> <span class="o">=</span> <span class="n">years</span>
+
+            <span class="c1"># Add identifying type attr to the field for styling.</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field_key</span><span class="p">],</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">field_class</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">field</span><span class="o">.</span><span class="n">required</span>
+                <span class="ow">and</span> <span class="n">settings</span><span class="o">.</span><span class="n">FORMS_USE_HTML5</span>
+                <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">field_type</span> <span class="o">!=</span> <span class="n">fields</span><span class="o">.</span><span class="n">CHECKBOX_MULTIPLE</span>
+            <span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;required&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">placeholder_text</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">field</span><span class="o">.</span><span class="n">default</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">placeholder_text</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;placeholder&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">text</span>
+
+<div class="viewcode-block" id="FormForForm.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.forms.FormForForm.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a ``FormEntry`` instance and related ``FieldEntry``</span>
+<span class="sd">        instances for each form field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">entry_time</span> <span class="o">=</span> <span class="n">now</span><span class="p">()</span>
+        <span class="n">entry</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">entry_fields</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s2">&quot;field_id&quot;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">new_entry_fields</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span><span class="p">:</span>
+            <span class="n">field_key</span> <span class="o">=</span> <span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">field</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">field_key</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">needs_multipart_form</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;forms&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">()),</span> <span class="n">value</span><span class="o">.</span><span class="n">name</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">entry_fields</span><span class="p">:</span>
+                <span class="n">field_entry</span> <span class="o">=</span> <span class="n">entry</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field_id</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">field_entry</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="n">field_entry</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;entry&quot;</span><span class="p">:</span> <span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;field_id&quot;</span><span class="p">:</span> <span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+                <span class="n">new_entry_fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">FieldEntry</span><span class="p">(</span><span class="o">**</span><span class="n">new</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">new_entry_fields</span><span class="p">:</span>
+            <span class="n">FieldEntry</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">new_entry_fields</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">entry</span></div>
+
+<div class="viewcode-block" id="FormForForm.email_to"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.forms.FormForForm.email_to">[docs]</a>    <span class="k">def</span> <span class="nf">email_to</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value entered for the first field of type</span>
+<span class="sd">        ``forms.EmailField``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">CLASSES</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">field_type</span><span class="p">],</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="k">return</span> <span class="kc">None</span></div></div>
+
+
+<div class="viewcode-block" id="EntriesForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.forms.EntriesForm">[docs]</a><span class="k">class</span> <span class="nc">EntriesForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Form with a set of fields dynamically assigned that can be used to</span>
+<span class="sd">    filter entries for the given ``forms.models.Form`` instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate through the fields of the ``forms.models.Form`` instance and</span>
+<span class="sd">        create the form fields required to control including the field in</span>
+<span class="sd">        the export (with a checkbox) or filtering the field which differs</span>
+<span class="sd">        across field types. User a list of checkboxes when a fixed set of</span>
+<span class="sd">        choices can be chosen from, a pair of date fields for date ranges,</span>
+<span class="sd">        and for all other types provide a textbox for text search.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">form</span> <span class="o">=</span> <span class="n">form</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_time_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">FormEntry</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_field</span><span class="p">(</span><span class="s2">&quot;entry_time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">verbose_name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span><span class="p">:</span>
+            <span class="n">field_key</span> <span class="o">=</span> <span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">field</span><span class="o">.</span><span class="n">id</span>
+            <span class="c1"># Checkbox for including in export.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_export&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="o">.</span><span class="n">CHOICES</span><span class="p">):</span>
+                <span class="c1"># A fixed set of choices to filter by.</span>
+                <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">CHECKBOX</span><span class="p">):</span>
+                    <span class="n">choices</span> <span class="o">=</span> <span class="p">((</span><span class="kc">True</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Checked&quot;</span><span class="p">)),</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Not checked&quot;</span><span class="p">)))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">choices</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">get_choices</span><span class="p">()</span>
+                <span class="n">contains_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
+                    <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span>
+                    <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">(),</span>
+                    <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_filter&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">choice_filter_field</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_contains&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">contains_field</span>
+            <span class="k">elif</span> <span class="n">field</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="o">.</span><span class="n">MULTIPLE</span><span class="p">):</span>
+                <span class="c1"># A fixed set of choices to filter by, with multiple</span>
+                <span class="c1"># possible values in the entry field.</span>
+                <span class="n">contains_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">MultipleChoiceField</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
+                    <span class="n">choices</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">get_choices</span><span class="p">(),</span>
+                    <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">CheckboxSelectMultiple</span><span class="p">(),</span>
+                    <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_filter&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">multiple_filter_field</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_contains&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">contains_field</span>
+            <span class="k">elif</span> <span class="n">field</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="o">.</span><span class="n">DATES</span><span class="p">):</span>
+                <span class="c1"># A date range to filter by.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_filter&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_filter_field</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_from&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">SelectDateWidget</span><span class="p">(),</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_to&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;and&quot;</span><span class="p">),</span> <span class="n">widget</span><span class="o">=</span><span class="n">SelectDateWidget</span><span class="p">(),</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Text box for search term to filter by.</span>
+                <span class="n">contains_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_filter&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">text_filter_field</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_contains&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">contains_field</span>
+        <span class="c1"># Add ``FormEntry.entry_time`` as a field.</span>
+        <span class="n">field_key</span> <span class="o">=</span> <span class="s2">&quot;field_0&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_export&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span>
+            <span class="n">initial</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">FormEntry</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_field</span><span class="p">(</span><span class="s2">&quot;entry_time&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">verbose_name</span><span class="p">,</span>
+            <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_filter&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">date_filter_field</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_from&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">widget</span><span class="o">=</span><span class="n">SelectDateWidget</span><span class="p">(),</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_to&quot;</span> <span class="o">%</span> <span class="n">field_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;and&quot;</span><span class="p">),</span> <span class="n">widget</span><span class="o">=</span><span class="n">SelectDateWidget</span><span class="p">(),</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Yield pairs of include checkbox / filters for each field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">field_id</span> <span class="ow">in</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">_&quot;</span> <span class="o">%</span> <span class="n">field_id</span>
+            <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">f</span>
+                <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">super</span><span class="p">(</span><span class="n">EntriesForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__iter__</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+            <span class="p">]</span>
+            <span class="k">yield</span> <span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">fields</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+
+<div class="viewcode-block" id="EntriesForm.columns"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.forms.EntriesForm.columns">[docs]</a>    <span class="k">def</span> <span class="nf">columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the list of selected column names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">label</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">_export&quot;</span> <span class="o">%</span> <span class="n">f</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_0_export&quot;</span><span class="p">]:</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entry_time_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fields</span></div>
+
+<div class="viewcode-block" id="EntriesForm.rows"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.forms.EntriesForm.rows">[docs]</a>    <span class="k">def</span> <span class="nf">rows</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns each row based on the selected criteria.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Store the index of each field against its ID for building each</span>
+        <span class="c1"># entry row with columns in the correct order. Also store the IDs of</span>
+        <span class="c1"># fields with a type of FileField or Date-like for special handling of</span>
+        <span class="c1"># their values.</span>
+        <span class="n">field_indexes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">file_field_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">date_field_ids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_fields</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">_export&quot;</span> <span class="o">%</span> <span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">]:</span>
+                <span class="n">field_indexes</span><span class="p">[</span><span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">field_indexes</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="n">fields</span><span class="o">.</span><span class="n">FILE</span><span class="p">):</span>
+                    <span class="n">file_field_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">field</span><span class="o">.</span><span class="n">is_a</span><span class="p">(</span><span class="o">*</span><span class="n">fields</span><span class="o">.</span><span class="n">DATES</span><span class="p">):</span>
+                    <span class="n">date_field_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">num_columns</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">field_indexes</span><span class="p">)</span>
+        <span class="n">include_entry_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_0_export&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">include_entry_time</span><span class="p">:</span>
+            <span class="n">num_columns</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># Get the field entries for the given form and filter by entry_time</span>
+        <span class="c1"># if specified.</span>
+        <span class="n">field_entries</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">FieldEntry</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">entry__form</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s2">&quot;-entry__id&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s2">&quot;entry&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_0_filter&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">FILTER_CHOICE_BETWEEN</span><span class="p">:</span>
+            <span class="n">time_from</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_0_from&quot;</span><span class="p">]</span>
+            <span class="n">time_to</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;field_0_to&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">time_from</span> <span class="ow">and</span> <span class="n">time_to</span><span class="p">:</span>
+                <span class="n">field_entries</span> <span class="o">=</span> <span class="n">field_entries</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+                    <span class="n">entry__entry_time__range</span><span class="o">=</span><span class="p">(</span><span class="n">time_from</span><span class="p">,</span> <span class="n">time_to</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Loop through each field value ordered by entry, building up each</span>
+        <span class="c1"># entry as a row. Use the ``valid_row`` flag for marking a row as</span>
+        <span class="c1"># invalid if it fails one of the filtering criteria specified.</span>
+        <span class="n">current_entry</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">current_row</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">valid_row</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">field_entry</span> <span class="ow">in</span> <span class="n">field_entries</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">entry_id</span> <span class="o">!=</span> <span class="n">current_entry</span><span class="p">:</span>
+                <span class="c1"># New entry, write out the current row and start a new one.</span>
+                <span class="k">if</span> <span class="n">valid_row</span> <span class="ow">and</span> <span class="n">current_row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">csv</span><span class="p">:</span>
+                        <span class="n">current_row</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">current_entry</span><span class="p">)</span>
+                    <span class="k">yield</span> <span class="n">current_row</span>
+                <span class="n">current_entry</span> <span class="o">=</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">entry_id</span>
+                <span class="n">current_row</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_columns</span>
+                <span class="n">valid_row</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">if</span> <span class="n">include_entry_time</span><span class="p">:</span>
+                    <span class="n">current_row</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_time</span>
+            <span class="n">field_value</span> <span class="o">=</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">value</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+            <span class="c1"># Check for filter.</span>
+            <span class="n">field_id</span> <span class="o">=</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">field_id</span>
+            <span class="n">filter_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">_filter&quot;</span> <span class="o">%</span> <span class="n">field_id</span><span class="p">)</span>
+            <span class="n">filter_args</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">filter_type</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">filter_type</span> <span class="o">==</span> <span class="n">FILTER_CHOICE_BETWEEN</span><span class="p">:</span>
+                    <span class="n">f</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">_from&quot;</span> <span class="o">%</span> <span class="n">field_id</span><span class="p">,</span> <span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">_to&quot;</span> <span class="o">%</span> <span class="n">field_id</span>
+                    <span class="n">filter_args</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="n">f</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="n">t</span><span class="p">]]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">field_name</span> <span class="o">=</span> <span class="s2">&quot;field_</span><span class="si">%s</span><span class="s2">_contains&quot;</span> <span class="o">%</span> <span class="n">field_id</span>
+                    <span class="n">filter_args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="n">field_name</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">filter_args</span><span class="p">:</span>
+                        <span class="n">filter_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">filter_args</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">filter_args</span><span class="p">:</span>
+                <span class="c1"># Convert dates before checking filter.</span>
+                <span class="k">if</span> <span class="n">field_id</span> <span class="ow">in</span> <span class="n">date_field_ids</span><span class="p">:</span>
+                    <span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">field_value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+                    <span class="n">dte</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+                    <span class="n">filter_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dte</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">filter_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">field_value</span><span class="p">)</span>
+                <span class="n">filter_func</span> <span class="o">=</span> <span class="n">FILTER_FUNCS</span><span class="p">[</span><span class="n">filter_type</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">filter_func</span><span class="p">(</span><span class="o">*</span><span class="n">filter_args</span><span class="p">):</span>
+                    <span class="n">valid_row</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="c1"># Create download URL for file fields.</span>
+            <span class="k">if</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">value</span> <span class="ow">and</span> <span class="n">field_id</span> <span class="ow">in</span> <span class="n">file_field_ids</span><span class="p">:</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;admin:form_file&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">field_entry</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+                <span class="n">field_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">build_absolute_uri</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">csv</span><span class="p">:</span>
+                    <span class="n">parts</span> <span class="o">=</span> <span class="p">(</span><span class="n">field_value</span><span class="p">,</span> <span class="n">split</span><span class="p">(</span><span class="n">field_entry</span><span class="o">.</span><span class="n">value</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">field_value</span> <span class="o">=</span> <span class="n">mark_safe</span><span class="p">(</span><span class="s1">&#39;&lt;a href=&quot;</span><span class="si">%s</span><span class="s1">&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/a&gt;&#39;</span> <span class="o">%</span> <span class="n">parts</span><span class="p">)</span>
+            <span class="c1"># Only use values for fields that were selected.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">current_row</span><span class="p">[</span><span class="n">field_indexes</span><span class="p">[</span><span class="n">field_id</span><span class="p">]]</span> <span class="o">=</span> <span class="n">field_value</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="c1"># Output the final row.</span>
+        <span class="k">if</span> <span class="n">valid_row</span> <span class="ow">and</span> <span class="n">current_row</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">csv</span><span class="p">:</span>
+                <span class="n">current_row</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">current_entry</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">current_row</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.forms.forms</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

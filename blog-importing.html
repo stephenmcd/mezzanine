@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Importing External Blogs &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Twitter Integration" href="twitter-integration.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="twitter-integration.html" title="Twitter Integration"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Importing External Blogs</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="importing-external-blogs">
+<h1>Importing External Blogs<a class="headerlink" href="#importing-external-blogs" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine has the ability to import blog posts from other blogging
+platforms using a <a class="reference external" href="http://docs.djangoproject.com/en/dev/howto/custom-management-commands/">Django management command</a>.
+These are the currently supported formats and their commands:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="http://wordpress.org">WordPress</a>: <code class="docutils literal notranslate"><span class="pre">import_wordpress</span></code></p></li>
+<li><p><a class="reference external" href="http://blogger.com">Blogger</a>: <code class="docutils literal notranslate"><span class="pre">import_blogger</span></code></p></li>
+<li><p><a class="reference external" href="http://tumblr.com">Tumblr</a>: <code class="docutils literal notranslate"><span class="pre">import_tumblr</span></code></p></li>
+<li><p><a class="reference external" href="http://posterous.com">Posterous</a>: <code class="docutils literal notranslate"><span class="pre">import_posterous</span></code></p></li>
+<li><p><a class="reference external" href="http://en.wikipedia.org/wiki/RSS">RSS</a>: <code class="docutils literal notranslate"><span class="pre">import_rss</span></code></p></li>
+<li><p><a class="reference external" href="http://en.wikipedia.org/wiki/BlogML">BlogML</a>: <code class="docutils literal notranslate"><span class="pre">import_blogml</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>Each command takes a Mezzanine username to assign the blog posts to
+as well as certain arguments specific to the blog platform. For
+example to import an existing Wordpress blog:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_wordpress --mezzanine-user=username [options]
+</pre></div>
+</div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">--help</span></code> argument to learn more about the arguments specific
+to each blog platform’s command. For example you can see all options
+for Wordpress by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_wordpress --help
+</pre></div>
+</div>
+<section id="considerations">
+<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this heading">¶</a></h2>
+<p>There are some known issues with HTML formatting loss - specifically
+where a heading tag is followed by a paragraph tag or another block
+HTML element that is not typically enclosed with a <code class="docutils literal notranslate"><span class="pre">&lt;p&gt;</span></code> tag is
+followed by a paragraph. This depends heavily on the originating
+platform and how it encodes the blog post’s copy. The import processor
+gets this about 90% correct but you may need to do some quick clean up
+afterwards.</p>
+<p>Generally speaking you shouldn’t be able to import your data twice.
+There is a check in place to either create or update for both comments
+and posts as they are processed, so even if you run the importer
+multiple times you should only end up with data imported once. However
+if you have changed any data this will be overwritten.</p>
+</section>
+<section id="importing-from-wordpress">
+<h2>Importing from Wordpress<a class="headerlink" href="#importing-from-wordpress" title="Permalink to this heading">¶</a></h2>
+<section id="dependencies">
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Mark Pilgrim’s <a class="reference external" href="http://code.google.com/p/feedparser/">feedparser</a></p></li>
+</ul>
+</div></blockquote>
+<p>The first step is to export your Wordpress data. Login to Wordpress and
+go to <code class="docutils literal notranslate"><span class="pre">Tools</span> <span class="pre">-&gt;</span> <span class="pre">Export</span></code>. Here you can select your filters,
+otherwise only published posts will be exported. Once you have saved
+your export file make a note of the location you saved it to.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is faster to import directly from your filesystem if you can,
+especially if you have a large blog with lots of comments.</p>
+</div>
+<p>The next step is to run the <code class="docutils literal notranslate"><span class="pre">import_wordpress</span></code> command where the
+<code class="docutils literal notranslate"><span class="pre">url</span></code> argument contains the path or URL to your export file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_wordpress --mezzanine-user=.. --url=[path|URL]
+</pre></div>
+</div>
+</section>
+</section>
+<section id="importing-from-blogger">
+<h2>Importing from Blogger<a class="headerlink" href="#importing-from-blogger" title="Permalink to this heading">¶</a></h2>
+<p>The Blogger import currently has one known limitation which is a
+maximum of 500 blogs or 500 comments per blog that can be imported.
+If you have more than this the import will still work but end up being
+truncated.</p>
+<section id="id1">
+<h3>Dependencies<a class="headerlink" href="#id1" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Google’s <a class="reference external" href="http://code.google.com/p/gdata-python-client/">gdata</a> Library</p></li>
+</ul>
+</div></blockquote>
+<p>The first step is to obtain your Blogger ID. Login to Blogger and go to
+<code class="docutils literal notranslate"><span class="pre">Settings</span></code>. You’ll see that the address in your browser end with
+<code class="docutils literal notranslate"><span class="pre">BlogID=XXX</span></code> where <code class="docutils literal notranslate"><span class="pre">XXX</span></code> is your Blogger ID. Make a note of this
+and while you’re in settings, go to <code class="docutils literal notranslate"><span class="pre">Site</span> <span class="pre">Feed</span></code> then set <code class="docutils literal notranslate"><span class="pre">Allow</span> <span class="pre">Blog</span>
+<span class="pre">Feeds</span></code> to be <code class="docutils literal notranslate"><span class="pre">Full</span></code> - this will give you all your data when you run
+the import.</p>
+<p>The next step is to run the <code class="docutils literal notranslate"><span class="pre">import_blogger</span></code> command where the
+<code class="docutils literal notranslate"><span class="pre">blogger-id</span></code> argument contains the Blogger ID you retrieved:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_blogger --mezzanine-user=.. --blogger-id=XXX
+</pre></div>
+</div>
+</section>
+</section>
+<section id="importing-from-tumblr">
+<h2>Importing from Tumblr<a class="headerlink" href="#importing-from-tumblr" title="Permalink to this heading">¶</a></h2>
+<p>Simply run the <code class="docutils literal notranslate"><span class="pre">import_tumblr</span></code> command where the <code class="docutils literal notranslate"><span class="pre">tumblr-user</span></code>
+argument contains your Tumblr username:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_blogger --mezzanine-user=.. --tumblr-user=username
+</pre></div>
+</div>
+</section>
+<section id="importing-rss">
+<h2>Importing RSS<a class="headerlink" href="#importing-rss" title="Permalink to this heading">¶</a></h2>
+<section id="id2">
+<h3>Dependencies<a class="headerlink" href="#id2" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Mark Pilgrim’s <a class="reference external" href="http://code.google.com/p/feedparser/">feedparser</a></p></li>
+</ul>
+</div></blockquote>
+<p>Simply run the <code class="docutils literal notranslate"><span class="pre">import_rss</span></code> command where the <code class="docutils literal notranslate"><span class="pre">rss-url</span></code> argument
+contains the URL for your RSS feed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_rss --mezzanine-user=.. --rss-url=url
+</pre></div>
+</div>
+</section>
+</section>
+<section id="importing-from-posterous">
+<h2>Importing from Posterous<a class="headerlink" href="#importing-from-posterous" title="Permalink to this heading">¶</a></h2>
+<section id="id4">
+<h3>Dependencies<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>Kenneth Reitz’s <a class="reference external" href="http://docs.python-requests.org/en/latest/index.html">requests</a></p></li>
+</ul>
+</div></blockquote>
+<p>Simply run <code class="docutils literal notranslate"><span class="pre">import_posterous</span></code> command with the right params. You need
+to get your API key from the <a class="reference external" href="https://posterous.com/api">Posterous API Reference</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_posterous --mezzanine-user=.. --api-token=.. --posterous-user=your_posterous_login --posterous-pass=your_posterous_password
+</pre></div>
+</div>
+<p>If you have more than one blog on your posterous account check out
+the <code class="docutils literal notranslate"><span class="pre">-posterous-host</span></code> option. Be aware that like the tumblr
+importer, this leaves your media assets on the Posterous servers.
+If you’re worried about posterous being shut down you may want want
+to have a closer look at the API to actually export your media.</p>
+</section>
+</section>
+<section id="importing-blogml">
+<h2>Importing BlogML<a class="headerlink" href="#importing-blogml" title="Permalink to this heading">¶</a></h2>
+<section id="id5">
+<h3>Dependencies<a class="headerlink" href="#id5" title="Permalink to this heading">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://dateutil.readthedocs.org/en/latest/">Python-dateutil</a></p></li>
+</ul>
+</div></blockquote>
+<p>Simply run the <code class="docutils literal notranslate"><span class="pre">import_blogml</span></code> command where the <code class="docutils literal notranslate"><span class="pre">blogxmlfname</span></code> argument
+contains local blogml file name:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py import_blogml --blogxmlfname=filename
+</pre></div>
+</div>
+</section>
+</section>
+<section id="importer-api-adding-new-importers">
+<h2>Importer API - Adding New Importers<a class="headerlink" href="#importer-api-adding-new-importers" title="Permalink to this heading">¶</a></h2>
+<p>The importer system has been designed to be extensible so that import
+commands can easily be added for other blogging platforms.</p>
+<p>Each importer’s management command is located in the
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.blog.management.commands</span></code> package, and should have its
+module named <code class="docutils literal notranslate"><span class="pre">import_type</span></code> where <code class="docutils literal notranslate"><span class="pre">type</span></code> represents the type of
+import the command is for. This module will then contain a class named
+<code class="docutils literal notranslate"><span class="pre">Command</span></code> which subclasses
+<a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand" title="mezzanine.blog.management.base.BaseImporterCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.blog.management.base.BaseImporterCommand</span></code></a>.</p>
+<p>The first step is to define any custom arguments the command will
+require using Python’s <a class="reference external" href="http://docs.python.org/library/argparse.html">argparse</a> handling.</p>
+<p>The main responsibility of the <code class="docutils literal notranslate"><span class="pre">Command</span></code> class is then to implement a
+<a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand.handle_import" title="mezzanine.blog.management.base.BaseImporterCommand.handle_import"><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle_import()</span></code></a>
+method which handles retrieving blog posts and comments from the
+particular blogging platform. The <a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand.handle_import" title="mezzanine.blog.management.base.BaseImporterCommand.handle_import"><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle_import()</span></code></a> method is passed a dictionary
+of options for the command. The <a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand.add_post" title="mezzanine.blog.management.base.BaseImporterCommand.add_post"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_post()</span></code></a> and <a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand.add_comment" title="mezzanine.blog.management.base.BaseImporterCommand.add_comment"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_comment()</span></code></a> methods should be called inside
+the <a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand.handle_import" title="mezzanine.blog.management.base.BaseImporterCommand.handle_import"><code class="xref py py-meth docutils literal notranslate"><span class="pre">handle_import()</span></code></a> method, adding posts and comments respectively. The
+<a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand.add_post" title="mezzanine.blog.management.base.BaseImporterCommand.add_post"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_post()</span></code></a>
+method returns a post to be used with the <a class="reference internal" href="packages.html#mezzanine.blog.management.base.BaseImporterCommand.add_comment" title="mezzanine.blog.management.base.BaseImporterCommand.add_comment"><code class="xref py py-meth docutils literal notranslate"><span class="pre">add_comment()</span></code></a> method. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">optparse</span> <span class="kn">import</span> <span class="n">make_option</span>
+<span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">CommandError</span>
+<span class="kn">from</span> <span class="nn">mezzanine.blog.management.base</span> <span class="kn">import</span> <span class="n">BaseImporterCommand</span>
+
+<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseImporterCommand</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Command</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">add_arguments</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;--some-arg-name&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;some_arg_var&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Description of some-arg-name&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">handle_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="c1"># Perform the tasks that need to occur to retrieve blog posts.</span>
+        <span class="c1"># We&#39;ll use an imaginary &quot;posts&quot; variable that contains a list of</span>
+        <span class="c1"># post dicts with keys: title, author, pub_date, tags and content.</span>
+        <span class="c1"># In this example we have access to the command line argument</span>
+        <span class="c1"># &quot;some-arg-name&quot; via &quot;options[&quot;some_arg_var&quot;]&quot;.</span>
+        <span class="k">for</span> <span class="n">retrieved_post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+            <span class="n">added_post</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_post</span><span class="p">(</span><span class="o">**</span><span class="n">retrieved_post</span><span class="p">)</span>
+            <span class="c1"># Another imaginary variable to demo the API.</span>
+            <span class="k">for</span> <span class="n">retrieved_comment</span> <span class="ow">in</span> <span class="n">comments</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_comment</span><span class="p">(</span><span class="n">post</span><span class="o">=</span><span class="n">added_post</span><span class="p">,</span> <span class="o">**</span><span class="n">retrieved_comment</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Importing External Blogs</a><ul>
+<li><a class="reference internal" href="#considerations">Considerations</a></li>
+<li><a class="reference internal" href="#importing-from-wordpress">Importing from Wordpress</a><ul>
+<li><a class="reference internal" href="#dependencies">Dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#importing-from-blogger">Importing from Blogger</a><ul>
+<li><a class="reference internal" href="#id1">Dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#importing-from-tumblr">Importing from Tumblr</a></li>
+<li><a class="reference internal" href="#importing-rss">Importing RSS</a><ul>
+<li><a class="reference internal" href="#id2">Dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#importing-from-posterous">Importing from Posterous</a><ul>
+<li><a class="reference internal" href="#id4">Dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#importing-blogml">Importing BlogML</a><ul>
+<li><a class="reference internal" href="#id5">Dependencies</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#importer-api-adding-new-importers">Importer API - Adding New Importers</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="configuration.html"
+                          title="previous chapter">Configuration</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="twitter-integration.html"
+                          title="next chapter">Twitter Integration</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/blog-importing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="twitter-integration.html" title="Twitter Integration"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Configuration"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Importing External Blogs</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

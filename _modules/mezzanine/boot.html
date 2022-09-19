@@ -1,0 +1,215 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.boot &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mezzanine.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.boot</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.boot</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">An app that is forced to the top of the list in ``INSTALLED_APPS``</span>
+<span class="sd">for the purpose of hooking into Django&#39;s ``class_prepared`` signal</span>
+<span class="sd">and adding custom fields as defined by the ``EXTRA_MODEL_FIELDS``</span>
+<span class="sd">setting. Also patches ``django.contrib.admin.site`` to use</span>
+<span class="sd">``LazyAdminSite`` that defers certains register/unregister calls</span>
+<span class="sd">until ``admin.autodiscover`` to avoid some timing issues around</span>
+<span class="sd">custom fields not being available when custom admin classes are</span>
+<span class="sd">registered.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">apps</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.boot.lazy_admin</span> <span class="kn">import</span> <span class="n">LazyAdminSite</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.importing</span> <span class="kn">import</span> <span class="n">import_dotted_path</span>
+
+
+<div class="viewcode-block" id="parse_field_path"><a class="viewcode-back" href="../../packages.html#mezzanine.boot.parse_field_path">[docs]</a><span class="k">def</span> <span class="nf">parse_field_path</span><span class="p">(</span><span class="n">field_path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Take a path to a field like &quot;mezzanine.pages.models.Page.feature_image&quot;</span>
+<span class="sd">    and return a model key, which is a tuple of the form (&#39;pages&#39;, &#39;page&#39;),</span>
+<span class="sd">    and a field name, e.g. &quot;feature_image&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_path</span><span class="p">,</span> <span class="n">field_name</span> <span class="o">=</span> <span class="n">field_path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">app_name</span><span class="p">,</span> <span class="n">model_name</span> <span class="o">=</span> <span class="n">model_path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.models.&quot;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">app_label</span> <span class="o">=</span> <span class="n">app_name</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">app_label</span><span class="p">,</span> <span class="n">model_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span> <span class="n">field_name</span></div>
+
+
+<div class="viewcode-block" id="import_field"><a class="viewcode-back" href="../../packages.html#mezzanine.boot.import_field">[docs]</a><span class="k">def</span> <span class="nf">import_field</span><span class="p">(</span><span class="n">field_classpath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Imports a field by its dotted class path, prepending &quot;django.db.models&quot;</span>
+<span class="sd">    to raw class names and raising an exception if the import fails.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">field_classpath</span><span class="p">:</span>
+        <span class="n">fully_qualified</span> <span class="o">=</span> <span class="n">field_classpath</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fully_qualified</span> <span class="o">=</span> <span class="s2">&quot;django.db.models.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">field_classpath</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">import_dotted_path</span><span class="p">(</span><span class="n">fully_qualified</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+            <span class="s2">&quot;The EXTRA_MODEL_FIELDS setting contains &quot;</span>
+            <span class="s2">&quot;the field &#39;</span><span class="si">%s</span><span class="s2">&#39; which could not be &quot;</span>
+            <span class="s2">&quot;imported.&quot;</span> <span class="o">%</span> <span class="n">field_classpath</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parse_extra_model_fields"><a class="viewcode-back" href="../../packages.html#mezzanine.boot.parse_extra_model_fields">[docs]</a><span class="k">def</span> <span class="nf">parse_extra_model_fields</span><span class="p">(</span><span class="n">extra_model_fields</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses the value of EXTRA_MODEL_FIELDS, grouping the entries by model</span>
+<span class="sd">    and instantiating the extra fields. Returns a sequence of tuples of</span>
+<span class="sd">    the form (model_key, fields) where model_key is a pair of app_label,</span>
+<span class="sd">    model_name and fields is a list of (field_name, field_instance) pairs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">extra_model_fields</span><span class="p">:</span>
+        <span class="n">model_key</span><span class="p">,</span> <span class="n">field_name</span> <span class="o">=</span> <span class="n">parse_field_path</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">field_class</span> <span class="o">=</span> <span class="n">import_field</span><span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">field_args</span><span class="p">,</span> <span class="n">field_kwargs</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">field</span> <span class="o">=</span> <span class="n">field_class</span><span class="p">(</span><span class="o">*</span><span class="n">field_args</span><span class="p">,</span> <span class="o">**</span><span class="n">field_kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+                <span class="s2">&quot;The EXTRA_MODEL_FIELDS setting contains arguments for the &quot;</span>
+                <span class="s2">&quot;field &#39;</span><span class="si">%s</span><span class="s2">&#39; which could not be applied: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">entry</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">e</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">fields</span><span class="p">[</span><span class="n">model_key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="n">field</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">fields</span></div>
+
+
+<span class="n">fields</span> <span class="o">=</span> <span class="n">parse_extra_model_fields</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;EXTRA_MODEL_FIELDS&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+
+
+<div class="viewcode-block" id="add_extra_model_fields"><a class="viewcode-back" href="../../packages.html#mezzanine.boot.add_extra_model_fields">[docs]</a><span class="k">def</span> <span class="nf">add_extra_model_fields</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Injects custom fields onto the given sender model as defined</span>
+<span class="sd">    by the ``EXTRA_MODEL_FIELDS`` setting. This is a closure over</span>
+<span class="sd">    the &quot;fields&quot; variable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_key</span> <span class="o">=</span> <span class="n">sender</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span><span class="p">,</span> <span class="n">sender</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">model_name</span>
+    <span class="k">for</span> <span class="n">field_name</span><span class="p">,</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">model_key</span><span class="p">,</span> <span class="p">{}):</span>
+        <span class="n">field</span><span class="o">.</span><span class="n">contribute_to_class</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">field_name</span><span class="p">)</span></div>
+
+
+<span class="k">for</span> <span class="n">model_key</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+    <span class="n">apps</span><span class="o">.</span><span class="n">lazy_model_operation</span><span class="p">(</span><span class="n">add_extra_model_fields</span><span class="p">,</span> <span class="n">model_key</span><span class="p">)</span>
+
+
+<span class="c1"># Override django.contrib.admin.site with LazyAdminSite. It must</span>
+<span class="c1"># be bound to a separate name (admin_site) for access in autodiscover</span>
+<span class="c1"># below.</span>
+
+<span class="n">admin_site</span> <span class="o">=</span> <span class="n">LazyAdminSite</span><span class="p">()</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span> <span class="o">=</span> <span class="n">admin_site</span>
+<span class="n">django_autodiscover</span> <span class="o">=</span> <span class="n">admin</span><span class="o">.</span><span class="n">autodiscover</span>
+
+
+<div class="viewcode-block" id="autodiscover"><a class="viewcode-back" href="../../packages.html#mezzanine.boot.autodiscover">[docs]</a><span class="k">def</span> <span class="nf">autodiscover</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Replaces django&#39;s original autodiscover to add a call to</span>
+<span class="sd">    LazyAdminSite&#39;s lazy_registration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">django_autodiscover</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">admin_site</span><span class="o">.</span><span class="n">lazy_registration</span><span class="p">()</span></div>
+
+
+<span class="n">admin</span><span class="o">.</span><span class="n">autodiscover</span> <span class="o">=</span> <span class="n">autodiscover</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.boot</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

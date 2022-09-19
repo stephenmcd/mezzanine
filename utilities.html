@@ -1,0 +1,425 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Utilities &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Graph" href="model-graph.html" />
+    <link rel="prev" title="Multi-Lingual Sites" href="multi-lingual-sites.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="model-graph.html" title="Model Graph"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="multi-lingual-sites.html" title="Multi-Lingual Sites"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Utilities</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this heading">¶</a></h1>
+<p>The following section documents general utilities available with
+Mezzanine. While these aren’t a core part of Mezzanine itself,
+they’re widely used across many areas of Mezzanine, and can be very
+useful in conjunction with your own custom content and features.</p>
+<p>Firstly covered are the utilities found in the <a class="reference internal" href="packages.html#module-mezzanine.generic" title="mezzanine.generic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.generic</span></code></a>
+app, such as <a class="reference internal" href="#keywords"><span class="std std-ref">Keywords</span></a>, <a class="reference internal" href="#comments"><span class="std std-ref">Threaded Comments</span></a>, and <a class="reference internal" href="#ratings"><span class="std std-ref">Ratings</span></a>.
+Each of these form a common pattern:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A model is provided containing generic relationships using
+Django’s <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/">django.contrib.contenttypes</a> app</p></li>
+<li><p>A custom model field is provided for defining relationships to the
+<a class="reference internal" href="packages.html#module-mezzanine.generic" title="mezzanine.generic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.generic</span></code></a> model, which can then be applied to any of
+your own models</p></li>
+<li><p>The custom field injects extra fields onto your model, with
+de-normalized data populated on save</p></li>
+<li><p>Template tags are provided for displaying the related data, forms
+for posting them, and views for handling form posts where
+applicable</p></li>
+</ul>
+</div></blockquote>
+<p>For a complete implementation reference, take a look at the built-in
+blog app <a class="reference internal" href="packages.html#module-mezzanine.blog" title="mezzanine.blog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.blog</span></code></a> which makes use of all these.</p>
+<p>Lastly, some of the <a class="reference internal" href="#templatetags"><span class="std std-ref">General Template Tags</span></a> found within
+<a class="reference internal" href="packages.html#module-mezzanine.core.templatetags.mezzanine_tags" title="mezzanine.core.templatetags.mezzanine_tags"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.core.templatetags.mezzanine_tags</span></code></a> are covered.</p>
+<section id="keywords">
+<span id="id1"></span><h2>Keywords<a class="headerlink" href="#keywords" title="Permalink to this heading">¶</a></h2>
+<p>Keywords provided by the <a class="reference internal" href="packages.html#module-mezzanine.generic" title="mezzanine.generic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.generic</span></code></a> app are pervasive
+throughout Mezzanine. They’re assigned to both the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model and
+the <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> model from which it’s derived. Given that these
+models form the foundation of most content within Mezzanine, more often
+than not you’re dealing with models that are already using keywords.</p>
+<p>Suppose we have a regular Django model though, such as our <code class="docutils literal notranslate"><span class="pre">Book</span></code>
+example from the previous example in <a class="reference internal" href="content-architecture.html"><span class="doc">Content Architecture</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.fields</span> <span class="kn">import</span> <span class="n">KeywordsField</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span>
+    <span class="n">cover</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;authors&quot;</span><span class="p">)</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="n">KeywordsField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When editing <code class="docutils literal notranslate"><span class="pre">Book</span></code> instances in the admin, we’ll now be able to
+choose keywords from the pool of keywords used throughout the site,
+and also assign new keywords if needed. We can then easily query for
+books given any keywords:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">keywords__keyword__title__in</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;eggs&quot;</span><span class="p">,</span> <span class="s2">&quot;ham&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Given a <code class="docutils literal notranslate"><span class="pre">Book</span></code> instance in a template, we can also display the book’s
+keywords using the <code class="xref py py-func docutils literal notranslate"><span class="pre">keywords_for()</span></code> template tag, which will inject
+a list of keywords into the template, using the <code class="docutils literal notranslate"><span class="pre">as</span> <span class="pre">var_name</span></code> variable
+name argument supplied to it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">keyword_tags</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">keywords_for</span> <span class="n">book</span> <span class="k">as</span> <span class="n">keywords</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">keywords</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span><span class="n">Keywords</span><span class="p">:</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{</span><span class="si">% u</span><span class="s2">rl &quot;</span><span class="n">books_for_keyword</span><span class="s2">&quot; keyword.slug %}&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">keyword</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>You’ll see here each <code class="docutils literal notranslate"><span class="pre">Keyword</span></code> instance has a slug field - we use it
+in a fictitious urlpattern called <code class="docutils literal notranslate"><span class="pre">books_for_keyword</span></code>, which could
+then retrieve books for a given keyword by slug:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">keywords__keyword__slug</span><span class="o">=</span><span class="n">slug</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Any model with a <a class="reference internal" href="packages.html#mezzanine.generic.fields.KeywordsField" title="mezzanine.generic.fields.KeywordsField"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeywordsField</span></code></a> field assigned to it will have a
+<code class="docutils literal notranslate"><span class="pre">FIELD_NAME_string</span></code> field assigned to it, where <code class="docutils literal notranslate"><span class="pre">FIELD_NAME</span></code> is the
+name given to the <a class="reference internal" href="packages.html#mezzanine.generic.fields.KeywordsField" title="mezzanine.generic.fields.KeywordsField"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeywordsField</span></code></a> attribute on your model, which
+would be <code class="docutils literal notranslate"><span class="pre">Book.keywords_string</span></code> in the above example. Each time
+keywords change, the <code class="docutils literal notranslate"><span class="pre">keywords_string</span></code> field is populated with a
+comma separated string list of each of the keywords. This can be used
+in conjunction with Mezzanine’s <a class="reference internal" href="search-engine.html"><span class="doc">Search Engine</span></a> - behavior that is
+provided by default for the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> models.</p>
+</section>
+<section id="threaded-comments">
+<span id="comments"></span><h2>Threaded Comments<a class="headerlink" href="#threaded-comments" title="Permalink to this heading">¶</a></h2>
+<p>Threaded comments provided by the <a class="reference internal" href="packages.html#module-mezzanine.generic" title="mezzanine.generic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.generic</span></code></a> app are an
+extension of Django’s <a class="reference external" href="https://github.com/django/django-contrib-comments">django_comments</a> app. Mezzanine’s
+threaded comments fundamentally extend Django’s comments to allow for
+threaded conversations, where comments can be made in reply to other
+comments.</p>
+<p>Again as with our <code class="docutils literal notranslate"><span class="pre">Book</span></code> example, suppose we wanted to add threaded
+conversations to our book pages in templates, we first define comments
+on the <code class="docutils literal notranslate"><span class="pre">Book</span></code> model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.fields</span> <span class="kn">import</span> <span class="n">CommentsField</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span>
+    <span class="n">cover</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;authors&quot;</span><span class="p">)</span>
+    <span class="n">comments</span> <span class="o">=</span> <span class="n">CommentsField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Then given a <code class="docutils literal notranslate"><span class="pre">Book</span></code> instance named <code class="docutils literal notranslate"><span class="pre">book</span></code> in a template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">comment_tags</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="o">&lt;</span><span class="n">h3</span><span class="o">&gt;</span><span class="n">There</span> <span class="n">are</span> <span class="p">{{</span> <span class="n">book</span><span class="o">.</span><span class="n">comments_count</span> <span class="p">}}</span> <span class="n">comment</span><span class="p">{{</span> <span class="n">book</span><span class="o">.</span><span class="n">comments_count</span><span class="o">|</span><span class="n">pluralize</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h3</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">comments_for</span> <span class="n">book</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">comments_for</span></code> template tag is a Django <a class="reference external" href="https://docs.djangoproject.com/en/dev/howto/custom-template-tags/#howto-custom-template-tags-inclusion-tags">inclusion tag</a>,
+that includes the template <code class="docutils literal notranslate"><span class="pre">generic/includes/comments.html</span></code>, which
+recursively includes the template <code class="docutils literal notranslate"><span class="pre">generic/includes/comment.html</span></code> to
+build up the threaded conversation. To customize the look and feel of
+the threaded conversation, simply override these templates in your
+project.</p>
+<p>As you can see in the template example we have a
+<code class="docutils literal notranslate"><span class="pre">Book.comments_count</span></code> field injected onto our <code class="docutils literal notranslate"><span class="pre">Book</span></code> model. This
+works the same way as described above for the <a class="reference internal" href="packages.html#mezzanine.generic.fields.KeywordsField" title="mezzanine.generic.fields.KeywordsField"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeywordsField</span></code></a>, where
+the name is derived from the name given to the <a class="reference internal" href="packages.html#mezzanine.generic.fields.CommentsField" title="mezzanine.generic.fields.CommentsField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommentsField</span></code></a>
+attribute on the model, and updated each time the number of comments
+change.</p>
+<p>You can also require that users must be logged in to comment. This is
+controlled by setting the <a class="reference internal" href="configuration.html#comments-account-required"><span class="std std-ref">COMMENTS_ACCOUNT_REQUIRED</span></a> setting to
+<code class="docutils literal notranslate"><span class="pre">True</span></code>. In this case, the comment form will still be displayed, but
+on submitting a comment, the user will be redirected to the
+login/signup page, where after logging in, their comment will be posted
+without having to re-submit it. See the <a class="reference internal" href="user-accounts.html"><span class="doc">Public User Accounts</span></a> section
+for full details on configuring public user accounts in Mezzanine.</p>
+</section>
+<section id="ratings">
+<span id="id2"></span><h2>Ratings<a class="headerlink" href="#ratings" title="Permalink to this heading">¶</a></h2>
+<p>The ratings provided by the <a class="reference internal" href="packages.html#module-mezzanine.generic" title="mezzanine.generic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.generic</span></code></a> app allow people to
+give a rating for any model that has ratings set up. Suppose we wanted
+to allow people to rate our books from 1 to 10, first we define what
+the rating range is via the <a class="reference internal" href="configuration.html#ratings-range"><span class="std std-ref">RATINGS_RANGE</span></a> setting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RATINGS_RANGE</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And then add ratings to our <code class="docutils literal notranslate"><span class="pre">Book</span></code> model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.fields</span> <span class="kn">import</span> <span class="n">RatingField</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span>
+    <span class="n">cover</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;authors&quot;</span><span class="p">)</span>
+    <span class="n">rating</span> <span class="o">=</span> <span class="n">RatingField</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>And then in our book template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">rating_tags</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">rating_for</span> <span class="n">book</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="xref py py-func docutils literal notranslate"><span class="pre">rating_for()</span></code> template tag is another inclusion tag, which uses
+the template <code class="docutils literal notranslate"><span class="pre">generic/includes/rating.html</span></code>. It simply displays the
+current average rating, and a form with radio buttons for rating. You
+may wish to customize this and use visual icons, like stars, for the
+ratings.</p>
+<p>Like the other custom fields in <a class="reference internal" href="packages.html#module-mezzanine.generic" title="mezzanine.generic"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.generic</span></code></a>, the
+<a class="reference internal" href="packages.html#mezzanine.generic.fields.RatingField" title="mezzanine.generic.fields.RatingField"><code class="xref py py-class docutils literal notranslate"><span class="pre">RatingField</span></code></a> will inject fields derived from its attribute name
+onto the model which it’s assigned to, which are updated when a new
+rating is made. Given our <code class="docutils literal notranslate"><span class="pre">Book</span></code> example, the <a class="reference internal" href="packages.html#mezzanine.generic.fields.RatingField" title="mezzanine.generic.fields.RatingField"><code class="xref py py-class docutils literal notranslate"><span class="pre">RatingField</span></code></a> would
+inject:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Book.rating_average</span></code> - average rating</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Book.rating_sum</span></code> - total sum of all ratings</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Book.rating_count</span></code> - total count of all ratings</p></li>
+</ul>
+</div></blockquote>
+<p>Like threaded comments, ratings can be limited to authenticated users
+by setting the <a class="reference internal" href="configuration.html#ratings-account-required"><span class="std std-ref">RATINGS_ACCOUNT_REQUIRED</span></a> setting to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</section>
+<section id="general-template-tags">
+<span id="templatetags"></span><h2>General Template Tags<a class="headerlink" href="#general-template-tags" title="Permalink to this heading">¶</a></h2>
+<p>Following are some template tags defined in
+<a class="reference internal" href="packages.html#module-mezzanine.core.templatetags.mezzanine_tags" title="mezzanine.core.templatetags.mezzanine_tags"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.core.templatetags.mezzanine_tags</span></code></a> - they’re general
+purpose and can be used across a variety of scenarios.</p>
+<section id="fields-for">
+<h3><a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.fields_for" title="mezzanine.core.templatetags.mezzanine_tags.fields_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">fields_for()</span></code></a><a class="headerlink" href="#fields-for" title="Permalink to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.fields_for" title="mezzanine.core.templatetags.mezzanine_tags.fields_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">fields_for()</span></code></a> template tag is a simple tag that takes a form object
+as its single argument, and renders the fields for the form. It uses the
+template <code class="docutils literal notranslate"><span class="pre">core/templates/includes/form_fields.html</span></code>, which can then be
+overridden to customize the look and feel of all forms throughout a
+Mezzanine site:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">mezzanine_tags</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="o">&lt;</span><span class="n">form</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">fields_for</span> <span class="n">some_form_object</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>You can also pass a different template name to use a different template on
+specific instances: <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">fields_for</span> <span class="pre">form</span> <span class="pre">&quot;includes/myfields.html&quot;</span> <span class="pre">%}</span></code>.</p>
+</section>
+<section id="errors-for">
+<h3><a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.errors_for" title="mezzanine.core.templatetags.mezzanine_tags.errors_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">errors_for()</span></code></a><a class="headerlink" href="#errors-for" title="Permalink to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.errors_for" title="mezzanine.core.templatetags.mezzanine_tags.errors_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">errors_for()</span></code></a> template tag is an inclusion tag that takes a form
+object and renders any error messages with the template
+<code class="docutils literal notranslate"><span class="pre">core/templates/includes/form_errors.html</span></code>. It plays well with
+<a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.fields_for" title="mezzanine.core.templatetags.mezzanine_tags.fields_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">fields_for()</span></code></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">mezzanine_tags</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">errors_for</span> <span class="n">some_form_object</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;</span><span class="n">form</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;POST&quot;</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">fields_for</span> <span class="n">some_form_object</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;submit&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="sort-by">
+<h3><a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.sort_by" title="mezzanine.core.templatetags.mezzanine_tags.sort_by"><code class="xref py py-func docutils literal notranslate"><span class="pre">sort_by()</span></code></a><a class="headerlink" href="#sort-by" title="Permalink to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.sort_by" title="mezzanine.core.templatetags.mezzanine_tags.sort_by"><code class="xref py py-func docutils literal notranslate"><span class="pre">sort_by()</span></code></a> template tag is a general sorting utility. It’s a
+filter tag similar to Django’s
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/templates/builtins/#std:templatefilter-dictsort">dictsort</a>
+filter tag, but instead of only accepting sequences of dicts and a key
+name, it also accepts sequences of objects and an attribute name,
+making it much more general purpose.</p>
+<p>Here’s an example with the <a class="reference internal" href="packages.html#mezzanine.generic.templatetags.keyword_tags.keywords_for" title="mezzanine.generic.templatetags.keyword_tags.keywords_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">keywords_for()</span></code></a> tag described above, which
+assigns an <code class="xref py py-func docutils literal notranslate"><span class="pre">item_count()</span></code> attribute to each keyword returned to the
+template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">mezzanine_tags</span> <span class="n">keywords_tags</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">keywords_for</span> <span class="n">book</span> <span class="k">as</span> <span class="n">keywords</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="o">|</span><span class="n">sort_by</span><span class="p">:</span><span class="s2">&quot;item_count&quot;</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">...</span> <span class="n">etc</span> <span class="o">...</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="thumbnail">
+<h3><a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.thumbnail" title="mezzanine.core.templatetags.mezzanine_tags.thumbnail"><code class="xref py py-func docutils literal notranslate"><span class="pre">thumbnail()</span></code></a><a class="headerlink" href="#thumbnail" title="Permalink to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.thumbnail" title="mezzanine.core.templatetags.mezzanine_tags.thumbnail"><code class="xref py py-func docutils literal notranslate"><span class="pre">thumbnail()</span></code></a> template tag provides on-the-fly image resizing. It
+takes the relative path to the image file to resize, and mandatory width
+and height arguments.</p>
+<p>When the <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.thumbnail" title="mezzanine.core.templatetags.mezzanine_tags.thumbnail"><code class="xref py py-func docutils literal notranslate"><span class="pre">thumbnail()</span></code></a> template tag is called for a given set of
+arguments the first time, the thumbnail is generated and its relative
+path is returned. Subsequent calls with the same arguments will return
+the same thumbnail path, without resizing it again, so resizes only
+occur when first requested.</p>
+<p>Given our book example’s <code class="docutils literal notranslate"><span class="pre">Book.cover</span></code> field, suppose we wanted
+to render cover thumbnails with a 100 pixel width, and proportional
+height:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">mezzanine_tags</span> <span class="o">%</span><span class="p">}</span>
+
+<span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;{{ MEDIA_URL }}{% thumbnail book.cover 100 0 %}&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.thumbnail" title="mezzanine.core.templatetags.mezzanine_tags.thumbnail"><code class="xref py py-func docutils literal notranslate"><span class="pre">thumbnail()</span></code></a> template tag also accepts several other optional
+arguments for controlling the generated thumbnail:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">upscale</span></code> - A boolean controlling whether the thumbnail should</dt><dd><p>grow beyond its original size when resizing (defaults to True)</p>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quality</span></code> - A value from 0 to 100 controlling the JPG quality
+(defaults to 95)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">left</span></code> and <code class="docutils literal notranslate"><span class="pre">top</span></code> - Values from 0 to 1 controlling where the
+image will be cropped (each defaults to 0.5, namely the center)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">padding</span></code> - A boolean controlling whether the thumbnail will
+be padded rather than cropped (defaults to False)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">padding_color</span></code> - RGB string controlling the background color
+when <code class="docutils literal notranslate"><span class="pre">padding</span></code> is True (defaults to “#fff”)</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Utilities</a><ul>
+<li><a class="reference internal" href="#keywords">Keywords</a></li>
+<li><a class="reference internal" href="#threaded-comments">Threaded Comments</a></li>
+<li><a class="reference internal" href="#ratings">Ratings</a></li>
+<li><a class="reference internal" href="#general-template-tags">General Template Tags</a><ul>
+<li><a class="reference internal" href="#fields-for"><code class="xref py py-func docutils literal notranslate"><span class="pre">fields_for()</span></code></a></li>
+<li><a class="reference internal" href="#errors-for"><code class="xref py py-func docutils literal notranslate"><span class="pre">errors_for()</span></code></a></li>
+<li><a class="reference internal" href="#sort-by"><code class="xref py py-func docutils literal notranslate"><span class="pre">sort_by()</span></code></a></li>
+<li><a class="reference internal" href="#thumbnail"><code class="xref py py-func docutils literal notranslate"><span class="pre">thumbnail()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="multi-lingual-sites.html"
+                          title="previous chapter">Multi-Lingual Sites</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="model-graph.html"
+                          title="next chapter">Model Graph</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/utilities.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="model-graph.html" title="Model Graph"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="multi-lingual-sites.html" title="Multi-Lingual Sites"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Utilities</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

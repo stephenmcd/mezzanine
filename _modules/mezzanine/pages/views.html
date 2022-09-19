@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.pages.views &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.pages.views</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.pages.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.contrib.admin.views.decorators</span> <span class="kn">import</span> <span class="n">staff_member_required</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">Http404</span><span class="p">,</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="nn">django.template.response</span> <span class="kn">import</span> <span class="n">TemplateResponse</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">PageMoveException</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">home_slug</span>
+
+
+<div class="viewcode-block" id="admin_page_ordering"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.views.admin_page_ordering">[docs]</a><span class="nd">@staff_member_required</span>
+<span class="k">def</span> <span class="nf">admin_page_ordering</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Updates the ordering of pages via AJAX from within the admin.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="n">page</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Page</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">get_id</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]))</span>
+    <span class="n">old_parent_id</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">parent_id</span>
+    <span class="n">new_parent_id</span> <span class="o">=</span> <span class="n">get_id</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">[</span><span class="s2">&quot;parent_id&quot;</span><span class="p">])</span>
+    <span class="n">new_parent</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">new_parent_id</span><span class="p">)</span> <span class="k">if</span> <span class="n">new_parent_id</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">get_content_model</span><span class="p">()</span><span class="o">.</span><span class="n">can_move</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">PageMoveException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Perform the page move</span>
+    <span class="k">if</span> <span class="n">new_parent_id</span> <span class="o">!=</span> <span class="n">page</span><span class="o">.</span><span class="n">parent_id</span><span class="p">:</span>
+        <span class="c1"># Parent changed - set the new parent and re-order the</span>
+        <span class="c1"># previous siblings.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">set_parent</span><span class="p">(</span><span class="n">new_parent</span><span class="p">)</span>
+        <span class="n">pages</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">parent_id</span><span class="o">=</span><span class="n">old_parent_id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pages</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">)):</span>
+            <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">page</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_order</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+    <span class="c1"># Set the new order for the moved page and its current siblings.</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">page_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;siblings[]&quot;</span><span class="p">)):</span>
+        <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">get_id</span><span class="p">(</span><span class="n">page_id</span><span class="p">))</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_order</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="page"><a class="viewcode-back" href="../../../packages.html#mezzanine.pages.views.page">[docs]</a><span class="k">def</span> <span class="nf">page</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">slug</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;pages/page.html&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Select a template for a page and render it. The request</span>
+<span class="sd">    object should have a ``page`` attribute that&#39;s added via</span>
+<span class="sd">    ``mezzanine.pages.middleware.PageMiddleware``. The page is loaded</span>
+<span class="sd">    earlier via middleware to perform various other functions.</span>
+<span class="sd">    The urlpattern that maps to this view is a catch-all pattern, in</span>
+<span class="sd">    which case the page attribute won&#39;t exist, so raise a 404 then.</span>
+
+<span class="sd">    For template selection, a list of possible templates is built up</span>
+<span class="sd">    based on the current page. This list is order from most granular</span>
+<span class="sd">    match, starting with a custom template for the exact page, then</span>
+<span class="sd">    adding templates based on the page&#39;s parent page, that could be</span>
+<span class="sd">    used for sections of a site (eg all children of the parent).</span>
+<span class="sd">    Finally at the broadest level, a template for the page&#39;s content</span>
+<span class="sd">    type (it&#39;s model class) is checked for, and then if none of these</span>
+<span class="sd">    templates match, the default pages/page.html is used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="kn">from</span> <span class="nn">mezzanine.pages.middleware</span> <span class="kn">import</span> <span class="n">PageMiddleware</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">PageMiddleware</span><span class="o">.</span><span class="n">installed</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+            <span class="s2">&quot;mezzanine.pages.middleware.PageMiddleware &quot;</span>
+            <span class="s2">&quot;(or a subclass of it) is missing from &quot;</span>
+            <span class="s2">&quot;settings.MIDDLEWARE&quot;</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;page&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">slug</span> <span class="o">!=</span> <span class="n">slug</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Http404</span>
+
+    <span class="c1"># Check for a template name matching the page&#39;s slug. If the homepage</span>
+    <span class="c1"># is configured as a page instance, the template &quot;pages/index.html&quot; is</span>
+    <span class="c1"># used, since the slug &quot;/&quot; won&#39;t match a template name.</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">slug</span><span class="p">)</span> <span class="k">if</span> <span class="n">slug</span> <span class="o">!=</span> <span class="n">home_slug</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;index&quot;</span>
+    <span class="n">templates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pages/</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">template_name</span><span class="p">]</span>
+    <span class="n">method_template</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_content_model</span><span class="p">()</span><span class="o">.</span><span class="n">get_template_name</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">method_template</span><span class="p">:</span>
+        <span class="n">templates</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">method_template</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">content_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pages/</span><span class="si">{</span><span class="n">template_name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">content_model</span><span class="si">}</span><span class="s2">.html&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">get_ascendants</span><span class="p">(</span><span class="n">for_user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+        <span class="n">parent_template_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">slug</span><span class="p">)</span>
+        <span class="c1"># Check for a template matching the page&#39;s content model.</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">content_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;pages/</span><span class="si">{</span><span class="n">parent_template_name</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">content_model</span><span class="si">}</span><span class="s2">.html&quot;</span>
+            <span class="p">)</span>
+    <span class="c1"># Check for a template matching the page&#39;s content model.</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">content_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;pages/</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">request</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">content_model</span><span class="p">)</span>
+    <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TemplateResponse</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">templates</span><span class="p">,</span> <span class="n">extra_context</span> <span class="ow">or</span> <span class="p">{})</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.pages.views</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

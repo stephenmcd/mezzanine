@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.utils.email &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.email</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.utils.email</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib.auth.tokens</span> <span class="kn">import</span> <span class="n">default_token_generator</span>
+<span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="kn">import</span> <span class="n">EmailMultiAlternatives</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">loader</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.utils.http</span> <span class="kn">import</span> <span class="n">int_to_base36</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.conf.context_processors</span> <span class="kn">import</span> <span class="n">settings</span> <span class="k">as</span> <span class="n">context_settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">admin_url</span><span class="p">,</span> <span class="n">next_url</span>
+
+
+<div class="viewcode-block" id="split_addresses"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.email.split_addresses">[docs]</a><span class="k">def</span> <span class="nf">split_addresses</span><span class="p">(</span><span class="n">email_string_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a string containing comma separated email addresses</span>
+<span class="sd">    into a list of email addresses.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">email_string_list</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span> <span class="k">if</span> <span class="n">f</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="subject_template"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.email.subject_template">[docs]</a><span class="k">def</span> <span class="nf">subject_template</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads and renders an email subject template, returning the</span>
+<span class="sd">    subject string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">subject</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="send_mail_template"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.email.send_mail_template">[docs]</a><span class="k">def</span> <span class="nf">send_mail_template</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">template</span><span class="p">,</span>
+    <span class="n">addr_from</span><span class="p">,</span>
+    <span class="n">addr_to</span><span class="p">,</span>
+    <span class="n">context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">attachments</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">fail_silently</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">addr_bcc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Send email rendering text and html versions for the specified</span>
+<span class="sd">    template name using the context dictionary passed in.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">attachments</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">attachments</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">fail_silently</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fail_silently</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">EMAIL_FAIL_SILENTLY</span>
+    <span class="c1"># Add template accessible settings from Mezzanine to the context</span>
+    <span class="c1"># (normally added by a context processor for HTTP requests).</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">context_settings</span><span class="p">())</span>
+    <span class="c1"># Allow for a single address to be passed in.</span>
+    <span class="c1"># Python 3 strings have an __iter__ method, so the following hack</span>
+    <span class="c1"># doesn&#39;t work: if not hasattr(addr_to, &quot;__iter__&quot;):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">addr_to</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">addr_to</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="n">addr_to</span> <span class="o">=</span> <span class="p">[</span><span class="n">addr_to</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">addr_bcc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">addr_bcc</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">addr_bcc</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">addr_bcc</span> <span class="o">=</span> <span class="p">[</span><span class="n">addr_bcc</span><span class="p">]</span>
+    <span class="c1"># Loads a template passing in vars as context.</span>
+    <span class="n">render</span> <span class="o">=</span> <span class="k">lambda</span> <span class="nb">type</span><span class="p">:</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">template</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="nb">type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="c1"># Create and send email.</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMultiAlternatives</span><span class="p">(</span>
+        <span class="n">subject</span><span class="p">,</span> <span class="n">render</span><span class="p">(</span><span class="s2">&quot;txt&quot;</span><span class="p">),</span> <span class="n">addr_from</span><span class="p">,</span> <span class="n">addr_to</span><span class="p">,</span> <span class="n">addr_bcc</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+    <span class="p">)</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">attach_alternative</span><span class="p">(</span><span class="n">render</span><span class="p">(</span><span class="s2">&quot;html&quot;</span><span class="p">),</span> <span class="s2">&quot;text/html&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">attachment</span> <span class="ow">in</span> <span class="n">attachments</span><span class="p">:</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="o">*</span><span class="n">attachment</span><span class="p">)</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">fail_silently</span><span class="o">=</span><span class="n">fail_silently</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="send_verification_mail"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.email.send_verification_mail">[docs]</a><span class="k">def</span> <span class="nf">send_verification_mail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">verification_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sends an email with a verification link to users when</span>
+<span class="sd">    ``ACCOUNTS_VERIFICATION_REQUIRED`` is ```True`` and they&#39;re signing</span>
+<span class="sd">    up, or when they reset a lost password.</span>
+<span class="sd">    The ``verification_type`` arg is both the name of the urlpattern for</span>
+<span class="sd">    the verification link, as well as the names of the email templates</span>
+<span class="sd">    to use.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">verify_url</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">reverse</span><span class="p">(</span>
+            <span class="n">verification_type</span><span class="p">,</span>
+            <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;uidb36&quot;</span><span class="p">:</span> <span class="n">int_to_base36</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+                <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">default_token_generator</span><span class="o">.</span><span class="n">make_token</span><span class="p">(</span><span class="n">user</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="o">+</span> <span class="s2">&quot;?next=&quot;</span>
+        <span class="o">+</span> <span class="p">(</span><span class="n">next_url</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span>
+        <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+        <span class="s2">&quot;verify_url&quot;</span><span class="p">:</span> <span class="n">verify_url</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">subject_template_name</span> <span class="o">=</span> <span class="s2">&quot;email/</span><span class="si">%s</span><span class="s2">_subject.txt&quot;</span> <span class="o">%</span> <span class="n">verification_type</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="n">subject_template</span><span class="p">(</span><span class="n">subject_template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+    <span class="n">send_mail_template</span><span class="p">(</span>
+        <span class="n">subject</span><span class="p">,</span>
+        <span class="s2">&quot;email/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">verification_type</span><span class="p">,</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_FROM_EMAIL</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+        <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="send_approve_mail"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.email.send_approve_mail">[docs]</a><span class="k">def</span> <span class="nf">send_approve_mail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sends an email to staff in listed in the setting</span>
+<span class="sd">    ``ACCOUNTS_APPROVAL_EMAILS``, when a new user signs up and the</span>
+<span class="sd">    ``ACCOUNTS_APPROVAL_REQUIRED`` setting is ``True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">approval_emails</span> <span class="o">=</span> <span class="n">split_addresses</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">ACCOUNTS_APPROVAL_EMAILS</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">approval_emails</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span>
+        <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+        <span class="s2">&quot;change_url&quot;</span><span class="p">:</span> <span class="n">admin_url</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="n">subject_template</span><span class="p">(</span><span class="s2">&quot;email/account_approve_subject.txt&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+    <span class="n">send_mail_template</span><span class="p">(</span>
+        <span class="n">subject</span><span class="p">,</span>
+        <span class="s2">&quot;email/account_approve&quot;</span><span class="p">,</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_FROM_EMAIL</span><span class="p">,</span>
+        <span class="n">approval_emails</span><span class="p">,</span>
+        <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="send_approved_mail"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.email.send_approved_mail">[docs]</a><span class="k">def</span> <span class="nf">send_approved_mail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sends an email to a user once their ``is_active`` status goes from</span>
+<span class="sd">    ``False`` to ``True`` when the ``ACCOUNTS_APPROVAL_REQUIRED``</span>
+<span class="sd">    setting is ``True``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">user</span><span class="p">}</span>
+    <span class="n">subject</span> <span class="o">=</span> <span class="n">subject_template</span><span class="p">(</span><span class="s2">&quot;email/account_approved_subject.txt&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+    <span class="n">send_mail_template</span><span class="p">(</span>
+        <span class="n">subject</span><span class="p">,</span>
+        <span class="s2">&quot;email/account_approved&quot;</span><span class="p">,</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_FROM_EMAIL</span><span class="p">,</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+        <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.email</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

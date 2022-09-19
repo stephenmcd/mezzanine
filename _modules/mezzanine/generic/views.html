@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.generic.views &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.generic.views</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.generic.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">punctuation</span>
+
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">apps</span>
+<span class="kn">from</span> <span class="nn">django.contrib.admin.views.decorators</span> <span class="kn">import</span> <span class="n">staff_member_required</span>
+<span class="kn">from</span> <span class="nn">django.contrib.messages</span> <span class="kn">import</span> <span class="n">error</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">ObjectDoesNotExist</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span> <span class="n">HttpResponseBadRequest</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.template.response</span> <span class="kn">import</span> <span class="n">TemplateResponse</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.forms</span> <span class="kn">import</span> <span class="n">RatingForm</span><span class="p">,</span> <span class="n">ThreadedCommentForm</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.models</span> <span class="kn">import</span> <span class="n">Keyword</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.cache</span> <span class="kn">import</span> <span class="n">add_cache_bypass</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.deprecation</span> <span class="kn">import</span> <span class="n">is_authenticated</span><span class="p">,</span> <span class="n">request_is_ajax</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.importing</span> <span class="kn">import</span> <span class="n">import_dotted_path</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.views</span> <span class="kn">import</span> <span class="n">is_spam</span><span class="p">,</span> <span class="n">set_cookie</span>
+
+
+<div class="viewcode-block" id="admin_keywords_submit"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.views.admin_keywords_submit">[docs]</a><span class="nd">@staff_member_required</span>
+<span class="k">def</span> <span class="nf">admin_keywords_submit</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adds any new given keywords from the custom keywords field in the</span>
+<span class="sd">    admin, and returns their IDs for use when saving a model with a</span>
+<span class="sd">    keywords field.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">keyword_ids</span><span class="p">,</span> <span class="n">titles</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">remove</span> <span class="o">=</span> <span class="n">punctuation</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># Strip punctuation, allow dashes.</span>
+    <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;text_keywords&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">title</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remove</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">kw</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">Keyword</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_or_create_iexact</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">keyword_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">keyword_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">keyword_ids</span><span class="p">:</span>
+                <span class="n">keyword_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword_id</span><span class="p">)</span>
+                <span class="n">titles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">|</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keyword_ids</span><span class="p">),</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">titles</span><span class="p">)),</span>
+        <span class="n">content_type</span><span class="o">=</span><span class="s2">&quot;text/plain&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="initial_validation"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.views.initial_validation">[docs]</a><span class="k">def</span> <span class="nf">initial_validation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the related model instance and post data to use in the</span>
+<span class="sd">    comment/rating views below.</span>
+
+<span class="sd">    Both comments and ratings have a ``prefix_ACCOUNT_REQUIRED``</span>
+<span class="sd">    setting. If this is ``True`` and the user is unauthenticated, we</span>
+<span class="sd">    store their post data in their session, and redirect to login with</span>
+<span class="sd">    the view&#39;s url (also defined by the prefix arg) as the ``next``</span>
+<span class="sd">    param. We can then check the session data once they log in,</span>
+<span class="sd">    and complete the action authenticated.</span>
+
+<span class="sd">    On successful post, we pass the related object and post data back,</span>
+<span class="sd">    which may have come from the session, for each of the comments and</span>
+<span class="sd">    ratings view functions to deal with as needed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">post_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span>
+    <span class="n">login_required_setting_name</span> <span class="o">=</span> <span class="n">prefix</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;S_ACCOUNT_REQUIRED&quot;</span>
+    <span class="n">posted_session_key</span> <span class="o">=</span> <span class="s2">&quot;unauthenticated_&quot;</span> <span class="o">+</span> <span class="n">prefix</span>
+    <span class="n">redirect_url</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">login_required_setting_name</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+                <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="n">posted_session_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span>
+                <span class="n">error</span><span class="p">(</span>
+                    <span class="n">request</span><span class="p">,</span>
+                    <span class="n">_</span><span class="p">(</span>
+                        <span class="s2">&quot;You must be logged in. Please log in or &quot;</span>
+                        <span class="s2">&quot;sign up to complete this action.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="n">redirect_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGIN_URL</span><span class="si">}</span><span class="s2">?next=</span><span class="si">{</span><span class="n">reverse</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">elif</span> <span class="n">posted_session_key</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">:</span>
+            <span class="n">post_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">posted_session_key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">redirect_url</span><span class="p">:</span>
+        <span class="n">model_data</span> <span class="o">=</span> <span class="n">post_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content_type&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_data</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HttpResponseBadRequest</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="o">*</span><span class="n">model_data</span><span class="p">)</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">post_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;object_pk&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="n">ObjectDoesNotExist</span><span class="p">,</span> <span class="ne">LookupError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+            <span class="n">redirect_url</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+    <span class="k">if</span> <span class="n">redirect_url</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">request_is_ajax</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;location&quot;</span><span class="p">:</span> <span class="n">redirect_url</span><span class="p">}))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">redirect_url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">obj</span><span class="p">,</span> <span class="n">post_data</span></div>
+
+
+<div class="viewcode-block" id="comment"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.views.comment">[docs]</a><span class="k">def</span> <span class="nf">comment</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;generic/comments.html&quot;</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle a ``ThreadedCommentForm`` submission and redirect back to its</span>
+<span class="sd">    related object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">initial_validation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;comment&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HttpResponse</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">response</span>
+    <span class="n">obj</span><span class="p">,</span> <span class="n">post_data</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">import_dotted_path</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">COMMENT_FORM_CLASS</span><span class="p">)</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">form_class</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">post_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">is_spam</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">comment</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">redirect</span><span class="p">(</span><span class="n">add_cache_bypass</span><span class="p">(</span><span class="n">comment</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">()))</span>
+        <span class="c1"># Store commenter&#39;s details in a cookie for 90 days.</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">ThreadedCommentForm</span><span class="o">.</span><span class="n">cookie_fields</span><span class="p">:</span>
+            <span class="n">cookie_name</span> <span class="o">=</span> <span class="n">ThreadedCommentForm</span><span class="o">.</span><span class="n">cookie_prefix</span> <span class="o">+</span> <span class="n">field</span>
+            <span class="n">cookie_value</span> <span class="o">=</span> <span class="n">post_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">set_cookie</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">cookie_name</span><span class="p">,</span> <span class="n">cookie_value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span>
+    <span class="k">elif</span> <span class="n">request_is_ajax</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="ow">and</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;errors&quot;</span><span class="p">:</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">}))</span>
+    <span class="c1"># Show errors with stand-alone comment form.</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;obj&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;posted_comment_form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_context</span> <span class="ow">or</span> <span class="p">{})</span>
+    <span class="k">return</span> <span class="n">TemplateResponse</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rating"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.views.rating">[docs]</a><span class="k">def</span> <span class="nf">rating</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handle a ``RatingForm`` submission and redirect back to its</span>
+<span class="sd">    related object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">initial_validation</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;rating&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">HttpResponse</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">response</span>
+    <span class="n">obj</span><span class="p">,</span> <span class="n">post_data</span> <span class="o">=</span> <span class="n">response</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">add_cache_bypass</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;#rating-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+    <span class="n">rating_form</span> <span class="o">=</span> <span class="n">RatingForm</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">post_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rating_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+        <span class="n">rating_form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">request_is_ajax</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+            <span class="c1"># Reload the object and return the rating fields as json.</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">rating_name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_ratingfield_name</span><span class="p">()</span>
+            <span class="n">json</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;average&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">,</span> <span class="s2">&quot;sum&quot;</span><span class="p">):</span>
+                <span class="n">json</span><span class="p">[</span><span class="s2">&quot;rating_&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rating_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">rating_form</span><span class="o">.</span><span class="n">undoing</span><span class="p">:</span>
+            <span class="n">ratings</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">rating_form</span><span class="o">.</span><span class="n">previous</span><span class="p">)</span> <span class="o">^</span> <span class="p">{</span><span class="n">rating_form</span><span class="o">.</span><span class="n">current</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ratings</span> <span class="o">=</span> <span class="n">rating_form</span><span class="o">.</span><span class="n">previous</span> <span class="o">+</span> <span class="p">[</span><span class="n">rating_form</span><span class="o">.</span><span class="n">current</span><span class="p">]</span>
+        <span class="n">set_cookie</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;mezzanine-rating&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ratings</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">response</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.generic.views</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

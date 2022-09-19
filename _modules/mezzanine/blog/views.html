@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.blog.views &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.views</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.blog.views</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">calendar</span> <span class="kn">import</span> <span class="n">month_name</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_user_model</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">Http404</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="nn">django.template.response</span> <span class="kn">import</span> <span class="n">TemplateResponse</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.blog.feeds</span> <span class="kn">import</span> <span class="n">PostsAtom</span><span class="p">,</span> <span class="n">PostsRSS</span>
+<span class="kn">from</span> <span class="nn">mezzanine.blog.models</span> <span class="kn">import</span> <span class="n">BlogCategory</span><span class="p">,</span> <span class="n">BlogPost</span>
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.models</span> <span class="kn">import</span> <span class="n">Keyword</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.views</span> <span class="kn">import</span> <span class="n">paginate</span>
+
+<span class="n">User</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="blog_post_list"><a class="viewcode-back" href="../../../packages.html#mezzanine.blog.views.blog_post_list">[docs]</a><span class="k">def</span> <span class="nf">blog_post_list</span><span class="p">(</span>
+    <span class="n">request</span><span class="p">,</span>
+    <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">month</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">username</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">category</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s2">&quot;blog/blog_post_list.html&quot;</span><span class="p">,</span>
+    <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display a list of blog posts that are filtered by tag, year, month,</span>
+<span class="sd">    author or category. Custom templates are checked for using the name</span>
+<span class="sd">    ``blog/blog_post_list_XXX.html`` where ``XXX`` is either the</span>
+<span class="sd">    category slug or author&#39;s username if given.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">templates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">(</span><span class="n">for_user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tag</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tag</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Keyword</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+        <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">keywords__keyword</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">year</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">publish_date__year</span><span class="o">=</span><span class="n">year</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">month</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">publish_date__month</span><span class="o">=</span><span class="n">month</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">month</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="n">month_name</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">)])</span>
+            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">Http404</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">category</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">BlogCategory</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+        <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">categories</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+        <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;blog/blog_post_list_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">category</span><span class="o">.</span><span class="n">slug</span><span class="p">))</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">author</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span>
+        <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">author</span><span class="p">)</span>
+        <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;blog/blog_post_list_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">username</span><span class="p">)</span>
+
+    <span class="n">prefetch</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;categories&quot;</span><span class="p">,</span> <span class="s2">&quot;keywords__keyword&quot;</span><span class="p">)</span>
+    <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="o">*</span><span class="n">prefetch</span><span class="p">)</span>
+    <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginate</span><span class="p">(</span>
+        <span class="n">blog_posts</span><span class="p">,</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">BLOG_POST_PER_PAGE</span><span class="p">,</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">MAX_PAGING_LINKS</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;blog_posts&quot;</span><span class="p">:</span> <span class="n">blog_posts</span><span class="p">,</span>
+        <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="n">year</span><span class="p">,</span>
+        <span class="s2">&quot;month&quot;</span><span class="p">:</span> <span class="n">month</span><span class="p">,</span>
+        <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">tag</span><span class="p">,</span>
+        <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+        <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="n">author</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_context</span> <span class="ow">or</span> <span class="p">{})</span>
+    <span class="n">templates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">TemplateResponse</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">templates</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="blog_post_detail"><a class="viewcode-back" href="../../../packages.html#mezzanine.blog.views.blog_post_detail">[docs]</a><span class="k">def</span> <span class="nf">blog_post_detail</span><span class="p">(</span>
+    <span class="n">request</span><span class="p">,</span>
+    <span class="n">slug</span><span class="p">,</span>
+    <span class="n">year</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">month</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">day</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">template</span><span class="o">=</span><span class="s2">&quot;blog/blog_post_detail.html&quot;</span><span class="p">,</span>
+    <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;. Custom templates are checked for using the name</span>
+<span class="sd">    ``blog/blog_post_detail_XXX.html`` where ``XXX`` is the blog</span>
+<span class="sd">    posts&#39;s slug.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">(</span><span class="n">for_user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">select_related</span><span class="p">()</span>
+    <span class="n">blog_post</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">blog_posts</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="n">slug</span><span class="p">)</span>
+    <span class="n">related_posts</span> <span class="o">=</span> <span class="n">blog_post</span><span class="o">.</span><span class="n">related_posts</span><span class="o">.</span><span class="n">published</span><span class="p">(</span><span class="n">for_user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;blog_post&quot;</span><span class="p">:</span> <span class="n">blog_post</span><span class="p">,</span>
+        <span class="s2">&quot;editable_obj&quot;</span><span class="p">:</span> <span class="n">blog_post</span><span class="p">,</span>
+        <span class="s2">&quot;related_posts&quot;</span><span class="p">:</span> <span class="n">related_posts</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">extra_context</span> <span class="ow">or</span> <span class="p">{})</span>
+    <span class="n">templates</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;blog/blog_post_detail_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">slug</span><span class="p">),</span> <span class="n">template</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">TemplateResponse</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">templates</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="blog_post_feed"><a class="viewcode-back" href="../../../packages.html#mezzanine.blog.views.blog_post_feed">[docs]</a><span class="k">def</span> <span class="nf">blog_post_feed</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Blog posts feeds - maps format to the correct feed view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;rss&quot;</span><span class="p">:</span> <span class="n">PostsRSS</span><span class="p">,</span> <span class="s2">&quot;atom&quot;</span><span class="p">:</span> <span class="n">PostsAtom</span><span class="p">}[</span><span class="nb">format</span><span class="p">](</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)(</span><span class="n">request</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Http404</span><span class="p">()</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.views</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

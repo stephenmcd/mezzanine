@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Multi-Lingual Sites &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utilities" href="utilities.html" />
+    <link rel="prev" title="Admin Customization" href="admin-customization.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utilities.html" title="Utilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="admin-customization.html" title="Admin Customization"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Multi-Lingual Sites</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="multi-lingual-sites">
+<h1>Multi-Lingual Sites<a class="headerlink" href="#multi-lingual-sites" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine provides optional support for <a class="reference external" href="https://readthedocs.org/projects/django-modeltranslation/">django-modeltranslation</a> which
+enables content editors to provide multi-lingual content to support
+sites in multiple languages.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Mezzanine only provides the integration of django-modeltranslation.
+For dedicated assistance, please check out the documentation for
+django-modeltranslation: <a class="reference external" href="https://readthedocs.org/projects/django-modeltranslation/">documentation</a> or
+its <a class="reference external" href="https://github.com/deschler/django-modeltranslation">code</a>.</p>
+</div>
+<section id="translation-fields-in-mezzanine">
+<h2>Translation Fields in Mezzanine<a class="headerlink" href="#translation-fields-in-mezzanine" title="Permalink to this heading">¶</a></h2>
+<p>In order to enable translation fields for Mezzanine content, you will
+need to install django-modeltranslation and activate the app in your
+<code class="docutils literal notranslate"><span class="pre">settings.py</span></code>. Once you have <a class="reference external" href="http://django-modeltranslation.readthedocs.org/en/latest/installation.html">installed django-modeltranslation</a>,
+you can enable support for it by setting the <a class="reference internal" href="configuration.html#use-modeltranslation"><span class="std std-ref">USE_MODELTRANSLATION</span></a>
+setting to <code class="docutils literal notranslate"><span class="pre">True</span></code> in your project’s <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> module, and
+also defining at least two entries in the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-LANGUAGES" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a> setting.</p>
+<p>For new projects, <code class="docutils literal notranslate"><span class="pre">manage.py</span> <span class="pre">createdb</span></code> will take care of creating
+extra columns in the database for each language. For current or
+older projects, you can catch up by running
+<code class="docutils literal notranslate"><span class="pre">manage.py</span> <span class="pre">sync_translation_fields</span></code> and then
+<code class="docutils literal notranslate"><span class="pre">manage.py</span> <span class="pre">update_translation_fields</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A django-modeltranslation setting that can help managing the transition for
+content <em>partially</em> in several languages is
+<a class="reference external" href="http://django-modeltranslation.readthedocs.org/en/latest/usage.html#fallback-languages">MODELTRANSLATION_FALLBACK_LANGUAGES</a>.
+This setting allows you to avoid having empty content when the translation
+is not provided for a specific language.</p>
+</div>
+</section>
+<section id="translation-fields-for-custom-applications">
+<h2>Translation Fields for Custom Applications<a class="headerlink" href="#translation-fields-for-custom-applications" title="Permalink to this heading">¶</a></h2>
+<p>For models that don’t inherit from Mezzanine’s models, again please consult
+<a class="reference external" href="http://django-modeltranslation.readthedocs.org/en/latest/registration.html">django-modeltranslation’s documentation</a>.
+To start with, you’ll need to provide a <code class="docutils literal notranslate"><span class="pre">translation.py</span></code> module,
+containing classes describing which of your model fields you wish to
+translate, as well as registering your models using the
+<code class="docutils literal notranslate"><span class="pre">modeltranslation.translator.translator.register</span></code> method.</p>
+<p>For models that extends Mezzanine capabilities, there are two rules:</p>
+<p>Firstly, the app in which your model is defined must be listed <em>after</em>
+the app it is extending from in your <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a>
+setting. For example, <a class="reference internal" href="packages.html#module-mezzanine.forms" title="mezzanine.forms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.forms</span></code></a> extends models from
+<a class="reference internal" href="packages.html#module-mezzanine.pages" title="mezzanine.pages"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.pages</span></code></a> and should appear after it.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your app defines both models that need to be translated and
+static content or templates that override default ones from
+Mezzanine, you’ll need to split your app to distinguish
+between presentation and content. This is due to conflicting
+ideas with translated model inheritance, and template or static
+file overriding, in regard to the order of <code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS`</span></code></p>
+</div>
+<p>Secondly, for an external app, create a <code class="docutils literal notranslate"><span class="pre">translation.py</span></code> module
+at the root of your app. The content of this file might benefit
+from <code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.core.translation</span></code> depending on what you are
+extending from. For example, to improve the model from
+<a class="reference internal" href="content-architecture.html"><span class="doc">Content Architecture</span></a> and provide translatable fields:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+
+<span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
+    <span class="n">dob</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="s2">&quot;Date of birth&quot;</span><span class="p">)</span>
+    <span class="n">trivia</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="s2">&quot;Trivia&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span>
+    <span class="n">cover</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageFiled</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;authors&quot;</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A corresponding <code class="docutils literal notranslate"><span class="pre">translation.py</span></code> module in this app would look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modeltranslation.translator</span> <span class="kn">import</span> <span class="n">translator</span><span class="p">,</span> <span class="n">TranslationOptions</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Author</span><span class="p">,</span> <span class="n">Book</span>
+
+<span class="k">class</span> <span class="nc">TranslatedAuthor</span><span class="p">(</span><span class="n">TranslationOptions</span><span class="p">):</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;trivia&#39;</span><span class="p">,)</span>
+
+<span class="k">class</span> <span class="nc">TranslatedBook</span><span class="p">(</span><span class="n">TranslationOptions</span><span class="p">):</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,)</span>
+
+<span class="n">translator</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">TranslatedAuthor</span><span class="p">)</span>
+<span class="n">translator</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Book</span><span class="p">,</span> <span class="n">TranslatedBook</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case, please note <code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.translation.TranslatedPage</span></code>
+is not referenced in any way. This is due to the fact that
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.Page</span></code></a> is not abstract, and thus has its own
+table in the database. The fields have already been registered for
+translation and django-modeltranslation will happily handle it for you.</p>
+<p>If you want to extend an abstract model, such as
+<a class="reference internal" href="packages.html#mezzanine.core.models.Slugged" title="mezzanine.core.models.Slugged"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Slugged</span></code></a> or
+<a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Displayable</span></code></a>, you will need to subclass their
+translation registration. An example of this is the <a class="reference internal" href="packages.html#module-mezzanine.blog" title="mezzanine.blog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.blog</span></code></a> app
+in its <code class="xref py py-mod docutils literal notranslate"><span class="pre">translation.py</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modeltranslation.translator</span> <span class="kn">import</span> <span class="n">translator</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.translation</span> <span class="kn">import</span> <span class="p">(</span><span class="n">TranslatedSlugged</span><span class="p">,</span>
+                                        <span class="n">TranslatedDisplayable</span><span class="p">,</span>
+                                        <span class="n">TranslatedRichText</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mezzanine.blog.models</span> <span class="kn">import</span> <span class="n">BlogCategory</span><span class="p">,</span> <span class="n">BlogPost</span>
+
+<span class="k">class</span> <span class="nc">TranslatedBlogPost</span><span class="p">(</span><span class="n">TranslatedDisplayable</span><span class="p">,</span> <span class="n">TranslatedRichText</span><span class="p">):</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">TranslatedBlogCategory</span><span class="p">(</span><span class="n">TranslatedSlugged</span><span class="p">):</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">()</span>
+
+<span class="n">translator</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">BlogPost</span><span class="p">,</span> <span class="n">TranslatedBlogPost</span><span class="p">)</span>
+<span class="n">translator</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">BlogCategory</span><span class="p">,</span> <span class="n">TranslatedBlogCategory</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You don’t add translatable fields in your model beside those
+already defined inside Mezzanine’s models. You need to extend from
+<code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.core.translation</span></code> classes, so django-modeltranslation
+is aware of the abstract fields it will have to manage.</p>
+<p>After that, you can <code class="docutils literal notranslate"><span class="pre">manage.py</span> <span class="pre">createdb</span></code> for a new project or
+<code class="docutils literal notranslate"><span class="pre">manage.py</span> <span class="pre">sync_translation_fields</span></code> and then
+<code class="docutils literal notranslate"><span class="pre">manage.py</span> <span class="pre">update_translation_fields</span></code> for an existing one.</p>
+</section>
+<section id="translation-fields-and-migrations">
+<h2>Translation Fields and Migrations<a class="headerlink" href="#translation-fields-and-migrations" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine is shipped with its own migration files but these do not take
+translation fields into account. These fields are created by every
+project’s <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-LANGUAGES" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a> setting and thus can’t be provided by default.
+If you want to both manage migrations for your project and enable
+translation fields, there are two possibilities.</p>
+<p>Either you disable translation fields while managing your migrations
+as usual and then catch up by adding the missing fields if any:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># edit settings.py to set USE_MODELTRANSLATION = False
+$ python manage.py makemigrations
+$ python manage.py migrate
+# edit settings.py to set USE_MODELTRANSLATION back to True
+$ python manage.py sync_translation_fields
+</pre></div>
+</div>
+<p>This way, your migration files will never contains references to your
+specific <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-LANGUAGES" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a> setting.</p>
+<p>Or you create migration files including all the translation fields
+for your project. This way you won’t need to rely on the
+<code class="docutils literal notranslate"><span class="pre">manage.py</span> <span class="pre">sync_translation_fields</span></code> command anymore. You will
+need to define a custom <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-MIGRATION_MODULES" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MIGRATION_MODULES</span></code></a> and then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python manage.py makemigrations
+</pre></div>
+</div>
+<p>Have a look at <a class="reference internal" href="model-customization.html#field-injection-caveats"><span class="std std-ref">Field Injection Caveats</span></a> for a better introduction
+to <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-MIGRATION_MODULES" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MIGRATION_MODULES</span></code></a>.</p>
+</section>
+<section id="translation-for-injected-fields">
+<h2>Translation for Injected Fields<a class="headerlink" href="#translation-for-injected-fields" title="Permalink to this heading">¶</a></h2>
+<p>If you added fields in Mezzanine’s models through
+<a class="reference internal" href="configuration.html#extra-model-fields"><span class="std std-ref">EXTRA_MODEL_FIELDS</span></a> and want to add translations, you will need
+to create a custom app that will hold the necessary <code class="docutils literal notranslate"><span class="pre">translation.py</span></code> module.
+Adding a translation field to all of Mezzanine’s content type would look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EXTRA_MODEL_FIELDS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span>
+        <span class="s2">&quot;mezzanine.pages.models.Page.quote&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;TextField&quot;</span><span class="p">,</span>
+        <span class="p">(</span><span class="s2">&quot;Page&#39;s Quote&quot;</span><span class="p">,),</span>
+        <span class="p">{</span><span class="s2">&quot;blank&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The app containing the corresponding <code class="docutils literal notranslate"><span class="pre">translation.py</span></code> module should
+be defined <em>after</em> <a class="reference internal" href="packages.html#module-mezzanine.pages" title="mezzanine.pages"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.pages</span></code></a> in <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> but
+<em>before</em> any app that contains models that subclass
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.Page</span></code></a> (such as <a class="reference internal" href="packages.html#module-mezzanine.forms" title="mezzanine.forms"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.forms</span></code></a>,
+<a class="reference internal" href="packages.html#module-mezzanine.galleries" title="mezzanine.galleries"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.galleries</span></code></a> or <code class="docutils literal notranslate"><span class="pre">cartridge.shop</span></code>). The <code class="docutils literal notranslate"><span class="pre">translation.py</span></code>
+file itself would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">modeltranslation.translator</span> <span class="kn">import</span> <span class="n">translator</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.translation</span> <span class="kn">import</span> <span class="n">TranslatedPage</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+
+<span class="k">class</span> <span class="nc">TranslatedInjectedPage</span><span class="p">(</span><span class="n">TranslatedPage</span><span class="p">):</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;quote&#39;</span><span class="p">,),</span>
+
+<span class="n">translator</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">Page</span><span class="p">)</span>
+<span class="n">translator</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Page</span><span class="p">,</span> <span class="n">TranslatedInjectedPage</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="redistributable-applications-for-mezzanine">
+<h2>Redistributable Applications for Mezzanine<a class="headerlink" href="#redistributable-applications-for-mezzanine" title="Permalink to this heading">¶</a></h2>
+<p>If you want to provide translation support for your Mezzanine app,
+make sure it works with both <a class="reference internal" href="configuration.html#use-modeltranslation"><span class="std std-ref">USE_MODELTRANSLATION</span></a> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>
+or <code class="docutils literal notranslate"><span class="pre">False</span></code>. Mezzanine enforces the value to <code class="docutils literal notranslate"><span class="pre">False</span></code> if
+django-modeltranslation is not installed.</p>
+<p>The <a class="reference internal" href="configuration.html#use-modeltranslation"><span class="std std-ref">USE_MODELTRANSLATION</span></a> setting can therefore be used to check
+against, when extra steps are required (such as saving an instance of
+a model in every language). In the case of a project with
+<a class="reference internal" href="configuration.html#use-modeltranslation"><span class="std std-ref">USE_MODELTRANSLATION</span></a> set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the <code class="docutils literal notranslate"><span class="pre">translation.py</span></code>
+module will just be ignored.</p>
+<p>The <a class="reference internal" href="configuration.html#use-modeltranslation"><span class="std std-ref">USE_MODELTRANSLATION</span></a> setting is also available in the
+template’s <code class="docutils literal notranslate"><span class="pre">settings</span></code> variable. Have a look at the
+<code class="docutils literal notranslate"><span class="pre">includes/language_selector.html</span></code> template in <a class="reference internal" href="packages.html#module-mezzanine.core" title="mezzanine.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.core</span></code></a>
+for a working example.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Multi-Lingual Sites</a><ul>
+<li><a class="reference internal" href="#translation-fields-in-mezzanine">Translation Fields in Mezzanine</a></li>
+<li><a class="reference internal" href="#translation-fields-for-custom-applications">Translation Fields for Custom Applications</a></li>
+<li><a class="reference internal" href="#translation-fields-and-migrations">Translation Fields and Migrations</a></li>
+<li><a class="reference internal" href="#translation-for-injected-fields">Translation for Injected Fields</a></li>
+<li><a class="reference internal" href="#redistributable-applications-for-mezzanine">Redistributable Applications for Mezzanine</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="admin-customization.html"
+                          title="previous chapter">Admin Customization</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="utilities.html"
+                          title="next chapter">Utilities</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/multi-lingual-sites.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utilities.html" title="Utilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="admin-customization.html" title="Admin Customization"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Multi-Lingual Sites</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

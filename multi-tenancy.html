@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Multi-Tenancy &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deployment" href="deployment.html" />
+    <link rel="prev" title="Caching Strategy" href="caching-strategy.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="deployment.html" title="Deployment"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="caching-strategy.html" title="Caching Strategy"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Multi-Tenancy</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="multi-tenancy">
+<h1>Multi-Tenancy<a class="headerlink" href="#multi-tenancy" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine makes use of <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/" title="(in Django v4.2)"><span class="xref std std-doc">Django’s sites app</span></a> to
+support multiple sites in a single project. This functionality is always
+“turned on” in Mezzanine: a single <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/sites/#django.contrib.sites.models.Site" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Site</span></code></a> record always exists, and is referenced
+when retrieving site related data, which most content in Mezzanine falls under.</p>
+<p>Where Mezzanine diverges from Django is how the <code class="docutils literal notranslate"><span class="pre">Site</span></code> record is retrieved.
+Typically a running instance of a Django project is bound to a single site
+defined by the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-SITE_ID" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">SITE_ID</span></code></a> setting, so while a project may
+contain support for multiple sites, a separate running instance of the project
+is required per site.</p>
+<p>Mezzanine uses a pipeline of checks to determine which site to reference when
+accessing content. The most important of these is the one where the host name
+of the current request is compared to the domain name specified for each
+<code class="docutils literal notranslate"><span class="pre">Site</span></code> record. With this in place, true multi-tenancy is achieved, and
+multiple sites can be hosted within a single running instance of the project.</p>
+<p>Here’s the list of checks in the pipeline, in order:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The session variable <code class="docutils literal notranslate"><span class="pre">site_id</span></code>. This allows a project to include
+features where a user’s session is explicitly associated with a site.
+Mezzanine uses this in its admin to allow admin users to switch between
+sites to manage, while accessing the admin on a single domain.</p></li>
+<li><p>The domain matching the host of the current request, as described
+above.</p></li>
+<li><p>The environment variable <code class="docutils literal notranslate"><span class="pre">MEZZANINE_SITE_ID</span></code>. This allows
+developers to specify the site for contexts outside of a HTTP
+request, such as management commands. Mezzanine includes a custom
+<code class="docutils literal notranslate"><span class="pre">manage.py</span></code> which will check for (and remove) a <code class="docutils literal notranslate"><span class="pre">--site=ID</span></code>
+argument.</p></li>
+<li><p>Finally, Mezzanine will fall back to the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-SITE_ID" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">SITE_ID</span></code></a> setting
+if none of the above checks can occur.</p></li>
+</ul>
+</div></blockquote>
+<section id="per-site-themes">
+<h2>Per-site Themes<a class="headerlink" href="#per-site-themes" title="Permalink to this heading">¶</a></h2>
+<p>Consider a project for an organization or business with several related
+domains that are to be managed by the same people, or for which sharing
+of resources is a big benefit. These related domains can share the same
+Django process, which can offer easier management and reduced resource
+needs in the server environment.</p>
+<p>The domains involved could have a direct subsidiary relationship, as
+with example.com and several subdomains, or they may be completely
+separate domains, as with example.com, example2.com, example3.com.
+Either way, the domains are different hosts to which themes may be
+independently associated using the <a class="reference internal" href="configuration.html#host-themes"><span class="std std-ref">HOST_THEMES</span></a> setting:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For a main domain and several subdomains.</span>
+<span class="n">HOST_THEMES</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;example_theme&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;something.example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;something_theme&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;somethingelse.example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;somethingelse_theme&#39;</span><span class="p">)]</span>
+
+<span class="c1"># or for separate domains,</span>
+<span class="n">HOST_THEMES</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;www.example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;example_theme&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;example.com&#39;</span><span class="p">,</span> <span class="s1">&#39;example_theme&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;www.example2.com&#39;</span><span class="p">,</span> <span class="s1">&#39;example2_theme&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;www.example3.com&#39;</span><span class="p">,</span> <span class="s1">&#39;example3_theme&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>In either <a class="reference internal" href="configuration.html#host-themes"><span class="std std-ref">HOST_THEMES</span></a> example above, there are three themes. Let’s
+continue with the second case, for example.com, example2.com, and
+example3.com, for which there are three theme apps constructed:
+<code class="docutils literal notranslate"><span class="pre">example_theme</span></code>, <code class="docutils literal notranslate"><span class="pre">example2_theme</span></code>, and <code class="docutils literal notranslate"><span class="pre">example3_theme</span></code>. The
+following treatment illustrates a kind of theme inheritance across the
+domains, with <code class="docutils literal notranslate"><span class="pre">example_theme</span></code> serving as the “base” theme.
+Suppose <code class="docutils literal notranslate"><span class="pre">example_theme</span></code> contains a dedicated page content type
+(see <a class="reference internal" href="content-architecture.html#creating-custom-content-types"><span class="std std-ref">Creating Custom Content Types</span></a>), we’ll call it the
+<code class="docutils literal notranslate"><span class="pre">HomePage</span></code>, which is given a model definition in
+<code class="docutils literal notranslate"><span class="pre">example_theme/models.py</span></code>, along with any other theme-related custom
+content definitions.</p>
+<p>Here is the layout for <code class="docutils literal notranslate"><span class="pre">example_theme</span></code>, the “base” theme in this
+arrangement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">example_theme</span>
+    <span class="n">admin</span><span class="o">.</span><span class="n">py</span>
+    <span class="n">models</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;--</span> <span class="n">has</span> <span class="n">a</span> <span class="n">HomePage</span> <span class="nb">type</span><span class="p">,</span> <span class="n">subclassing</span> <span class="n">Page</span>
+    <span class="o">...</span>
+    <span class="o">/</span><span class="n">static</span>
+        <span class="o">/</span><span class="n">css</span>
+        <span class="o">/</span><span class="n">img</span>
+        <span class="o">/</span><span class="n">js</span>
+    <span class="o">/</span><span class="n">templates</span>
+        <span class="o">/</span><span class="n">base</span><span class="o">.</span><span class="n">html</span> <span class="o">&lt;--</span> <span class="n">used</span> <span class="n">by</span> <span class="n">this</span> <span class="ow">and</span> <span class="n">the</span> <span class="n">other</span> <span class="n">two</span> <span class="n">themes</span>
+        <span class="o">/</span><span class="n">pages</span>
+            <span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">html</span> <span class="o">&lt;--</span> <span class="k">for</span> <span class="n">the</span> <span class="n">HomePage</span> <span class="n">content</span> <span class="nb">type</span>
+    <span class="o">/</span><span class="n">templatetags</span>
+        <span class="n">some_tags</span><span class="o">.</span><span class="n">py</span> <span class="o">&lt;--</span> <span class="k">for</span> <span class="n">code</span> <span class="n">supporting</span> <span class="n">HomePage</span> <span class="n">functionality</span>
+</pre></div>
+</div>
+<p>The second and third themes, <code class="docutils literal notranslate"><span class="pre">example2_theme</span></code> and <code class="docutils literal notranslate"><span class="pre">example3_theme</span></code>,
+could be just as expansive, or they could be much simplified, as shown
+by this layout for <code class="docutils literal notranslate"><span class="pre">example2_theme</span></code> (<code class="docutils literal notranslate"><span class="pre">example3_theme</span></code> could be
+identical):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">example2_theme</span>
+    <span class="o">/</span><span class="n">templates</span>
+        <span class="o">/</span><span class="n">pages</span>
+            <span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">html</span> <span class="o">&lt;--</span> <span class="k">for</span> <span class="n">the</span> <span class="n">HomePage</span> <span class="n">content</span> <span class="nb">type</span>
+</pre></div>
+</div>
+<p>Each theme would be listed under the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> setting,
+with the “base” theme, <code class="docutils literal notranslate"><span class="pre">example_theme</span></code>, listed first.</p>
+<p>The project’s main <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> would need the following line active,
+so that “/” is the target URL Mezzanine finds for home page rendering
+(via the <code class="docutils literal notranslate"><span class="pre">HomePage</span></code> content type):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;mezzanine.pages.views.page&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">},</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;home&quot;</span><span class="p">),</span>
+</pre></div>
+</div>
+<p>Mezzanine will look for a page instance at ‘/’ for each theme.
+<code class="docutils literal notranslate"><span class="pre">HomePage</span></code> instances would be created via the admin system for each
+site, and given the URL of ‘/’ under the “Meta data” URL field. (Log
+in to /admin, pick each site, in turn, creating a <code class="docutils literal notranslate"><span class="pre">HomePage</span></code> instance,
+and editing the “Meta data” URL of each).</p>
+<p>Although these aren’t the only commands involved, they are useful
+during the development process:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>* ``python manage.py startapp theme`` - start a theme; add/edit files
+  next; add to INSTALLED_APPS before restart
+* ``python manage.py syncdb --migrate`` - after changes to themes;
+  could require writing migrations
+* ``python manage.py collectstatic`` - gather static resources from the
+  themes on occasion
+</pre></div>
+</div>
+<p>Finally, under /admin, these sites will share some resources, such as
+the media library, while there is separation of content stored in the
+database (independent <code class="docutils literal notranslate"><span class="pre">HomePage</span></code> instances, independent blog posts,
+an independent page hierarchy, etc.). Furthermore, the content types
+added to, say <code class="docutils literal notranslate"><span class="pre">example_theme</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">HomePage</span></code>, are shared and
+available in the different sites. Such nuances of sharing must be
+considered when employing this approach.</p>
+</section>
+<section id="upgrading-from-templateforhostmiddleware">
+<h2>Upgrading from <code class="docutils literal notranslate"><span class="pre">TemplateForHostMiddleware</span></code><a class="headerlink" href="#upgrading-from-templateforhostmiddleware" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine implements host-specific templates using a template loader since
+version 4.3. Prior to that, the <code class="docutils literal notranslate"><span class="pre">TemplateForHostMiddleware</span></code> was used. If you
+are upgrading from a version lower than 4.3 and getting warnings in the
+terminal about <code class="docutils literal notranslate"><span class="pre">TemplateForHostMiddleware</span></code>, edit your <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> to
+switch to the new loader-based approach:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">TemplateForHostMiddleware</span></code> from your <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-MIDDLEWARE" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a> setting.</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">&quot;APP_DIRS&quot;:</span> <span class="pre">True</span></code> from your <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-TEMPLATES" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a> setting.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">mezzanine.template.loaders.host_themes.Loader</span></code> to the list of
+template loaders.</p></li>
+</ul>
+</div></blockquote>
+<p>Your <code class="xref std std-setting docutils literal notranslate"><span class="pre">TEMPLATES`</span></code> setting should look like this (notice the <code class="docutils literal notranslate"><span class="pre">&quot;loaders&quot;</span></code> key):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TEMPLATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;BACKEND&quot;</span><span class="p">:</span> <span class="s2">&quot;django.template.backends.django.DjangoTemplates&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;DIRS&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+        <span class="s2">&quot;OPTIONS&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;context_processors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+            <span class="s2">&quot;builtins&quot;</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+            <span class="s2">&quot;loaders&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;mezzanine.template.loaders.host_themes.Loader&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;django.template.loaders.filesystem.Loader&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;django.template.loaders.app_directories.Loader&quot;</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Multi-Tenancy</a><ul>
+<li><a class="reference internal" href="#per-site-themes">Per-site Themes</a></li>
+<li><a class="reference internal" href="#upgrading-from-templateforhostmiddleware">Upgrading from <code class="docutils literal notranslate"><span class="pre">TemplateForHostMiddleware</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="caching-strategy.html"
+                          title="previous chapter">Caching Strategy</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="deployment.html"
+                          title="next chapter">Deployment</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/multi-tenancy.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="deployment.html" title="Deployment"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="caching-strategy.html" title="Caching Strategy"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Multi-Tenancy</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

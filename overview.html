@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Overview &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Content Architecture" href="content-architecture.html" />
+    <link rel="prev" title="Mezzanine" href="index.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="content-architecture.html" title="Content Architecture"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Mezzanine"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Overview</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <a class="reference external image-reference" href="https://pypi.org/project/mezzanine/"><img alt="https://img.shields.io/pypi/v/mezzanine.svg" src="https://img.shields.io/pypi/v/mezzanine.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/mezzanine/"><img alt="https://img.shields.io/pypi/pyversions/mezzanine.svg" src="https://img.shields.io/pypi/pyversions/mezzanine.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/mezzanine/"><img alt="https://img.shields.io/pypi/djversions/mezzanine.svg" src="https://img.shields.io/pypi/djversions/mezzanine.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/stephenmcd/mezzanine/actions?query=workflow%3A%22Test+and+release%22"><img alt="https://github.com/stephenmcd/mezzanine/workflows/Test%20and%20release/badge.svg" src="https://github.com/stephenmcd/mezzanine/workflows/Test%20and%20release/badge.svg" /></a>
+<a class="reference external image-reference" href="https://github.com/psf/black"><img alt="https://img.shields.io/badge/code%20style-black-000000.svg" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
+<p>Created by <a class="reference external" href="http://twitter.com/stephen_mcd">Stephen McDonald</a></p>
+<section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine is a powerful, consistent, and flexible content management
+platform. Built using the <a class="reference external" href="http://djangoproject.com/">Django</a> framework, Mezzanine provides a
+simple yet highly extensible architecture that encourages diving in
+and hacking on the code. Mezzanine is <a class="reference external" href="http://www.linfo.org/bsdlicense.html">BSD licensed</a> and supported by
+a diverse and active community.</p>
+<p>In some ways, Mezzanine resembles tools such as <a class="reference external" href="http://wordpress.org/">Wordpress</a>,
+providing an intuitive interface for managing pages, blog posts, form
+data, store products, and other types of content. But Mezzanine is
+also different. Unlike many other platforms that make extensive use of
+modules or reusable applications, Mezzanine provides most of its
+functionality by default. This approach yields a more integrated and
+efficient platform.</p>
+<p>Visit the <a class="reference external" href="http://mezzanine.jupo.org">Mezzanine project page</a> to see some of the <a class="reference external" href="http://mezzanine.jupo.org/sites/">great sites
+people have built using Mezzanine</a>.</p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading">¶</a></h2>
+<p>In addition to the usual features provided by Django such as MVC
+architecture, ORM, templating, caching and an automatic admin
+interface, Mezzanine provides the following:</p>
+<ul class="simple">
+<li><p>Hierarchical page navigation</p></li>
+<li><p>Save as draft and preview on site</p></li>
+<li><p>Scheduled publishing</p></li>
+<li><p>Drag-and-drop page ordering</p></li>
+<li><p>WYSIWYG editing</p></li>
+<li><p><a class="reference external" href="http://mezzanine.jupo.org/docs/inline-editing.html">In-line page editing</a></p></li>
+<li><p>Drag-and-drop HTML5 forms builder with CSV export</p></li>
+<li><p>SEO friendly URLs and meta data</p></li>
+<li><p>Ecommerce / Shopping cart module (<a class="reference external" href="http://cartridge.jupo.org/">Cartridge</a>)</p></li>
+<li><p>Configurable <a class="reference external" href="http://mezzanine.jupo.org/docs/admin-customization.html#dashboard">dashboard</a> widgets</p></li>
+<li><p>Blog engine</p></li>
+<li><p>Tagging</p></li>
+<li><p><a class="reference external" href="https://github.com/thecodinghouse/mezzanine-themes">Free Themes</a> Marketplace</p></li>
+<li><p>User accounts and profiles with email verification</p></li>
+<li><p>Translated to over 35 languages</p></li>
+<li><p>Sharing via Facebook or Twitter</p></li>
+<li><p><a class="reference external" href="http://mezzanine.jupo.org/docs/multi-lingual-sites.html">Multi-lingual sites</a></p></li>
+<li><p><a class="reference external" href="http://mezzanine.jupo.org/docs/content-architecture.html#page-templates">Custom templates</a> per page or blog post</p></li>
+<li><p><a class="reference external" href="http://getbootstrap.com/">Twitter Bootstrap</a> integration</p></li>
+<li><p>API for <a class="reference external" href="http://mezzanine.jupo.org/docs/content-architecture.html#creating-custom-content-types">custom content types</a></p></li>
+<li><p><a class="reference external" href="http://mezzanine.jupo.org/docs/search-engine.html">Search engine and API</a></p></li>
+<li><p>Seamless integration with third-party Django apps</p></li>
+<li><p>One step migration from other blogging engines</p></li>
+<li><p><a class="reference external" href="http://disqus.com/">Disqus</a> integration, or built-in threaded comments</p></li>
+<li><p><a class="reference external" href="http://gravatar.com/">Gravatar</a> integration</p></li>
+<li><p><a class="reference external" href="http://www.google.com/analytics/">Google Analytics</a> integration</p></li>
+<li><p><a class="reference external" href="http://bit.ly/">bit.ly</a> integration</p></li>
+<li><p><a class="reference external" href="http://akismet.com/">Akismet</a> spam filtering</p></li>
+<li><p><a class="reference external" href="http://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a> compatible (via <a class="reference external" href="http://www.jython.org/">Jython</a>)</p></li>
+</ul>
+<p>The Mezzanine admin dashboard:</p>
+<img alt="http://mezzanine.jupo.org/docs/_images/dashboard.png" src="http://mezzanine.jupo.org/docs/_images/dashboard.png" />
+</section>
+<section id="support">
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this heading">¶</a></h2>
+<p>To <strong>report a security issue</strong>, please send an email privately to
+<a class="reference external" href="mailto:core-team&#37;&#52;&#48;mezzaninecms&#46;com?subject=Mezzanine+Security+Issue">core-team<span>&#64;</span>mezzaninecms<span>&#46;</span>com</a>. This gives us a chance to fix the issue
+and create an official release prior to the issue being made public.</p>
+<p>For <strong>all other Mezzanine support</strong>, the primary channel is the
+<a class="reference external" href="http://groups.google.com/group/mezzanine-users/topics">mezzanine-users</a> mailing list. Questions, comments, issues, feature
+requests, and all other related discussions should take place here.</p>
+<p>If you’re <strong>certain</strong> you’ve come across a bug, then please use the
+<a class="reference external" href="http://github.com/stephenmcd/mezzanine/issues">GitHub issue tracker</a>, however it’s crucial that enough information
+is provided to reproduce the bug, ideally with a small code sample repo
+we can simply fork, run, and see the issue with. Other useful
+information includes things such as the Python stack trace generated by
+error pages, as well as other aspects of the development environment
+used, such as operating system, database, and Python version. If
+<strong>you’re not sure you’ve found a reproducible bug</strong>, then please try
+the mailing list first.</p>
+<p>Finally, feel free to drop by the <a class="reference external" href="irc://irc.freenode.net/mezzanine">#mezzanine IRC channel</a> on
+<a class="reference external" href="http://freenode.net">Freenode</a>, for a chat! Lastly, communications in all Mezzanine spaces
+are expected to conform to the <a class="reference external" href="https://www.djangoproject.com/conduct/">Django Code of Conduct</a>.</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine is an open source project managed using both the Git and
+Mercurial version control systems. These repositories are hosted on
+both <a class="reference external" href="http://github.com/stephenmcd/mezzanine/">GitHub</a> and <a class="reference external" href="http://bitbucket.org/stephenmcd/mezzanine/">Bitbucket</a> respectively, so contributing is as
+easy as forking the project on either of these sites and committing
+back your enhancements.</p>
+</section>
+<section id="donating">
+<h2>Donating<a class="headerlink" href="#donating" title="Permalink to this heading">¶</a></h2>
+<p>If you would like to make a donation to continue development of
+Mezzanine, you can do so via the <a class="reference external" href="http://mezzanine.jupo.org">Mezzanine Project</a> website.</p>
+</section>
+<section id="quotes">
+<h2>Quotes<a class="headerlink" href="#quotes" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>“I’m enjoying working with Mezzanine, it’s good work”
+- <a class="reference external" href="http://www.lindbergd.info/">Van Lindberg</a>, <a class="reference external" href="http://www.python.org/psf/">Python Software Foundation</a> chairman</p></li>
+<li><p>“Mezzanine looks like it may be Django’s killer app”
+- <a class="reference external" href="http://an.ton.io/">Antonio Rodriguez</a>, ex CTO of <a class="reference external" href="http://www.hp.com/">Hewlett Packard</a>, founder
+of <a class="reference external" href="http://www.tabblo.com/">Tabblo</a></p></li>
+<li><p>“Mezzanine looks pretty interesting, tempting to get me off
+Wordpress” - <a class="reference external" href="http://jessenoller.com/">Jesse Noller</a>, Python core contributor,
+<a class="reference external" href="http://www.python.org/psf/">Python Software Foundation</a> board member</p></li>
+<li><p>“I think I’m your newest fan. Love these frameworks”
+- <a class="reference external" href="https://twitter.com/emilepetrone">Emile Petrone</a>, integrations engineer at <a class="reference external" href="http://urbanairship.com/">Urban Airship</a></p></li>
+<li><p>“Mezzanine is amazing” - <a class="reference external" href="http://cartwheelweb.com/">Audrey Roy</a>, founder of <a class="reference external" href="http://www.pyladies.com">PyLadies</a>
+and <a class="reference external" href="http://djangopackages.com/">Django Packages</a></p></li>
+<li><p>“Mezzanine convinced me to switch from the Ruby world over
+to Python” - <a class="reference external" href="http://github.com/fusepilot/">Michael Delaney</a>, developer</p></li>
+<li><p>“Like Linux and Python, Mezzanine just feels right” - <a class="reference external" href="http://www.linuxjournal.com/blogs/phil-hughes">Phil Hughes</a>,
+Linux For Dummies author, <a class="reference external" href="http://www.linuxjournal.com">The Linux Journal</a> columnist</p></li>
+<li><p>“Impressed with Mezzanine so far” - <a class="reference external" href="http://blog.bradmontgomery.net">Brad Montgomery</a>, founder
+of <a class="reference external" href="http://workforpie.com/">Work For Pie</a></p></li>
+<li><p>“From the moment I installed Mezzanine, I have been delighted, both
+with the initial experience and the community involved in its
+development” - <a class="reference external" href="http://head3.com/">John Campbell</a>, founder of <a class="reference external" href="http://head3.com">Head3 Interactive</a></p></li>
+<li><p>“You need to check out the open source project Mezzanine. In one
+word: Elegant” - <a class="reference external" href="http://hagianis.com">Nick Hagianis</a>, developer</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
+<p>The easiest method is to install directly from pypi using <a class="reference external" href="http://www.pip-installer.org/">pip</a> by
+running the command below, which will also install the required
+dependencies mentioned above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install mezzanine
+</pre></div>
+</div>
+<p>If you prefer, you can download Mezzanine and install it directly from
+source:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
+</pre></div>
+</div>
+<p>Once installed, the command <code class="docutils literal notranslate"><span class="pre">mezzanine-project</span></code> can be used to
+create a new Mezzanine project in similar fashion to
+<code class="docutils literal notranslate"><span class="pre">django-admin.py</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ mezzanine-project project_name
+$ cd project_name
+$ python manage.py createdb --noinput
+$ python manage.py runserver
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">createdb</span></code> command is a shortcut for using Django’s
+<code class="docutils literal notranslate"><span class="pre">migrate</span></code> command, which will also install some demo content,
+such as a contact form, image gallery, and more. If you’d like to
+omit this step, use the <code class="docutils literal notranslate"><span class="pre">--nodata</span></code> option with <code class="docutils literal notranslate"><span class="pre">createdb</span></code>.</p>
+</div>
+<p>You should then be able to browse to <a class="reference external" href="http://127.0.0.1:8000/admin/">http://127.0.0.1:8000/admin/</a> and
+log in using the default account (<code class="docutils literal notranslate"><span class="pre">username:</span> <span class="pre">admin,</span> <span class="pre">password:</span>
+<span class="pre">default</span></code>). If you’d like to specify a different username and password
+during set up, simply exclude the <code class="docutils literal notranslate"><span class="pre">--noinput</span></code> option included above
+when running <code class="docutils literal notranslate"><span class="pre">createdb</span></code>.</p>
+<p>For information on how to add Mezzanine to an existing Django project,
+see the FAQ section of the documentation.</p>
+<p>Mezzanine makes use of as few libraries as possible (apart from a
+standard Django environment), with the following dependencies, which
+unless noted as optional, should be installed automatically following
+the above instructions:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://python.org/">Python</a> 3.7 to 3.10</p></li>
+<li><p><a class="reference external" href="http://djangoproject.com/">Django</a> 2.2 to 4.0</p></li>
+<li><p><a class="reference external" href="https://pypi.python.org/pypi/django-contrib-comments">django-contrib-comments</a> - for built-in threaded comments</p></li>
+<li><p><a class="reference external" href="https://github.com/python-imaging/Pillow">Pillow</a> - for image resizing (<a class="reference external" href="http://www.pythonware.com/products/pil/">Python Imaging Library</a> fork)</p></li>
+<li><p><a class="reference external" href="http://github.com/stephenmcd/grappelli-safe">grappelli-safe</a> - admin skin (<a class="reference external" href="http://code.google.com/p/django-grappelli/">Grappelli</a> fork)</p></li>
+<li><p><a class="reference external" href="http://github.com/stephenmcd/filebrowser-safe/">filebrowser-safe</a> - for managing file uploads (<a class="reference external" href="http://code.google.com/p/django-filebrowser/">FileBrowser</a> fork)</p></li>
+<li><p><a class="reference external" href="http://pypi.python.org/pypi/bleach">bleach</a> and <a class="reference external" href="http://www.crummy.com/software/BeautifulSoup/">BeautifulSoup</a> - for sanitizing markup in content</p></li>
+<li><p><a class="reference external" href="http://pypi.python.org/pypi/pytz/">pytz</a> and <a class="reference external" href="http://pypi.python.org/pypi/tzlocal/">tzlocal</a> - for timezone support</p></li>
+<li><p><a class="reference external" href="https://chardet.readthedocs.org">chardet</a> - for supporting arbitrary encoding in file uploads</p></li>
+<li><p><a class="reference external" href="http://django-modeltranslation.readthedocs.org">django-modeltranslation</a> - for multi-lingual content (optional)</p></li>
+<li><p><a class="reference external" href="https://pypi.python.org/pypi/django_compressor">django-compressor</a> - for merging JS/CSS assets (optional)</p></li>
+<li><p><a class="reference external" href="http://docs.python-requests.org/en/latest/">requests</a> and <a class="reference external" href="http://requests-oauthlib.readthedocs.org/">requests_oauthlib</a> - for interacting with external APIs</p></li>
+</ul>
+<p>Note that various systems may contain
+<a class="reference external" href="https://pillow.readthedocs.io/en/latest/installation.html">specialized instructions for installing Pillow</a>.</p>
+</section>
+<section id="themes">
+<h2>Themes<a class="headerlink" href="#themes" title="Permalink to this heading">¶</a></h2>
+<p>A handful of attractive <a class="reference external" href="https://github.com/thecodinghouse/mezzanine-themes">Free Themes</a> are available thanks to
+<a class="reference external" href="https://twitter.com/abhinavsohani">&#64;abhinavsohani</a>.</p>
+</section>
+<section id="browser-support">
+<h2>Browser Support<a class="headerlink" href="#browser-support" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine’s admin interface works with all modern browsers including Google
+Chrome, Safari, Firefox and MS Edge. Internet Explorer and Edge &lt; 79 are
+generally unsupported.</p>
+</section>
+<section id="third-party-plug-ins">
+<h2>Third-Party Plug-Ins<a class="headerlink" href="#third-party-plug-ins" title="Permalink to this heading">¶</a></h2>
+<p>The following plug-ins have been developed outside of Mezzanine. If you
+have developed a plug-in to integrate with Mezzanine and would like to
+list it here, send an email to the <a class="reference external" href="http://groups.google.com/group/mezzanine-users/topics">mezzanine-users</a> mailing list, or
+better yet, fork the project and create a pull request with your
+plug-in added to the list below. We also ask that you add it to the
+<a class="reference external" href="http://www.djangopackages.com/grids/g/mezzanine/">Mezzanine Grid on djangopackages.com</a>.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://cartridge.jupo.org/">Cartridge</a> - ecommerce for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/stephenmcd/drum">Drum</a> - A <a class="reference external" href="https://news.ycombinator.com">Hacker News</a> / <a class="reference external" href="http://www.reddit.com">Reddit</a> clone powered by Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/tvon/mezzanine-html5boilerplate">mezzanine-html5boilerplate</a> - Integrates the
+<a class="reference external" href="http://html5boilerplate.com/">html5boilerplate project</a>  into Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/onelson/mezzanine-mdown">mezzanine-mdown</a> - Adds <a class="reference external" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a> support to Mezzanine’s rich
+text editor.</p></li>
+<li><p><a class="reference external" href="https://github.com/overshard/mezzanine-openshift">mezzanine-openshift</a> - Setup for running Mezzanine on
+<a class="reference external" href="https://openshift.redhat.com/">Redhat’s OpenShift</a> cloud platform.</p></li>
+<li><p><a class="reference external" href="https://github.com/Stackato-Apps/mezzanine">mezzanine-stackato</a> - Setup for running Mezzanine on
+<a class="reference external" href="http://www.activestate.com/stackato">ActiveState’s Stackato</a> cloud platform.</p></li>
+<li><p><a class="reference external" href="https://github.com/renyi/mezzanine-blocks">mezzanine-blocks</a> - A Mezzanine flavored fork of
+django-flatblocks.</p></li>
+<li><p><a class="reference external" href="https://github.com/osiloke/mezzanine_widgets">mezzanine-widgets</a> - Widget system for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/renyi/mezzanine-themes">mezzanine-themes</a> - A collection of Django/Mezzanine templates.</p></li>
+<li><p><a class="reference external" href="https://github.com/lockhart/mezzanine-twittertopic">mezzanine-twittertopic</a> - Manage multiple Twitter topic feeds
+from the Mezzanine admin interface.</p></li>
+<li><p><a class="reference external" href="https://github.com/mjtorn/mezzanine-captcha">mezzanine-captcha</a> - Adds CAPTCHA field types to Mezzanine’s
+forms builder app.</p></li>
+<li><p><a class="reference external" href="https://github.com/adieu/mezzanine-bookmarks">mezzanine-bookmarks</a> - A multi-user bookmark app for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/stbarnabas/mezzanine-events">mezzanine-events</a> - Events plugin for Mezzanine, with geocoding
+via Google Maps, iCalendar files, webcal URLs and directions via
+Google Calendar/Maps.</p></li>
+<li><p><a class="reference external" href="https://github.com/sebasmagri/mezzanine_polls">mezzanine-polls</a> - Polls application for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/akhayyat/mezzanine-pagedown">mezzanine-pagedown</a> - Adds the <a class="reference external" href="https://code.google.com/p/pagedown/">Pagedown</a> WYSIWYG editor to
+Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/mogga/mezzanine-careers">mezzanine-careers</a> - Job posting application for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/tjetzinger/mezzanine-recipes">mezzanine-recipes</a> - Recipes plugin with built-in REST API.</p></li>
+<li><p><a class="reference external" href="https://github.com/overshard/mezzanine-slides">mezzanine-slides</a> - Responsive banner slides app for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/jardaroh/mezzyblocks">mezzyblocks</a> - Another app for adding blocks/modules to Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/mrmagooey/mezzanine-flexipage">mezzanine-flexipage</a> - Allows designers to manage content areas
+in templates.</p></li>
+<li><p><a class="reference external" href="https://github.com/shurik/Mezzanine_Instagram">mezzanine-instagram</a> - A simple Instagram app for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/dfalk/mezzanine-wiki">mezzanine-wiki</a> - Wiki app for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/shurik/mezzanine.calendar">mezzanine-calendar</a> - Calendar pages in Mezzanine</p></li>
+<li><p><a class="reference external" href="https://github.com/shurik/Mezzanine_Facebook">mezzanine-facebook</a> - Simple Facebook integration for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/georgeyk/mezzanine-instagram-gallery">mezzanine-instagram-gallery</a> - Create Mezzanine galleries using
+Instagram images.</p></li>
+<li><p><a class="reference external" href="https://github.com/adieu/mezzanine-cli">mezzanine-cli</a> - Command-line interface for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/mjtorn/mezzanine-categorylink">mezzanine-categorylink</a> - Integrates Mezzanine’s Link pages with
+its blog categories.</p></li>
+<li><p><a class="reference external" href="https://github.com/carpie/mezzanine-podcast">mezzanine-podcast</a> - A simple podcast streamer and manager for
+Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/mjtorn/mezzanine-linkcollection">mezzanine-linkcollection</a> - Collect links. Feature them. Share
+them over RSS.</p></li>
+<li><p><a class="reference external" href="https://github.com/ambientsound/cash-generator">cash-generator</a> - Generate <a class="reference external" href="http://www.gnucash.org/">GnuCash</a> invoices with Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/zgohr/mezzanine-foundation">mezzanine-foundation</a> - <a class="reference external" href="http://foundation.zurb.com/">Zurb Foundation</a> theme for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/thibault/mezzanine-file-collections">mezzanine-file-collections</a> - Simple file collection page type
+for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/excieve/mezzanine-wymeditor">mezzanine-wymeditor</a> - <a class="reference external" href="http://wymeditor.github.io/wymeditor/">WYMeditor</a> adapted as the rich text
+editor for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/abakan/mezzanine-meze">mezzanine-meze</a> - Adds support for <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>,
+<a class="reference external" href="http://pygments.org/">Pygments</a> and more, to Mezzanine’s rich text editing.</p></li>
+<li><p><a class="reference external" href="https://github.com/bcs-de/mezzanine-pageimages">mezzanine-pageimages</a> - Add background and banner images per page
+in Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/evilchili/mezzanine-protected-pages">mezzanine-protected-pages</a> - Restrict access to pages by group
+membership.</p></li>
+<li><p><a class="reference external" href="https://github.com/simodalla/mezzanine_page_auth">mezzanine-page-auth</a> - A Mezzanine module for add group-level
+permission to pages.</p></li>
+<li><p><a class="reference external" href="http://django-widgy.readthedocs.org/en/latest/">django-widgy</a> - Widget-oriented content editing. Includes an
+adapter for Mezzanine and a powerful form builder.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/joshcartme/mezzanine-admin-backup">mezzanine-admin-backup</a> - Export your Mezzanine database and assets
+directly from the admin.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/naritas/mezzanine-mailchimp">mezzanine-mailchimp</a> - Integrate Mezzanine forms with a MailChimp
+subscription list.</p></li>
+<li><p><a class="reference external" href="https://github.com/sephii/mezzanine-grappelli">mezzanine-grappelli</a> - Integrates latest upstream
+grappelli/filebrowser with Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/kampfschlaefer/mezzanine-workout">mezzanine-workout</a> - Store and display FIT data in Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/jpells/mezzanine-agenda">mezzanine-agenda</a> - Event functionality for your Mezzanine sites.</p></li>
+<li><p><a class="reference external" href="https://github.com/prikhi/mezzanine-dpaste">mezzanine-dpaste</a> - Integrate <a class="reference external" href="https://github.com/bartTC/dpaste">dpaste</a>, a Django pastebin, into
+your Mezzanine site.</p></li>
+<li><p><a class="reference external" href="https://github.com/prikhi/mezzanine-linkdump">mezzanine-linkdump</a> - Create, display and track links in Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/eci/mezzanine-people">mezzanine-people</a> - Categorize and list people in Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/jerivas/mezzanine-webf">mezzanine-webf</a> - Fabfile for deploying Mezzanine to Webfaction.</p></li>
+<li><p><a class="reference external" href="https://bitbucket.org/radeksvarz/mezzanineopenshift">mezzanineopenshift</a> Another setup for <a class="reference external" href="https://openshift.redhat.com/">Redhat’s OpenShift</a> cloud
+platform.</p></li>
+<li><p><a class="reference external" href="https://pypi.python.org/pypi/mezzanine-bsbanners">mezzanine-bsbanners</a> - Add <a class="reference external" href="http://getbootstrap.com/">Twitter Bootstrap</a> Carousels and
+Jumbotrons to Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/dfalk/mezzanine-business-theme">mezzanine-business-theme</a> - Starter business theme for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/simodalla/open-helpdesk">open-helpdesk</a> - A helpdesk app built with Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/averagehuman/mezzanine-invites">mezzanine-invites</a> - Allow site registration via alphanumeric
+invite codes.</p></li>
+<li><p><a class="reference external" href="https://github.com/keithadavidson/ansible-mezzanine">ansible-mezzanine</a> - Full pipeline (dev, staging, production)
+deployment of Mezzanine using <a class="reference external" href="http://www.ansible.com/">Ansible</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/joshcartme/mezzanine-modal-announcements">mezzanine-modal-announcements</a> - Popup announcements for Mezzanine
+websites via Bootstrap modals.</p></li>
+<li><p><a class="reference external" href="https://github.com/caffodian/mezzanine-buffer">mezzanine-buffer</a> - <a class="reference external" href="http://buffer.com">Buffer</a> integration for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/philipsouthwell/mezzanine-slideshows">mezzanine-slideshows</a> - Allows placement of Mezzanine galleries
+within other Mezzanine pages as slideshows.</p></li>
+<li><p><a class="reference external" href="https://github.com/lucmilland/mezzanine-onepage">mezzanine-onepage</a> - Design helper for single-page Mezzanine sites.</p></li>
+<li><p><a class="reference external" href="https://github.com/gcushen/mezzanine-api">mezzanine-api</a> - RESTful web API for Mezzanine.</p></li>
+<li><p><a class="reference external" href="https://github.com/Appdynamics/mezzanine-smartling">mezzanine-smartling</a> - Integrates Mezzanine content with
+<a class="reference external" href="http://www.smartling.com/">Smartling Translations</a>.</p></li>
+<li><p><a class="reference external" href="https://github.com/ryneeverett/mezzanine-shortcodes">mezzanine-shortcodes</a> - <a class="reference external" href="https://codex.wordpress.org/Shortcode">Wordpress shortcodes</a> for Mezzanine.</p></li>
+</ul>
+</section>
+<section id="sites-using-mezzanine">
+<h2>Sites Using Mezzanine<a class="headerlink" href="#sites-using-mezzanine" title="Permalink to this heading">¶</a></h2>
+<p>Got a site built with Mezzanine? You can add it to the gallery on
+the <a class="reference external" href="http://mezzanine.jupo.org">Mezzanine project page</a> by adding it to the list below - just
+fork the project and create a pull request. Please omit the trailing
+slash in the URL, as we manually add that ourselves to feature
+certain sites.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://citrus.com.au/">Citrus Agency</a></p></li>
+<li><p><a class="reference external" href="http://mezzanine.jupo.org">Mezzanine Project</a></p></li>
+<li><p><a class="reference external" href="http://hagianis.com">Nick Hagianis</a></p></li>
+<li><p><a class="reference external" href="http://tomfmason.net">Thomas Johnson</a></p></li>
+<li><p><a class="reference external" href="http://wembley-mosque.co.uk">Central Mosque Wembley</a></p></li>
+<li><p><a class="reference external" href="http://ocrf.com.au/">Ovarian Cancer Research Foundation</a></p></li>
+<li><p><a class="reference external" href="http://thesource.com.au/">The Source Procurement</a></p></li>
+<li><p><a class="reference external" href="http://imageinary.com">Imageinary</a></p></li>
+<li><p><a class="reference external" href="http://blog.bradmontgomery.net">Brad Montgomery</a></p></li>
+<li><p><a class="reference external" href="http://www.senexcanis.com">Jashua Cloutier</a></p></li>
+<li><p><a class="reference external" href="http://alphaomegacontractors.com">Alpha &amp; Omega Contractors</a></p></li>
+<li><p><a class="reference external" href="http://equityadvance.com.au/">Equity Advance</a></p></li>
+<li><p><a class="reference external" href="http://head3.com">Head3 Interactive</a></p></li>
+<li><p><a class="reference external" href="http://www.pyladies.com">PyLadies</a></p></li>
+<li><p><a class="reference external" href="http://www.ripematernity.com/">Ripe Maternity</a></p></li>
+<li><p><a class="reference external" href="http://shop.cottonon.com/">Cotton On</a></p></li>
+<li><p><a class="reference external" href="http://www.listgbarristers.com.au">List G Barristers</a></p></li>
+<li><p><a class="reference external" href="http://www.tricitiesflowerfarm.com">Tri-Cities Flower Farm</a></p></li>
+<li><p><a class="reference external" href="http://daon.ru/">daon.ru</a></p></li>
+<li><p><a class="reference external" href="http://autoindeks.ru/">autoindeks.ru</a></p></li>
+<li><p><a class="reference external" href="http://immiau.ru/">immiau.ru</a></p></li>
+<li><p><a class="reference external" href="http://www.araconsultants.com.au/">ARA Consultants</a></p></li>
+<li><p><a class="reference external" href="http://boiteazimages.com/">Boîte à Z’images</a></p></li>
+<li><p><a class="reference external" href="http://www.melbournecup.com/">The Melbourne Cup</a></p></li>
+<li><p><a class="reference external" href="http://www.diablo-news.com">Diablo News</a></p></li>
+<li><p><a class="reference external" href="http://www.goldmantravel.com.au/">Goldman Travel</a></p></li>
+<li><p><a class="reference external" href="http://ijcdigital.com/">IJC Digital</a></p></li>
+<li><p><a class="reference external" href="http://store.coopers.com.au/">Coopers</a></p></li>
+<li><p><a class="reference external" href="http://joejulian.name">Joe Julian</a></p></li>
+<li><p><a class="reference external" href="http://sheerethic.com/">Sheer Ethic</a></p></li>
+<li><p><a class="reference external" href="http://saltlakemagazine.com/">Salt Lake Magazine</a></p></li>
+<li><p><a class="reference external" href="http://bocamag.com/">Boca Raton Magazine</a></p></li>
+<li><p><a class="reference external" href="http://www.photog.me">Photog.me</a></p></li>
+<li><p><a class="reference external" href="http://www.elephantjuicesoup.com">Elephant Juice Soup</a></p></li>
+<li><p><a class="reference external" href="http://www.nationalpositions.co.uk/">National Positions</a></p></li>
+<li><p><a class="reference external" href="http://www.likehumansdo.com">Like Humans Do</a></p></li>
+<li><p><a class="reference external" href="http://connectingcountries.net">Connecting Countries</a></p></li>
+<li><p><a class="reference external" href="http://tindie.com">tindie.com</a></p></li>
+<li><p><a class="reference external" href="http://ewp-sa.com/">Environmental World Products</a></p></li>
+<li><p><a class="reference external" href="http://rosslaird.com">Ross A. Laird</a></p></li>
+<li><p><a class="reference external" href="http://etienneroes.ch">Etienne B. Roesch</a></p></li>
+<li><p><a class="reference external" href="http://recruiterbox.com/">Recruiterbox</a></p></li>
+<li><p><a class="reference external" href="http://modprods.com/">Mod Productions</a></p></li>
+<li><p><a class="reference external" href="http://appsembler.com/">Appsembler</a></p></li>
+<li><p><a class="reference external" href="http://www.pinktwig.ca">Pink Twig</a></p></li>
+<li><p><a class="reference external" href="http://parfumeplanet.com">Parfume Planet</a></p></li>
+<li><p><a class="reference external" href="http://www.trading4.us">Trading 4 Us</a></p></li>
+<li><p><a class="reference external" href="http://chrisfleisch.com">Chris Fleisch</a></p></li>
+<li><p><a class="reference external" href="http://theneum.com/">Theneum</a></p></li>
+<li><p><a class="reference external" href="http://www.mystorychest.com">My Story Chest</a></p></li>
+<li><p><a class="reference external" href="http://www.fatrix.ch">Philip Sahli</a></p></li>
+<li><p><a class="reference external" href="http://www.codearchaeologist.org">Raymond Chandler</a></p></li>
+<li><p><a class="reference external" href="http://nashpp.com">Nashsb</a></p></li>
+<li><p><a class="reference external" href="http://acinetobacter.bham.ac.uk">AciBASE</a></p></li>
+<li><p><a class="reference external" href="http://www.matthewahn.com">Matthe Wahn</a></p></li>
+<li><p><a class="reference external" href="http://bitofpixels.com">Bit of Pixels</a></p></li>
+<li><p><a class="reference external" href="http://ecm29.ecanews.org">European Crystallographic Meeting</a></p></li>
+<li><p><a class="reference external" href="http://dreamperium.com">Dreamperium</a></p></li>
+<li><p><a class="reference external" href="http://utdallasiia.com">UT Dallas</a></p></li>
+<li><p><a class="reference external" href="http://goyamamusic.com">Go Yama</a></p></li>
+<li><p><a class="reference external" href="http://www.yetihq.com/">Yeti LLC</a></p></li>
+<li><p><a class="reference external" href="http://idhoc.com">Li Xiong</a></p></li>
+<li><p><a class="reference external" href="http://pageworthy.com">Pageworthy</a></p></li>
+<li><p><a class="reference external" href="http://princejets.com">Prince Jets</a></p></li>
+<li><p><a class="reference external" href="http://1inday.com">30 sites in 30 days</a></p></li>
+<li><p><a class="reference external" href="http://www.sbtc.org.au/">St Barnabas’ Theological College</a></p></li>
+<li><p><a class="reference external" href="http://helios3d.nl/">Helios 3D</a></p></li>
+<li><p><a class="reference external" href="http://lifeisgoodforall.co.uk/">Life is Good</a></p></li>
+<li><p><a class="reference external" href="http://bldg92.org/">Building 92</a></p></li>
+<li><p><a class="reference external" href="http://piemonster.me">Pie Monster</a></p></li>
+<li><p><a class="reference external" href="http://asia.cottonon.com/">Cotton On Asia</a></p></li>
+<li><p><a class="reference external" href="http://www.adieu.me">Ivan Diao</a></p></li>
+<li><p><a class="reference external" href="http://www.wearetopsecret.com/">Super Top Secret</a></p></li>
+<li><p><a class="reference external" href="http://www.jaybirdgear.com/">Jaybird Sport</a></p></li>
+<li><p><a class="reference external" href="https://manai.co.uk">Manai Glitter</a></p></li>
+<li><p><a class="reference external" href="http://www.sriemas.edu.my">Sri Emas International School</a></p></li>
+<li><p><a class="reference external" href="http://perunspace.ru">Boom Perun</a></p></li>
+<li><p><a class="reference external" href="http://tacticalbags.ru">Tactical Bags</a></p></li>
+<li><p><a class="reference external" href="http://apps.de">apps.de</a></p></li>
+<li><p><a class="reference external" href="http://sunfluence.com">Sunfluence</a></p></li>
+<li><p><a class="reference external" href="http://ggzpreventie.nl">ggzpreventie.nl</a></p></li>
+<li><p><a class="reference external" href="http://www.dakuaiba.com">dakuaiba.com</a></p></li>
+<li><p><a class="reference external" href="http://www.wdiaz.org">Wdiaz</a></p></li>
+<li><p><a class="reference external" href="http://huntedhive.com/">Hunted Hive</a></p></li>
+<li><p><a class="reference external" href="http://mjollnir.org">mjollnir.org</a></p></li>
+<li><p><a class="reference external" href="http://www.beancatnet.org">The Beancat Network</a></p></li>
+<li><p><a class="reference external" href="http://raquelmaron.com/">Raquel Marón</a></p></li>
+<li><p><a class="reference external" href="http://eatlove.com.au/">EatLove</a></p></li>
+<li><p><a class="reference external" href="http://hospitalityq.com/">Hospitality Quotient</a></p></li>
+<li><p><a class="reference external" href="http://theandrewstory.com/">The Andrew Story</a></p></li>
+<li><p><a class="reference external" href="http://charleskoll.com/">Charles Koll Jewelry</a></p></li>
+<li><p><a class="reference external" href="http://www.creuna.com/">Creuna (com/dk/fi/no/se)</a></p></li>
+<li><p><a class="reference external" href="http://www.cosasandiego.com/">Coronado School of the Arts</a></p></li>
+<li><p><a class="reference external" href="http://www.sitecomb.com">SiteComb</a></p></li>
+<li><p><a class="reference external" href="http://dashing.tv/">Dashing Collective</a></p></li>
+<li><p><a class="reference external" href="http://puraforceremedies.com/">Puraforce Remedies</a></p></li>
+<li><p><a class="reference external" href="http://www.vetnethq.com/">Google’s VetNet</a></p></li>
+<li><p><a class="reference external" href="http://www.1800respect.org.au/">1800RESPECT</a></p></li>
+<li><p><a class="reference external" href="http://evenhouseconsulting.com/">Evenhouse Consulting</a></p></li>
+<li><p><a class="reference external" href="http://humboldtccs.org">Humboldt Community Christian School</a></p></li>
+<li><p><a class="reference external" href="http://gradyhistory.com">Atlanta’s Living Legacy</a></p></li>
+<li><p><a class="reference external" href="http://shipgistix.com">Shipgistix</a></p></li>
+<li><p><a class="reference external" href="http://www.yuberactive.asia">Yuberactive</a></p></li>
+<li><p><a class="reference external" href="http://pogromcymitowmedycznych.pl">Medical Myth Busters</a></p></li>
+<li><p><a class="reference external" href="http://4playernetwork.com/">4player Network</a></p></li>
+<li><p><a class="reference external" href="http://top500.org">Top500 Supercomputers</a></p></li>
+<li><p><a class="reference external" href="http://www.zeichnemit.de">Die Betroffenen</a></p></li>
+<li><p><a class="reference external" href="http://uvena.de">uvena.de</a></p></li>
+<li><p><a class="reference external" href="http://ezless.com">ezless.com</a></p></li>
+<li><p><a class="reference external" href="http://python.do">Dominican Python</a></p></li>
+<li><p><a class="reference external" href="http://stackful.io/">Stackful.io</a></p></li>
+<li><p><a class="reference external" href="http://www.adrln.com/">Adrenaline</a></p></li>
+<li><p><a class="reference external" href="http://aceedventure.com/">ACE EdVenture Programme</a></p></li>
+<li><p><a class="reference external" href="http://www.butchershopcreative.com/">Butchershop Creative</a></p></li>
+<li><p><a class="reference external" href="http://mises.fi">Ludwig von Mises Institute</a></p></li>
+<li><p><a class="reference external" href="http://incendio.no/">Incendio</a></p></li>
+<li><p><a class="reference external" href="http://lillevikdesign.no/">Alexander Lillevik</a></p></li>
+<li><p><a class="reference external" href="http://www.turitromso.no">Walk In Tromsø</a></p></li>
+<li><p><a class="reference external" href="http://www.mandriva.com/">Mandrivia Linux</a></p></li>
+<li><p><a class="reference external" href="http://crownpreschool.com">Crown Preschool</a></p></li>
+<li><p><a class="reference external" href="http://coronadopathways.com">Coronado Pathways Charter School</a></p></li>
+<li><p><a class="reference external" href="http://www.raindropads.com">Raindrop Marketing</a></p></li>
+<li><p><a class="reference external" href="http://www.web4py.com">Web4py</a></p></li>
+<li><p><a class="reference external" href="http://thepeculiarstore.com">The Peculiar Store</a></p></li>
+<li><p><a class="reference external" href="http://www.grindin.ru">GrinDin</a></p></li>
+<li><p><a class="reference external" href="http://www.4gume.com">4Gume</a></p></li>
+<li><p><a class="reference external" href="http://skydivo.com">Skydivo</a></p></li>
+<li><p><a class="reference external" href="http://noshly.com">Noshly</a></p></li>
+<li><p><a class="reference external" href="http://kabucreative.com.au/">Kabu Creative</a></p></li>
+<li><p><a class="reference external" href="http://www.kisanhub.com/">KisanHub</a></p></li>
+<li><p><a class="reference external" href="http://yoursongyourstory.org/">Your Song Your Story</a></p></li>
+<li><p><a class="reference external" href="http://kegbot.org">Kegbot</a></p></li>
+<li><p><a class="reference external" href="http://fiz.com/">Fiz</a></p></li>
+<li><p><a class="reference external" href="http://willbornco.com">Willborn</a></p></li>
+<li><p><a class="reference external" href="http://copilotco.com">Copilot Co</a></p></li>
+<li><p><a class="reference external" href="http://www.amblitec.com">Amblitec</a></p></li>
+<li><p><a class="reference external" href="http://www.bestgymever.com/">Gold’s Gym Utah</a></p></li>
+<li><p><a class="reference external" href="http://apps.in/">Appsin - Blog to Native app</a></p></li>
+<li><p><a class="reference external" href="http://takemeeast.net">Take Me East</a></p></li>
+<li><p><a class="reference external" href="http://www.coderaising.org">Code Raising</a></p></li>
+<li><p><a class="reference external" href="http://www.zigzagbags.com.au">ZigZag Bags</a></p></li>
+<li><p><a class="reference external" href="http://verifip.com/">VerifIP</a></p></li>
+<li><p><a class="reference external" href="http://www.clictv.tv/">Clic TV</a></p></li>
+<li><p><a class="reference external" href="http://www.jerivas.com/">JE Rivas</a></p></li>
+<li><p><a class="reference external" href="http://heathergregorynutrition.com">Heather Gregory Nutrition</a></p></li>
+<li><p><a class="reference external" href="http://coronado-realty.com">Coronado Island Realty</a></p></li>
+<li><p><a class="reference external" href="http://loanstohomes.com">Loans to Homes</a></p></li>
+<li><p><a class="reference external" href="http://genslergroup.com">Gensler Group</a></p></li>
+<li><p><a class="reference external" href="https://sanimedicaltourism.com">SaniCo</a></p></li>
+<li><p><a class="reference external" href="http://grupoinvista.com">Grupo Invista</a></p></li>
+<li><p><a class="reference external" href="http://brooklynnavyyard.org/">Brooklyn Navy Yard</a></p></li>
+<li><p><a class="reference external" href="http://www.nektra.com/">Nektra Advanced Computing</a></p></li>
+<li><p><a class="reference external" href="https://bootstrapasap.com/">Bootstrap ASAP</a></p></li>
+<li><p><a class="reference external" href="http://www.centerforjobs.org/">California Center for Jobs</a></p></li>
+<li><p><a class="reference external" href="http://www.sjkingston.com">Sam Kingston</a></p></li>
+<li><p><a class="reference external" href="http://www.codejuggle.dj">Code Juggle DJ</a></p></li>
+<li><p><a class="reference external" href="http://food.hypertexthero.com">Food News</a></p></li>
+<li><p><a class="reference external" href="http://ausdwcon.org">Australian Discworld Conventions</a></p></li>
+<li><p><a class="reference external" href="http://www.distilled.net/">Distilled</a></p></li>
+<li><p><a class="reference external" href="http://www.openmrp.es">OpenMRP</a></p></li>
+<li><p><a class="reference external" href="http://www.arkadesnowboarding.com/">Arkade Snowboarding</a></p></li>
+<li><p><a class="reference external" href="http://www.linktective.com">Linktective The Link Checker</a></p></li>
+<li><p><a class="reference external" href="http://www.zetalab.de">Zetalab</a></p></li>
+<li><p><a class="reference external" href="http://www.local706.org">Make-Up Artists &amp; Hair Stylists Guild</a></p></li>
+<li><p><a class="reference external" href="http://www.anywhereism.net">Anywhereism</a></p></li>
+<li><p><a class="reference external" href="http://aldlocator.com">Assistive Listening Device Locator</a></p></li>
+<li><p><a class="reference external" href="http://sdhome4you.com">Frank &amp; Connie Spitzer</a></p></li>
+<li><p><a class="reference external" href="http://coronadousd.net">Coronado Unified School District</a></p></li>
+<li><p><a class="reference external" href="http://coronadoinn.com">Coronado Inn</a></p></li>
+<li><p><a class="reference external" href="http://csfkids.org">Coronado Schools Foundation</a></p></li>
+<li><p><a class="reference external" href="http://www.lightandlifechristianschool.com">Light and Life Christian School</a></p></li>
+<li><p><a class="reference external" href="http://themorabitogroup.com">The Morabito Group</a></p></li>
+<li><p><a class="reference external" href="http://nancygardnerlaw.com">Law Offices of Nancy Gardner</a></p></li>
+<li><p><a class="reference external" href="http://legalmattersllp.com">Soden &amp; Steinberger APLC</a></p></li>
+<li><p><a class="reference external" href="http://stalwartcom.com">Stalwart Communications</a></p></li>
+<li><p><a class="reference external" href="http://ubuntuconsultants.com">Ubuntu Consultants</a></p></li>
+<li><p><a class="reference external" href="http://wineabitcoronado.com">Wine a Bit Coronado</a></p></li>
+<li><p><a class="reference external" href="http://mercurymastering.com">Mercury Mastering</a></p></li>
+<li><p><a class="reference external" href="http://flowgrammable.org">Flowgrammable</a></p></li>
+<li><p><a class="reference external" href="http://shibemart.com">Shibe Mart</a></p></li>
+<li><p><a class="reference external" href="http://caisbalderas.com/">Carlos Isaac Balderas</a></p></li>
+<li><p><a class="reference external" href="http://www.pending.io">Enrico Tröger</a></p></li>
+<li><p><a class="reference external" href="http://peruginicase.it/">Perugini</a></p></li>
+<li><p><a class="reference external" href="https://www.youpatch.com">YouPatch</a></p></li>
+<li><p><a class="reference external" href="http://batistapeniel.org">Batista Peniel</a></p></li>
+<li><p><a class="reference external" href="http://www.perceptyx.com/">Perceptyx</a></p></li>
+<li><p><a class="reference external" href="http://guddina.com">Guddina Coffee</a></p></li>
+<li><p><a class="reference external" href="http://www.atami.com.sv">Atami Escape Resort</a></p></li>
+<li><p><a class="reference external" href="http://www.philipsouthwell.com">Philip Southwell</a></p></li>
+<li><p><a class="reference external" href="http://www.jnkbows.com">Justine &amp; Katie’s Bowtique</a></p></li>
+<li><p><a class="reference external" href="https://www.thegrantwell.com">The Grantwell LLC</a></p></li>
+<li><p><a class="reference external" href="https://tw.pycon.org/">PyCon Asia-Pacific</a></p></li>
+<li><p><a class="reference external" href="http://nerdot.com.do">Nerdot</a></p></li>
+<li><p><a class="reference external" href="http://coworking.do">Coworking.do</a></p></li>
+<li><p><a class="reference external" href="http://arlettepichardo.com">Arlette Pichardo</a></p></li>
+<li><p><a class="reference external" href="http://sanidentalgroup.com">Sani Dental Group</a></p></li>
+<li><p><a class="reference external" href="http://www.biocap06.fr">Biocap 06</a></p></li>
+<li><p><a class="reference external" href="http://pythonbc.co/">Python Baja California</a></p></li>
+<li><p><a class="reference external" href="http://www.theartrebellion.com/">The Art Rebellion</a></p></li>
+<li><p><a class="reference external" href="https://www.engineeredarts.co.uk">Engineered Arts</a></p></li>
+<li><p><a class="reference external" href="http://www.paulwhippconsulting.com">Paul Whipp Consulting</a></p></li>
+<li><p><a class="reference external" href="https://lipmanart.com/">Lipman Art</a></p></li>
+<li><p><a class="reference external" href="http://modcogroup.com/">MODCo Group</a></p></li>
+<li><p><a class="reference external" href="http://www.terminallabs.com">Terminal Labs</a></p></li>
+<li><p><a class="reference external" href="http://rmcrecycle.com">Resource Management Companies</a></p></li>
+<li><p><a class="reference external" href="http://dollfires.com">DollFires</a></p></li>
+<li><p><a class="reference external" href="http://quantifind.com/">Quantifind</a></p></li>
+<li><p><a class="reference external" href="https://www.zhackers.com">ZHackers</a></p></li>
+<li><p><a class="reference external" href="http://openerparabia.org/">Open ERP Arabia</a></p></li>
+<li><p><a class="reference external" href="http://www.datakind.org/">DataKind</a></p></li>
+<li><p><a class="reference external" href="http://nzier.org.nz/">New Zealand Institute of Economic Research</a></p></li>
+<li><p><a class="reference external" href="http://thecodinghouse.in">CodingHouse</a></p></li>
+<li><p><a class="reference external" href="http://triplejcoilproducts.com">Triple J Products</a></p></li>
+<li><p><a class="reference external" href="http://abalderas.com">Aaron E. Balderas</a></p></li>
+<li><p><a class="reference external" href="http://dvd.nl/">DVD.nl</a></p></li>
+<li><p><a class="reference external" href="http://www.constantiafabrics.co.za/">Constantia Fabrics</a></p></li>
+<li><p><a class="reference external" href="http://potrilloalpie.com/">Potrillo al Pie</a></p></li>
+<li><p><a class="reference external" href="http://skyfalk.ru">Skyfalk Web Studio</a></p></li>
+<li><p><a class="reference external" href="https://mobilepartners.mozilla.org/">Firefox OS Partners</a></p></li>
+<li><p><a class="reference external" href="http://you-name-it.net">You Name It</a></p></li>
+<li><p><a class="reference external" href="https://infectionatlas.org">Atlas of Human Infectious Diseases</a></p></li>
+<li><p><a class="reference external" href="http://theentrepreneurialschool.com/">The Entrepreneurial School</a></p></li>
+<li><p><a class="reference external" href="http://wednesdaymartin.com/">Wednesday Martin</a></p></li>
+<li><p><a class="reference external" href="https://avaristoavanim.com">Avaris to Avanim</a></p></li>
+<li><p><a class="reference external" href="http://www.cognitionscoachingandconsulting.com">Cognitions Coaching and Consulting</a></p></li>
+<li><p><a class="reference external" href="http://fegroup.net.au">Foundation Engineering Group</a></p></li>
+<li><p><a class="reference external" href="https://www.hivelocity.net">Hivelocity</a></p></li>
+<li><p><a class="reference external" href="http://zoop.ly">Zooply</a></p></li>
+<li><p><a class="reference external" href="http://oceanatech.com">Oceana Technologies</a></p></li>
+<li><p><a class="reference external" href="http://terrahub.org/">TerraHub</a></p></li>
+<li><p><a class="reference external" href="http://djangoproject.jp/">djangoproject.jp</a></p></li>
+<li><p><a class="reference external" href="http://starboard.flowtheory.net">Joshua Ginsberg</a></p></li>
+<li><p><a class="reference external" href="http://www.savantdigital.net">Savant Digital</a></p></li>
+<li><p><a class="reference external" href="https://webounty.com">weBounty</a></p></li>
+<li><p><a class="reference external" href="http://www.oxfamamerica.org/">Oxfam America</a></p></li>
+<li><p><a class="reference external" href="https://artivest.co/">Artivest</a></p></li>
+<li><p><a class="reference external" href="http://darkmattersheep.net">Dark Matter Sheep</a></p></li>
+<li><p><a class="reference external" href="http://homewithmission.com">Mission Healthcare</a></p></li>
+<li><p><a class="reference external" href="http://twofortyfives.com/">Two Forty Fives</a></p></li>
+<li><p><a class="reference external" href="http://rodeoaustin.com/">Rodeo Austin</a></p></li>
+<li><p><a class="reference external" href="http://krisers.com/">Krisers</a></p></li>
+<li><p><a class="reference external" href="http://intentionalcreation.com/">Intentional Creation</a></p></li>
+<li><p><a class="reference external" href="http://www.bytesarea.com">BytesArea</a></p></li>
+<li><p><a class="reference external" href="http://www.debrasolomon.com">Debra Solomon</a></p></li>
+<li><p><a class="reference external" href="http://pampangafood.com">Pampanga Food Company</a></p></li>
+<li><p><a class="reference external" href="http://amansinaya.com">Aman Sinaya</a></p></li>
+<li><p><a class="reference external" href="http://www.deschamps-osteopathe.fr">Deschamps osteo</a></p></li>
+<li><p><a class="reference external" href="http://www.deschamps-kinesitherapeute.fr">Deschamps kine</a></p></li>
+<li><p><a class="reference external" href="http://creactu.fr">Creactu</a></p></li>
+<li><p><a class="reference external" href="https://scrunch.com">scrunch</a></p></li>
+<li><p><a class="reference external" href="http://www.appdynamics.com/">App Dynamics</a></p></li>
+<li><p><a class="reference external" href="https://www.homespun.com">Homespun Music Instruction</a></p></li>
+<li><p><a class="reference external" href="https://www.fusionbox.com/">Fusionbox</a></p></li>
+<li><p><a class="reference external" href="http://www.streetuni.net">The Street University</a></p></li>
+<li><p><a class="reference external" href="http://glebe.com.au">Glebe</a></p></li>
+<li><p><a class="reference external" href="https://www.ceodental.com.au">CeoDental Seminars</a></p></li>
+<li><p><a class="reference external" href="https://www.paybysuper.com.au">Pay By Super</a></p></li>
+<li><p><a class="reference external" href="https://www.noffs.org.au">Noffs</a></p></li>
+<li><p><a class="reference external" href="http://spokade.com">Spokade</a></p></li>
+<li><p><a class="reference external" href="http://www.brisbaneprosthodontics.com.au">Brisbane Prosthodontics</a></p></li>
+<li><p><a class="reference external" href="http://carbonised.com.au">Carbonised</a></p></li>
+<li><p><a class="reference external" href="http://www.derrydonnell.com.au">Derry Donnell</a></p></li>
+<li><p><a class="reference external" href="http://kennethcutbush.com">Dr Kenneth Cutbush</a></p></li>
+<li><p><a class="reference external" href="http://www.aifs.com.au">American Institute for Foreign Study</a></p></li>
+<li><p><a class="reference external" href="http://campamerica.com.au">Camp America</a></p></li>
+<li><p><a class="reference external" href="http://codesource.com.au/">Code Source</a></p></li>
+<li><p><a class="reference external" href="http://thefec.org">The Federation of Egalitarian Communities</a></p></li>
+<li><p><a class="reference external" href="https://caffeinatedlifestyle.com">Caffeinated Lifestyle</a></p></li>
+<li><p><a class="reference external" href="https://the-national.com.au">The National: New Australian Art</a></p></li>
+</ul>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Overview</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#support">Support</a></li>
+<li><a class="reference internal" href="#contributing">Contributing</a></li>
+<li><a class="reference internal" href="#donating">Donating</a></li>
+<li><a class="reference internal" href="#quotes">Quotes</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#themes">Themes</a></li>
+<li><a class="reference internal" href="#browser-support">Browser Support</a></li>
+<li><a class="reference internal" href="#third-party-plug-ins">Third-Party Plug-Ins</a></li>
+<li><a class="reference internal" href="#sites-using-mezzanine">Sites Using Mezzanine</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="index.html"
+                          title="previous chapter">Mezzanine</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="content-architecture.html"
+                          title="next chapter">Content Architecture</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/overview.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="content-architecture.html" title="Content Architecture"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Mezzanine"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Overview</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

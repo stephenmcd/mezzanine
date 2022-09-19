@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.generic.forms &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.generic.forms</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.generic.forms</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">django_comments.forms</span> <span class="kn">import</span> <span class="n">CommentForm</span><span class="p">,</span> <span class="n">CommentSecurityForm</span>
+<span class="kn">from</span> <span class="nn">django_comments.signals</span> <span class="kn">import</span> <span class="n">comment_was_posted</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.forms</span> <span class="kn">import</span> <span class="n">Html5Mixin</span>
+<span class="kn">from</span> <span class="nn">mezzanine.generic.models</span> <span class="kn">import</span> <span class="n">Keyword</span><span class="p">,</span> <span class="n">ThreadedComment</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.cache</span> <span class="kn">import</span> <span class="n">add_cache_bypass</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.deprecation</span> <span class="kn">import</span> <span class="n">is_authenticated</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.email</span> <span class="kn">import</span> <span class="n">send_mail_template</span><span class="p">,</span> <span class="n">split_addresses</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.static</span> <span class="kn">import</span> <span class="n">static_lazy</span> <span class="k">as</span> <span class="n">static</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.views</span> <span class="kn">import</span> <span class="n">ip_for_request</span>
+
+
+<div class="viewcode-block" id="KeywordsWidget"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.KeywordsWidget">[docs]</a><span class="k">class</span> <span class="nc">KeywordsWidget</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">MultiWidget</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Form field for the ``KeywordsField`` generic relation field. Since</span>
+<span class="sd">    the admin with model forms has no form field for generic</span>
+<span class="sd">    relations, this form field provides a single field for managing</span>
+<span class="sd">    the keywords. It contains two actual widgets, a text input for</span>
+<span class="sd">    entering keywords, and a hidden input that stores the ID of each</span>
+<span class="sd">    ``Keyword`` instance.</span>
+
+<span class="sd">    The attached JavaScript adds behaviour so that when the form is</span>
+<span class="sd">    submitted, an AJAX post is made that passes the list of keywords</span>
+<span class="sd">    in the text input, and returns a list of keyword IDs which are</span>
+<span class="sd">    then entered into the hidden input before the form submits. The</span>
+<span class="sd">    list of IDs in the hidden input is what is used when retrieving</span>
+<span class="sd">    an actual value from the field for the form.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Media</span><span class="p">:</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;admin/js/jquery.init.js&quot;</span><span class="p">,</span>
+            <span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/js/admin/keywords_field.js&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Setup the text and hidden form field widgets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">HiddenInput</span><span class="p">,</span> <span class="n">forms</span><span class="o">.</span><span class="n">TextInput</span><span class="p">(</span><span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;vTextField&quot;</span><span class="p">}))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">widgets</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ids</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="KeywordsWidget.decompress"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.KeywordsWidget.decompress">[docs]</a>    <span class="k">def</span> <span class="nf">decompress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes the sequence of ``AssignedKeyword`` instances and splits</span>
+<span class="sd">        them into lists of keyword IDs and titles each mapping to one</span>
+<span class="sd">        of the form field widgets.</span>
+<span class="sd">        If the page has encountered a validation error then</span>
+<span class="sd">        Takes a string with ``Keyword`` ids and fetches the</span>
+<span class="sd">        sequence of ``AssignedKeyword``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keywords</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s2">&quot;select_related&quot;</span><span class="p">):</span>
+            <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">keyword</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s2">&quot;keyword&quot;</span><span class="p">)]</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">keyword_pks</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">keywords</span> <span class="o">=</span> <span class="n">Keyword</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">id__in</span><span class="o">=</span><span class="n">keyword_pks</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">keywords</span><span class="p">:</span>
+            <span class="n">keywords</span> <span class="o">=</span> <span class="p">[(</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">id</span><span class="p">),</span> <span class="n">k</span><span class="o">.</span><span class="n">title</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ids</span><span class="p">,</span> <span class="n">words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">keywords</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ids</span><span class="p">),</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KeywordsWidget.render"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.KeywordsWidget.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wraps the output HTML with a list of all available ``Keyword``</span>
+<span class="sd">        instances that can be clicked on to toggle a keyword.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rendered</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">Keyword</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">):</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">keyword</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ids</span> <span class="k">else</span> <span class="s2">&quot;-&quot;</span>
+            <span class="n">links</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;&lt;a href=&#39;#&#39;&gt;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="nb">str</span><span class="p">(</span><span class="n">keyword</span><span class="p">)</span><span class="si">}</span><span class="s2">&lt;/a&gt;&quot;</span>
+        <span class="n">rendered</span> <span class="o">+=</span> <span class="n">mark_safe</span><span class="p">(</span><span class="s2">&quot;&lt;p class=&#39;keywords-field&#39;&gt;</span><span class="si">%s</span><span class="s2">&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="n">links</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rendered</span></div>
+
+<div class="viewcode-block" id="KeywordsWidget.value_from_datadict"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.KeywordsWidget.value_from_datadict">[docs]</a>    <span class="k">def</span> <span class="nf">value_from_datadict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the comma separated list of keyword IDs for use in</span>
+<span class="sd">        ``KeywordsField.save_form_data()``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">_0&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ThreadedCommentForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.ThreadedCommentForm">[docs]</a><span class="k">class</span> <span class="nc">ThreadedCommentForm</span><span class="p">(</span><span class="n">CommentForm</span><span class="p">,</span> <span class="n">Html5Mixin</span><span class="p">):</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">),</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;required&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Email&quot;</span><span class="p">),</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;required (not published)&quot;</span><span class="p">))</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">URLField</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Website&quot;</span><span class="p">),</span> <span class="n">help_text</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;optional&quot;</span><span class="p">),</span> <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># These are used to get/set prepopulated fields via cookies.</span>
+    <span class="n">cookie_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;email&quot;</span><span class="p">,</span> <span class="s2">&quot;url&quot;</span><span class="p">)</span>
+    <span class="n">cookie_prefix</span> <span class="o">=</span> <span class="s2">&quot;mezzanine-comment-&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set some initial field values from cookies or the logged in</span>
+<span class="sd">        user, and apply some HTML5 attributes to the fields if the</span>
+<span class="sd">        ``FORMS_USE_HTML5`` setting is ``True``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;initial&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">ThreadedCommentForm</span><span class="o">.</span><span class="n">cookie_fields</span><span class="p">:</span>
+            <span class="n">cookie_name</span> <span class="o">=</span> <span class="n">ThreadedCommentForm</span><span class="o">.</span><span class="n">cookie_prefix</span> <span class="o">+</span> <span class="n">field</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">COOKIES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cookie_name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">field</span> <span class="o">==</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">get_full_name</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">and</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span> <span class="o">!=</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">:</span>
+                        <span class="n">value</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">username</span>
+                <span class="k">elif</span> <span class="n">field</span> <span class="o">==</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;initial&quot;</span><span class="p">][</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ThreadedCommentForm.get_comment_model"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.ThreadedCommentForm.get_comment_model">[docs]</a>    <span class="k">def</span> <span class="nf">get_comment_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Use the custom comment model instead of the built-in one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">ThreadedComment</span></div>
+
+<div class="viewcode-block" id="ThreadedCommentForm.check_for_duplicate_comment"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.ThreadedCommentForm.check_for_duplicate_comment">[docs]</a>    <span class="k">def</span> <span class="nf">check_for_duplicate_comment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We handle duplicates inside ``save``, since django_comments&#39;</span>
+<span class="sd">        `check_for_duplicate_comment` doesn&#39;t deal with extra fields</span>
+<span class="sd">        defined on the comment model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">new</span></div>
+
+<div class="viewcode-block" id="ThreadedCommentForm.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.ThreadedCommentForm.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves a new comment and sends any notification emails.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">comment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_comment_object</span><span class="p">()</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">comment</span><span class="o">.</span><span class="n">content_object</span>
+        <span class="k">if</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+            <span class="n">comment</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">comment</span><span class="o">.</span><span class="n">by_author</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span> <span class="o">==</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">comment</span><span class="o">.</span><span class="n">ip_address</span> <span class="o">=</span> <span class="n">ip_for_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">comment</span><span class="o">.</span><span class="n">replied_to_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;replied_to&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Mezzanine&#39;s duplicate check that also checks `replied_to_id`.</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;content_type&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">content_type</span><span class="p">,</span>
+            <span class="s2">&quot;object_pk&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">object_pk</span><span class="p">,</span>
+            <span class="s2">&quot;user_name&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">user_name</span><span class="p">,</span>
+            <span class="s2">&quot;user_email&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">user_email</span><span class="p">,</span>
+            <span class="s2">&quot;user_url&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">user_url</span><span class="p">,</span>
+            <span class="s2">&quot;replied_to_id&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="o">.</span><span class="n">replied_to_id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">duplicate</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_comment_model</span><span class="p">()</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">):</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">duplicate</span><span class="o">.</span><span class="n">submit_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="o">==</span> <span class="n">comment</span><span class="o">.</span><span class="n">submit_date</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+                <span class="ow">and</span> <span class="n">duplicate</span><span class="o">.</span><span class="n">comment</span> <span class="o">==</span> <span class="n">comment</span><span class="o">.</span><span class="n">comment</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="n">duplicate</span>
+
+        <span class="n">comment</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">comment_was_posted</span><span class="o">.</span><span class="n">send</span><span class="p">(</span>
+            <span class="n">sender</span><span class="o">=</span><span class="n">comment</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="n">comment</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span>
+        <span class="p">)</span>
+        <span class="n">notify_emails</span> <span class="o">=</span> <span class="n">split_addresses</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">COMMENTS_NOTIFICATION_EMAILS</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">notify_emails</span><span class="p">:</span>
+            <span class="n">subject</span> <span class="o">=</span> <span class="n">gettext</span><span class="p">(</span><span class="s2">&quot;New comment for: &quot;</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;comment&quot;</span><span class="p">:</span> <span class="n">comment</span><span class="p">,</span>
+                <span class="s2">&quot;comment_url&quot;</span><span class="p">:</span> <span class="n">add_cache_bypass</span><span class="p">(</span><span class="n">comment</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">()),</span>
+                <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span>
+                <span class="s2">&quot;obj&quot;</span><span class="p">:</span> <span class="n">obj</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">send_mail_template</span><span class="p">(</span>
+                <span class="n">subject</span><span class="p">,</span>
+                <span class="s2">&quot;email/comment_notification&quot;</span><span class="p">,</span>
+                <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_FROM_EMAIL</span><span class="p">,</span>
+                <span class="n">notify_emails</span><span class="p">,</span>
+                <span class="n">context</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">comment</span></div></div>
+
+
+<div class="viewcode-block" id="RatingForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.RatingForm">[docs]</a><span class="k">class</span> <span class="nc">RatingForm</span><span class="p">(</span><span class="n">CommentSecurityForm</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Form for a rating. Subclasses ``CommentSecurityForm`` to make use</span>
+<span class="sd">    of its easy setup for generic relations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">widget</span><span class="o">=</span><span class="n">forms</span><span class="o">.</span><span class="n">RadioSelect</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">RATINGS_RANGE</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">request</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">request</span> <span class="ow">and</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rating_manager</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">current</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initial</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rating_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rating_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_object</span><span class="o">.</span><span class="n">get_ratingfield_name</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_object</span><span class="p">,</span> <span class="n">rating_name</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RatingForm.clean"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.RatingForm.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check unauthenticated user&#39;s cookie as a light check to</span>
+<span class="sd">        prevent duplicate votes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">bits</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;content_type&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;object_pk&quot;</span><span class="p">])</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bits</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">previous</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">COOKIES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mezzanine-rating&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="n">already_rated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">previous</span>
+        <span class="k">if</span> <span class="n">already_rated</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">forms</span><span class="o">.</span><span class="n">ValidationError</span><span class="p">(</span><span class="n">gettext</span><span class="p">(</span><span class="s2">&quot;Already rated.&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span></div>
+
+<div class="viewcode-block" id="RatingForm.save"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.forms.RatingForm.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves a new rating - authenticated users can update the</span>
+<span class="sd">        value if they&#39;ve previously rated.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">undoing</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">rating_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rating_manager</span>
+
+        <span class="k">if</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+            <span class="n">rating_instance</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span>
+                <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">rating_value</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">created</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">rating_instance</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">rating_value</span><span class="p">):</span>
+                    <span class="c1"># User submitted the same rating as previously,</span>
+                    <span class="c1"># which we treat as undoing the rating (like a toggle).</span>
+                    <span class="n">rating_instance</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">undoing</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">rating_instance</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">rating_value</span>
+                    <span class="n">rating_instance</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rating_instance</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">rating_value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rating_instance</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.generic.forms</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,870 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.core.templatetags.mezzanine_tags &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mezzanine.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.templatetags.mezzanine_tags</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.core.templatetags.mezzanine_tags</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">hashlib</span> <span class="kn">import</span> <span class="n">md5</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span><span class="p">,</span> <span class="n">unquote</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">quote</span><span class="p">,</span> <span class="n">unquote</span>
+
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">apps</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">REDIRECT_FIELD_NAME</span>
+<span class="kn">from</span> <span class="nn">django.contrib.sites.models</span> <span class="kn">import</span> <span class="n">Site</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ObjectDoesNotExist</span>
+<span class="kn">from</span> <span class="nn">django.core.files</span> <span class="kn">import</span> <span class="n">File</span>
+<span class="kn">from</span> <span class="nn">django.core.files.storage</span> <span class="kn">import</span> <span class="n">default_storage</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">Template</span><span class="p">,</span> <span class="n">TemplateSyntaxError</span>
+<span class="kn">from</span> <span class="nn">django.template.base</span> <span class="kn">import</span> <span class="n">TextNode</span><span class="p">,</span> <span class="n">TokenType</span>
+<span class="kn">from</span> <span class="nn">django.template.defaultfilters</span> <span class="kn">import</span> <span class="n">escape</span>
+<span class="kn">from</span> <span class="nn">django.template.defaulttags</span> <span class="kn">import</span> <span class="n">IfNode</span>
+<span class="kn">from</span> <span class="nn">django.template.loader</span> <span class="kn">import</span> <span class="n">get_template</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">NoReverseMatch</span><span class="p">,</span> <span class="n">resolve</span><span class="p">,</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">translation</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="kn">import</span> <span class="n">strip_tags</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">SafeText</span><span class="p">,</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django.utils.text</span> <span class="kn">import</span> <span class="n">capfirst</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine</span> <span class="kn">import</span> <span class="n">template</span>
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.fields</span> <span class="kn">import</span> <span class="n">RichTextField</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.forms</span> <span class="kn">import</span> <span class="n">get_edit_form</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.cache</span> <span class="kn">import</span> <span class="n">cache_installed</span><span class="p">,</span> <span class="n">nevercache_token</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.html</span> <span class="kn">import</span> <span class="n">decode_entities</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.importing</span> <span class="kn">import</span> <span class="n">import_dotted_path</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.sites</span> <span class="kn">import</span> <span class="n">current_site_id</span><span class="p">,</span> <span class="n">has_site_permission</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">admin_url</span><span class="p">,</span> <span class="n">home_slug</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.views</span> <span class="kn">import</span> <span class="n">is_editable</span>
+
+<span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="s2">&quot;compressor&quot;</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span><span class="p">:</span>
+
+    <span class="nd">@register</span><span class="o">.</span><span class="n">tag</span>
+    <span class="k">def</span> <span class="nf">compress</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shadows django-compressor&#39;s compress tag so it can be</span>
+<span class="sd">        loaded from ``mezzanine_tags``, allowing us to provide</span>
+<span class="sd">        a dummy version when django-compressor isn&#39;t installed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">compressor.templatetags.compress</span> <span class="kn">import</span> <span class="n">compress</span>
+
+        <span class="k">return</span> <span class="n">compress</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+
+<div class="viewcode-block" id="compress"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.compress">[docs]</a>    <span class="nd">@register</span><span class="o">.</span><span class="n">to_end_tag</span>
+    <span class="k">def</span> <span class="nf">compress</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Dummy tag for fallback when django-compressor isn&#39;t installed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">parsed</span></div>
+
+
+<span class="k">def</span> <span class="nf">initialize_nevercache</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">cache_installed</span><span class="p">():</span>
+
+        <span class="nd">@register</span><span class="o">.</span><span class="n">tag</span>
+        <span class="k">def</span> <span class="nf">nevercache</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Tag for two phased rendering. Converts enclosed template</span>
+<span class="sd">            code and content into text, which gets rendered separately</span>
+<span class="sd">            in ``mezzanine.core.middleware.UpdateCacheMiddleware``.</span>
+<span class="sd">            This is to bypass caching for the enclosed code and content.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">end_tag</span> <span class="o">=</span> <span class="s2">&quot;endnevercache&quot;</span>
+            <span class="n">tag_mapping</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">TokenType</span><span class="o">.</span><span class="n">TEXT</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="n">TokenType</span><span class="o">.</span><span class="n">VAR</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;{{&quot;</span><span class="p">,</span> <span class="s2">&quot;}}&quot;</span><span class="p">),</span>
+                <span class="n">TokenType</span><span class="o">.</span><span class="n">BLOCK</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;{%&quot;</span><span class="p">,</span> <span class="s2">&quot;%}&quot;</span><span class="p">),</span>
+                <span class="n">TokenType</span><span class="o">.</span><span class="n">COMMENT</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;{#&quot;</span><span class="p">,</span> <span class="s2">&quot;#}&quot;</span><span class="p">),</span>
+            <span class="p">}</span>
+            <span class="n">delimiter</span> <span class="o">=</span> <span class="n">nevercache_token</span><span class="p">()</span>
+            <span class="k">while</span> <span class="n">parser</span><span class="o">.</span><span class="n">tokens</span><span class="p">:</span>
+                <span class="n">token</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">next_token</span><span class="p">()</span>
+                <span class="n">token_type</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">token_type</span>
+                <span class="k">if</span> <span class="n">token_type</span> <span class="o">==</span> <span class="n">TokenType</span><span class="o">.</span><span class="n">BLOCK</span> <span class="ow">and</span> <span class="n">token</span><span class="o">.</span><span class="n">contents</span> <span class="o">==</span> <span class="n">end_tag</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">TextNode</span><span class="p">(</span><span class="n">delimiter</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">+</span> <span class="n">delimiter</span><span class="p">)</span>
+                <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">tag_mapping</span><span class="p">[</span><span class="n">token_type</span><span class="p">]</span>
+                <span class="n">text</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">start</span><span class="si">}{</span><span class="n">token</span><span class="o">.</span><span class="n">contents</span><span class="si">}{</span><span class="n">end</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">unclosed_block_tag</span><span class="p">(</span><span class="n">end_tag</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="nd">@register</span><span class="o">.</span><span class="n">to_end_tag</span>
+        <span class="k">def</span> <span class="nf">nevercache</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Dummy fallback ``nevercache`` for when caching is not</span>
+<span class="sd">            configured.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="n">parsed</span>
+
+
+<span class="n">initialize_nevercache</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="fields_for"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.fields_for">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">simple_tag</span><span class="p">(</span><span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">fields_for</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;includes/form_fields.html&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renders fields for a form with an optional template choice.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span><span class="p">[</span><span class="s2">&quot;form_for_fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">form</span>
+    <span class="k">return</span> <span class="n">get_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="errors_for"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.errors_for">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;includes/form_errors.html&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">errors_for</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renders an alert if the form has any errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="sort_by"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.sort_by">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">filter</span>
+<span class="k">def</span> <span class="nf">sort_by</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    General sort filter - sorts by either attribute or key.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">key_func</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">item</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>  <span class="c1"># Reraise AttributeError</span>
+
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key_func</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_installed"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.is_installed">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">filter</span>
+<span class="k">def</span> <span class="nf">is_installed</span><span class="p">(</span><span class="n">app_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns ``True`` if the given app name is in the</span>
+<span class="sd">    ``INSTALLED_APPS`` setting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+    <span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;The is_installed filter is deprecated. Please use the tag &quot;</span>
+        <span class="s2">&quot;{</span><span class="si">% i</span><span class="s2">finstalled appname %}{</span><span class="si">% e</span><span class="s2">ndifinstalled %}&quot;</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">app_name</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span></div>
+
+
+<span class="k">class</span> <span class="nc">EvalWrapper</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compatibility class for ``value`` to work with Django&#39;s ``IfNode``&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+
+<div class="viewcode-block" id="ifinstalled"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.ifinstalled">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">tag</span>
+<span class="k">def</span> <span class="nf">ifinstalled</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``if`` tag that renders contents if the given app is installed. The main use case</span>
+<span class="sd">    is:</span>
+
+<span class="sd">    {% ifinstalled &quot;app_name&quot; %}</span>
+<span class="sd">    {% include &quot;app_name/template.html&quot; %}</span>
+<span class="sd">    {% endifinstalled %}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tag</span><span class="p">,</span> <span class="n">app</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">TemplateSyntaxError</span><span class="p">(</span>
+            <span class="s2">&quot;ifinstalled should be in the form: &quot;</span>
+            <span class="s2">&quot;{</span><span class="si">% i</span><span class="s2">finstalled app_name %}{</span><span class="si">% e</span><span class="s2">ndifinstalled %}&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">condition</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">&#39;&quot;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span>
+    <span class="n">nodelist</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;end</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span>
+    <span class="n">conditions_nodelists</span> <span class="o">=</span> <span class="p">[(</span><span class="n">EvalWrapper</span><span class="p">(</span><span class="n">condition</span><span class="p">),</span> <span class="n">nodelist</span><span class="p">)]</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">next_token</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">IfNode</span><span class="p">(</span><span class="n">conditions_nodelists</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="set_short_url_for"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.set_short_url_for">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">render_tag</span>
+<span class="k">def</span> <span class="nf">set_short_url_for</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sets the ``short_url`` attribute of the given model for share</span>
+<span class="sd">    links in the template.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">obj</span><span class="o">.</span><span class="n">set_short_url</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="gravatar_url"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.gravatar_url">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">simple_tag</span>
+<span class="k">def</span> <span class="nf">gravatar_url</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">32</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the full URL for a Gravatar given an email hash.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bits</span> <span class="o">=</span> <span class="p">(</span><span class="n">md5</span><span class="p">(</span><span class="n">email</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;//www.gravatar.com/avatar/</span><span class="si">%s</span><span class="s2">?s=</span><span class="si">%s</span><span class="s2">&amp;d=identicon&amp;r=PG&quot;</span> <span class="o">%</span> <span class="n">bits</span></div>
+
+
+<div class="viewcode-block" id="metablock"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.metablock">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">to_end_tag</span>
+<span class="k">def</span> <span class="nf">metablock</span><span class="p">(</span><span class="n">parsed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove HTML tags, entities and superfluous characters from</span>
+<span class="sd">    meta blocks.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parsed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; ,&quot;</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">escape</span><span class="p">(</span><span class="n">strip_tags</span><span class="p">(</span><span class="n">decode_entities</span><span class="p">(</span><span class="n">parsed</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="pagination_for"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.pagination_for">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;includes/pagination.html&quot;</span><span class="p">,</span> <span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pagination_for</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">current_page</span><span class="p">,</span> <span class="n">page_var</span><span class="o">=</span><span class="s2">&quot;page&quot;</span><span class="p">,</span> <span class="n">exclude_vars</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Include the pagination template and data for persisting querystring</span>
+<span class="sd">    in pagination links. Can also contain a comma separated string of</span>
+<span class="sd">    var names in the current querystring to exclude from the pagination</span>
+<span class="sd">    links, via the ``exclude_vars`` arg.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">querystring</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">exclude_vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">exclude_vars</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">page_var</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">exclude_var</span> <span class="ow">in</span> <span class="n">exclude_vars</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exclude_var</span> <span class="ow">in</span> <span class="n">querystring</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">querystring</span><span class="p">[</span><span class="n">exclude_var</span><span class="p">]</span>
+    <span class="n">querystring</span> <span class="o">=</span> <span class="n">querystring</span><span class="o">.</span><span class="n">urlencode</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;current_page&quot;</span><span class="p">:</span> <span class="n">current_page</span><span class="p">,</span>
+        <span class="s2">&quot;querystring&quot;</span><span class="p">:</span> <span class="n">querystring</span><span class="p">,</span>
+        <span class="s2">&quot;page_var&quot;</span><span class="p">:</span> <span class="n">page_var</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="search_form"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.search_form">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;includes/search_form.html&quot;</span><span class="p">,</span> <span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">search_form</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">search_model_names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Includes the search form with a list of models to use as choices</span>
+<span class="sd">    for filtering the search by. Models should be a string with models</span>
+<span class="sd">    in the format ``app_label.model_name`` separated by spaces. The</span>
+<span class="sd">    string ``all`` can also be used, in which case the models defined</span>
+<span class="sd">    by the ``SEARCH_MODEL_CHOICES`` setting will be used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template_vars</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">search_model_names</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">SEARCH_MODEL_CHOICES</span><span class="p">:</span>
+        <span class="n">search_model_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">elif</span> <span class="n">search_model_names</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+        <span class="n">search_model_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SEARCH_MODEL_CHOICES</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">search_model_names</span> <span class="o">=</span> <span class="n">search_model_names</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="n">search_model_choices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">search_model_names</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="o">*</span><span class="n">model_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+            <span class="n">search_model_choices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">verbose_name</span><span class="p">,</span> <span class="n">model_name</span><span class="p">))</span>
+    <span class="n">template_vars</span><span class="p">[</span><span class="s2">&quot;search_model_choices&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">search_model_choices</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">template_vars</span></div>
+
+
+<div class="viewcode-block" id="thumbnail"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.thumbnail">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">simple_tag</span>
+<span class="k">def</span> <span class="nf">thumbnail</span><span class="p">(</span>
+    <span class="n">image_url</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">,</span>
+    <span class="n">upscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">quality</span><span class="o">=</span><span class="mi">95</span><span class="p">,</span>
+    <span class="n">left</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">top</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">padding</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">padding_color</span><span class="o">=</span><span class="s2">&quot;#fff&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given the URL to an image, resizes the image using the given width</span>
+<span class="sd">    and height on the first time it is requested, and returns the URL</span>
+<span class="sd">    to the new resized image. If width or height are zero then original</span>
+<span class="sd">    ratio is maintained. When ``upscale`` is False, images smaller than</span>
+<span class="sd">    the given size will not be grown to fill that size. The given width</span>
+<span class="sd">    and height thus act as maximum dimensions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">image_url</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">ImageFile</span><span class="p">,</span> <span class="n">ImageOps</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">image_url</span> <span class="o">=</span> <span class="n">unquote</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">image_url</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;?&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">image_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">):</span>
+        <span class="n">image_url</span> <span class="o">=</span> <span class="n">image_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">image_dir</span><span class="p">,</span> <span class="n">image_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">image_url</span><span class="p">)</span>
+    <span class="n">image_prefix</span><span class="p">,</span> <span class="n">image_ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">image_name</span><span class="p">)</span>
+    <span class="n">filetype</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;.png&quot;</span><span class="p">:</span> <span class="s2">&quot;PNG&quot;</span><span class="p">,</span> <span class="s2">&quot;.gif&quot;</span><span class="p">:</span> <span class="s2">&quot;GIF&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_ext</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="s2">&quot;JPEG&quot;</span><span class="p">)</span>
+    <span class="n">thumb_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image_prefix</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">width</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">height</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">upscale</span><span class="p">:</span>
+        <span class="n">thumb_name</span> <span class="o">+=</span> <span class="s2">&quot;-no-upscale&quot;</span>
+    <span class="k">if</span> <span class="n">left</span> <span class="o">!=</span> <span class="mf">0.5</span> <span class="ow">or</span> <span class="n">top</span> <span class="o">!=</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">left</span><span class="p">))</span>
+        <span class="n">top</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">top</span><span class="p">))</span>
+        <span class="n">thumb_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">thumb_name</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">left</span><span class="si">}</span><span class="s2">x</span><span class="si">{</span><span class="n">top</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">thumb_name</span> <span class="o">+=</span> <span class="s2">&quot;-padded-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">padding_color</span> <span class="k">if</span> <span class="n">padding</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">thumb_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">thumb_name</span><span class="si">}{</span><span class="n">image_ext</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># `image_name` is used here for the directory path, as each image</span>
+    <span class="c1"># requires its own sub-directory using its own name - this is so</span>
+    <span class="c1"># we can consistently delete all thumbnails for an individual</span>
+    <span class="c1"># image, which is something we do in filebrowser when a new image</span>
+    <span class="c1"># is written, allowing us to purge any previously generated</span>
+    <span class="c1"># thumbnails that may match a new image name.</span>
+    <span class="n">thumb_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">,</span> <span class="n">image_dir</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">THUMBNAILS_DIR_NAME</span><span class="p">,</span> <span class="n">image_name</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">thumb_dir</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">thumb_dir</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="n">thumb_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">thumb_dir</span><span class="p">,</span> <span class="n">thumb_name</span><span class="p">)</span>
+    <span class="n">thumb_url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">THUMBNAILS_DIR_NAME</span><span class="p">,</span>
+        <span class="n">quote</span><span class="p">(</span><span class="n">image_name</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)),</span>
+        <span class="n">quote</span><span class="p">(</span><span class="n">thumb_name</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)),</span>
+    <span class="p">)</span>
+    <span class="n">image_url_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">image_url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">image_url_path</span><span class="p">:</span>
+        <span class="n">thumb_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image_url_path</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">thumb_url</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">thumb_exists</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">thumb_path</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">UnicodeEncodeError</span><span class="p">:</span>
+        <span class="c1"># The image that was saved to a filesystem with utf-8 support,</span>
+        <span class="c1"># but somehow the locale has changed and the filesystem does not</span>
+        <span class="c1"># support utf-8.</span>
+        <span class="kn">from</span> <span class="nn">mezzanine.core.exceptions</span> <span class="kn">import</span> <span class="n">FileSystemEncodingChanged</span>
+
+        <span class="k">raise</span> <span class="n">FileSystemEncodingChanged</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">thumb_exists</span><span class="p">:</span>
+        <span class="c1"># Thumbnail exists, don&#39;t generate it.</span>
+        <span class="k">return</span> <span class="n">thumb_url</span>
+    <span class="k">elif</span> <span class="ow">not</span> <span class="n">default_storage</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">image_url</span><span class="p">):</span>
+        <span class="c1"># Requested image does not exist, just return its URL.</span>
+        <span class="k">return</span> <span class="n">image_url</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="n">default_storage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_url</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span>
+        <span class="c1"># Invalid image format.</span>
+        <span class="k">return</span> <span class="n">image_url</span>
+
+    <span class="n">image_info</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">info</span>
+
+    <span class="c1"># Transpose to align the image to its orientation if necessary.</span>
+    <span class="c1"># If the image is transposed, delete the exif information as</span>
+    <span class="c1"># not all browsers support the CSS image-orientation:</span>
+    <span class="c1"># - http://caniuse.com/#feat=css-image-orientation</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">orientation</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">_getexif</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mh">0x0112</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span>
+        <span class="n">orientation</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">orientation</span><span class="p">:</span>
+        <span class="n">methods</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mi">2</span><span class="p">:</span> <span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">,),</span>
+            <span class="mi">3</span><span class="p">:</span> <span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_180</span><span class="p">,),</span>
+            <span class="mi">4</span><span class="p">:</span> <span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_TOP_BOTTOM</span><span class="p">,),</span>
+            <span class="mi">5</span><span class="p">:</span> <span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_90</span><span class="p">),</span>
+            <span class="mi">6</span><span class="p">:</span> <span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_270</span><span class="p">,),</span>
+            <span class="mi">7</span><span class="p">:</span> <span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">FLIP_LEFT_RIGHT</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_270</span><span class="p">),</span>
+            <span class="mi">8</span><span class="p">:</span> <span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">ROTATE_90</span><span class="p">,),</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">orientation</span><span class="p">,</span> <span class="p">())</span>
+        <span class="k">if</span> <span class="n">methods</span><span class="p">:</span>
+            <span class="n">image_info</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exif&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+
+    <span class="n">to_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+    <span class="n">to_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+    <span class="n">from_width</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">from_height</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">upscale</span><span class="p">:</span>
+        <span class="n">to_width</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">to_width</span><span class="p">,</span> <span class="n">from_width</span><span class="p">)</span>
+        <span class="n">to_height</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">to_height</span><span class="p">,</span> <span class="n">from_height</span><span class="p">)</span>
+
+    <span class="c1"># Set dimensions.</span>
+    <span class="k">if</span> <span class="n">to_width</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">to_width</span> <span class="o">=</span> <span class="n">from_width</span> <span class="o">*</span> <span class="n">to_height</span> <span class="o">//</span> <span class="n">from_height</span>
+    <span class="k">elif</span> <span class="n">to_height</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">to_height</span> <span class="o">=</span> <span class="n">from_height</span> <span class="o">*</span> <span class="n">to_width</span> <span class="o">//</span> <span class="n">from_width</span>
+    <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="s2">&quot;RGBA&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">filetype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;JPG&quot;</span><span class="p">,</span> <span class="s2">&quot;JPEG&quot;</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span>
+            <span class="k">return</span> <span class="n">image_url</span>
+    <span class="c1"># Required for progressive jpgs.</span>
+    <span class="n">ImageFile</span><span class="o">.</span><span class="n">MAXBLOCK</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">size</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Padding.</span>
+    <span class="k">if</span> <span class="n">padding</span> <span class="ow">and</span> <span class="n">to_width</span> <span class="ow">and</span> <span class="n">to_height</span><span class="p">:</span>
+        <span class="n">from_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">from_width</span><span class="p">)</span> <span class="o">/</span> <span class="n">from_height</span>
+        <span class="n">to_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">to_width</span><span class="p">)</span> <span class="o">/</span> <span class="n">to_height</span>
+        <span class="n">pad_size</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">to_ratio</span> <span class="o">&lt;</span> <span class="n">from_ratio</span><span class="p">:</span>
+            <span class="n">pad_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">to_height</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">from_width</span><span class="p">)</span> <span class="o">/</span> <span class="n">to_width</span><span class="p">))</span>
+            <span class="n">pad_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">from_width</span><span class="p">,</span> <span class="n">pad_height</span><span class="p">)</span>
+            <span class="n">pad_top</span> <span class="o">=</span> <span class="p">(</span><span class="n">pad_height</span> <span class="o">-</span> <span class="n">from_height</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+            <span class="n">pad_left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">to_ratio</span> <span class="o">&gt;</span> <span class="n">from_ratio</span><span class="p">:</span>
+            <span class="n">pad_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">to_width</span> <span class="o">*</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">from_height</span><span class="p">)</span> <span class="o">/</span> <span class="n">to_height</span><span class="p">))</span>
+            <span class="n">pad_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">pad_width</span><span class="p">,</span> <span class="n">from_height</span><span class="p">)</span>
+            <span class="n">pad_top</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">pad_left</span> <span class="o">=</span> <span class="p">(</span><span class="n">pad_width</span> <span class="o">-</span> <span class="n">from_width</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="k">if</span> <span class="n">pad_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">pad_container</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGBA&quot;</span><span class="p">,</span> <span class="n">pad_size</span><span class="p">,</span> <span class="n">padding_color</span><span class="p">)</span>
+            <span class="n">pad_container</span><span class="o">.</span><span class="n">paste</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">pad_left</span><span class="p">,</span> <span class="n">pad_top</span><span class="p">))</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">pad_container</span>
+
+    <span class="c1"># Create the thumbnail.</span>
+    <span class="n">to_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">to_width</span><span class="p">,</span> <span class="n">to_height</span><span class="p">)</span>
+    <span class="n">to_pos</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">ImageOps</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">to_size</span><span class="p">,</span> <span class="n">Image</span><span class="o">.</span><span class="n">ANTIALIAS</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">to_pos</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">thumb_path</span><span class="p">,</span> <span class="n">filetype</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="n">quality</span><span class="p">,</span> <span class="o">**</span><span class="n">image_info</span><span class="p">)</span>
+        <span class="c1"># Push a remote copy of the thumbnail if MEDIA_URL is</span>
+        <span class="c1"># absolute.</span>
+        <span class="k">if</span> <span class="s2">&quot;://&quot;</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">thumb_path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">default_storage</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">unquote</span><span class="p">(</span><span class="n">thumb_url</span><span class="p">),</span> <span class="n">File</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="c1"># If an error occurred, a corrupted image may have been saved,</span>
+        <span class="c1"># so remove it, otherwise the check for it existing will just</span>
+        <span class="c1"># return the corrupted image next time it&#39;s requested.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">thumb_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">image_url</span>
+    <span class="k">return</span> <span class="n">thumb_url</span></div>
+
+
+<div class="viewcode-block" id="editable_loader"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.editable_loader">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;includes/editable_loader.html&quot;</span><span class="p">,</span> <span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">editable_loader</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set up the required JS/CSS for the in-line editing toolbar and controls.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">user</span>
+    <span class="n">template_vars</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;has_site_permission&quot;</span><span class="p">:</span> <span class="n">has_site_permission</span><span class="p">(</span><span class="n">user</span><span class="p">),</span>
+        <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">INLINE_EDITING_ENABLED</span> <span class="ow">and</span> <span class="n">template_vars</span><span class="p">[</span><span class="s2">&quot;has_site_permission&quot;</span><span class="p">]:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;includes/editable_toolbar.html&quot;</span><span class="p">)</span>
+        <span class="n">template_vars</span><span class="p">[</span><span class="s2">&quot;REDIRECT_FIELD_NAME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">REDIRECT_FIELD_NAME</span>
+        <span class="n">template_vars</span><span class="p">[</span><span class="s2">&quot;editable_obj&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">&quot;editable_obj&quot;</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;page&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">template_vars</span><span class="p">[</span><span class="s2">&quot;accounts_logout_url&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;accounts_logout_url&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">template_vars</span><span class="p">[</span><span class="s2">&quot;toolbar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">template_vars</span><span class="p">)</span>
+        <span class="n">template_vars</span><span class="p">[</span><span class="s2">&quot;richtext_media&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">RichTextField</span><span class="p">()</span><span class="o">.</span><span class="n">formfield</span><span class="p">()</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">media</span>
+    <span class="k">return</span> <span class="n">template_vars</span></div>
+
+
+<div class="viewcode-block" id="richtext_filters"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.richtext_filters">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">filter</span>
+<span class="k">def</span> <span class="nf">richtext_filters</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a value edited via the WYSIWYG editor, and passes it through</span>
+<span class="sd">    each of the functions specified by the RICHTEXT_FILTERS setting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">filter_name</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">RICHTEXT_FILTERS</span><span class="p">:</span>
+        <span class="n">filter_func</span> <span class="o">=</span> <span class="n">import_dotted_path</span><span class="p">(</span><span class="n">filter_name</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">filter_func</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">SafeText</span><span class="p">):</span>
+            <span class="c1"># raise TypeError(</span>
+            <span class="c1"># filter_name + &quot; must mark it&#39;s return value as safe. See &quot;</span>
+            <span class="c1"># &quot;https://docs.djangoproject.com/en/stable/topics/security/&quot;</span>
+            <span class="c1"># &quot;#cross-site-scripting-xss-protection&quot;)</span>
+            <span class="kn">import</span> <span class="nn">warnings</span>
+
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="n">filter_name</span> <span class="o">+</span> <span class="s2">&quot; needs to ensure that any untrusted inputs are &quot;</span>
+                <span class="s2">&quot;properly escaped and mark the html it returns as safe. In a &quot;</span>
+                <span class="s2">&quot;future release this will cause an exception. See &quot;</span>
+                <span class="s2">&quot;https://docs.djangoproject.com/en/stable/topics/security/&quot;</span>
+                <span class="s2">&quot;cross-site-scripting-xss-protection&quot;</span><span class="p">,</span>
+                <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">mark_safe</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">content</span></div>
+
+
+<div class="viewcode-block" id="editable"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.editable">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">to_end_tag</span>
+<span class="k">def</span> <span class="nf">editable</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add the required HTML to the parsed content for in-line editing,</span>
+<span class="sd">    such as the icon and edit form if the object is deemed to be</span>
+<span class="sd">    editable - either it has an ``editable`` method which returns</span>
+<span class="sd">    ``True``, or the logged in user has change permissions for the</span>
+<span class="sd">    model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">parse_field</span><span class="p">(</span><span class="n">field</span><span class="p">):</span>
+        <span class="n">field</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">field</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">while</span> <span class="n">field</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+                <span class="c1"># Allows {% editable page.get_content_model.content %}</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="p">,</span> <span class="n">attr</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">parse_field</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]]</span>
+    <span class="k">if</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">parsed</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">parsed</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="o">*</span><span class="n">field</span><span class="p">))</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">INLINE_EDITING_ENABLED</span> <span class="ow">and</span> <span class="n">fields</span> <span class="ow">and</span> <span class="s2">&quot;request&quot;</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Model</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_editable</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]):</span>
+            <span class="n">field_names</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">)</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;editable_form&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_edit_form</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">field_names</span><span class="p">)</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;original&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parsed</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;includes/editable_form.html&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">parsed</span></div>
+
+
+<div class="viewcode-block" id="try_url"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.try_url">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">simple_tag</span>
+<span class="k">def</span> <span class="nf">try_url</span><span class="p">(</span><span class="n">url_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Mimics Django&#39;s ``url`` template tag but fails silently. Used for</span>
+<span class="sd">    url names in admin templates as these won&#39;t resolve when admin</span>
+<span class="sd">    tests are running.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+    <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;try_url is deprecated, use the url tag with the &#39;as&#39; arg instead.&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="n">url_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">NoReverseMatch</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">url</span></div>
+
+
+<div class="viewcode-block" id="admin_app_list"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.admin_app_list">[docs]</a><span class="k">def</span> <span class="nf">admin_app_list</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Adopted from ``django.contrib.admin.sites.AdminSite.index``.</span>
+<span class="sd">    Returns a list of lists of models grouped and ordered according to</span>
+<span class="sd">    ``mezzanine.conf.ADMIN_MENU_ORDER``. Called from the</span>
+<span class="sd">    ``admin_dropdown_menu`` template tag as well as the ``app_list``</span>
+<span class="sd">    dashboard widget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Model or view --&gt; (group index, group title, item index, item title).</span>
+    <span class="n">menu_order</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">group_index</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">ADMIN_MENU_ORDER</span><span class="p">):</span>
+        <span class="n">group_title</span><span class="p">,</span> <span class="n">items</span> <span class="o">=</span> <span class="n">group</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">item_index</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                <span class="n">item_title</span><span class="p">,</span> <span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">item_title</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">menu_order</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">group_index</span><span class="p">,</span> <span class="n">group_title</span><span class="p">,</span> <span class="n">item_index</span><span class="p">,</span> <span class="n">item_title</span><span class="p">)</span>
+
+    <span class="c1"># Add all registered models, using group and title from menu order.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">model_admin</span><span class="p">)</span> <span class="ow">in</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">_registry</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">_meta</span>
+        <span class="n">in_menu</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model_admin</span><span class="p">,</span> <span class="s2">&quot;in_menu&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_admin</span><span class="o">.</span><span class="n">in_menu</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model_admin</span><span class="p">,</span> <span class="s2">&quot;in_menu&quot;</span><span class="p">):</span>
+            <span class="kn">import</span> <span class="nn">warnings</span>
+
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;ModelAdmin.in_menu() has been replaced with &quot;</span>
+                <span class="s2">&quot;ModelAdmin.has_module_permission(request). See &quot;</span>
+                <span class="s2">&quot;https://docs.djangoproject.com/en/stable/ref/contrib/admin/&quot;</span>
+                <span class="s2">&quot;#django.contrib.admin.ModelAdmin.has_module_permission.&quot;</span><span class="p">,</span>
+                <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">in_menu</span> <span class="o">=</span> <span class="n">in_menu</span> <span class="ow">and</span> <span class="n">model_admin</span><span class="o">.</span><span class="n">has_module_permission</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">in_menu</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_module_perms</span><span class="p">(</span><span class="n">opts</span><span class="o">.</span><span class="n">app_label</span><span class="p">):</span>
+            <span class="n">admin_url_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">model_admin</span><span class="o">.</span><span class="n">has_change_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+                <span class="n">admin_url_name</span> <span class="o">=</span> <span class="s2">&quot;changelist&quot;</span>
+                <span class="n">change_url</span> <span class="o">=</span> <span class="n">admin_url</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">admin_url_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">change_url</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">model_admin</span><span class="o">.</span><span class="n">has_add_permission</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+                <span class="n">admin_url_name</span> <span class="o">=</span> <span class="s2">&quot;add&quot;</span>
+                <span class="n">add_url</span> <span class="o">=</span> <span class="n">admin_url</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">admin_url_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">add_url</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">admin_url_name</span><span class="p">:</span>
+                <span class="n">model_label</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">opts</span><span class="o">.</span><span class="n">app_label</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">opts</span><span class="o">.</span><span class="n">object_name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">app_index</span><span class="p">,</span> <span class="n">app_title</span><span class="p">,</span> <span class="n">model_index</span><span class="p">,</span> <span class="n">model_title</span> <span class="o">=</span> <span class="n">menu_order</span><span class="p">[</span>
+                        <span class="n">model_label</span>
+                    <span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">app_index</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">app_title</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">app_config</span><span class="o">.</span><span class="n">verbose_name</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+                    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+                        <span class="c1"># Third party admin classes doing weird things.</span>
+                        <span class="c1"># See GH #1628</span>
+                        <span class="n">app_title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                    <span class="n">model_index</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">model_title</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">menu_order</span><span class="p">[</span><span class="n">model_label</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">model_title</span><span class="p">:</span>
+                    <span class="n">model_title</span> <span class="o">=</span> <span class="n">capfirst</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name_plural</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">app_title</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">app_dict</span><span class="p">:</span>
+                    <span class="n">app_dict</span><span class="p">[</span><span class="n">app_title</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">app_index</span><span class="p">,</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">app_title</span><span class="p">,</span>
+                        <span class="s2">&quot;models&quot;</span><span class="p">:</span> <span class="p">[],</span>
+                    <span class="p">}</span>
+                <span class="n">app_dict</span><span class="p">[</span><span class="n">app_title</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">model_index</span><span class="p">,</span>
+                        <span class="s2">&quot;perms&quot;</span><span class="p">:</span> <span class="n">model_admin</span><span class="o">.</span><span class="n">get_model_perms</span><span class="p">(</span><span class="n">request</span><span class="p">),</span>
+                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">model_title</span><span class="p">,</span>
+                        <span class="s2">&quot;object_name&quot;</span><span class="p">:</span> <span class="n">opts</span><span class="o">.</span><span class="n">object_name</span><span class="p">,</span>
+                        <span class="s2">&quot;admin_url&quot;</span><span class="p">:</span> <span class="n">change_url</span><span class="p">,</span>
+                        <span class="s2">&quot;add_url&quot;</span><span class="p">:</span> <span class="n">add_url</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+
+    <span class="c1"># Menu may also contain view or url pattern names given as (title, name).</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">item_url</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="n">menu_order</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">app_index</span><span class="p">,</span> <span class="n">app_title</span><span class="p">,</span> <span class="n">item_index</span><span class="p">,</span> <span class="n">item_title</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">item_url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="n">item_url</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">NoReverseMatch</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">app_title</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">app_dict</span><span class="p">:</span>
+            <span class="n">app_dict</span><span class="p">[</span><span class="n">app_title</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">app_index</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">app_title</span><span class="p">,</span>
+                <span class="s2">&quot;models&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="p">}</span>
+        <span class="n">app_dict</span><span class="p">[</span><span class="n">app_title</span><span class="p">][</span><span class="s2">&quot;models&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="n">item_index</span><span class="p">,</span>
+                <span class="s2">&quot;perms&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;custom&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">item_title</span><span class="p">,</span>
+                <span class="s2">&quot;admin_url&quot;</span><span class="p">:</span> <span class="n">item_url</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="n">app_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">app_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+    <span class="n">sort</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;index&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">999</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">app_list</span><span class="p">:</span>
+        <span class="n">app</span><span class="p">[</span><span class="s2">&quot;models&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">sort</span><span class="p">)</span>
+    <span class="n">app_list</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">sort</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app_list</span></div>
+
+
+<div class="viewcode-block" id="admin_dropdown_menu"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.admin_dropdown_menu">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;admin/includes/dropdown_menu.html&quot;</span><span class="p">,</span> <span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">admin_dropdown_menu</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renders the app list for the admin dropdown menu navigation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">user</span>
+    <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_staff</span><span class="p">:</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">&quot;dropdown_menu_app_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">admin_app_list</span><span class="p">(</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
+            <span class="n">sites</span> <span class="o">=</span> <span class="n">Site</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sites</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">sitepermissions</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+                <span class="n">sites</span> <span class="o">=</span> <span class="n">Site</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">none</span><span class="p">()</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">&quot;dropdown_menu_sites&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">&quot;dropdown_menu_selected_site_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_site_id</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="app_list"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.app_list">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;admin/includes/app_list.html&quot;</span><span class="p">,</span> <span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">app_list</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renders the app list for the admin dashboard widget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span><span class="p">[</span><span class="s2">&quot;dashboard_app_list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">admin_app_list</span><span class="p">(</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="recent_actions"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.recent_actions">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">inclusion_tag</span><span class="p">(</span><span class="s2">&quot;admin/includes/recent_actions.html&quot;</span><span class="p">,</span> <span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">recent_actions</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Renders the recent actions list for the admin dashboard widget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="dashboard_column"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.dashboard_column">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">render_tag</span>
+<span class="k">def</span> <span class="nf">dashboard_column</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes an index for retrieving the sequence of template tags from</span>
+<span class="sd">    ``mezzanine.conf.DASHBOARD_TAGS`` to render into the admin</span>
+<span class="sd">    dashboard.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">column_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">DASHBOARD_TAGS</span><span class="p">[</span><span class="n">column_index</span><span class="p">]:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="s2">&quot;{</span><span class="si">%%</span><span class="s2"> load </span><span class="si">%s</span><span class="s2"> </span><span class="si">%%</span><span class="s2">}{</span><span class="si">%%</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> </span><span class="si">%%</span><span class="s2">}&quot;</span> <span class="o">%</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)))</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="translate_url"><a class="viewcode-back" href="../../../../packages.html#mezzanine.core.templatetags.mezzanine_tags.translate_url">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">simple_tag</span><span class="p">(</span><span class="n">takes_context</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">translate_url</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">language</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Translates the current URL for the given language code, eg:</span>
+
+<span class="sd">        {% translate_url &quot;de&quot; %}</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">resolve</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">current_language</span> <span class="o">=</span> <span class="n">translation</span><span class="o">.</span><span class="n">get_language</span><span class="p">()</span>
+    <span class="n">translation</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">language</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">view</span><span class="o">.</span><span class="n">namespace</span> <span class="ow">and</span> <span class="n">view</span><span class="o">.</span><span class="n">url_name</span> <span class="o">==</span> <span class="s2">&quot;home&quot;</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">home_slug</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">NoReverseMatch</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">url_name</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">view</span><span class="o">.</span><span class="n">url_name</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">view</span><span class="o">.</span><span class="n">namespace</span>
+                    <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">view</span><span class="o">.</span><span class="n">namespace</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">view</span><span class="o">.</span><span class="n">url_name</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">)</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="n">url_name</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">NoReverseMatch</span><span class="p">:</span>
+                <span class="n">url_name</span> <span class="o">=</span> <span class="s2">&quot;admin:&quot;</span> <span class="o">+</span> <span class="n">view</span><span class="o">.</span><span class="n">url_name</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="n">url_name</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">translation</span><span class="o">.</span><span class="n">activate</span><span class="p">(</span><span class="n">current_language</span><span class="p">)</span>
+    <span class="n">qs</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">META</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;QUERY_STRING&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">qs</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="n">qs</span>
+    <span class="k">return</span> <span class="n">url</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.templatetags.mezzanine_tags</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

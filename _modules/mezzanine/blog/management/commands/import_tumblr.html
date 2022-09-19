@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.blog.management.commands.import_tumblr &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mezzanine.css" />
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.management.commands.import_tumblr</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.blog.management.commands.import_tumblr</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+
+<span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">CommandError</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="kn">import</span> <span class="n">strip_tags</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.blog.management.base</span> <span class="kn">import</span> <span class="n">BaseImporterCommand</span>
+
+<span class="n">MAX_POSTS_PER_CALL</span> <span class="o">=</span> <span class="mi">20</span>  <span class="c1"># Max number of posts Tumblr API will return per call.</span>
+<span class="n">MAX_RETRIES_PER_CALL</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Max times to retry API call after failing.</span>
+<span class="n">SLEEP_PER_RETRY</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Seconds to pause for between retries.</span>
+
+
+<div class="viewcode-block" id="title_from_content"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_tumblr.title_from_content">[docs]</a><span class="k">def</span> <span class="nf">title_from_content</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Try and extract the first sentence from a block of test to use as a title.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">end</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;. &quot;</span><span class="p">,</span> <span class="s2">&quot;?&quot;</span><span class="p">,</span> <span class="s2">&quot;!&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br /&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">end</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">end</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">strip_tags</span><span class="p">(</span><span class="n">content</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_tumblr.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseImporterCommand</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import Tumblr blog posts into the blog app.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Command.add_arguments"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_tumblr.Command.add_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_arguments</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="s2">&quot;--tumblr-user&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;tumblr_user&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Tumblr username&quot;</span>
+        <span class="p">)</span></div>
+
+    <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Import Tumblr blog posts into the blog app.&quot;</span>
+
+<div class="viewcode-block" id="Command.handle_import"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_tumblr.Command.handle_import">[docs]</a>    <span class="k">def</span> <span class="nf">handle_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+
+        <span class="n">tumblr_user</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tumblr_user&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tumblr_user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s2">&quot;Usage is import_tumblr </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">verbosity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;verbosity&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">json_url</span> <span class="o">=</span> <span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">.tumblr.com/api/read/json&quot;</span> <span class="o">%</span> <span class="n">tumblr_user</span>
+        <span class="n">json_start</span> <span class="o">=</span> <span class="s2">&quot;var tumblr_api_read =&quot;</span>
+        <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%a</span><span class="s2">, </span><span class="si">%d</span><span class="s2"> %b %Y %H:%M:%S&quot;</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">retries</span> <span class="o">=</span> <span class="n">MAX_RETRIES_PER_CALL</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">call_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">json_url</span><span class="si">}</span><span class="s2">?start=</span><span class="si">{</span><span class="n">start_index</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">if</span> <span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calling </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">call_url</span><span class="p">)</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">call_url</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s2">&quot;Invalid Tumblr user.&quot;</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">503</span><span class="p">:</span>
+                    <span class="c1"># The Tumblr API is frequently unavailable so make a</span>
+                    <span class="c1"># few tries, pausing between each.</span>
+                    <span class="n">retries</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">retries</span><span class="p">:</span>
+                        <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Tumblr API unavailable, try again shortly.&quot;</span>
+                        <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+                    <span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;HTTP status </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">response</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;Error communicating with Tumblr API (</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">e</span>
+                <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">json</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">json_start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">))</span>
+            <span class="n">posts</span> <span class="o">=</span> <span class="n">json</span><span class="p">[</span><span class="s2">&quot;posts&quot;</span><span class="p">]</span>
+            <span class="n">start_index</span> <span class="o">+=</span> <span class="n">MAX_POSTS_PER_CALL</span>
+
+            <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
+                <span class="n">handler</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;handle_</span><span class="si">%s</span><span class="s2">_post&quot;</span> <span class="o">%</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">handler</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">title</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="n">handler</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+                    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="n">date_format</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_post</span><span class="p">(</span>
+                        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                        <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+                        <span class="n">pub_date</span><span class="o">=</span><span class="n">pub_date</span><span class="p">,</span>
+                        <span class="n">tags</span><span class="o">=</span><span class="n">post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">),</span>
+                        <span class="n">old_url</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;url-with-slug&quot;</span><span class="p">],</span>
+                    <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">MAX_POSTS_PER_CALL</span><span class="p">:</span>
+                <span class="k">break</span></div>
+
+    <span class="k">def</span> <span class="nf">handle_regular_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;regular-title&quot;</span><span class="p">],</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;regular-body&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">handle_link_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;link-text&quot;</span><span class="p">]</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s1">&#39;&lt;p&gt;&lt;a href=&quot;%(link-url)s&quot;&gt;%(link-text)s&lt;/a&gt;&lt;/p&gt;&#39;</span> <span class="s2">&quot;%(link-description)s&quot;</span>
+        <span class="p">)</span> <span class="o">%</span> <span class="n">post</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">handle_quote_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;quote-text&quot;</span><span class="p">]</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;&lt;blockquote&gt;%(quote-text)s&lt;/blockquote&gt;&quot;</span> <span class="s2">&quot;&lt;p&gt;%(quote-source)s&lt;/p&gt;&quot;</span>
+        <span class="p">)</span> <span class="o">%</span> <span class="n">post</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">handle_photo_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">title_from_content</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;photo-caption&quot;</span><span class="p">])</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="s1">&#39;&lt;p&gt;&lt;img src=&quot;%(photo-url-400)s&quot;&gt;&lt;/p&gt;%(photo-caption)s&#39;</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">content</span> <span class="o">%</span> <span class="n">post</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">handle_conversation_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;conversation-title&quot;</span><span class="p">]</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;conversation-text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;br /&gt;&quot;</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&lt;p&gt;</span><span class="si">%s</span><span class="s2">&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="n">content</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">handle_video_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">title_from_content</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;video-caption&quot;</span><span class="p">])</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&lt;p&gt;%(video-player)s&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="n">post</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">handle_audio_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id3-title&quot;</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;%(audio-caption)s&lt;p&gt;%(audio-player)s&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="n">post</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="n">title_from_content</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;audio-caption&quot;</span><span class="p">])</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&lt;p&gt;%(audio-player)s&lt;/p&gt;&quot;</span> <span class="o">%</span> <span class="n">post</span>
+        <span class="k">return</span> <span class="n">title</span><span class="p">,</span> <span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">handle_answer_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;question&quot;</span><span class="p">],</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;answer&quot;</span><span class="p">]</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.management.commands.import_tumblr</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

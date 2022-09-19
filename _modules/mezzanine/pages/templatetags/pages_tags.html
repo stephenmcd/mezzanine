@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.pages.templatetags.pages_tags &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mezzanine.css" />
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.pages.templatetags.pages_tags</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.pages.templatetags.pages_tags</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">TemplateSyntaxError</span><span class="p">,</span> <span class="n">Variable</span>
+<span class="kn">from</span> <span class="nn">django.template.loader</span> <span class="kn">import</span> <span class="n">get_template</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine</span> <span class="kn">import</span> <span class="n">template</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">home_slug</span>
+
+<span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="page_menu"><a class="viewcode-back" href="../../../../packages.html#mezzanine.pages.templatetags.pages_tags.page_menu">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">render_tag</span>
+<span class="k">def</span> <span class="nf">page_menu</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a list of child pages for the given parent, storing all</span>
+<span class="sd">    pages in a dict in the context when first called using parents as keys</span>
+<span class="sd">    for retrieval on subsequent recursive calls from the menu template.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># First arg could be the menu template file name, or the parent page.</span>
+    <span class="c1"># Also allow for both to be used.</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">parent_page</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+        <span class="n">part</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">part</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">template_name</span> <span class="o">=</span> <span class="n">part</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">Page</span><span class="p">):</span>
+            <span class="n">parent_page</span> <span class="o">=</span> <span class="n">part</span>
+    <span class="k">if</span> <span class="n">template_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">template_name</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;menu_template_name&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;No template found for page_menu in: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">parts</span>
+            <span class="k">raise</span> <span class="n">TemplateSyntaxError</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+    <span class="n">context</span><span class="p">[</span><span class="s2">&quot;menu_template_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_name</span>
+    <span class="k">if</span> <span class="s2">&quot;menu_pages&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">user</span>
+            <span class="n">slug</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">path</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">slug</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">num_children</span> <span class="o">=</span> <span class="k">lambda</span> <span class="nb">id</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">context</span><span class="p">[</span><span class="s2">&quot;menu_pages&quot;</span><span class="p">][</span><span class="nb">id</span><span class="p">])</span>
+        <span class="n">has_children</span> <span class="o">=</span> <span class="k">lambda</span> <span class="nb">id</span><span class="p">:</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">num_children</span><span class="p">(</span><span class="nb">id</span><span class="p">)()</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">rel</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">m</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">Page</span><span class="o">.</span><span class="n">get_content_models</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">proxy</span>
+        <span class="p">]</span>
+        <span class="n">published</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">published</span><span class="p">(</span><span class="n">for_user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="o">*</span><span class="n">rel</span><span class="p">)</span>
+        <span class="c1"># Store the current page being viewed in the context. Used</span>
+        <span class="c1"># for comparisons in page.set_menu_helpers.</span>
+        <span class="k">if</span> <span class="s2">&quot;page&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">context</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;_current_page&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">published</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span>
+                    <span class="n">content_model</span><span class="o">=</span><span class="s2">&quot;link&quot;</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">slug</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">Page</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+                <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;_current_page&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">slug</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;_current_page&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;page&quot;</span><span class="p">]</span>
+        <span class="c1"># Some homepage related context flags. on_home is just a helper</span>
+        <span class="c1"># indicated we&#39;re on the homepage. has_home indicates an actual</span>
+        <span class="c1"># page object exists for the homepage, which can be used to</span>
+        <span class="c1"># determine whether or not to show a hard-coded homepage link</span>
+        <span class="c1"># in the page menu.</span>
+        <span class="n">home</span> <span class="o">=</span> <span class="n">home_slug</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;on_home&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">slug</span> <span class="o">==</span> <span class="n">home</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;has_home&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Maintain a dict of page IDs -&gt; parent IDs for fast</span>
+        <span class="c1"># lookup in setting page.is_current_or_ascendant in</span>
+        <span class="c1"># page.set_menu_helpers.</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;_parent_page_ids&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pages</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">published</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">):</span>
+            <span class="n">page</span><span class="o">.</span><span class="n">set_helpers</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;_parent_page_ids&quot;</span><span class="p">][</span><span class="n">page</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">parent_id</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="s2">&quot;num_children&quot;</span><span class="p">,</span> <span class="n">num_children</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="s2">&quot;has_children&quot;</span><span class="p">,</span> <span class="n">has_children</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+            <span class="n">pages</span><span class="p">[</span><span class="n">page</span><span class="o">.</span><span class="n">parent_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">slug</span> <span class="o">==</span> <span class="n">home</span><span class="p">:</span>
+                <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;has_home&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Include menu_pages in all contexts, not only in the</span>
+        <span class="c1"># block being rendered.</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">dicts</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;menu_pages&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pages</span>
+    <span class="c1"># ``branch_level`` must be stored against each page so that the</span>
+    <span class="c1"># calculation of it is correctly applied. This looks weird but if we do</span>
+    <span class="c1"># the ``branch_level`` as a separate arg to the template tag with the</span>
+    <span class="c1"># addition performed on it, the addition occurs each time the template</span>
+    <span class="c1"># tag is called rather than once per level.</span>
+    <span class="n">context</span><span class="p">[</span><span class="s2">&quot;branch_level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">parent_page_id</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">parent_page</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">&quot;branch_level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parent_page</span><span class="p">,</span> <span class="s2">&quot;branch_level&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">parent_page_id</span> <span class="o">=</span> <span class="n">parent_page</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="c1"># Build the ``page_branch`` template variable, which is the list of</span>
+    <span class="c1"># pages for the current parent. Here we also assign the attributes</span>
+    <span class="c1"># to the page object that determines whether it belongs in the</span>
+    <span class="c1"># current menu template being rendered.</span>
+    <span class="n">context</span><span class="p">[</span><span class="s2">&quot;page_branch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;menu_pages&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">parent_page_id</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">context</span><span class="p">[</span><span class="s2">&quot;page_branch_in_menu&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;page_branch&quot;</span><span class="p">]:</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">in_menu</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">in_menu_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">num_children_in_menu</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">in_menu</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;page_branch_in_menu&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;menu_pages&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">in_menu_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">):</span>
+                <span class="n">page</span><span class="o">.</span><span class="n">num_children_in_menu</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">has_children_in_menu</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">num_children_in_menu</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">branch_level</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;branch_level&quot;</span><span class="p">]</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent_page</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">&quot;parent_page&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">parent</span>
+
+        <span class="c1"># Prior to pages having the ``in_menus`` field, pages had two</span>
+        <span class="c1"># boolean fields ``in_navigation`` and ``in_footer`` for</span>
+        <span class="c1"># controlling menu inclusion. Attributes and variables</span>
+        <span class="c1"># simulating these are maintained here for backwards</span>
+        <span class="c1"># compatibility in templates, but will be removed eventually.</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">in_navigation</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">in_menu</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">in_footer</span> <span class="o">=</span> <span class="ow">not</span> <span class="p">(</span><span class="ow">not</span> <span class="n">page</span><span class="o">.</span><span class="n">in_menu</span> <span class="ow">and</span> <span class="s2">&quot;footer&quot;</span> <span class="ow">in</span> <span class="n">template_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">in_navigation</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;page_branch_in_navigation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">in_footer</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">[</span><span class="s2">&quot;page_branch_in_footer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(</span><span class="n">template_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">t</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="models_for_pages"><a class="viewcode-back" href="../../../../packages.html#mezzanine.pages.templatetags.pages_tags.models_for_pages">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">as_tag</span>
+<span class="k">def</span> <span class="nf">models_for_pages</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a select list containing each of the models that subclass the</span>
+<span class="sd">    ``Page`` model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+    <span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;template tag models_for_pages is deprectaed, use &quot;</span>
+        <span class="s2">&quot;PageAdmin.get_content_models instead&quot;</span>
+    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">mezzanine.pages.admin</span> <span class="kn">import</span> <span class="n">PageAdmin</span>
+
+    <span class="k">return</span> <span class="n">PageAdmin</span><span class="o">.</span><span class="n">get_content_models</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="set_model_permissions"><a class="viewcode-back" href="../../../../packages.html#mezzanine.pages.templatetags.pages_tags.set_model_permissions">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">render_tag</span>
+<span class="k">def</span> <span class="nf">set_model_permissions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns a permissions dict to the given model, much like Django</span>
+<span class="sd">    does with its dashboard app list.</span>
+
+<span class="sd">    Used within the change list for pages, to implement permission</span>
+<span class="sd">    checks for the navigation tree.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">opts</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">_meta</span>
+    <span class="n">perm_name</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">app_label</span> <span class="o">+</span> <span class="s2">&quot;.</span><span class="si">%s</span><span class="s2">_&quot;</span> <span class="o">+</span> <span class="n">opts</span><span class="o">.</span><span class="n">object_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;perms&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="k">for</span> <span class="n">perm_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="s2">&quot;delete&quot;</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">perms</span><span class="p">[</span><span class="n">perm_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_perm</span><span class="p">(</span><span class="n">perm_name</span> <span class="o">%</span> <span class="n">perm_type</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="set_page_permissions"><a class="viewcode-back" href="../../../../packages.html#mezzanine.pages.templatetags.pages_tags.set_page_permissions">[docs]</a><span class="nd">@register</span><span class="o">.</span><span class="n">render_tag</span>
+<span class="k">def</span> <span class="nf">set_page_permissions</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Assigns a permissions dict to the given page instance, combining</span>
+<span class="sd">    Django&#39;s permission for the page&#39;s model and a permission check</span>
+<span class="sd">    against the instance itself calling the page&#39;s ``can_add``,</span>
+<span class="sd">    ``can_change`` and ``can_delete`` custom methods.</span>
+
+<span class="sd">    Used within the change list for pages, to implement permission</span>
+<span class="sd">    checks for the navigation tree.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">split_contents</span><span class="p">()[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_content_model</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">_meta</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span>
+                <span class="s2">&quot;Could not load the model for the following page, &quot;</span> <span class="s2">&quot;was it removed?&quot;</span>
+            <span class="p">)</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">page</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># A missing inner Meta class usually means the Page model</span>
+            <span class="c1"># hasn&#39;t been directly subclassed.</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span>
+                <span class="s2">&quot;An error occured with the following class. Does &quot;</span>
+                <span class="s2">&quot;it subclass Page directly?&quot;</span>
+            <span class="p">)</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span><span class="n">error</span> <span class="o">+</span> <span class="s2">&quot; &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="n">obj</span><span class="p">)</span>
+    <span class="n">perm_name</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="n">app_label</span> <span class="o">+</span> <span class="s2">&quot;.</span><span class="si">%s</span><span class="s2">_&quot;</span> <span class="o">+</span> <span class="n">opts</span><span class="o">.</span><span class="n">object_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">]</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="s2">&quot;perms&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="k">for</span> <span class="n">perm_type</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="s2">&quot;delete&quot;</span><span class="p">):</span>
+        <span class="n">perm</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_perm</span><span class="p">(</span><span class="n">perm_name</span> <span class="o">%</span> <span class="n">perm_type</span><span class="p">)</span>
+        <span class="n">perm</span> <span class="o">=</span> <span class="n">perm</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;can_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">perm_type</span><span class="p">)(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">perms</span><span class="p">[</span><span class="n">perm_type</span><span class="p">]</span> <span class="o">=</span> <span class="n">perm</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.pages.templatetags.pages_tags</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

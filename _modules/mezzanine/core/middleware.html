@@ -1,0 +1,436 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.core.middleware &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.middleware</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.core.middleware</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">logout</span>
+<span class="kn">from</span> <span class="nn">django.contrib.messages</span> <span class="kn">import</span> <span class="n">error</span>
+<span class="kn">from</span> <span class="nn">django.contrib.redirects.models</span> <span class="kn">import</span> <span class="n">Redirect</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">MiddlewareNotUsed</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">HttpResponse</span><span class="p">,</span>
+    <span class="n">HttpResponseGone</span><span class="p">,</span>
+    <span class="n">HttpResponsePermanentRedirect</span><span class="p">,</span>
+    <span class="n">HttpResponseRedirect</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">django.middleware.csrf</span> <span class="kn">import</span> <span class="n">CsrfViewMiddleware</span><span class="p">,</span> <span class="n">get_token</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span><span class="p">,</span> <span class="n">Template</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">resolve</span><span class="p">,</span> <span class="n">reverse</span>
+<span class="kn">from</span> <span class="nn">django.utils.cache</span> <span class="kn">import</span> <span class="n">get_max_age</span>
+<span class="kn">from</span> <span class="nn">django.utils.deprecation</span> <span class="kn">import</span> <span class="n">MiddlewareMixin</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.management.commands.createdb</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_PASSWORD</span><span class="p">,</span>
+    <span class="n">DEFAULT_USERNAME</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.models</span> <span class="kn">import</span> <span class="n">SitePermission</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.cache</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">cache_get</span><span class="p">,</span>
+    <span class="n">cache_installed</span><span class="p">,</span>
+    <span class="n">cache_key_prefix</span><span class="p">,</span>
+    <span class="n">cache_set</span><span class="p">,</span>
+    <span class="n">nevercache_token</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.conf</span> <span class="kn">import</span> <span class="n">middlewares_or_subclasses_installed</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.deprecation</span> <span class="kn">import</span> <span class="n">is_authenticated</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.sites</span> <span class="kn">import</span> <span class="n">current_site_id</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">next_url</span>
+
+
+<div class="viewcode-block" id="AdminLoginInterfaceSelectorMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.AdminLoginInterfaceSelectorMiddleware">[docs]</a><span class="k">class</span> <span class="nc">AdminLoginInterfaceSelectorMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks for a POST from the admin login view and if authentication is</span>
+<span class="sd">    successful and the &quot;site&quot; interface is selected, redirect to the site.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">process_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view_func</span><span class="p">,</span> <span class="n">view_args</span><span class="p">,</span> <span class="n">view_kwargs</span><span class="p">):</span>
+        <span class="n">login_type</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;mezzanine_login_interface&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">login_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">view_func</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">view_args</span><span class="p">,</span> <span class="o">**</span><span class="n">view_kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">login_type</span> <span class="o">==</span> <span class="s2">&quot;admin&quot;</span><span class="p">:</span>
+                    <span class="nb">next</span> <span class="o">=</span> <span class="n">next_url</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="ow">or</span> <span class="n">request</span><span class="o">.</span><span class="n">get_full_path</span><span class="p">()</span>
+                    <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">get_username</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">username</span> <span class="o">==</span> <span class="n">DEFAULT_USERNAME</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">check_password</span><span class="p">(</span>
+                        <span class="n">DEFAULT_PASSWORD</span>
+                    <span class="p">):</span>
+                        <span class="n">error</span><span class="p">(</span>
+                            <span class="n">request</span><span class="p">,</span>
+                            <span class="n">mark_safe</span><span class="p">(</span>
+                                <span class="n">_</span><span class="p">(</span>
+                                    <span class="s2">&quot;Your account is using the default password, &quot;</span>
+                                    <span class="s2">&quot;please &lt;a href=&#39;</span><span class="si">%s</span><span class="s2">&#39;&gt;change it&lt;/a&gt; immediately.&quot;</span>
+                                <span class="p">)</span>
+                                <span class="o">%</span> <span class="n">reverse</span><span class="p">(</span>
+                                    <span class="s2">&quot;user_change_password&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,)</span>
+                                <span class="p">)</span>
+                            <span class="p">),</span>
+                        <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">next</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+                <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="nb">next</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">response</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="SitePermissionMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.SitePermissionMiddleware">[docs]</a><span class="k">class</span> <span class="nc">SitePermissionMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Marks the current user with a ``has_site_permission`` which is</span>
+<span class="sd">    used in place of ``user.is_staff`` to achieve per-site staff</span>
+<span class="sd">    access.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">process_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view_func</span><span class="p">,</span> <span class="n">view_args</span><span class="p">,</span> <span class="n">view_kwargs</span><span class="p">):</span>
+        <span class="n">has_site_permission</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
+            <span class="n">has_site_permission</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_staff</span><span class="p">:</span>
+            <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;user&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="s2">&quot;sites&quot;</span><span class="p">:</span> <span class="n">current_site_id</span><span class="p">()}</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">SitePermission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">SitePermission</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+                <span class="n">admin_index</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s2">&quot;admin:index&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">admin_index</span><span class="p">):</span>
+                    <span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+                    <span class="n">view_func</span> <span class="o">=</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">login</span>
+                    <span class="n">extra_context</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;no_site_permission&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+                    <span class="k">return</span> <span class="n">view_func</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="n">extra_context</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">has_site_permission</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_site_permission</span> <span class="o">=</span> <span class="n">has_site_permission</span></div>
+
+
+<div class="viewcode-block" id="TemplateForDeviceMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.TemplateForDeviceMiddleware">[docs]</a><span class="k">class</span> <span class="nc">TemplateForDeviceMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DEPRECATED: Device detection has been removed from Mezzanine.</span>
+<span class="sd">    Inserts device-specific templates to the template list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;`TemplateForDeviceMiddleware` is deprecated. &quot;</span>
+            <span class="s2">&quot;Please remove it from your middleware settings.&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TemplateForHostMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.TemplateForHostMiddleware">[docs]</a><span class="k">class</span> <span class="nc">TemplateForHostMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Inserts host-specific templates to the template list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;`TemplateForHostMiddleware` is deprecated. Please upgrade &quot;</span>
+            <span class="s2">&quot;to the template loader. See: https://goo.gl/SzHPR4&quot;</span><span class="p">,</span>
+            <span class="ne">FutureWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UpdateCacheMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.UpdateCacheMiddleware">[docs]</a><span class="k">class</span> <span class="nc">UpdateCacheMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Response phase for Mezzanine&#39;s cache middleware. Handles caching</span>
+<span class="sd">    the response, and then performing the second phase of rendering,</span>
+<span class="sd">    for content enclosed by the ``nevercache`` tag.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">process_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+
+        <span class="c1"># Caching is only applicable for text-based, non-streaming</span>
+        <span class="c1"># responses. We also skip it for non-200 statuses during</span>
+        <span class="c1"># development, so that stack traces are correctly rendered.</span>
+        <span class="n">is_text</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content-type&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span>
+        <span class="n">valid_status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+        <span class="n">streaming</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;streaming&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_text</span> <span class="ow">or</span> <span class="n">streaming</span> <span class="ow">or</span> <span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">valid_status</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">response</span>
+
+        <span class="c1"># Cache the response if all the required conditions are met.</span>
+        <span class="c1"># Response must be marked for updating by the</span>
+        <span class="c1"># ``FetchFromCacheMiddleware`` having a cache get miss, the</span>
+        <span class="c1"># user must not be authenticated, the HTTP status must be OK</span>
+        <span class="c1"># and the response mustn&#39;t include an expiry age, indicating it</span>
+        <span class="c1"># shouldn&#39;t be cached.</span>
+        <span class="n">marked_for_update</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;_update_cache&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">anon</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">timeout</span> <span class="o">=</span> <span class="n">get_max_age</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">timeout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">timeout</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">CACHE_MIDDLEWARE_SECONDS</span>
+        <span class="k">if</span> <span class="n">anon</span> <span class="ow">and</span> <span class="n">valid_status</span> <span class="ow">and</span> <span class="n">marked_for_update</span> <span class="ow">and</span> <span class="n">timeout</span><span class="p">:</span>
+            <span class="n">cache_key</span> <span class="o">=</span> <span class="n">cache_key_prefix</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">get_full_path</span><span class="p">()</span>
+            <span class="n">_cache_set</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">cache_set</span><span class="p">(</span><span class="n">cache_key</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;render&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)):</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">add_post_render_callback</span><span class="p">(</span><span class="n">_cache_set</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">_cache_set</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="c1"># Second phase rendering for non-cached template code and</span>
+        <span class="c1"># content. Split on the delimiter the ``nevercache`` tag</span>
+        <span class="c1"># wrapped its contents in, and render only the content</span>
+        <span class="c1"># enclosed by it, to avoid possible template code injection.</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">nevercache_token</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+        <span class="c1"># Restore csrf token from cookie - check the response</span>
+        <span class="c1"># first as it may be being set for the first time.</span>
+        <span class="n">csrf_token</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">csrf_token</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">cookies</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">CSRF_COOKIE_NAME</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">csrf_token</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">COOKIES</span><span class="p">[</span><span class="n">settings</span><span class="o">.</span><span class="n">CSRF_COOKIE_NAME</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">csrf_token</span><span class="p">:</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">META</span><span class="p">[</span><span class="s2">&quot;CSRF_COOKIE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">csrf_token</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">part</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="n">parts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">part</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+        <span class="n">response</span><span class="p">[</span><span class="s2">&quot;Content-Length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;_messages&quot;</span><span class="p">):</span>
+            <span class="c1"># Required to clear out user messages.</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="c1"># Response needs to be run-through the CSRF middleware again so</span>
+        <span class="c1"># that if there was a {% csrf_token %} inside of the nevercache</span>
+        <span class="c1"># the cookie will be correctly set for the the response</span>
+        <span class="k">if</span> <span class="n">csrf_middleware_installed</span><span class="p">():</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">csrf_processing_done</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">csrf_mw</span> <span class="o">=</span> <span class="n">CsrfViewMiddleware</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">)</span>
+            <span class="n">csrf_mw</span><span class="o">.</span><span class="n">process_response</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">csrf_middleware_installed</span><span class="p">():</span>
+    <span class="n">csrf_mw_name</span> <span class="o">=</span> <span class="s2">&quot;django.middleware.csrf.CsrfViewMiddleware&quot;</span>
+    <span class="k">return</span> <span class="n">middlewares_or_subclasses_installed</span><span class="p">([</span><span class="n">csrf_mw_name</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="FetchFromCacheMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.FetchFromCacheMiddleware">[docs]</a><span class="k">class</span> <span class="nc">FetchFromCacheMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Request phase for Mezzanine cache middleware. Return a response</span>
+<span class="sd">    from cache if found, othwerwise mark the request for updating</span>
+<span class="sd">    the cache in ``UpdateCacheMiddleware``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">cache_installed</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_authenticated</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">cache_key</span> <span class="o">=</span> <span class="n">cache_key_prefix</span><span class="p">(</span><span class="n">request</span><span class="p">)</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">get_full_path</span><span class="p">()</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">cache_get</span><span class="p">(</span><span class="n">cache_key</span><span class="p">)</span>
+            <span class="c1"># We need to force a csrf token here, as new sessions</span>
+            <span class="c1"># won&#39;t receive one on their first request, with cache</span>
+            <span class="c1"># middleware running.</span>
+            <span class="k">if</span> <span class="n">csrf_middleware_installed</span><span class="p">():</span>
+                <span class="n">csrf_mw</span> <span class="o">=</span> <span class="n">CsrfViewMiddleware</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_response</span><span class="p">)</span>
+                <span class="n">csrf_mw</span><span class="o">.</span><span class="n">process_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">get_token</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">request</span><span class="o">.</span><span class="n">_update_cache</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">response</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SSLRedirectMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.SSLRedirectMiddleware">[docs]</a><span class="k">class</span> <span class="nc">SSLRedirectMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles redirections required for SSL when ``SSL_ENABLED`` is ``True``.</span>
+
+<span class="sd">    If ``SSL_FORCE_HOST`` is ``True``, and is not the current host,</span>
+<span class="sd">    redirect to it.</span>
+
+<span class="sd">    Also ensure URLs defined by ``SSL_FORCE_URL_PREFIXES`` are redirect</span>
+<span class="sd">    to HTTPS, and redirect all other URLs to HTTP if on HTTPS.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;SSLRedirectMiddleware is deprecated. See &quot;</span>
+            <span class="s2">&quot;https://docs.djangoproject.com/en/stable/ref/middleware/&quot;</span>
+            <span class="s2">&quot;#module-django.middleware.security for alternative solutions.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">languages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_languages&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_languages</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGES</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_languages</span>
+
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">force_host</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">SSL_FORCE_HOST</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">force_host</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">get_host</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">force_host</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">force_host</span><span class="si">}{</span><span class="n">request</span><span class="o">.</span><span class="n">get_full_path</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponsePermanentRedirect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">settings</span><span class="o">.</span><span class="n">SSL_ENABLED</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEV_SERVER</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">get_host</span><span class="p">()</span><span class="si">}{</span><span class="n">request</span><span class="o">.</span><span class="n">get_full_path</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">path</span>
+            <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_I18N</span> <span class="ow">and</span> <span class="n">path</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">languages</span><span class="p">():</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SSL_FORCE_URL_PREFIXES</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">is_secure</span><span class="p">():</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s2">&quot;https://</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">is_secure</span><span class="p">()</span> <span class="ow">and</span> <span class="n">settings</span><span class="o">.</span><span class="n">SSL_FORCED_PREFIXES_ONLY</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s2">&quot;http://</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">resolve</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">get_full_path</span><span class="p">())</span><span class="o">.</span><span class="n">url_name</span> <span class="o">==</span> <span class="s2">&quot;fb_do_upload&quot;</span><span class="p">:</span>
+                <span class="c1"># The handler for the flash file uploader in filebrowser</span>
+                <span class="c1"># doesn&#39;t have access to the http headers Django will use</span>
+                <span class="c1"># to determine whether the request is secure or not, so</span>
+                <span class="c1"># in this case we don&#39;t attempt a redirect - note that</span>
+                <span class="c1"># when /admin is restricted to SSL using Mezzanine&#39;s SSL</span>
+                <span class="c1"># setup, the flash uploader will post over SSL, so</span>
+                <span class="c1"># someone would need to explicitly go out of their way to</span>
+                <span class="c1"># trigger this.</span>
+                <span class="k">return</span>
+            <span class="c1"># Tell the client they need to re-POST.</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">=</span> <span class="mi">307</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+
+
+<div class="viewcode-block" id="RedirectFallbackMiddleware"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.middleware.RedirectFallbackMiddleware">[docs]</a><span class="k">class</span> <span class="nc">RedirectFallbackMiddleware</span><span class="p">(</span><span class="n">MiddlewareMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Port of Django&#39;s ``RedirectFallbackMiddleware`` that uses</span>
+<span class="sd">    Mezzanine&#39;s approach for determining the current site.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;django.contrib.redirects&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MiddlewareNotUsed</span>
+
+    <span class="k">def</span> <span class="nf">process_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">:</span>
+            <span class="n">lookup</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;site_id&quot;</span><span class="p">:</span> <span class="n">current_site_id</span><span class="p">(),</span>
+                <span class="s2">&quot;old_path&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">get_full_path</span><span class="p">(),</span>
+            <span class="p">}</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">redirect</span> <span class="o">=</span> <span class="n">Redirect</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">Redirect</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">redirect</span><span class="o">.</span><span class="n">new_path</span><span class="p">:</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponseGone</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponsePermanentRedirect</span><span class="p">(</span><span class="n">redirect</span><span class="o">.</span><span class="n">new_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.middleware</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

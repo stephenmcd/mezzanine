@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.accounts &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mezzanine.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.accounts</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.accounts</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Provides features for non-staff user accounts, such as login, signup</span>
+<span class="sd">with optional email verification, password reset, and integration</span>
+<span class="sd">with user profiles models defined by the ``ACCOUNTS_PROFILE_MODEL``</span>
+<span class="sd">setting. Some utility functions for probing the profile model are</span>
+<span class="sd">included below.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">apps</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_user_model</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.utils.deprecation</span> <span class="kn">import</span> <span class="n">get_related_model</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.importing</span> <span class="kn">import</span> <span class="n">import_dotted_path</span>
+
+
+<div class="viewcode-block" id="ProfileNotConfigured"><a class="viewcode-back" href="../../packages.html#mezzanine.accounts.ProfileNotConfigured">[docs]</a><span class="k">class</span> <span class="nc">ProfileNotConfigured</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="get_profile_model"><a class="viewcode-back" href="../../packages.html#mezzanine.accounts.get_profile_model">[docs]</a><span class="k">def</span> <span class="nf">get_profile_model</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the Mezzanine profile model, defined in</span>
+<span class="sd">    ``settings.ACCOUNTS_PROFILE_MODEL``, or ``None`` if no profile</span>
+<span class="sd">    model is configured.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;ACCOUNTS_PROFILE_MODEL&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">ProfileNotConfigured</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_model</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">ACCOUNTS_PROFILE_MODEL</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+            <span class="s2">&quot;ACCOUNTS_PROFILE_MODEL must be of &quot;</span> <span class="s2">&quot;the form &#39;app_label.model_name&#39;&quot;</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">LookupError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+            <span class="s2">&quot;ACCOUNTS_PROFILE_MODEL refers to &quot;</span>
+            <span class="s2">&quot;model &#39;</span><span class="si">%s</span><span class="s2">&#39; that has not been installed&quot;</span> <span class="o">%</span> <span class="n">settings</span><span class="o">.</span><span class="n">ACCOUNTS_PROFILE_MODEL</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_profile_for_user"><a class="viewcode-back" href="../../packages.html#mezzanine.accounts.get_profile_for_user">[docs]</a><span class="k">def</span> <span class="nf">get_profile_for_user</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns site-specific profile for this user. Raises</span>
+<span class="sd">    ``ProfileNotConfigured`` if ``settings.ACCOUNTS_PROFILE_MODEL`` is not</span>
+<span class="sd">    set, and ``ImproperlyConfigured`` if the corresponding model can&#39;t</span>
+<span class="sd">    be found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="s2">&quot;_mezzanine_profile&quot;</span><span class="p">):</span>
+        <span class="c1"># Raises ProfileNotConfigured if not bool(ACCOUNTS_PROFILE_MODEL)</span>
+        <span class="n">profile_model</span> <span class="o">=</span> <span class="n">get_profile_model</span><span class="p">()</span>
+        <span class="n">profile_manager</span> <span class="o">=</span> <span class="n">profile_model</span><span class="o">.</span><span class="n">_default_manager</span><span class="o">.</span><span class="n">using</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">db</span><span class="p">)</span>
+
+        <span class="n">user_field</span> <span class="o">=</span> <span class="n">get_profile_user_fieldname</span><span class="p">(</span><span class="n">profile_model</span><span class="p">,</span> <span class="n">user</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+        <span class="n">profile</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="n">profile_manager</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">user_field</span><span class="p">:</span> <span class="n">user</span><span class="p">})</span>
+
+        <span class="n">profile</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="n">user</span><span class="o">.</span><span class="n">_mezzanine_profile</span> <span class="o">=</span> <span class="n">profile</span>
+
+    <span class="k">return</span> <span class="n">user</span><span class="o">.</span><span class="n">_mezzanine_profile</span></div>
+
+
+<div class="viewcode-block" id="get_profile_form"><a class="viewcode-back" href="../../packages.html#mezzanine.accounts.get_profile_form">[docs]</a><span class="k">def</span> <span class="nf">get_profile_form</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the profile form defined by</span>
+<span class="sd">    ``settings.ACCOUNTS_PROFILE_FORM_CLASS``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">import_dotted_path</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">ACCOUNTS_PROFILE_FORM_CLASS</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+            <span class="s2">&quot;Value for ACCOUNTS_PROFILE_FORM_CLASS &quot;</span>
+            <span class="s2">&quot;could not be imported: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">settings</span><span class="o">.</span><span class="n">ACCOUNTS_PROFILE_FORM_CLASS</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_profile_user_fieldname"><a class="viewcode-back" href="../../packages.html#mezzanine.accounts.get_profile_user_fieldname">[docs]</a><span class="k">def</span> <span class="nf">get_profile_user_fieldname</span><span class="p">(</span><span class="n">profile_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">user_model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the name of the first field on the profile model that</span>
+<span class="sd">    points to the ``auth.User`` model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Profile</span> <span class="o">=</span> <span class="n">profile_model</span> <span class="ow">or</span> <span class="n">get_profile_model</span><span class="p">()</span>
+    <span class="n">User</span> <span class="o">=</span> <span class="n">user_model</span> <span class="ow">or</span> <span class="n">get_user_model</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">Profile</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_fields</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">get_related_model</span><span class="p">(</span><span class="n">field</span><span class="p">)</span> <span class="o">==</span> <span class="n">User</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+        <span class="s2">&quot;Value for ACCOUNTS_PROFILE_MODEL does not &quot;</span>
+        <span class="s2">&quot;contain a ForeignKey field for auth.User: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">Profile</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.accounts</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

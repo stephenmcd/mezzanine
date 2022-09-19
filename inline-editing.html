@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>In-line Editing &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Caching Strategy" href="caching-strategy.html" />
+    <link rel="prev" title="Model Graph" href="model-graph.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="caching-strategy.html" title="Caching Strategy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="model-graph.html" title="Model Graph"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">In-line Editing</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="in-line-editing">
+<h1>In-line Editing<a class="headerlink" href="#in-line-editing" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine comes with the ability for content authors to edit content
+directly within a page while viewing it on the website, rather than having
+to log into the admin area. Content authors can simply log into the admin
+area as usual, but by selecting <em>Site</em> on the login screen the author will
+then be redirected back to the website where a small <em>Edit</em> icon will be
+found next to each piece of editable content, such as a page’s title or a
+blog post’s body. Clicking on the Edit icon will allow the author to update
+the individual piece of content without leaving the page.</p>
+<p>In-line editing can be disabled by setting <a class="reference internal" href="configuration.html#inline-editing-enabled"><span class="std std-ref">INLINE_EDITING_ENABLED</span></a> to
+<code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<section id="template-configuration">
+<h2>Template Configuration<a class="headerlink" href="#template-configuration" title="Permalink to this heading">¶</a></h2>
+<p>Making content in-line editable is as simple as wrapping model
+fields with a template tag in your templates. The default templates
+installed with Mezzanine all have their content configured to be in-line
+editable. When developing your own templates from scratch though, you’ll
+need to perform this step yourself.</p>
+<p>The first step is to ensure the <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.editable_loader" title="mezzanine.core.templatetags.mezzanine_tags.editable_loader"><code class="xref py py-func docutils literal notranslate"><span class="pre">editable_loader()</span></code></a> template tag is called
+right before the closing <code class="docutils literal notranslate"><span class="pre">&lt;/body&gt;</span></code> tag in each template. The recommended
+way to do this is to include <code class="docutils literal notranslate"><span class="pre">includes/footer_scripts</span></code> in your top-most
+base template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{% load mezzanine_tags %}
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Content goes here --&gt;
+    {% include &quot;includes/footer_scripts.html&quot; %}
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>If your site does not use jQuery, you’ll need to include it conditionally in
+your template’s <cite>&lt;head&gt;</cite> if the user is a staff member. If you’re using a
+different JS library, you can use <cite>jQuery.noConflict()</cite> to avoid it overwriting
+the <cite>$</cite> symbol.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">user</span><span class="o">.</span><span class="n">is_staff</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;{{ STATIC_URL }}mezzanine/js/jquery-1.8.3.min.js&quot;</span><span class="o">&gt;</span>
+        <span class="n">jQuery</span><span class="o">.</span><span class="n">noConflict</span><span class="p">();</span>
+    <span class="o">&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The second step is to wrap each instance of a model field with the
+<a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.editable" title="mezzanine.core.templatetags.mezzanine_tags.editable"><code class="xref py py-func docutils literal notranslate"><span class="pre">editable()</span></code></a> and <code class="docutils literal notranslate"><span class="pre">endeditable</span></code> template tags, with the field specified
+as the <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.editable" title="mezzanine.core.templatetags.mezzanine_tags.editable"><code class="xref py py-func docutils literal notranslate"><span class="pre">editable()</span></code></a> tag’s argument. The content between the two tags is
+what will visibly be hinted to the content author as being editable. It’s
+possible to not provide any content between the two tags, in which case the
+value for the model field specified for the <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.editable" title="mezzanine.core.templatetags.mezzanine_tags.editable"><code class="xref py py-func docutils literal notranslate"><span class="pre">editable()</span></code></a> tag will simply
+be used. The model field must always be specified in the format
+<code class="docutils literal notranslate"><span class="pre">instance_name.field_name</span></code> where <code class="docutils literal notranslate"><span class="pre">instance_name</span></code> is the name of a model
+instance in the template context. For example, suppose we had a <code class="docutils literal notranslate"><span class="pre">page</span></code>
+variable in our template with <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">content</span></code> fields:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{% load mezzanine_tags %}
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{{ page.title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!--
+    No content is specified between the editable tags here, so the
+    page.title field is simply displayed inside the &lt;h1&gt; tags.
+    --&gt;
+    &lt;h1&gt;
+        {% editable page.title %}{% endeditable %}
+    &lt;/h1&gt;
+
+    &lt;!--
+    Here we are manipulating how the editable content will be regularly
+    displayed on the page using Django&#39;s truncatewords_html filter as
+    well as some in-line markup.
+    --&gt;
+    &lt;div&gt;
+        {% editable page.content %}
+        &lt;p style=&quot;text-align:justify;&quot;&gt;
+            {{ page.content|truncatewords_html:50 }}
+        &lt;/p&gt;
+        {% endeditable %}
+    &lt;/div&gt;
+
+    {% editable_loader %}
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.editable" title="mezzanine.core.templatetags.mezzanine_tags.editable"><code class="xref py py-func docutils literal notranslate"><span class="pre">editable()</span></code></a> template tag also allows multiple fields for a model
+instance to be given as arguments to a single <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.editable" title="mezzanine.core.templatetags.mezzanine_tags.editable"><code class="xref py py-func docutils literal notranslate"><span class="pre">editable()</span></code></a> tag. The
+result of this is still a single Edit icon, but when clicked will display
+each of the fields specified for editing, grouped together in a single form.
+Continuing on from the previous example, if we wanted to group together
+the <code class="docutils literal notranslate"><span class="pre">title</span></code> and <code class="docutils literal notranslate"><span class="pre">content</span></code> fields:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{% load mezzanine_tags %}
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;{{ page.title }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;!--
+    A single Edit icon will be displayed indicating the entire area
+    around the h1 and div tags is editable. Clicking it reveals a form
+    for editing both fields at once.
+    --&gt;
+    {% editable page.title page.content %}
+    &lt;h1&gt;
+        {{ page.title }}
+    &lt;/h1&gt;
+    &lt;div&gt;
+        &lt;p style=&quot;text-align:justify;&quot;&gt;
+            {{ page.content|truncatewords_html:50 }}
+        &lt;/p&gt;
+    &lt;/div&gt;
+    {% endeditable %}
+
+    {% editable_loader %}
+&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+<p>The only caveat to consider with grouping together fields in a single
+<a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.editable" title="mezzanine.core.templatetags.mezzanine_tags.editable"><code class="xref py py-func docutils literal notranslate"><span class="pre">editable()</span></code></a> tag is that they must all belong to the same model instance.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">In-line Editing</a><ul>
+<li><a class="reference internal" href="#template-configuration">Template Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="model-graph.html"
+                          title="previous chapter">Model Graph</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="caching-strategy.html"
+                          title="next chapter">Caching Strategy</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/inline-editing.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="caching-strategy.html" title="Caching Strategy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="model-graph.html" title="Model Graph"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">In-line Editing</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

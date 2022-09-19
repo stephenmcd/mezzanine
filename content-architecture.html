@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Content Architecture &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model Customization" href="model-customization.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="model-customization.html" title="Model Customization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Content Architecture</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="content-architecture">
+<h1>Content Architecture<a class="headerlink" href="#content-architecture" title="Permalink to this heading">¶</a></h1>
+<p>Content in Mezzanine primarily revolves around the models found in
+two packages, <a class="reference internal" href="packages.html#module-mezzanine.core" title="mezzanine.core"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.core</span></code></a> and <a class="reference internal" href="packages.html#module-mezzanine.pages" title="mezzanine.pages"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.pages</span></code></a>. Many of
+these models are abstract, and very small in scope, and are then
+combined together as the building blocks that form the models you’ll
+actually be exposed to, such as <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Displayable</span></code></a>
+and <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.Page</span></code></a>, which are the two main models you
+will inherit from when building your own models for content types.</p>
+<p>Before we look at <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> and <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>, here’s a quick
+list of all the abstract models used to build them:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.SiteRelated" title="mezzanine.core.models.SiteRelated"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.SiteRelated</span></code></a> - Contains a related
+<code class="docutils literal notranslate"><span class="pre">django.contrib.sites.models.Site</span></code> field.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.Slugged" title="mezzanine.core.models.Slugged"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Slugged</span></code></a> - Implements a title and URL
+(slug).</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.MetaData" title="mezzanine.core.models.MetaData"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.MetaData</span></code></a> - Provides SEO meta data, such
+as title, description and keywords.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.TimeStamped" title="mezzanine.core.models.TimeStamped"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.TimeStamped</span></code></a> - Provides created and
+updated timestamps.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Displayable</span></code></a> - Combines all the models
+above, then implements publishing features, such as status and
+dates.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.Ownable" title="mezzanine.core.models.Ownable"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Ownable</span></code></a> - Contains a related user field,
+suitable for content owned by specific authors.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.RichText" title="mezzanine.core.models.RichText"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.RichText</span></code></a> - Provides a WYSIWYG editable
+field.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.core.models.Orderable" title="mezzanine.core.models.Orderable"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models.Orderable</span></code></a> - Used to implement drag/drop
+ordering of content, whether out of the box as Django admin
+inlines, or custom such as Mezzanine’s page tree.</p></li>
+</ul>
+</div></blockquote>
+<p>And for completeness, here are the primary content types provided
+out of the box to end users, that make use of <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> and
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="packages.html#mezzanine.blog.models.BlogPost" title="mezzanine.blog.models.BlogPost"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.blog.models.BlogPost</span></code></a> - Blog posts that subclass
+<a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> as they’re not part of the site’s navigation.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.pages.models.RichTextPage" title="mezzanine.pages.models.RichTextPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.RichTextPage</span></code></a> - Default <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>
+subclass, providing a WYSIWYG editable field.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.pages.models.Link" title="mezzanine.pages.models.Link"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.Link</span></code></a> - <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> subclass for links
+pointing to other URLs.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.forms.models.Form" title="mezzanine.forms.models.Form"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.forms.models.Form</span></code></a> - <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> subclass for building
+forms.</p></li>
+<li><p><a class="reference internal" href="packages.html#mezzanine.galleries.models.Gallery" title="mezzanine.galleries.models.Gallery"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.galleries.models.Gallery</span></code></a> - <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> subclass for
+building image gallery pages.</p></li>
+</ul>
+</div></blockquote>
+<p>These certainly serve as examples for implementing your own types of
+content.</p>
+<section id="displayable-vs-page">
+<h2><a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> vs <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><a class="headerlink" href="#displayable-vs-page" title="Permalink to this heading">¶</a></h2>
+<p><a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> itself is also an abstract model, that at its simplest,
+is used to represent content that contains a URL (also known as a slug).
+It also provides the core features of content such as:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Meta data such as a title, description and keywords.</p></li>
+<li><p>Auto-generated slug from the title.</p></li>
+<li><p>Draft/published status with the ability to preview drafts.</p></li>
+<li><p>Pre-dated publishing.</p></li>
+<li><p>Searchable by Mezzanine’s <a class="reference internal" href="search-engine.html"><span class="doc">Search Engine</span></a>.</p></li>
+</ul>
+</div></blockquote>
+<p>Subclassing <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> best suits low-level content that doesn’t
+form part of the site’s navigation - such as blog posts, or events in a
+calendar. Unlike <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>, there’s nothing particularly special about
+the <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a> model - it simply provides a common set of features
+useful to content.</p>
+<p>In contrast, the concrete <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model forms the primary API for
+building a Mezzanine site. It extends <a class="reference internal" href="packages.html#mezzanine.core.models.Displayable" title="mezzanine.core.models.Displayable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code></a>, and implements a
+hierarchical navigation tree. The rest of this section of the
+documentation will focus on the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model, and the way it is
+used to build all the types of content a site will have available.</p>
+</section>
+<section id="the-page-model">
+<h2>The <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> Model<a class="headerlink" href="#the-page-model" title="Permalink to this heading">¶</a></h2>
+<p>The foundation of a Mezzanine site is the model
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.Page</span></code></a>. Each <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance is stored
+in a hierarchical tree to form the site’s navigation, and an interface for
+managing the structure of the navigation tree is provided in the admin
+via <a class="reference internal" href="packages.html#mezzanine.pages.admin.PageAdmin" title="mezzanine.pages.admin.PageAdmin"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.admin.PageAdmin</span></code></a>. All types of content inherit
+from the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model and Mezzanine provides a default content type
+via the <a class="reference internal" href="packages.html#mezzanine.pages.models.RichTextPage" title="mezzanine.pages.models.RichTextPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.models.RichTextPage</span></code></a> model which simply
+contains a WYSIWYG editable field for managing HTML content.</p>
+</section>
+<section id="creating-custom-content-types">
+<span id="id1"></span><h2>Creating Custom Content Types<a class="headerlink" href="#creating-custom-content-types" title="Permalink to this heading">¶</a></h2>
+<p>In order to handle different types of pages that require more
+structured content than provided by the <a class="reference internal" href="packages.html#mezzanine.pages.models.RichTextPage" title="mezzanine.pages.models.RichTextPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">RichTextPage</span></code></a> model, you can
+simply create your own models that inherit from <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>. For example
+if we wanted to have pages that were authors with books:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span>
+
+<span class="c1"># The members of Page will be inherited by the Author model, such</span>
+<span class="c1"># as title, slug, etc. For authors we can use the title field to</span>
+<span class="c1"># store the author&#39;s name. For our model definition, we just add</span>
+<span class="c1"># any extra fields that aren&#39;t part of the Page model, in this</span>
+<span class="c1"># case, date of birth.</span>
+
+<span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
+    <span class="n">dob</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="s2">&quot;Date of birth&quot;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Author&quot;</span><span class="p">)</span>
+    <span class="n">cover</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ImageField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="s2">&quot;authors&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next you’ll need to register your model with Django’s admin to make it
+available as a content type. If your content type only exposes some new
+fields that you’d like to make editable in the admin, you can simply
+register your model using the <a class="reference internal" href="packages.html#mezzanine.pages.admin.PageAdmin" title="mezzanine.pages.admin.PageAdmin"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.pages.admin.PageAdmin</span></code></a>
+class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.admin</span> <span class="kn">import</span> <span class="n">PageAdmin</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Author</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">PageAdmin</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Any regular model fields on your content type will be available when
+adding or changing an instance of it in the admin. This is similar to
+Django’s behaviour when registering models in the admin without using
+an admin class, or when using an admin class without fieldsets defined.
+In these cases all the fields on the model are available in the admin.</p>
+<p>If however you need to customize your admin class, you can inherit from
+<a class="reference internal" href="packages.html#mezzanine.pages.admin.PageAdmin" title="mezzanine.pages.admin.PageAdmin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageAdmin</span></code></a> and implement your own admin class. The only difference
+is that you’ll need to take a copy of <code class="xref py py-attr docutils literal notranslate"><span class="pre">PageAdmin.fieldsets</span></code> and
+modify it if you want to implement your own fieldsets, otherwise you’ll
+lose the fields that the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model implements:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.admin</span> <span class="kn">import</span> <span class="n">PageAdmin</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Author</span><span class="p">,</span> <span class="n">Book</span>
+
+<span class="n">author_extra_fieldsets</span> <span class="o">=</span> <span class="p">((</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;dob&quot;</span><span class="p">,)}),)</span>
+
+<span class="k">class</span> <span class="nc">BookInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">TabularInline</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Book</span>
+
+<span class="k">class</span> <span class="nc">AuthorAdmin</span><span class="p">(</span><span class="n">PageAdmin</span><span class="p">):</span>
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">(</span><span class="n">BookInline</span><span class="p">,)</span>
+    <span class="n">fieldsets</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">PageAdmin</span><span class="o">.</span><span class="n">fieldsets</span><span class="p">)</span> <span class="o">+</span> <span class="n">author_extra_fieldsets</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">AuthorAdmin</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When registering content type models with <a class="reference internal" href="packages.html#mezzanine.pages.admin.PageAdmin" title="mezzanine.pages.admin.PageAdmin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageAdmin</span></code></a> or subclasses
+of it, the admin class won’t be listed in the admin index page, instead
+being made available as a type of <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> when creating new pages from
+the navigation tree.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When creating custom content types, you must inherit directly from
+the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model. Further levels of subclassing are currently not
+supported. Therefore you cannot subclass the <a class="reference internal" href="packages.html#mezzanine.pages.models.RichTextPage" title="mezzanine.pages.models.RichTextPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">RichTextPage</span></code></a> or
+any other custom content types you create yourself. Should you need
+to implement a WYSIWYG editable field in the way the
+<a class="reference internal" href="packages.html#mezzanine.pages.models.RichTextPage" title="mezzanine.pages.models.RichTextPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">RichTextPage</span></code></a> model does, you can simply subclass both
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and <a class="reference internal" href="packages.html#mezzanine.core.models.RichText" title="mezzanine.core.models.RichText"><code class="xref py py-class docutils literal notranslate"><span class="pre">RichText</span></code></a>, the latter being imported from
+<a class="reference internal" href="packages.html#module-mezzanine.core.models" title="mezzanine.core.models"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.models</span></code></a>.</p>
+</div>
+</section>
+<section id="displaying-custom-content-types">
+<h2>Displaying Custom Content Types<a class="headerlink" href="#displaying-custom-content-types" title="Permalink to this heading">¶</a></h2>
+<p>When creating models that inherit from the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model, multi-table
+inheritance is used under the hood. This means that when dealing with
+the page object, an attribute is created from the subclass model’s
+name. So given a <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance using the previous example,
+accessing the <code class="docutils literal notranslate"><span class="pre">Author</span></code> instance would be as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Author</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Dr Seuss&quot;</span><span class="p">)</span>
+<span class="go">&lt;Author: Dr Seuss&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page</span> <span class="o">=</span> <span class="n">Page</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Dr Seuss&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">page</span><span class="o">.</span><span class="n">author</span>
+<span class="go">&lt;Author: Dr Seuss&gt;</span>
+</pre></div>
+</div>
+<p>And in a template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">page</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">page</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">dob</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">author</span><span class="o">.</span><span class="n">book_set</span><span class="o">.</span><span class="n">all</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;{{ MEDIA_URL }}{{ book.cover }}&quot;</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model also contains the method <code class="xref py py-meth docutils literal notranslate"><span class="pre">Page.get_content_model()</span></code>
+for retrieving the custom instance without knowing its type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">page</span><span class="o">.</span><span class="n">get_content_model</span><span class="p">()</span>
+<span class="go">&lt;Author: Dr Seuss&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="page-templates">
+<h2>Page Templates<a class="headerlink" href="#page-templates" title="Permalink to this heading">¶</a></h2>
+<p>The view function <a class="reference internal" href="packages.html#mezzanine.pages.views.page" title="mezzanine.pages.views.page"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.pages.views.page()</span></code></a> handles returning a
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance to a template. By default the template
+<code class="docutils literal notranslate"><span class="pre">pages/page.html</span></code> is used, but if a custom template exists it will be
+used instead. The check for a custom template will first check for a
+template with the same name as the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance’s slug, and if not
+then a template with a name derived from the subclass model’s name is
+checked for. So given the above example the templates
+<code class="docutils literal notranslate"><span class="pre">pages/dr-seuss.html</span></code> and <code class="docutils literal notranslate"><span class="pre">pages/author.html</span></code> would be checked for
+respectively.</p>
+<p>The view function further looks through the parent hierarchy of the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>.
+If a <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance with slug <code class="docutils literal notranslate"><span class="pre">authors/dr-seuss</span></code> is a child of the
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> with slug <code class="docutils literal notranslate"><span class="pre">authors</span></code>, the templates <code class="docutils literal notranslate"><span class="pre">pages/authors/dr-seuss.html</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pages/authors/dr-seuss/author.html</span></code>, <code class="docutils literal notranslate"><span class="pre">pages/authors/author.html</span></code>,
+<code class="docutils literal notranslate"><span class="pre">pages/author.html</span></code>, and <code class="docutils literal notranslate"><span class="pre">pages/page.html</span></code> would be checked for
+respectively. This lets you specify a template for all children of a
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> and a different template for the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> itself.
+For example, if an additional author were added as a child page of
+<code class="docutils literal notranslate"><span class="pre">authors/dr-seuss</span></code> with the slug <code class="docutils literal notranslate"><span class="pre">authors/dr-seuss/theo-lesieg</span></code>,
+the template <code class="docutils literal notranslate"><span class="pre">pages/authors/dr-seuss/author.html</span></code> would be among
+those checked.</p>
+</section>
+<section id="page-processors">
+<h2>Page Processors<a class="headerlink" href="#page-processors" title="Permalink to this heading">¶</a></h2>
+<p>So far we’ve covered how to create and display custom types of pages,
+but what if we want to extend them further with more advanced features?
+For example adding a form to the page and handling when a user submits
+the form. This type of logic would typically go into a view function,
+but since every <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance is handled via the view function
+<a class="reference internal" href="packages.html#mezzanine.pages.views.page" title="mezzanine.pages.views.page"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.pages.views.page()</span></code></a> we can’t create our own views for pages.
+Mezzanine solves this problem using <em>Page Processors</em>.</p>
+<p><em>Page Processors</em> are simply functions that can be associated to any
+custom <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> models and are then called inside the
+<a class="reference internal" href="packages.html#mezzanine.pages.views.page" title="mezzanine.pages.views.page"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.pages.views.page()</span></code></a> view when viewing the associated
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance. A Page Processor will always be passed two arguments
+- the request and the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance, and can either return a
+dictionary that will be added to the template context, or it can return
+any of Django’s <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/request-response/#django.http.HttpResponse" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HttpResponse</span></code></a> classes which will override the
+<a class="reference internal" href="packages.html#mezzanine.pages.views.page" title="mezzanine.pages.views.page"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.pages.views.page()</span></code></a> view entirely.</p>
+<p>To associate a Page Processor to a custom <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model you must
+create the function for it in a module called <code class="xref py py-mod docutils literal notranslate"><span class="pre">page_processors.py</span></code>
+inside one of your <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> and decorate it using the
+decorator <a class="reference internal" href="packages.html#mezzanine.pages.page_processors.processor_for" title="mezzanine.pages.page_processors.processor_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.pages.page_processors.processor_for()</span></code></a>.</p>
+<p>Continuing on from our author example, suppose we want to add an
+enquiry form to each author page. Our <code class="xref py py-mod docutils literal notranslate"><span class="pre">page_processors.py</span></code> module in
+the author app would be as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.page_processors</span> <span class="kn">import</span> <span class="n">processor_for</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Author</span>
+
+<span class="k">class</span> <span class="nc">AuthorForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
+    <span class="n">email</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">EmailField</span><span class="p">()</span>
+
+<span class="nd">@processor_for</span><span class="p">(</span><span class="n">Author</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">author_form</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">AuthorForm</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span><span class="p">:</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">AuthorForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="c1"># Form processing goes here.</span>
+            <span class="n">redirect</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;?submitted=true&quot;</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">redirect</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="packages.html#mezzanine.pages.page_processors.processor_for" title="mezzanine.pages.page_processors.processor_for"><code class="xref py py-func docutils literal notranslate"><span class="pre">processor_for()</span></code></a> decorator can also be given a <code class="docutils literal notranslate"><span class="pre">slug</span></code> argument
+rather than a Page subclass. In this case the Page Processor will be
+run when the exact slug matches the page being viewed.</p>
+</section>
+<section id="page-permissions">
+<h2>Page Permissions<a class="headerlink" href="#page-permissions" title="Permalink to this heading">¶</a></h2>
+<p>The navigation tree in the admin where pages are managed will take
+into account any permissions defined using <a class="reference external" href="http://docs.djangoproject.com/en/dev/topics/auth/#permissions">Django’s permission system</a>. For
+example if a logged in user doesn’t have permission to add new
+instances of the <code class="docutils literal notranslate"><span class="pre">Author</span></code> model from our previous example, it won’t
+be listed in the types of pages that user can add when viewing the
+navigation tree in the admin.</p>
+<p>In conjunction with Django’s permission system, the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model
+also implements the methods <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_add" title="mezzanine.pages.models.Page.can_add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_add()</span></code></a>, <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_change" title="mezzanine.pages.models.Page.can_change"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_change()</span></code></a>,
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_delete" title="mezzanine.pages.models.Page.can_delete"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_delete()</span></code></a>, and <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_move" title="mezzanine.pages.models.Page.can_move"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_move()</span></code></a>. These methods provide a way for
+custom page types to implement their own permissions by being
+overridden on subclasses of the <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> model.</p>
+<p>With the exception of <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_move" title="mezzanine.pages.models.Page.can_move"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_move()</span></code></a>, each of these methods takes a
+single argument which is the current request object, and return a
+Boolean. This provides the ability to define custom permission methods
+with access to the current user as well.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_add" title="mezzanine.pages.models.Page.can_add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_add()</span></code></a> permission in the context of an existing page has
+a different meaning than in the context of an overall model as is
+the case with Django’s permission system. In the case of a page
+instance, <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_add" title="mezzanine.pages.models.Page.can_add"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_add()</span></code></a> refers to the ability to add child pages.</p>
+</div>
+<p>The <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_move" title="mezzanine.pages.models.Page.can_move"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_move()</span></code></a> method has a slightly different interface, as it
+needs an additional argument, which is the new parent should the move
+be completed, and an additional output, which is a message to be
+displayed when the move is denied. The message helps justify reverting
+the page to its position prior to the move, and is displayed using
+Django messages framework. Instead of a Boolean return value,
+<a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_move" title="mezzanine.pages.models.Page.can_move"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_move()</span></code></a> raises a <a class="reference internal" href="packages.html#mezzanine.pages.models.PageMoveException" title="mezzanine.pages.models.PageMoveException"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageMoveException</span></code></a> when the move is denied,
+with an optional argument representing the message to be displayed.
+In any case, <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_move" title="mezzanine.pages.models.Page.can_move"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_move()</span></code></a> does not return any values.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference internal" href="packages.html#mezzanine.pages.models.Page.can_move" title="mezzanine.pages.models.Page.can_move"><code class="xref py py-meth docutils literal notranslate"><span class="pre">can_move()</span></code></a> permission can only constrain moving existing
+pages, and is not observed when creating a new page. If you want
+to enforce the same rules when creating pages, you need to
+implement them explicitly through other means, such as the
+<code class="docutils literal notranslate"><span class="pre">save</span></code> method of the model or the <code class="docutils literal notranslate"><span class="pre">save_model</span></code> method of the
+model’s admin.</p>
+</div>
+<p>For example, if our <code class="docutils literal notranslate"><span class="pre">Author</span></code> content type should only contain one
+child page at most, can only be deleted when added as a child page
+(unless you’re a superuser), and cannot be moved to a top-level
+position, the following permission methods could be implemented:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mezzanine.pages.models</span> <span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">PageMoveException</span>
+
+<span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">Page</span><span class="p">):</span>
+    <span class="n">dob</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateField</span><span class="p">(</span><span class="s2">&quot;Date of birth&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">can_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">can_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">can_move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">new_parent</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">new_parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;An author page cannot be a top-level page&#39;</span>
+            <span class="k">raise</span> <span class="n">PageMoveException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="page-menus">
+<h2>Page Menus<a class="headerlink" href="#page-menus" title="Permalink to this heading">¶</a></h2>
+<p>We’ve looked closely at the aspects of individual pages, now let’s look
+at displaying all of the pages as a hierarchical menu. A typical site
+may contain several different page menus, for example a menu that shows
+primary pages on the header of the site, with secondary pages as
+drop-down lists. Another type of menu would be a full or partial tree in
+a side-bar on the site. The footer may display a menu with primary and
+secondary pages grouped together as vertical lists.</p>
+<p>Mezzanine provides the <a class="reference internal" href="packages.html#mezzanine.pages.templatetags.pages_tags.page_menu" title="mezzanine.pages.templatetags.pages_tags.page_menu"><code class="xref py py-func docutils literal notranslate"><span class="pre">page_menu()</span></code></a>
+template tag for rendering the above types of page menus, or any other
+type you can think of. The <a class="reference internal" href="packages.html#mezzanine.pages.templatetags.pages_tags.page_menu" title="mezzanine.pages.templatetags.pages_tags.page_menu"><code class="xref py py-func docutils literal notranslate"><span class="pre">page_menu()</span></code></a> template tag is responsible
+for rendering a single branch of the page tree at a time, and accepts
+two optional arguments (you’ll usually need to supply at least one of them)
+in either order. The arguments are the name of a menu template to use
+for a single branch within the page tree, and the parent menu item for
+the branch that will be rendered.</p>
+<p>The page menu template will be provided with a variable <code class="docutils literal notranslate"><span class="pre">page_branch</span></code>,
+which contains a list of pages for the current branch. We can then call
+the <a class="reference internal" href="packages.html#mezzanine.pages.templatetags.pages_tags.page_menu" title="mezzanine.pages.templatetags.pages_tags.page_menu"><code class="xref py py-func docutils literal notranslate"><span class="pre">page_menu()</span></code></a> template tag for each page in the branch, using the
+page as the parent argument to render its children. When calling the
+<code class="xref py py-func docutils literal notranslate"><span class="pre">page_menu()</span></code> template tag from within a menu template, we don’t need to
+supply the template name again, as it can be inferred. Note that by
+omitting the parent page argument for the <code class="xref py py-func docutils literal notranslate"><span class="pre">page_menu()</span></code> template tag,
+the first branch rendered will be all of the primary pages, that is,
+all of the pages without a parent.</p>
+<p>Here’s a simple menu example using two template files, that renders the
+entire page tree using unordered list HTML tags:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!-- First template: perhaps base.html, or an include file --&gt;
+{% load pages_tags %}
+{% page_menu &quot;pages/menus/my_menu.html&quot; %}
+
+&lt;!-- Second template: pages/menus/my_menu.html --&gt;
+{% load pages_tags %}
+&lt;ul&gt;
+{% for page in page_branch %}
+&lt;li&gt;
+    &lt;a href=&quot;{{ page.get_absolute_url }}&quot;&gt;{{ page.title }}&lt;/a&gt;
+    {% page_menu page %}
+&lt;/li&gt;
+{% endfor %}
+&lt;/ul&gt;
+</pre></div>
+</div>
+<p>The first file starts off the menu without specifying a parent page so
+that primary pages are first rendered, and only passes in the menu
+template to use. The second file is the actual menu template that
+includes itself recursively for each branch in the menu. We could even
+specify a different menu template in the call to <a class="reference internal" href="packages.html#mezzanine.pages.templatetags.pages_tags.page_menu" title="mezzanine.pages.templatetags.pages_tags.page_menu"><code class="xref py py-func docutils literal notranslate"><span class="pre">page_menu()</span></code></a> in our
+menu template, if we wanted to use a different layout for child pages.</p>
+<section id="filtering-menus">
+<h3>Filtering Menus<a class="headerlink" href="#filtering-menus" title="Permalink to this heading">¶</a></h3>
+<p>Each <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> instance has a field <code class="xref py py-attr docutils literal notranslate"><span class="pre">in_menus</span></code> which specifies
+which menus the page should appear in. In the admin interface, the
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">in_menus</span></code> field is a list of checkboxes for each of the menu
+templates. The menu choices for the <code class="xref py py-attr docutils literal notranslate"><span class="pre">in_menus</span></code> field are defined by
+the <a class="reference internal" href="configuration.html#page-menu-templates"><span class="std std-ref">PAGE_MENU_TEMPLATES</span></a> setting, which is a sequence of
+menu templates. Each item in the sequence is a three item sequence,
+containing a unique ID for the template, a label for the template,
+and the template path. For example in your <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">PAGE_MENU_TEMPLATES</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Top navigation bar&quot;</span><span class="p">,</span> <span class="s2">&quot;pages/menus/dropdown.html&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Left-hand tree&quot;</span><span class="p">,</span> <span class="s2">&quot;pages/menus/tree.html&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Footer&quot;</span><span class="p">,</span> <span class="s2">&quot;pages/menus/footer.html&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Which of these entries is selected for new pages (all are selected by default)
+is controlled by the <a class="reference internal" href="configuration.html#page-menu-templates-default"><span class="std std-ref">PAGE_MENU_TEMPLATES_DEFAULT</span></a> setting. For example,
+<code class="docutils literal notranslate"><span class="pre">PAGE_MENU_TEMPLATES_DEFAULT</span> <span class="pre">=</span> <span class="pre">(1,</span> <span class="pre">3)</span></code> will cause the admin section
+to pre-select the “Top navigation bar” and the “Footer” when using
+the example above.</p>
+<p>The selections made for the <code class="xref py py-attr docutils literal notranslate"><span class="pre">in_menus</span></code> field on each page don’t
+actually filter a page from being included in the <code class="docutils literal notranslate"><span class="pre">page_branch</span></code>
+variable that contains the list of pages for the current branch. Instead
+it’s used to set the value of <code class="docutils literal notranslate"><span class="pre">page.in_menu</span></code> for each page in the
+menu template, so it’s up to your menu template to check the page’s
+<code class="docutils literal notranslate"><span class="pre">in_menu</span></code> attribute explicitly, in order to exclude it:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;!-- Second template again, with in_menu support --&gt;
+{% load pages_tags %}
+&lt;ul&gt;
+{% for page in page_branch %}
+{% if page.in_menu %}
+&lt;li&gt;
+    &lt;a href=&quot;{{ page.get_absolute_url }}&quot;&gt;{{ page.title }}&lt;/a&gt;
+    {% page_menu page %}
+&lt;/li&gt;
+{% endif %}
+{% endfor %}
+&lt;/ul&gt;
+</pre></div>
+</div>
+<p>Note that if a menu template is not defined in the
+<a class="reference internal" href="configuration.html#page-menu-templates"><span class="std std-ref">PAGE_MENU_TEMPLATES</span></a> setting, the branch pages supplied to it will
+always have the <code class="docutils literal notranslate"><span class="pre">in_menu</span></code> attribute set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, so the only way
+this will be <code class="docutils literal notranslate"><span class="pre">False</span></code> is if the menu template has been added to
+<a class="reference internal" href="configuration.html#page-menu-templates"><span class="std std-ref">PAGE_MENU_TEMPLATES</span></a>, and then <em>not</em> selected for a page in the
+admin interface.</p>
+</section>
+<section id="menu-variables">
+<h3>Menu Variables<a class="headerlink" href="#menu-variables" title="Permalink to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="packages.html#mezzanine.pages.templatetags.pages_tags.page_menu" title="mezzanine.pages.templatetags.pages_tags.page_menu"><code class="xref py py-func docutils literal notranslate"><span class="pre">page_menu()</span></code></a> template tag provides a handful of variables, both in
+the template context, and assigned to each page in the branch, for
+helping you to build advanced menus.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">page_branch</span></code> - a list of pages for the current branch</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">on_home</span></code> - a boolean for whether the homepage is being viewed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">has_home</span></code> - a boolean for whether a page object exists for the
+homepage, which is used to check whether a hard-coded link to the
+homepage should be used in the page menu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">branch_level</span></code> - an integer for the current branch depth</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page_branch_in_menu</span></code> - a boolean for whether this branch should
+be in the menu (see “filtering menus” below)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">parent_page</span></code> - a reference to the parent page</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.parent</span></code> - same as <code class="docutils literal notranslate"><span class="pre">parent_page</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.in_menu</span></code> - a boolean for whether the branch page should
+be in the menu (see “filtering menus” below)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.has_children</span></code> - a boolean for whether the branch page has
+any child pages at all, disregarding the current menu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.has_children_in_menu</span></code> - a boolean for whether the branch
+page has any child pages that appear in the current menu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.num_children</span></code> - an integer for the number of child pages the
+branch page has in total, disregarding the current menu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.num_children_in_menu</span></code> - an integer for the number of child
+pages the branch page has, that also appear in the current menu</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.is_current_child</span></code> - a boolean for whether the branch page
+is a child of the current page being viewed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.is_current_sibling</span></code> - a boolean for whether the branch page
+is a sibling (has the same parent) of the current page being viewed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.is_current_parent</span></code> - a boolean for whether the branch page
+is the direct parent of the current page being viewed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.is_current_or_ascendant</span></code> - a boolean for whether the branch
+page is the current page being viewed, or an ascendant (parent,
+grand-parent, etc) of the current page being viewed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.is_primary</span></code> - a boolean for whether the branch page
+is a primary page (has no parent)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.html_id</span></code> - a unique string that can be used as the HTML ID
+attribute</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">page.branch_level</span></code> - an integer for the branch page’s depth</p></li>
+</ul>
+</div></blockquote>
+<p>Here’s a commonly requested example of custom menu logic. Suppose you
+have primary navigation across the top of the site showing only primary
+pages, representing sections of the site. You then want to have a tree
+menu in a sidebar, that displays all pages within the section of the
+site currently being viewed. To achieve this we recursively move through
+the page tree, only drilling down through child pages if
+<code class="docutils literal notranslate"><span class="pre">page.is_current_or_ascendant</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, or if the page isn’t a
+primary page. The key here is the <code class="docutils literal notranslate"><span class="pre">page.is_current_or_ascendant</span></code>
+check is only applied to the primary page, so all of its descendants
+end up being rendered. Finally, we also only display the link to each
+page if it isn’t the primary page for the section:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">load</span> <span class="n">pages_tags</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">page_branch</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">in_menu</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">is_current_or_ascendant</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">page</span><span class="o">.</span><span class="n">is_primary</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;</span><span class="n">li</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">page</span><span class="o">.</span><span class="n">is_primary</span> <span class="o">%</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{{ page.get_absolute_url }}&quot;</span><span class="o">&gt;</span><span class="p">{{</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span> <span class="p">}}</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+    <span class="p">{</span><span class="o">%</span> <span class="n">page_menu</span> <span class="n">page</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+<span class="p">{</span><span class="o">%</span> <span class="n">endfor</span> <span class="o">%</span><span class="p">}</span>
+<span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="integrating-third-party-apps-with-pages">
+<h2>Integrating Third-party Apps with Pages<a class="headerlink" href="#integrating-third-party-apps-with-pages" title="Permalink to this heading">¶</a></h2>
+<p>Sometimes you might need to use regular Django applications within your
+site, that fall outside of Mezzanine’s page structure. Of course this is
+fine since Mezzanine is just Django - you can simply add the app’s
+urlpatterns to your project’s <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> module like a regular Django
+project.</p>
+<p>A common requirement however is for pages in Mezzanine’s navigation to
+point to the urlpatterns for these regular Django apps. Implementing
+this simply requires creating a page in the admin, with a URL matching
+a pattern used by the application. With that in place, the template
+rendered by the application’s view will have a <code class="docutils literal notranslate"><span class="pre">page</span></code> variable in
+its context, that contains the current page object that was created
+with the same URL. This allows Mezzanine to mark the <code class="docutils literal notranslate"><span class="pre">page</span></code> instance
+as active in the navigation, and to generate breadcrumbs for the
+<code class="docutils literal notranslate"><span class="pre">page</span></code> instance as well.</p>
+<p>An example of this setup is Mezzanine’s blog application, which does not
+use <a class="reference internal" href="packages.html#mezzanine.pages.models.Page" title="mezzanine.pages.models.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a> content types, and is just a regular Django app.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Content Architecture</a><ul>
+<li><a class="reference internal" href="#displayable-vs-page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Displayable</span></code> vs <code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a></li>
+<li><a class="reference internal" href="#the-page-model">The <code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code> Model</a></li>
+<li><a class="reference internal" href="#creating-custom-content-types">Creating Custom Content Types</a></li>
+<li><a class="reference internal" href="#displaying-custom-content-types">Displaying Custom Content Types</a></li>
+<li><a class="reference internal" href="#page-templates">Page Templates</a></li>
+<li><a class="reference internal" href="#page-processors">Page Processors</a></li>
+<li><a class="reference internal" href="#page-permissions">Page Permissions</a></li>
+<li><a class="reference internal" href="#page-menus">Page Menus</a><ul>
+<li><a class="reference internal" href="#filtering-menus">Filtering Menus</a></li>
+<li><a class="reference internal" href="#menu-variables">Menu Variables</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#integrating-third-party-apps-with-pages">Integrating Third-party Apps with Pages</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="overview.html"
+                          title="previous chapter">Overview</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="model-customization.html"
+                          title="next chapter">Model Customization</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/content-architecture.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="model-customization.html" title="Model Customization"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Overview"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Content Architecture</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

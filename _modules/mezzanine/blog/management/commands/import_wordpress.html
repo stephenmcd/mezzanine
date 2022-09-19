@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.blog.management.commands.import_wordpress &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mezzanine.css" />
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.management.commands.import_wordpress</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.blog.management.commands.import_wordpress</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">mktime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">from</span> <span class="nn">xml.dom</span> <span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">from</span> <span class="nn">xml.dom.minidom</span> <span class="kn">import</span> <span class="n">parse</span>
+
+<span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">CommandError</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="kn">import</span> <span class="n">linebreaks</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.blog.management.base</span> <span class="kn">import</span> <span class="n">BaseImporterCommand</span>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_wordpress.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseImporterCommand</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements a Wordpress importer. Takes a file path or a URL for the</span>
+<span class="sd">    Wordpress Extended RSS file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Command.add_arguments"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_wordpress.Command.add_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">add_arguments</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;-u&quot;</span><span class="p">,</span> <span class="s2">&quot;--url&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;url&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;URL to import file&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Command.get_text"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_wordpress.Command.get_text">[docs]</a>    <span class="k">def</span> <span class="nf">get_text</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xml</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the element&#39;s text value from the XML object provided.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;wp:comment_&quot;</span> <span class="o">+</span> <span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">childNodes</span>
+        <span class="n">accepted_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">Node</span><span class="o">.</span><span class="n">CDATA_SECTION_NODE</span><span class="p">,</span> <span class="n">Node</span><span class="o">.</span><span class="n">TEXT_NODE</span><span class="p">]</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span> <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">nodeType</span> <span class="ow">in</span> <span class="n">accepted_types</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Command.handle_import"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_wordpress.Command.handle_import">[docs]</a>    <span class="k">def</span> <span class="nf">handle_import</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the posts from either the provided URL or the path if it</span>
+<span class="sd">        is local.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">url</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s2">&quot;Usage is import_wordpress </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">feedparser</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span><span class="s2">&quot;Could not import the feedparser library.&quot;</span><span class="p">)</span>
+        <span class="n">feed</span> <span class="o">=</span> <span class="n">feedparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+        <span class="c1"># We use the minidom parser as well because feedparser won&#39;t</span>
+        <span class="c1"># interpret WXR comments correctly and ends up munging them.</span>
+        <span class="c1"># xml.dom.minidom is used simply to pull the comments when we</span>
+        <span class="c1"># get to them.</span>
+        <span class="n">xml</span> <span class="o">=</span> <span class="n">parse</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">xmlitems</span> <span class="o">=</span> <span class="n">xml</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;item&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">entry</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">feed</span><span class="p">[</span><span class="s2">&quot;entries&quot;</span><span class="p">]):</span>
+            <span class="c1"># Get a pointer to the right position in the minidom as well.</span>
+            <span class="n">xmlitem</span> <span class="o">=</span> <span class="n">xmlitems</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">linebreaks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wp_caption</span><span class="p">(</span><span class="n">entry</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]))</span>
+
+            <span class="c1"># Get the time struct of the published date if possible and</span>
+            <span class="c1"># the updated date if we can&#39;t.</span>
+            <span class="n">pub_date</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;published_parsed&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">updated_parsed</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pub_date</span><span class="p">:</span>
+                <span class="n">pub_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">mktime</span><span class="p">(</span><span class="n">pub_date</span><span class="p">))</span>
+                <span class="n">pub_date</span> <span class="o">-=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">timezone</span><span class="p">)</span>
+
+            <span class="c1"># Tags and categories are all under &quot;tags&quot; marked with a scheme.</span>
+            <span class="n">terms</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="n">terms</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">scheme</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">term</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">entry</span><span class="o">.</span><span class="n">wp_post_type</span> <span class="o">==</span> <span class="s2">&quot;post&quot;</span><span class="p">:</span>
+                <span class="n">post</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_post</span><span class="p">(</span>
+                    <span class="n">title</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                    <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+                    <span class="n">pub_date</span><span class="o">=</span><span class="n">pub_date</span><span class="p">,</span>
+                    <span class="n">tags</span><span class="o">=</span><span class="n">terms</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">],</span>
+                    <span class="n">categories</span><span class="o">=</span><span class="n">terms</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">],</span>
+                    <span class="n">old_url</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;link&quot;</span><span class="p">,</span> <span class="n">entry</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Get the comments from the xml doc.</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">xmlitem</span><span class="o">.</span><span class="n">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;wp:comment&quot;</span><span class="p">):</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;author&quot;</span><span class="p">)</span>
+                    <span class="n">email</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;author_email&quot;</span><span class="p">)</span>
+                    <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;author_url&quot;</span><span class="p">)</span>
+                    <span class="n">body</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">)</span>
+                    <span class="n">pub_date</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;date_gmt&quot;</span><span class="p">)</span>
+                    <span class="n">fmt</span> <span class="o">=</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span>
+                    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">pub_date</span><span class="p">,</span> <span class="n">fmt</span><span class="p">)</span>
+                    <span class="n">pub_date</span> <span class="o">-=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">timezone</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_comment</span><span class="p">(</span>
+                        <span class="n">post</span><span class="o">=</span><span class="n">post</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                        <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span>
+                        <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+                        <span class="n">website</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+                        <span class="n">pub_date</span><span class="o">=</span><span class="n">pub_date</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">entry</span><span class="o">.</span><span class="n">wp_post_type</span> <span class="o">==</span> <span class="s2">&quot;page&quot;</span><span class="p">:</span>
+                <span class="n">old_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;wp_post_id&quot;</span><span class="p">)</span>
+                <span class="n">parent_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="s2">&quot;wp_post_parent&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_page</span><span class="p">(</span>
+                    <span class="n">title</span><span class="o">=</span><span class="n">entry</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                    <span class="n">content</span><span class="o">=</span><span class="n">content</span><span class="p">,</span>
+                    <span class="n">tags</span><span class="o">=</span><span class="n">terms</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">],</span>
+                    <span class="n">old_id</span><span class="o">=</span><span class="n">old_id</span><span class="p">,</span>
+                    <span class="n">old_parent_id</span><span class="o">=</span><span class="n">parent_id</span><span class="p">,</span>
+                <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Command.wp_caption"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.blog.management.commands.import_wordpress.Command.wp_caption">[docs]</a>    <span class="k">def</span> <span class="nf">wp_caption</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filters a Wordpress Post for Image Captions and renders to</span>
+<span class="sd">        match HTML.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\[caption (.*?)\](.*?)\[/caption\]&quot;</span><span class="p">,</span> <span class="n">post</span><span class="p">):</span>
+            <span class="n">meta</span> <span class="o">=</span> <span class="s2">&quot;&lt;div &quot;</span>
+            <span class="n">caption</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">imatch</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(\w+)=&quot;(.*?)&quot;&#39;</span><span class="p">,</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;id&quot;</span><span class="p">:</span>
+                    <span class="n">meta</span> <span class="o">+=</span> <span class="s1">&#39;id=&quot;</span><span class="si">%s</span><span class="s1">&quot; &#39;</span> <span class="o">%</span> <span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;align&quot;</span><span class="p">:</span>
+                    <span class="n">meta</span> <span class="o">+=</span> <span class="s1">&#39;class=&quot;wp-caption </span><span class="si">%s</span><span class="s1">&quot; &#39;</span> <span class="o">%</span> <span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;width&quot;</span><span class="p">:</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">10</span>
+                    <span class="n">meta</span> <span class="o">+=</span> <span class="s1">&#39;style=&quot;width: </span><span class="si">%s</span><span class="s1">px;&quot; &#39;</span> <span class="o">%</span> <span class="n">width</span>
+                <span class="k">if</span> <span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;caption&quot;</span><span class="p">:</span>
+                    <span class="n">caption</span> <span class="o">=</span> <span class="n">imatch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">caption</span><span class="p">)</span>
+            <span class="n">meta</span> <span class="o">+=</span> <span class="s1">&#39;&gt;</span><span class="si">%s</span><span class="s1">&lt;p class=&quot;wp-caption-text&quot;&gt;</span><span class="si">%s</span><span class="s1">&lt;/p&gt;&lt;/div&gt;&#39;</span> <span class="o">%</span> <span class="n">parts</span>
+            <span class="n">post</span> <span class="o">=</span> <span class="n">post</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">meta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">post</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.blog.management.commands.import_wordpress</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

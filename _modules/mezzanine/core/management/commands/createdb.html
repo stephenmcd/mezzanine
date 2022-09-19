@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.core.management.commands.createdb &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/mezzanine.css" />
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.management.commands.createdb</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.core.management.commands.createdb</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">gethostname</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_user_model</span>
+<span class="kn">from</span> <span class="nn">django.contrib.sites.models</span> <span class="kn">import</span> <span class="n">Site</span>
+<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="kn">import</span> <span class="n">call_command</span>
+<span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">BaseCommand</span><span class="p">,</span> <span class="n">CommandError</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.tests</span> <span class="kn">import</span> <span class="n">copy_test_to_media</span>
+
+<span class="n">DEFAULT_USERNAME</span> <span class="o">=</span> <span class="s2">&quot;admin&quot;</span>
+<span class="n">DEFAULT_EMAIL</span> <span class="o">=</span> <span class="s2">&quot;example@example.com&quot;</span>
+<span class="n">DEFAULT_PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span>
+
+
+<div class="viewcode-block" id="Command"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.core.management.commands.createdb.Command">[docs]</a><span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
+
+    <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Performs initial Mezzanine database setup.&quot;</span>
+    <span class="n">can_import_settings</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Command.add_arguments"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.core.management.commands.createdb.Command.add_arguments">[docs]</a>    <span class="k">def</span> <span class="nf">add_arguments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds extra command options (executed only by Django &gt;= 1.8).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;--nodata&quot;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Do not add demo data.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+            <span class="s2">&quot;--noinput&quot;</span><span class="p">,</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_false&quot;</span><span class="p">,</span>
+            <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;interactive&quot;</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Do not prompt the user for input of any kind.&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Command.handle"><a class="viewcode-back" href="../../../../../packages.html#mezzanine.core.management.commands.createdb.Command.handle">[docs]</a>    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="s2">&quot;conf_setting&quot;</span> <span class="ow">in</span> <span class="n">connection</span><span class="o">.</span><span class="n">introspection</span><span class="o">.</span><span class="n">table_names</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">CommandError</span><span class="p">(</span>
+                <span class="s2">&quot;Database already created, you probably &quot;</span> <span class="s2">&quot;want the migrate command&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;verbosity&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;interactive&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">no_data</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;nodata&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;migrate&quot;</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">interactive</span><span class="p">)</span>
+
+        <span class="n">mapping</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_site</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;django.contrib.sites&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_user</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;django.contrib.auth&quot;</span><span class="p">]],</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">translation_fields</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;modeltranslation&quot;</span><span class="p">]],</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_pages</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="s2">&quot;mezzanine.pages&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;mezzanine.forms&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;mezzanine.blog&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;mezzanine.galleries&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">],</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">create_shop</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;cartridge.shop&quot;</span><span class="p">]],</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">func</span><span class="p">,</span> <span class="n">apps</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">apps</span><span class="p">)</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span><span class="p">)):</span>
+                <span class="n">func</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">confirm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="n">confirm</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">confirm</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;yes&quot;</span><span class="p">,</span> <span class="s2">&quot;no&quot;</span><span class="p">):</span>
+            <span class="n">confirm</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Please enter either &#39;yes&#39; or &#39;no&#39;: &quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">confirm</span> <span class="o">==</span> <span class="s2">&quot;yes&quot;</span>
+
+    <span class="k">def</span> <span class="nf">create_site</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">domain</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1:8000&quot;</span> <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span> <span class="k">else</span> <span class="n">gethostname</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+            <span class="n">entered</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">A site record is required.</span><span class="se">\n</span><span class="s2">Please &quot;</span>
+                <span class="s2">&quot;enter the domain and optional port in &quot;</span>
+                <span class="s2">&quot;the format &#39;domain:port&#39;.</span><span class="se">\n</span><span class="s2">For example &quot;</span>
+                <span class="s2">&quot;&#39;localhost:8000&#39; or &#39;www.example.com&#39;. &quot;</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Hit enter to use the default (</span><span class="si">%s</span><span class="s2">): &quot;</span> <span class="o">%</span> <span class="n">domain</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">entered</span><span class="p">:</span>
+                <span class="n">domain</span> <span class="o">=</span> <span class="n">entered</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;&#39;: &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Creating default site record: </span><span class="si">%s</span><span class="s2"> ...</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">domain</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">site</span> <span class="o">=</span> <span class="n">Site</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">Site</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="n">site</span> <span class="o">=</span> <span class="n">Site</span><span class="p">()</span>
+        <span class="n">site</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Default&quot;</span>
+        <span class="n">site</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span>
+        <span class="n">site</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">create_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">User</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span> <span class="ow">or</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Creating default account ...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;createsuperuser&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Creating default account &quot;</span>
+                    <span class="s2">&quot;(username: </span><span class="si">%s</span><span class="s2"> / password: </span><span class="si">%s</span><span class="s2">) ...</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">DEFAULT_USERNAME</span><span class="p">,</span> <span class="n">DEFAULT_PASSWORD</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">DEFAULT_USERNAME</span><span class="p">,</span> <span class="n">DEFAULT_EMAIL</span><span class="p">,</span> <span class="n">DEFAULT_PASSWORD</span><span class="p">)</span>
+            <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create_superuser</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create_pages</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;loaddata&quot;</span><span class="p">,</span> <span class="s2">&quot;mezzanine_required.json&quot;</span><span class="p">)</span>
+        <span class="n">install_optional</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_data</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Would you like to install some initial &quot;</span>
+            <span class="s2">&quot;demo pages?</span><span class="se">\n</span><span class="s2">Eg: About us, Contact form, &quot;</span>
+            <span class="s2">&quot;Gallery. (yes/no): &quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">install_optional</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Creating demo pages: About us, Contact form, &quot;</span> <span class="s2">&quot;Gallery ...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">mezzanine.galleries.models</span> <span class="kn">import</span> <span class="n">Gallery</span>
+
+            <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;loaddata&quot;</span><span class="p">,</span> <span class="s2">&quot;mezzanine_optional.json&quot;</span><span class="p">)</span>
+            <span class="n">zip_name</span> <span class="o">=</span> <span class="s2">&quot;gallery.zip&quot;</span>
+            <span class="n">copy_test_to_media</span><span class="p">(</span><span class="s2">&quot;mezzanine.core&quot;</span><span class="p">,</span> <span class="n">zip_name</span><span class="p">)</span>
+            <span class="n">gallery</span> <span class="o">=</span> <span class="n">Gallery</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">gallery</span><span class="o">.</span><span class="n">zip_import</span> <span class="o">=</span> <span class="n">zip_name</span>
+            <span class="n">gallery</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">create_shop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;loaddata&quot;</span><span class="p">,</span> <span class="s2">&quot;cartridge_required.json&quot;</span><span class="p">)</span>
+        <span class="n">install_optional</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">no_data</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Would you like to install an initial &quot;</span>
+            <span class="s2">&quot;demo product and sale? (yes/no): &quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">install_optional</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Creating demo product and sale ...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;loaddata&quot;</span><span class="p">,</span> <span class="s2">&quot;cartridge_optional.json&quot;</span><span class="p">)</span>
+            <span class="n">copy_test_to_media</span><span class="p">(</span><span class="s2">&quot;cartridge.shop&quot;</span><span class="p">,</span> <span class="s2">&quot;product&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">translation_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">modeltranslation.management.commands</span> <span class="kn">import</span> <span class="p">(</span>
+                <span class="n">sync_translation_fields</span> <span class="k">as</span> <span class="n">create_fields</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">modeltranslation.management.commands</span> <span class="kn">import</span> <span class="p">(</span>
+                <span class="n">update_translation_fields</span> <span class="k">as</span> <span class="n">update_fields</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">update</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirm</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Django-modeltranslation is installed for &quot;</span>
+            <span class="s2">&quot;this project and you have specified to use &quot;</span>
+            <span class="s2">&quot;i18n.</span><span class="se">\n</span><span class="s2">Would you like to update translation &quot;</span>
+            <span class="s2">&quot;fields from the default ones? (yes/no): &quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">update</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;verbosity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbosity</span><span class="p">,</span>
+                <span class="s2">&quot;interactive&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">call_command</span><span class="p">(</span><span class="n">create_fields</span><span class="o">.</span><span class="n">Command</span><span class="p">(),</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+            <span class="n">call_command</span><span class="p">(</span><span class="n">update_fields</span><span class="o">.</span><span class="n">Command</span><span class="p">(),</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.management.commands.createdb</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

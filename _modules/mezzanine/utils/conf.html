@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.utils.conf &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.conf</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.utils.conf</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getmro</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">global_settings</span> <span class="k">as</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">OperationalError</span>
+<span class="kn">from</span> <span class="nn">django.utils.module_loading</span> <span class="kn">import</span> <span class="n">import_string</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.utils.deprecation</span> <span class="kn">import</span> <span class="n">get_middleware_setting</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.timezone</span> <span class="kn">import</span> <span class="n">get_best_local_timezone</span>
+
+
+<div class="viewcode-block" id="SitesAllowedHosts"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.conf.SitesAllowedHosts">[docs]</a><span class="k">class</span> <span class="nc">SitesAllowedHosts</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This is a fallback for Django&#39;s ALLOWED_HOSTS setting</span>
+<span class="sd">    which is required when DEBUG is False. It looks up the</span>
+<span class="sd">    ``Site`` model and uses any domains added to it, the</span>
+<span class="sd">    first time the setting is accessed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_hosts&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">django.contrib.sites.models</span> <span class="kn">import</span> <span class="n">Site</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_hosts</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">domain</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">Site</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()]</span>
+            <span class="k">except</span> <span class="n">OperationalError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">iter</span><span class="p">([])</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hosts</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="n">other</span></div>
+
+
+<div class="viewcode-block" id="set_dynamic_settings"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.conf.set_dynamic_settings">[docs]</a><span class="k">def</span> <span class="nf">set_dynamic_settings</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Called at the end of the project&#39;s settings module, and is passed</span>
+<span class="sd">    its globals dict for updating with some final tweaks for settings</span>
+<span class="sd">    that generally aren&#39;t specified, but can be given some better</span>
+<span class="sd">    defaults based on other settings that have been specified. Broken</span>
+<span class="sd">    out into its own function so that the code need not be replicated</span>
+<span class="sd">    in the settings modules of other project-based apps that leverage</span>
+<span class="sd">    Mezzanine&#39;s settings module.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Moves an existing list setting value to a different position.</span>
+    <span class="n">move</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">k</span><span class="p">)))</span>
+    <span class="c1"># Add a value to the end of a list setting if not in the list.</span>
+    <span class="n">append</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="c1"># Add a value to the start of a list setting if not in the list.</span>
+    <span class="n">prepend</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="c1"># Remove a value from a list setting if in the list.</span>
+    <span class="n">remove</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ALLOWED_HOSTS&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;You haven&#39;t defined the ALLOWED_HOSTS settings, which &quot;</span>
+            <span class="s2">&quot;Django requires. Will fall back to the domains &quot;</span>
+            <span class="s2">&quot;configured as sites.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;ALLOWED_HOSTS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">SitesAllowedHosts</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;TIME_ZONE&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tz</span> <span class="o">=</span> <span class="n">get_best_local_timezone</span><span class="p">()</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;TIME_ZONE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tz</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;TIME_ZONE setting is not set, using closest match: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">tz</span><span class="p">)</span>
+
+    <span class="c1"># Define some settings based on management command being run.</span>
+    <span class="n">management_command</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1"># Some kind of testing is running via test or testserver.</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;TESTING&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">management_command</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="s2">&quot;testserver&quot;</span><span class="p">)</span>
+    <span class="c1"># Some kind of development server is running via runserver,</span>
+    <span class="c1"># runserver_plus or harvest (lettuce)</span>
+    <span class="n">s</span><span class="p">[</span><span class="s2">&quot;DEV_SERVER&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">management_command</span><span class="o">.</span><span class="n">startswith</span><span class="p">((</span><span class="s2">&quot;runserver&quot;</span><span class="p">,</span> <span class="s2">&quot;harvest&quot;</span><span class="p">))</span>
+
+    <span class="c1"># Change tuple settings to lists for easier manipulation.</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;AUTHENTICATION_BACKENDS&quot;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">.</span><span class="n">AUTHENTICATION_BACKENDS</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;STATICFILES_FINDERS&quot;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">.</span><span class="n">STATICFILES_FINDERS</span><span class="p">)</span>
+    <span class="n">tuple_list_settings</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;AUTHENTICATION_BACKENDS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MIDDLEWARE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;STATICFILES_FINDERS&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;LANGUAGES&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">tuple_list_settings</span><span class="p">[:]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="p">[]),</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">s</span><span class="p">[</span><span class="n">setting</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">setting</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Setting is already a list, so we&#39;ll exclude it from</span>
+            <span class="c1"># the list of settings we&#39;ll revert back to tuples.</span>
+            <span class="n">tuple_list_settings</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">setting</span><span class="p">)</span>
+
+    <span class="c1"># Set up cookie messaging if none defined.</span>
+    <span class="n">storage</span> <span class="o">=</span> <span class="s2">&quot;django.contrib.messages.storage.cookie.CookieStorage&quot;</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;MESSAGE_STORAGE&quot;</span><span class="p">,</span> <span class="n">storage</span><span class="p">)</span>
+
+    <span class="c1"># If required, add django-modeltranslation for both tests and deployment</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;USE_MODELTRANSLATION&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;TESTING&quot;</span><span class="p">]:</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;USE_MODELTRANSLATION&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">remove</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="s2">&quot;modeltranslation&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">__import__</span><span class="p">(</span><span class="s2">&quot;modeltranslation&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="c1"># django-modeltranslation is not installed, remove setting so</span>
+            <span class="c1"># admin won&#39;t try to import it</span>
+            <span class="n">s</span><span class="p">[</span><span class="s2">&quot;USE_MODELTRANSLATION&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">remove</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="s2">&quot;modeltranslation&quot;</span><span class="p">)</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;USE_MODETRANSLATION setting is set to True but django-&quot;</span>
+                <span class="s2">&quot;modeltranslation is not installed. Disabling it.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Force i18n so we are assured that modeltranslation is active</span>
+            <span class="n">s</span><span class="p">[</span><span class="s2">&quot;USE_I18N&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">append</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="s2">&quot;modeltranslation&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Setup for optional apps.</span>
+    <span class="n">optional</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OPTIONAL_APPS&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">optional</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">app</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">__import__</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;TESTING&quot;</span><span class="p">]:</span>
+        <span class="c1"># Triggers interactive superuser creation and some pyc/pyo tests</span>
+        <span class="c1"># fail with standard permissions.</span>
+        <span class="n">remove</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="s2">&quot;django_extensions&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;debug_toolbar&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]:</span>
+        <span class="c1"># We need to configure debug_toolbar manually otherwise it</span>
+        <span class="c1"># breaks in conjunction with modeltranslation. See the</span>
+        <span class="c1"># &quot;Explicit setup&quot; section in debug_toolbar docs for more info.</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;DEBUG_TOOLBAR_PATCH_SETTINGS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">debug_mw</span> <span class="o">=</span> <span class="s2">&quot;debug_toolbar.middleware.DebugToolbarMiddleware&quot;</span>
+        <span class="n">append</span><span class="p">(</span><span class="s2">&quot;MIDDLEWARE&quot;</span><span class="p">,</span> <span class="n">debug_mw</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;INTERNAL_IPS&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,))</span>
+
+    <span class="c1"># If compressor installed, ensure it&#39;s configured and make</span>
+    <span class="c1"># Mezzanine&#39;s settings available to its offline context,</span>
+    <span class="c1"># since jQuery is configured via a setting.</span>
+    <span class="k">if</span> <span class="s2">&quot;compressor&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]:</span>
+        <span class="n">append</span><span class="p">(</span><span class="s2">&quot;STATICFILES_FINDERS&quot;</span><span class="p">,</span> <span class="s2">&quot;compressor.finders.CompressorFinder&quot;</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span>
+            <span class="s2">&quot;COMPRESS_OFFLINE_CONTEXT&quot;</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;MEDIA_URL&quot;</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;MEDIA_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                <span class="s2">&quot;STATIC_URL&quot;</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;STATIC_URL&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">mezzanine_settings</span><span class="p">():</span>
+            <span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+            <span class="k">return</span> <span class="n">settings</span>
+
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;COMPRESS_OFFLINE_CONTEXT&quot;</span><span class="p">][</span><span class="s2">&quot;settings&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mezzanine_settings</span>
+
+    <span class="c1"># Ensure the Mezzanine auth backend is enabled if</span>
+    <span class="c1"># mezzanine.accounts is being used.</span>
+    <span class="k">if</span> <span class="s2">&quot;mezzanine.accounts&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]:</span>
+        <span class="n">auth_backend</span> <span class="o">=</span> <span class="s2">&quot;mezzanine.core.auth_backends.MezzanineBackend&quot;</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;AUTHENTICATION_BACKENDS&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">prepend</span><span class="p">(</span><span class="s2">&quot;AUTHENTICATION_BACKENDS&quot;</span><span class="p">,</span> <span class="n">auth_backend</span><span class="p">)</span>
+
+    <span class="c1"># Ensure Grappelli is after Mezzanine in app order so that</span>
+    <span class="c1"># admin templates are loaded in the correct order.</span>
+    <span class="n">grappelli_name</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PACKAGE_NAME_GRAPPELLI&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">move</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="n">grappelli_name</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]))</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;GRAPPELLI_INSTALLED&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;GRAPPELLI_INSTALLED&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Ensure admin is at the bottom of the app order so that admin</span>
+    <span class="c1"># templates are loaded in the correct order, and that staticfiles</span>
+    <span class="c1"># is also at the end so its runserver can be overridden.</span>
+    <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;django.contrib.admin&quot;</span><span class="p">,</span> <span class="s2">&quot;django.contrib.staticfiles&quot;</span><span class="p">]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">move</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="c1"># Add missing apps if existing apps depend on them.</span>
+    <span class="k">if</span> <span class="s2">&quot;mezzanine.blog&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]:</span>
+        <span class="n">append</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="s2">&quot;mezzanine.generic&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;mezzanine.generic&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">]:</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;COMMENTS_APP&quot;</span><span class="p">,</span> <span class="s2">&quot;mezzanine.generic&quot;</span><span class="p">)</span>
+        <span class="n">append</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="s2">&quot;django_comments&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Ensure mezzanine.boot is first.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">move</span><span class="p">(</span><span class="s2">&quot;INSTALLED_APPS&quot;</span><span class="p">,</span> <span class="s2">&quot;mezzanine.boot&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Remove caching middleware if no backend defined.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CACHE_BACKEND&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CACHES&quot;</span><span class="p">)):</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;MIDDLEWARE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">mw</span>
+            <span class="k">for</span> <span class="n">mw</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;MIDDLEWARE&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+                <span class="n">mw</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;UpdateCacheMiddleware&quot;</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="n">mw</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;FetchFromCacheMiddleware&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+
+    <span class="c1"># If only LANGUAGE_CODE has been defined, ensure the other required</span>
+    <span class="c1"># settings for translations are configured.</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LANGUAGE_CODE&quot;</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LANGUAGES&quot;</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;LANGUAGE_CODE&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;LANGUAGES&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;USE_I18N&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;LANGUAGES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;LANGUAGE_CODE&quot;</span><span class="p">],</span> <span class="s2">&quot;&quot;</span><span class="p">)]</span>
+
+    <span class="c1"># Ensure required middleware is installed, otherwise admin</span>
+    <span class="c1"># becomes inaccessible.</span>
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;USE_I18N&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">[</span>
+        <span class="n">mw</span> <span class="k">for</span> <span class="n">mw</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;MIDDLEWARE&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">mw</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;LocaleMiddleware&quot;</span><span class="p">)</span>
+    <span class="p">]:</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;MIDDLEWARE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
+            <span class="s2">&quot;django.contrib.sessions.middleware.SessionMiddleware&quot;</span>
+        <span class="p">)</span>
+        <span class="n">s</span><span class="p">[</span><span class="s2">&quot;MIDDLEWARE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">session</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;django.middleware.locale.LocaleMiddleware&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Revert tuple settings back to tuples.</span>
+    <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">tuple_list_settings</span><span class="p">:</span>
+        <span class="n">s</span><span class="p">[</span><span class="n">setting</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">setting</span><span class="p">])</span>
+
+    <span class="c1"># Some settings tweaks for different DB engines.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">db</span><span class="p">)</span> <span class="ow">in</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;DATABASES&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">shortname</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="s2">&quot;ENGINE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">shortname</span> <span class="o">==</span> <span class="s2">&quot;sqlite3&quot;</span><span class="p">:</span>
+            <span class="c1"># If the Sqlite DB name doesn&#39;t contain a path, assume</span>
+            <span class="c1"># it&#39;s in the project directory and add the path to it.</span>
+            <span class="k">if</span> <span class="s2">&quot;NAME&quot;</span> <span class="ow">in</span> <span class="n">db</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">db</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]:</span>
+                <span class="n">db_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PROJECT_ROOT&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="n">db</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">])</span>
+                <span class="n">db</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">db_path</span>
+        <span class="k">elif</span> <span class="n">shortname</span> <span class="o">==</span> <span class="s2">&quot;mysql&quot;</span><span class="p">:</span>
+            <span class="c1"># Required MySQL collation for tests.</span>
+            <span class="n">db</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;TEST&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;COLLATION&quot;</span><span class="p">,</span> <span class="s2">&quot;utf8_general_ci&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="real_project_name"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.conf.real_project_name">[docs]</a><span class="k">def</span> <span class="nf">real_project_name</span><span class="p">(</span><span class="n">project_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used to let Mezzanine run from its project template directory, in which</span>
+<span class="sd">    case &quot;{{ project_name }}&quot; won&#39;t have been replaced by a real project name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">project_name</span> <span class="o">==</span> <span class="s2">&quot;{{ project_name }}&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;project_name&quot;</span>
+    <span class="k">return</span> <span class="n">project_name</span></div>
+
+
+<div class="viewcode-block" id="middlewares_or_subclasses_installed"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.conf.middlewares_or_subclasses_installed">[docs]</a><span class="k">def</span> <span class="nf">middlewares_or_subclasses_installed</span><span class="p">(</span><span class="n">needed_middlewares</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    When passed an iterable of dotted strings, returns True if all</span>
+<span class="sd">    of the middlewares (or their subclasses) are installed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">middleware_setting</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">get_middleware_setting</span><span class="p">())</span>
+
+    <span class="c1"># Shortcut case, check by string</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="n">middleware_setting</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">needed_middlewares</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">seqs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">item</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">seqs</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">)</span>
+
+    <span class="n">middleware_items</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">import_string</span><span class="p">,</span> <span class="n">middleware_setting</span><span class="p">)</span>
+    <span class="n">middleware_classes</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">m</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="nb">type</span><span class="p">),</span> <span class="n">middleware_items</span><span class="p">)</span>
+    <span class="n">middleware_ancestors</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">getmro</span><span class="p">,</span> <span class="n">middleware_classes</span><span class="p">)))</span>
+
+    <span class="n">needed_middlewares</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">import_string</span><span class="p">,</span> <span class="n">needed_middlewares</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">needed_middlewares</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">middleware_ancestors</span><span class="p">)</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.conf</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Twitter Integration &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Packages" href="packages.html" />
+    <link rel="prev" title="Importing External Blogs" href="blog-importing.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="packages.html" title="Packages"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="blog-importing.html" title="Importing External Blogs"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Twitter Integration</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="twitter-integration">
+<h1>Twitter Integration<a class="headerlink" href="#twitter-integration" title="Permalink to this heading">¶</a></h1>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 5.0: </span><a class="reference internal" href="packages.html#module-mezzanine.twitter" title="mezzanine.twitter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.twitter</span></code></a> has been deprecated and will be removed in a
+future version.</p>
+</div>
+<p>The <a class="reference internal" href="packages.html#module-mezzanine.twitter" title="mezzanine.twitter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.twitter</span></code></a> application exposes the ability to consume,
+store, and display your own tweets on your site in an efficient manner,
+as well as the ability to send tweets when publishing new content to
+the site.</p>
+<section id="twitter-feeds">
+<h2>Twitter Feeds<a class="headerlink" href="#twitter-feeds" title="Permalink to this heading">¶</a></h2>
+<p>If Twitter feeds are implemented in your templates, a cron job is
+required that will run the following management command. For example,
+if we want the tweets to be updated every 10 minutes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*/</span><span class="mi">10</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">python</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">site</span><span class="o">/</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">poll_twitter</span>
+</pre></div>
+</div>
+<p>This ensures that the data is always available in the site’s database
+when accessed, and allows you to control how often the Twitter API is
+queried. Note that the Fabric script described earlier includes
+features for deploying templates for cron jobs, which includes the
+job for polling Twitter by default.</p>
+<p>As of June 2013, Twitter also requires that all API access is
+authenticated. For this you’ll need to configure a Twitter application
+with OAuth credentials for your site to access the Twitter API. These
+credentials are configurable as Mezzanine settings. See the
+<a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> section for more information on these, as well as
+the <a class="reference external" href="https://dev.twitter.com/">Twitter developer site</a> for info on
+creating an application and configuring your OAuth credentials.</p>
+</section>
+<section id="sending-tweets">
+<h2>Sending Tweets<a class="headerlink" href="#sending-tweets" title="Permalink to this heading">¶</a></h2>
+<p>When setting up a Twitter application, you’ll also be able to configure
+the permissions your OAuth credentials have against the Twitter API. To
+consume Twitter feeds, only read permissions are needed, but you may
+also choose to allow both read and write permissions. With write
+permissions enabled, you’ll then also be able to expose the option in
+Mezzanine’s admin interface for automatically tweeting new blog posts
+(or your own custom content) when they’re published.</p>
+<p>To enable this, simply install the <cite>python-twitter
+&lt;https://pypi.python.org/pypi/python-twitter&gt;</cite> library. With the library
+installed and credential setttings set, blog posts in the admin will
+have a “Send to Twitter” checkbox, which when checked, will send a tweet
+with the post’s title and URL.</p>
+<p>You can also add this functionality to your own admin classes by making
+use of <code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.twitter.admin.TweetableAdminMixin</span></code>. See
+<a class="reference internal" href="packages.html#mezzanine.blog.admin.BlogPostAdmin" title="mezzanine.blog.admin.BlogPostAdmin"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.blog.admin.BlogPostAdmin</span></code></a> for an example.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Twitter Integration</a><ul>
+<li><a class="reference internal" href="#twitter-feeds">Twitter Feeds</a></li>
+<li><a class="reference internal" href="#sending-tweets">Sending Tweets</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="blog-importing.html"
+                          title="previous chapter">Importing External Blogs</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="packages.html"
+                          title="next chapter">Packages</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/twitter-integration.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="packages.html" title="Packages"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="blog-importing.html" title="Importing External Blogs"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Twitter Integration</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

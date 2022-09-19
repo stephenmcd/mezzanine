@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.forms.admin &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.forms.admin</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.forms.admin</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">csv</span> <span class="kn">import</span> <span class="n">writer</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span><span class="p">,</span> <span class="n">StringIO</span>
+<span class="kn">from</span> <span class="nn">mimetypes</span> <span class="kn">import</span> <span class="n">guess_type</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.messages</span> <span class="kn">import</span> <span class="n">info</span>
+<span class="kn">from</span> <span class="nn">django.core.files.storage</span> <span class="kn">import</span> <span class="n">FileSystemStorage</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span><span class="p">,</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">re_path</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">ngettext</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.admin</span> <span class="kn">import</span> <span class="n">TabularDynamicInlineAdmin</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.forms</span> <span class="kn">import</span> <span class="n">DynamicInlineAdminForm</span>
+<span class="kn">from</span> <span class="nn">mezzanine.forms.forms</span> <span class="kn">import</span> <span class="n">EntriesForm</span>
+<span class="kn">from</span> <span class="nn">mezzanine.forms.models</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">FieldEntry</span><span class="p">,</span> <span class="n">Form</span><span class="p">,</span> <span class="n">FormEntry</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.admin</span> <span class="kn">import</span> <span class="n">PageAdmin</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.static</span> <span class="kn">import</span> <span class="n">static_lazy</span> <span class="k">as</span> <span class="n">static</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">admin_url</span><span class="p">,</span> <span class="n">slugify</span>
+
+<span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystemStorage</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">FORMS_UPLOAD_ROOT</span><span class="p">)</span>
+
+<span class="c1"># Copy the fieldsets for PageAdmin and add the extra fields for FormAdmin.</span>
+<span class="n">form_fieldsets</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">PageAdmin</span><span class="o">.</span><span class="n">fieldsets</span><span class="p">)</span>
+<span class="n">form_fieldsets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;button_text&quot;</span><span class="p">,</span> <span class="s2">&quot;response&quot;</span><span class="p">]</span>
+<span class="n">form_fieldsets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">form_fieldsets</span><span class="p">)</span>
+<span class="n">form_fieldsets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span>
+    <span class="mi">1</span><span class="p">,</span>
+    <span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Email&quot;</span><span class="p">),</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">&quot;send_email&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;email_from&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;email_copies&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;email_subject&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;email_message&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">inline_field_excludes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">FORMS_USE_HTML5</span><span class="p">:</span>
+    <span class="n">inline_field_excludes</span> <span class="o">+=</span> <span class="p">[</span><span class="s2">&quot;placeholder_text&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="FieldAdminInlineForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.admin.FieldAdminInlineForm">[docs]</a><span class="k">class</span> <span class="nc">FieldAdminInlineForm</span><span class="p">(</span><span class="n">DynamicInlineAdminForm</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ensure the label and help_text fields are rendered as text inputs</span>
+<span class="sd">        instead of text areas.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">:</span>
+            <span class="c1"># We just want to swap some textareas for inputs here, but</span>
+            <span class="c1"># there are some extra considerations for modeltranslation:</span>
+            <span class="c1">#   1) Form field names are suffixed with language,</span>
+            <span class="c1">#      eg help_text_en, so we check for the name as a prefix.</span>
+            <span class="c1">#   2) At this point, modeltranslation has also monkey-patched</span>
+            <span class="c1">#      on necessary CSS classes to the widget, so retain those.</span>
+            <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;help_text&quot;</span><span class="p">):</span>
+                <span class="n">css_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">admin</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">AdminTextInputWidget</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">css_class</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">css_class</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Field</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="n">inline_field_excludes</span></div>
+
+
+<div class="viewcode-block" id="FieldAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.admin.FieldAdmin">[docs]</a><span class="k">class</span> <span class="nc">FieldAdmin</span><span class="p">(</span><span class="n">TabularDynamicInlineAdmin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Admin class for the form field. Inherits from TabularDynamicInlineAdmin to</span>
+<span class="sd">    add dynamic &quot;Add another&quot; link and drag/drop ordering.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Field</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">FieldAdminInlineForm</span></div>
+
+
+<div class="viewcode-block" id="FormAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.admin.FormAdmin">[docs]</a><span class="k">class</span> <span class="nc">FormAdmin</span><span class="p">(</span><span class="n">PageAdmin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Admin class for the Form model. Includes the urls &amp; views for exporting</span>
+<span class="sd">    form entries as CSV and downloading files uploaded via the forms app.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Media</span><span class="p">:</span>
+        <span class="n">css</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/css/admin/form.css&quot;</span><span class="p">),)}</span>
+
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">(</span><span class="n">FieldAdmin</span><span class="p">,)</span>
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;title&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;email_copies&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,)</span>
+    <span class="n">list_editable</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;email_copies&quot;</span><span class="p">)</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,)</span>
+    <span class="n">search_fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span> <span class="s2">&quot;email_from&quot;</span><span class="p">,</span> <span class="s2">&quot;email_copies&quot;</span><span class="p">)</span>
+    <span class="n">fieldsets</span> <span class="o">=</span> <span class="n">form_fieldsets</span>
+
+<div class="viewcode-block" id="FormAdmin.get_urls"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.admin.FormAdmin.get_urls">[docs]</a>    <span class="k">def</span> <span class="nf">get_urls</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the entries view to urls.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_urls</span><span class="p">()</span>
+        <span class="n">extra_urls</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">re_path</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;^(?P&lt;form_id&gt;\d+)/entries/$&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">admin_site</span><span class="o">.</span><span class="n">admin_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entries_view</span><span class="p">),</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;form_entries&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">re_path</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;^file/(?P&lt;field_entry_id&gt;\d+)/$&quot;</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">admin_site</span><span class="o">.</span><span class="n">admin_view</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_view</span><span class="p">),</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;form_file&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">extra_urls</span> <span class="o">+</span> <span class="n">urls</span></div>
+
+<div class="viewcode-block" id="FormAdmin.entries_view"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.admin.FormAdmin.entries_view">[docs]</a>    <span class="k">def</span> <span class="nf">entries_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the form entries in a HTML table with option to</span>
+<span class="sd">        export as CSV file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;back&quot;</span><span class="p">):</span>
+            <span class="n">change_url</span> <span class="o">=</span> <span class="n">admin_url</span><span class="p">(</span><span class="n">Form</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="n">form_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">change_url</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Form</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">form_id</span><span class="p">)</span>
+        <span class="n">entries_form</span> <span class="o">=</span> <span class="n">EntriesForm</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">delete_entries_perm</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.delete_formentry&quot;</span> <span class="o">%</span> <span class="n">FormEntry</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">app_label</span>
+        <span class="n">can_delete_entries</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">has_perm</span><span class="p">(</span><span class="n">delete_entries_perm</span><span class="p">)</span>
+        <span class="n">submitted</span> <span class="o">=</span> <span class="n">entries_form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">submitted</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;export&quot;</span><span class="p">):</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="s2">&quot;text/csv&quot;</span><span class="p">)</span>
+                <span class="n">timestamp</span> <span class="o">=</span> <span class="n">slugify</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">ctime</span><span class="p">())</span>
+                <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">form</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">timestamp</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+                <span class="n">header</span> <span class="o">=</span> <span class="s2">&quot;attachment; filename=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">fname</span>
+                <span class="n">response</span><span class="p">[</span><span class="s2">&quot;Content-Disposition&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">header</span>
+                <span class="n">queue</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+                <span class="n">delimiter</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">FORMS_CSV_DELIMITER</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">csv</span> <span class="o">=</span> <span class="n">writer</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
+                    <span class="n">writerow</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writerow</span>
+                <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                    <span class="n">queue</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+                    <span class="n">delimiter</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">delimiter</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                    <span class="n">csv</span> <span class="o">=</span> <span class="n">writer</span><span class="p">(</span><span class="n">queue</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">)</span>
+                    <span class="n">writerow</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">csv</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span>
+                        <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s2">&quot;encode&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+                    <span class="p">)</span>
+                <span class="n">writerow</span><span class="p">(</span><span class="n">entries_form</span><span class="o">.</span><span class="n">columns</span><span class="p">())</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">entries_form</span><span class="o">.</span><span class="n">rows</span><span class="p">(</span><span class="n">csv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+                    <span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">response</span>
+            <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;delete&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">can_delete_entries</span><span class="p">:</span>
+                <span class="n">selected</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;selected&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">selected</span><span class="p">:</span>
+                    <span class="n">entries</span> <span class="o">=</span> <span class="n">FormEntry</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">id__in</span><span class="o">=</span><span class="n">selected</span><span class="p">)</span>
+                    <span class="n">count</span> <span class="o">=</span> <span class="n">entries</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">entries</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+                        <span class="n">message</span> <span class="o">=</span> <span class="n">ngettext</span><span class="p">(</span>
+                            <span class="s2">&quot;1 entry deleted&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%(count)s</span><span class="s2"> entries deleted&quot;</span><span class="p">,</span> <span class="n">count</span>
+                        <span class="p">)</span>
+                        <span class="n">info</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">message</span> <span class="o">%</span> <span class="p">{</span><span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">count</span><span class="p">})</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;admin/forms/entries.html&quot;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;View Entries&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;entries_form&quot;</span><span class="p">:</span> <span class="n">entries_form</span><span class="p">,</span>
+            <span class="s2">&quot;opts&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="p">,</span>
+            <span class="s2">&quot;original&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+            <span class="s2">&quot;can_delete_entries&quot;</span><span class="p">:</span> <span class="n">can_delete_entries</span><span class="p">,</span>
+            <span class="s2">&quot;submitted&quot;</span><span class="p">:</span> <span class="n">submitted</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FormAdmin.file_view"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.admin.FormAdmin.file_view">[docs]</a>    <span class="k">def</span> <span class="nf">file_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">field_entry_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Output the file for the requested field entry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">field_entry</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">FieldEntry</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">field_entry_id</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">fs</span><span class="o">.</span><span class="n">location</span><span class="p">,</span> <span class="n">field_entry</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content_type</span><span class="o">=</span><span class="n">guess_type</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r+b&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">response</span><span class="p">[</span><span class="s2">&quot;Content-Disposition&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;attachment; filename=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">f</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">response</span></div></div>
+
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Form</span><span class="p">,</span> <span class="n">FormAdmin</span><span class="p">)</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.forms.admin</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,597 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.core.admin &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.admin</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.core.admin</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_user_model</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.admin</span> <span class="kn">import</span> <span class="n">UserAdmin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span> <span class="k">as</span> <span class="n">AuthUser</span>
+<span class="kn">from</span> <span class="nn">django.contrib.messages</span> <span class="kn">import</span> <span class="n">error</span>
+<span class="kn">from</span> <span class="nn">django.contrib.redirects.admin</span> <span class="kn">import</span> <span class="n">RedirectAdmin</span>
+<span class="kn">from</span> <span class="nn">django.forms</span> <span class="kn">import</span> <span class="n">ModelForm</span><span class="p">,</span> <span class="n">ValidationError</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">NoReverseMatch</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.forms</span> <span class="kn">import</span> <span class="n">DynamicInlineAdminForm</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.models</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CONTENT_STATUS_PUBLISHED</span><span class="p">,</span>
+    <span class="n">ContentTyped</span><span class="p">,</span>
+    <span class="n">Orderable</span><span class="p">,</span>
+    <span class="n">SitePermission</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.models</span> <span class="kn">import</span> <span class="n">base_concrete_model</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.sites</span> <span class="kn">import</span> <span class="n">current_site_id</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.static</span> <span class="kn">import</span> <span class="n">static_lazy</span> <span class="k">as</span> <span class="n">static</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.urls</span> <span class="kn">import</span> <span class="n">admin_url</span>
+
+<span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+    <span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">activate</span><span class="p">,</span> <span class="n">get_language</span>
+    <span class="kn">from</span> <span class="nn">modeltranslation.admin</span> <span class="kn">import</span> <span class="n">TranslationAdmin</span><span class="p">,</span> <span class="n">TranslationInlineModelAdmin</span>
+
+    <span class="k">class</span> <span class="nc">BaseTranslationModelAdmin</span><span class="p">(</span><span class="n">TranslationAdmin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Mimic modeltranslation&#39;s TabbedTranslationAdmin but uses a</span>
+<span class="sd">        custom tabbed_translation_fields.js</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">class</span> <span class="nc">Media</span><span class="p">:</span>
+            <span class="n">js</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;admin/js/jquery.init.js&quot;</span><span class="p">,</span>
+                <span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/js/</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">settings</span><span class="o">.</span><span class="n">JQUERY_UI_FILENAME</span><span class="p">),</span>
+                <span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/js/admin/tabbed_translation_fields.js&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">css</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">static</span><span class="p">(</span><span class="s2">&quot;mezzanine/css/admin/tabbed_translation_fields.css&quot;</span><span class="p">),),</span>
+            <span class="p">}</span>
+
+<span class="k">else</span><span class="p">:</span>
+
+<div class="viewcode-block" id="BaseTranslationModelAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.BaseTranslationModelAdmin">[docs]</a>    <span class="k">class</span> <span class="nc">BaseTranslationModelAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract class used to handle the switch between translation</span>
+<span class="sd">        and no-translation class logic. We define the basic structure</span>
+<span class="sd">        for the Media class so we can extend it consistently regardless</span>
+<span class="sd">        of whether or not modeltranslation is used.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">class</span> <span class="nc">Media</span><span class="p">:</span>
+            <span class="n">js</span> <span class="o">=</span> <span class="p">()</span>
+            <span class="n">css</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;all&quot;</span><span class="p">:</span> <span class="p">()}</span></div>
+
+
+<span class="n">User</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="DisplayableAdminForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.DisplayableAdminForm">[docs]</a><span class="k">class</span> <span class="nc">DisplayableAdminForm</span><span class="p">(</span><span class="n">ModelForm</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">clean_content</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="n">CONTENT_STATUS_PUBLISHED</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">content</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span>
+                <span class="n">_</span><span class="p">(</span><span class="s2">&quot;This field is required if status &quot;</span> <span class="s2">&quot;is set to published.&quot;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">content</span></div>
+
+
+<div class="viewcode-block" id="DisplayableAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.DisplayableAdmin">[docs]</a><span class="k">class</span> <span class="nc">DisplayableAdmin</span><span class="p">(</span><span class="n">BaseTranslationModelAdmin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Admin class for subclasses of the abstract ``Displayable`` model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">list_display</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;admin_link&quot;</span><span class="p">)</span>
+    <span class="n">list_display_links</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,)</span>
+    <span class="n">list_editable</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,)</span>
+    <span class="n">list_filter</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="s2">&quot;keywords__keyword&quot;</span><span class="p">)</span>
+    <span class="c1"># modeltranslation breaks date hierarchy links, see:</span>
+    <span class="c1"># https://github.com/deschler/django-modeltranslation/issues/324</span>
+    <span class="c1"># Once that&#39;s resolved we can restore this.</span>
+    <span class="n">date_hierarchy</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span> <span class="k">else</span> <span class="s2">&quot;publish_date&quot;</span>
+    <span class="n">radio_fields</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">admin</span><span class="o">.</span><span class="n">HORIZONTAL</span><span class="p">}</span>
+    <span class="n">fieldsets</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span>
+            <span class="kc">None</span><span class="p">,</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;status&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;publish_date&quot;</span><span class="p">,</span> <span class="s2">&quot;expiry_date&quot;</span><span class="p">)],</span>
+            <span class="p">},</span>
+        <span class="p">),</span>
+        <span class="p">(</span>
+            <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Meta data&quot;</span><span class="p">),</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;_meta_title&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;slug&quot;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;gen_description&quot;</span><span class="p">),</span>
+                    <span class="s2">&quot;keywords&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;in_sitemap&quot;</span><span class="p">,</span>
+                <span class="p">],</span>
+                <span class="s2">&quot;classes&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;collapse-closed&quot;</span><span class="p">,),</span>
+            <span class="p">},</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">form</span> <span class="o">=</span> <span class="n">DisplayableAdminForm</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">search_fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+                <span class="nb">set</span><span class="p">(</span>
+                    <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search_fields</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_search_fields</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+<div class="viewcode-block" id="DisplayableAdmin.check_permission"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.DisplayableAdmin.check_permission">[docs]</a>    <span class="k">def</span> <span class="nf">check_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">permission</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Subclasses can define a custom permission check and raise an exception</span>
+<span class="sd">        if False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DisplayableAdmin.save_model"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.DisplayableAdmin.save_model">[docs]</a>    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save model for every language so that field auto-population</span>
+<span class="sd">        is done for every each of it.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span><span class="p">:</span>
+            <span class="n">lang</span> <span class="o">=</span> <span class="n">get_language</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGES</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="n">lang</span><span class="p">:</span>  <span class="c1"># Already done</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">activate</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span>
+                        <span class="k">pass</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">activate</span><span class="p">(</span><span class="n">lang</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BaseDynamicInlineAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.BaseDynamicInlineAdmin">[docs]</a><span class="k">class</span> <span class="nc">BaseDynamicInlineAdmin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Admin inline that uses JS to inject an &quot;Add another&quot; link which</span>
+<span class="sd">    when clicked, dynamically reveals another fieldset. Also handles</span>
+<span class="sd">    adding the ``_order`` field and its widget for models that</span>
+<span class="sd">    subclass ``Orderable``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">form</span> <span class="o">=</span> <span class="n">DynamicInlineAdminForm</span>
+    <span class="n">extra</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="BaseDynamicInlineAdmin.get_fields"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.BaseDynamicInlineAdmin.get_fields">[docs]</a>    <span class="k">def</span> <span class="nf">get_fields</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For subclasses of ``Orderable``, the ``_order`` field must</span>
+<span class="sd">        always be present and be the last field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_fields</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">Orderable</span><span class="p">):</span>
+            <span class="n">fields</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">fields</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="n">fields</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fields</span></div>
+
+<div class="viewcode-block" id="BaseDynamicInlineAdmin.get_fieldsets"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.BaseDynamicInlineAdmin.get_fieldsets">[docs]</a>    <span class="k">def</span> <span class="nf">get_fieldsets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Same as above, but for fieldsets.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">fieldsets</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_fieldsets</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">Orderable</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">fieldset</span> <span class="ow">in</span> <span class="n">fieldsets</span><span class="p">:</span>
+                <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">f</span>
+                    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">fieldset</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;translated_field&quot;</span><span class="p">)</span>
+                <span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">fields</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="n">fieldset</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fields</span>
+            <span class="n">fieldsets</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;_order&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fieldsets</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">get_inline_base_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_MODELTRANSLATION</span><span class="p">:</span>
+
+        <span class="k">class</span> <span class="nc">InlineBase</span><span class="p">(</span><span class="n">TranslationInlineModelAdmin</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Abstract class that mimics django-modeltranslation&#39;s</span>
+<span class="sd">            Translation{Tabular,Stacked}Inline. Used as a placeholder</span>
+<span class="sd">            for future improvement.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">InlineBase</span>
+    <span class="k">return</span> <span class="bp">cls</span>
+
+
+<div class="viewcode-block" id="TabularDynamicInlineAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.TabularDynamicInlineAdmin">[docs]</a><span class="k">class</span> <span class="nc">TabularDynamicInlineAdmin</span><span class="p">(</span>
+    <span class="n">BaseDynamicInlineAdmin</span><span class="p">,</span> <span class="n">get_inline_base_class</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">TabularInline</span><span class="p">)</span>
+<span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="StackedDynamicInlineAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.StackedDynamicInlineAdmin">[docs]</a><span class="k">class</span> <span class="nc">StackedDynamicInlineAdmin</span><span class="p">(</span>
+    <span class="n">BaseDynamicInlineAdmin</span><span class="p">,</span> <span class="n">get_inline_base_class</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">StackedInline</span><span class="p">)</span>
+<span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stacked dynamic inlines won&#39;t work without grappelli</span>
+<span class="sd">        installed, as the JavaScript in dynamic_inline.js isn&#39;t</span>
+<span class="sd">        able to target each of the inlines to set the value of</span>
+<span class="sd">        the order field.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">grappelli_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;PACKAGE_NAME_GRAPPELLI&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">grappelli_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span><span class="p">:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="s2">&quot;StackedDynamicInlineAdmin requires Grappelli installed.&quot;</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OwnableAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.OwnableAdmin">[docs]</a><span class="k">class</span> <span class="nc">OwnableAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Admin class for models that subclass the abstract ``Ownable``</span>
+<span class="sd">    model. Handles limiting the change list to objects owned by the</span>
+<span class="sd">    logged in user, as well as setting the owner of newly created</span>
+<span class="sd">    objects to the logged in user.</span>
+
+<span class="sd">    Remember that this will include the ``user`` field in the required</span>
+<span class="sd">    fields for the admin change form which may not be desirable. The</span>
+<span class="sd">    best approach to solve this is to define a ``fieldsets`` attribute</span>
+<span class="sd">    that excludes the ``user`` field or simple add ``user`` to your</span>
+<span class="sd">    admin excludes: ``exclude = (&#39;user&#39;,)``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OwnableAdmin.save_form"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.OwnableAdmin.save_form">[docs]</a>    <span class="k">def</span> <span class="nf">save_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the object&#39;s owner as the logged in user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">user_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_form</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="OwnableAdmin.get_queryset"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.OwnableAdmin.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filter the change list by currently logged in user if not a</span>
+<span class="sd">        superuser. We also skip filtering if the model for this admin</span>
+<span class="sd">        class has been added to the sequence in the setting</span>
+<span class="sd">        ``OWNABLE_MODELS_ALL_EDITABLE``, which contains models in the</span>
+<span class="sd">        format ``app_label.object_name``, and allows models subclassing</span>
+<span class="sd">        ``Ownable`` to be excluded from filtering, eg: ownership should</span>
+<span class="sd">        not imply permission to edit.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">opts</span><span class="o">.</span><span class="n">app_label</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">opts</span><span class="o">.</span><span class="n">object_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">models_all_editable</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">OWNABLE_MODELS_ALL_EDITABLE</span>
+        <span class="n">models_all_editable</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">models_all_editable</span><span class="p">]</span>
+        <span class="n">qs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span> <span class="ow">or</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">models_all_editable</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">qs</span>
+        <span class="k">return</span> <span class="n">qs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user__id</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">ContentTypedAdmin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For subclasses that are registered with an Admin class</span>
+<span class="sd">        that doesn&#39;t implement fieldsets, add any extra model fields</span>
+<span class="sd">        to this instance&#39;s fieldsets. This mimics Django&#39;s behaviour of</span>
+<span class="sd">        adding all model fields when no fieldsets are defined on the</span>
+<span class="sd">        Admin class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span> <span class="o">=</span> <span class="n">base_concrete_model</span><span class="p">(</span><span class="n">ContentTyped</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="c1"># Test that the fieldsets don&#39;t differ from the concrete admin&#39;s.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldsets</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_concrete_modeladmin</span><span class="o">.</span><span class="n">fieldsets</span>
+        <span class="p">):</span>
+
+            <span class="c1"># Make a copy so that we aren&#39;t modifying other Admin</span>
+            <span class="c1"># classes&#39; fieldsets.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fieldsets</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fieldsets</span><span class="p">)</span>
+
+            <span class="c1"># Insert each field between the publishing fields and nav</span>
+            <span class="c1"># fields. Do so in reverse order to retain the order of</span>
+            <span class="c1"># the model&#39;s fields.</span>
+            <span class="n">model_fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_fields</span><span class="p">()</span>
+            <span class="n">concrete_field</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{concrete_model}</span><span class="s2">_ptr&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">concrete_model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span><span class="o">.</span><span class="n">get_content_model_name</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">exclude_fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">model_fields</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">concrete_field</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">exclude_fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exclude</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">exclude_fields</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">Meta</span><span class="o">.</span><span class="n">exclude</span><span class="p">)</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="k">pass</span>
+
+            <span class="n">fields</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">get_fields</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">many_to_many</span>
+            <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">fields</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exclude_fields</span> <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">editable</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="s2">&quot;translated_field&quot;</span><span class="p">)</span>
+                        <span class="ow">and</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fieldsets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span>
+                    <span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">fieldsets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;fields&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">field</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">base_concrete_modeladmin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The class inheriting directly from ContentModelAdmin.&quot;&quot;&quot;</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">]</span>
+        <span class="k">while</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">candidate</span> <span class="o">=</span> <span class="n">candidates</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ContentTypedAdmin</span> <span class="ow">in</span> <span class="n">candidate</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">candidate</span>
+            <span class="n">candidates</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">candidate</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Can&#39;t find base concrete ModelAdmin class.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">has_module_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hide subclasses from the admin menu.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span>
+
+    <span class="k">def</span> <span class="nf">change_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For the concrete model, check ``get_content_model()``</span>
+<span class="sd">        for a subclass and redirect to its admin change view.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">object_id</span><span class="p">)</span>
+        <span class="n">content_model</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">get_content_model</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">check_permission</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">content_model</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">content_model</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">:</span>
+            <span class="n">change_url</span> <span class="o">=</span> <span class="n">admin_url</span><span class="p">(</span><span class="n">content_model</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="n">content_model</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">change_url</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">change_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">object_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">changelist_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Redirect to the changelist view for subclasses.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="n">admin_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span><span class="p">,</span> <span class="s2">&quot;changelist&quot;</span><span class="p">))</span>
+
+        <span class="n">extra_context</span> <span class="o">=</span> <span class="n">extra_context</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">extra_context</span><span class="p">[</span><span class="s2">&quot;content_models&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_content_models</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">changelist_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">extra_context</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_content_models</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return all subclasses that are admin registered.&quot;&quot;&quot;</span>
+        <span class="n">models</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">concrete_model</span><span class="o">.</span><span class="n">get_content_models</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">admin_url</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">NoReverseMatch</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;meta_verbose_name&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">verbose_name</span><span class="p">)</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;add_url&quot;</span><span class="p">,</span> <span class="n">admin_url</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">))</span>
+                <span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">models</span>
+
+
+<span class="c1">####################################</span>
+<span class="c1"># User Admin with Site Permissions #</span>
+<span class="c1">####################################</span>
+
+
+<div class="viewcode-block" id="SitePermissionInline"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SitePermissionInline">[docs]</a><span class="k">class</span> <span class="nc">SitePermissionInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">TabularInline</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SitePermission</span>
+    <span class="n">max_num</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">can_delete</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="SitePermissionUserAdminForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SitePermissionUserAdminForm">[docs]</a><span class="k">class</span> <span class="nc">SitePermissionUserAdminForm</span><span class="p">(</span><span class="n">UserAdmin</span><span class="o">.</span><span class="n">form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">clean_email</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
+        <span class="n">same_email</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">email</span> <span class="ow">and</span> <span class="n">same_email</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;This email is already registered&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">email</span></div>
+
+
+<div class="viewcode-block" id="SitePermissionUserAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SitePermissionUserAdmin">[docs]</a><span class="k">class</span> <span class="nc">SitePermissionUserAdmin</span><span class="p">(</span><span class="n">UserAdmin</span><span class="p">):</span>
+
+    <span class="n">inlines</span> <span class="o">=</span> <span class="p">[</span><span class="n">SitePermissionInline</span><span class="p">]</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">SitePermissionUserAdminForm</span>
+
+<div class="viewcode-block" id="SitePermissionUserAdmin.save_model"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SitePermissionUserAdmin.save_model">[docs]</a>    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides a warning if the user is an active admin with no admin access.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">has_perms</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">get_all_permissions</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="n">has_sites</span> <span class="o">=</span> <span class="n">SitePermission</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">user</span><span class="o">.</span><span class="n">is_active</span>
+            <span class="ow">and</span> <span class="n">user</span><span class="o">.</span><span class="n">is_staff</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="n">user</span><span class="o">.</span><span class="n">is_superuser</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">has_perms</span> <span class="ow">and</span> <span class="n">has_sites</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="n">error</span><span class="p">(</span>
+                <span class="n">request</span><span class="p">,</span>
+                <span class="s2">&quot;The user is active but won&#39;t be able to access &quot;</span>
+                <span class="s2">&quot;the admin, due to no edit/site permissions being &quot;</span>
+                <span class="s2">&quot;selected&quot;</span><span class="p">,</span>
+            <span class="p">)</span></div></div>
+
+
+<span class="c1"># only register if User hasn&#39;t been overridden</span>
+<span class="k">if</span> <span class="n">User</span> <span class="o">==</span> <span class="n">AuthUser</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">User</span> <span class="ow">in</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">_registry</span><span class="p">:</span>
+        <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+    <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">SitePermissionUserAdmin</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="SiteRedirectAdminForm"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SiteRedirectAdminForm">[docs]</a><span class="k">class</span> <span class="nc">SiteRedirectAdminForm</span><span class="p">(</span><span class="n">RedirectAdmin</span><span class="o">.</span><span class="n">form</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">clean_old_path</span><span class="p">(</span><span class="n">form</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;old_path&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">Redirect</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old_path</span><span class="o">=</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">Redirect</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">path</span>
+        <span class="k">raise</span> <span class="n">ValidationError</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;A redirect from this path already exists&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="SiteRedirectAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SiteRedirectAdmin">[docs]</a><span class="k">class</span> <span class="nc">SiteRedirectAdmin</span><span class="p">(</span><span class="n">RedirectAdmin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclass of Django&#39;s redirect admin that modifies it to behave the</span>
+<span class="sd">    way most other admin classes do it Mezzanine with regard to site</span>
+<span class="sd">    filtering. It filters the list view by current site, hides the site</span>
+<span class="sd">    field from the change form, and assigns the current site to the</span>
+<span class="sd">    redirect when first created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;old_path&quot;</span><span class="p">,</span> <span class="s2">&quot;new_path&quot;</span><span class="p">)</span>  <span class="c1"># Excludes the site field.</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">SiteRedirectAdminForm</span>
+
+<div class="viewcode-block" id="SiteRedirectAdmin.get_queryset"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SiteRedirectAdmin.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Filters the list view by current site.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">queryset</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">queryset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">site_id</span><span class="o">=</span><span class="n">current_site_id</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="SiteRedirectAdmin.save_form"><a class="viewcode-back" href="../../../packages.html#mezzanine.core.admin.SiteRedirectAdmin.save_form">[docs]</a>    <span class="k">def</span> <span class="nf">save_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Assigns the current site to the redirect when first created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">site_id</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">site_id</span> <span class="o">=</span> <span class="n">current_site_id</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_form</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="s2">&quot;django.contrib.redirects&quot;</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">django.contrib.redirects.models</span> <span class="kn">import</span> <span class="n">Redirect</span>
+
+    <span class="k">if</span> <span class="n">Redirect</span> <span class="ow">in</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">_registry</span><span class="p">:</span>
+        <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">Redirect</span><span class="p">)</span>
+    <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Redirect</span><span class="p">,</span> <span class="n">SiteRedirectAdmin</span><span class="p">)</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.core.admin</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

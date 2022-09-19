@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.utils.models &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.models</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.utils.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_user_model</span> <span class="k">as</span> <span class="n">django_get_user_model</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ImproperlyConfigured</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="kn">import</span> <span class="n">format_html</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.utils.importing</span> <span class="kn">import</span> <span class="n">import_dotted_path</span>
+
+
+<span class="k">def</span> <span class="nf">get_user_model</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;Mezzanine&#39;s get_user_model() is deprecated and will be removed in a &quot;</span>
+        <span class="s2">&quot;future version. Replace all uses of this function with Django&#39;s &quot;</span>
+        <span class="s2">&quot;django.contrib.auth.get_user_model().&quot;</span><span class="p">,</span>
+        <span class="ne">DeprecationWarning</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">django_get_user_model</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="get_user_model_name"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.models.get_user_model_name">[docs]</a><span class="k">def</span> <span class="nf">get_user_model_name</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the app_label.object_name string for the user model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;AUTH_USER_MODEL&quot;</span><span class="p">,</span> <span class="s2">&quot;auth.User&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_base_concrete_model</span><span class="p">(</span><span class="n">abstract</span><span class="p">,</span> <span class="n">klass</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">kls</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">klass</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">kls</span><span class="p">,</span> <span class="n">abstract</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kls</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">abstract</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">kls</span>
+
+
+<div class="viewcode-block" id="base_concrete_model"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.models.base_concrete_model">[docs]</a><span class="k">def</span> <span class="nf">base_concrete_model</span><span class="p">(</span><span class="n">abstract</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used in methods of abstract models to find the super-most concrete</span>
+<span class="sd">    (non abstract) model in the inheritance chain that inherits from the</span>
+<span class="sd">    given abstract model. This is so the methods in the abstract model can</span>
+<span class="sd">    query data consistently across the correct concrete model.</span>
+
+<span class="sd">    Consider the following::</span>
+
+<span class="sd">        class Abstract(models.Model)</span>
+
+<span class="sd">            class Meta:</span>
+<span class="sd">                abstract = True</span>
+
+<span class="sd">            def concrete(self):</span>
+<span class="sd">                return base_concrete_model(Abstract, self)</span>
+
+<span class="sd">        class Super(Abstract):</span>
+<span class="sd">            pass</span>
+
+<span class="sd">        class Sub(Super):</span>
+<span class="sd">            pass</span>
+
+<span class="sd">        sub = Sub.objects.create()</span>
+<span class="sd">        sub.concrete() # returns Super</span>
+
+<span class="sd">    In actual Mezzanine usage, this allows methods in the ``Displayable`` and</span>
+<span class="sd">    ``Orderable`` abstract models to access the ``Page`` instance when</span>
+<span class="sd">    instances of custom content types, (eg: models that inherit from ``Page``)</span>
+<span class="sd">    need to query the ``Page`` model to determine correct values for ``slug``</span>
+<span class="sd">    and ``_order`` which are only relevant in the context of the ``Page``</span>
+<span class="sd">    model and not the model of the custom content type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;objects&quot;</span><span class="p">):</span>
+        <span class="c1"># &quot;model&quot; is a model class</span>
+        <span class="k">return</span> <span class="n">model</span> <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">_meta</span><span class="o">.</span><span class="n">abstract</span> <span class="k">else</span> <span class="n">_base_concrete_model</span><span class="p">(</span><span class="n">abstract</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+    <span class="c1"># &quot;model&quot; is a model instance</span>
+    <span class="k">return</span> <span class="n">_base_concrete_model</span><span class="p">(</span><span class="n">abstract</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span></div>
+
+
+<div class="viewcode-block" id="upload_to"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.models.upload_to">[docs]</a><span class="k">def</span> <span class="nf">upload_to</span><span class="p">(</span><span class="n">field_path</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used as the ``upload_to`` arg for file fields - allows for custom</span>
+<span class="sd">    handlers to be implemented on a per field basis defined by the</span>
+<span class="sd">    ``UPLOAD_TO_HANDLERS`` setting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">UPLOAD_TO_HANDLERS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">field_path</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">import_dotted_path</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">default</span></div>
+
+
+<div class="viewcode-block" id="AdminThumbMixin"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.models.AdminThumbMixin">[docs]</a><span class="k">class</span> <span class="nc">AdminThumbMixin</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides a thumbnail method on models for admin classes to</span>
+<span class="sd">    reference in the ``list_display`` definition.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">admin_thumb_field</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">admin_thumb</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">thumb</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">admin_thumb_field</span><span class="p">:</span>
+            <span class="n">thumb</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">admin_thumb_field</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">thumb</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+        <span class="kn">from</span> <span class="nn">mezzanine.core.templatetags.mezzanine_tags</span> <span class="kn">import</span> <span class="n">thumbnail</span>
+
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">ADMIN_THUMB_SIZE</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+        <span class="n">thumb_url</span> <span class="o">=</span> <span class="n">thumbnail</span><span class="p">(</span><span class="n">thumb</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">format_html</span><span class="p">(</span><span class="s2">&quot;&lt;img src=&#39;</span><span class="si">{}{}</span><span class="s2">&#39;&gt;&quot;</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="n">thumb_url</span><span class="p">)</span>
+
+    <span class="n">admin_thumb</span><span class="o">.</span><span class="n">short_description</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ModelMixinBase"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.models.ModelMixinBase">[docs]</a><span class="k">class</span> <span class="nc">ModelMixinBase</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Metaclass for ``ModelMixin`` which is used for injecting model</span>
+<span class="sd">    fields and methods into models defined outside of a project.</span>
+<span class="sd">    This currently isn&#39;t used anywhere.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks for an inner ``Meta`` class with a ``mixin_for``</span>
+<span class="sd">        attribute containing the model that this model will be mixed</span>
+<span class="sd">        into. Once found, copy over any model fields and methods onto</span>
+<span class="sd">        the model being mixed into, and return it as the actual class</span>
+<span class="sd">        definition for the mixin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;ModelMixin&quot;</span><span class="p">:</span>
+            <span class="c1"># Actual ModelMixin class definition.</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mixin_for</span> <span class="o">=</span> <span class="n">attrs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;Meta&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mixin_for</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">mixin_for</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ImproperlyConfigured</span><span class="p">(</span>
+                <span class="s2">&quot;The ModelMixin class &#39;</span><span class="si">%s</span><span class="s2">&#39; requires &quot;</span>
+                <span class="s2">&quot;an inner Meta class with the &quot;</span>
+                <span class="s2">&quot;``mixin_for`` attribute defined, &quot;</span>
+                <span class="s2">&quot;with a value that is a valid model.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Copy fields and methods onto the model being mixed into, and</span>
+        <span class="c1"># return it as the definition for the mixin class itself.</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Field</span><span class="p">):</span>
+                <span class="n">v</span><span class="o">.</span><span class="n">contribute_to_class</span><span class="p">(</span><span class="n">mixin_for</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">k</span> <span class="o">!=</span> <span class="s2">&quot;__module__&quot;</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">mixin_for</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mixin_for</span></div>
+
+
+<div class="viewcode-block" id="ModelMixin"><a class="viewcode-back" href="../../../packages.html#mezzanine.utils.models.ModelMixin">[docs]</a><span class="k">class</span> <span class="nc">ModelMixin</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ModelMixinBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Used as a subclass for mixin models that inject their behaviour onto</span>
+<span class="sd">    models defined outside of a project. The subclass should define an</span>
+<span class="sd">    inner ``Meta`` class with a ``mixin_for`` attribute containing the</span>
+<span class="sd">    model that will be mixed into.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.utils.models</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

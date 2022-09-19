@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.generic.managers &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.generic.managers</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.generic.managers</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django_comments.managers</span> <span class="kn">import</span> <span class="n">CommentManager</span> <span class="k">as</span> <span class="n">DjangoCM</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.managers</span> <span class="kn">import</span> <span class="n">CurrentSiteManager</span>
+
+
+<div class="viewcode-block" id="CommentManager"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.managers.CommentManager">[docs]</a><span class="k">class</span> <span class="nc">CommentManager</span><span class="p">(</span><span class="n">CurrentSiteManager</span><span class="p">,</span> <span class="n">DjangoCM</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides filter for restricting comments that are not approved</span>
+<span class="sd">    if ``COMMENTS_UNAPPROVED_VISIBLE`` is set to ``False``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CommentManager.visible"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.managers.CommentManager.visible">[docs]</a>    <span class="k">def</span> <span class="nf">visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the comments that are visible based on the</span>
+<span class="sd">        ``COMMENTS_XXX_VISIBLE`` settings. When these settings</span>
+<span class="sd">        are set to ``True``, the relevant comments are returned</span>
+<span class="sd">        that shouldn&#39;t be shown, and are given placeholders in</span>
+<span class="sd">        the template ``generic/includes/comment.html``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">visible</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">COMMENTS_UNAPPROVED_VISIBLE</span><span class="p">:</span>
+            <span class="n">visible</span> <span class="o">=</span> <span class="n">visible</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_public</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">COMMENTS_REMOVED_VISIBLE</span><span class="p">:</span>
+            <span class="n">visible</span> <span class="o">=</span> <span class="n">visible</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">is_removed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">visible</span></div>
+
+<div class="viewcode-block" id="CommentManager.count_queryset"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.managers.CommentManager.count_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">count_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called from ``CommentsField.related_items_changed`` to store</span>
+<span class="sd">        the comment count against an item each time a comment is saved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">visible</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="KeywordManager"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.managers.KeywordManager">[docs]</a><span class="k">class</span> <span class="nc">KeywordManager</span><span class="p">(</span><span class="n">CurrentSiteManager</span><span class="p">):</span>
+<div class="viewcode-block" id="KeywordManager.get_by_natural_key"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.managers.KeywordManager.get_by_natural_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_natural_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Provides natural key method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="KeywordManager.get_or_create_iexact"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.managers.KeywordManager.get_or_create_iexact">[docs]</a>    <span class="k">def</span> <span class="nf">get_or_create_iexact</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Case insensitive title version of ``get_or_create``. Also</span>
+<span class="sd">        allows for multiple existing results.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lookup</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lookup</span><span class="p">[</span><span class="s2">&quot;title__iexact&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lookup</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">**</span><span class="n">lookup</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="KeywordManager.delete_unused"><a class="viewcode-back" href="../../../packages.html#mezzanine.generic.managers.KeywordManager.delete_unused">[docs]</a>    <span class="k">def</span> <span class="nf">delete_unused</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes all instances that are not assigned to any object. Limits</span>
+<span class="sd">        processing to ``keyword_ids`` if given.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">keyword_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keywords</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">id__in</span><span class="o">=</span><span class="n">keyword_ids</span><span class="p">)</span>
+        <span class="n">keywords</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">assignments__isnull</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.generic.managers</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.accounts.admin &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../accounts.html" accesskey="U">mezzanine.accounts</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.accounts.admin</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.accounts.admin</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">get_user_model</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.accounts</span> <span class="kn">import</span> <span class="n">ProfileNotConfigured</span><span class="p">,</span> <span class="n">get_profile_model</span>
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.admin</span> <span class="kn">import</span> <span class="n">SitePermissionUserAdmin</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.email</span> <span class="kn">import</span> <span class="n">send_approved_mail</span><span class="p">,</span> <span class="n">send_verification_mail</span>
+
+<span class="n">User</span> <span class="o">=</span> <span class="n">get_user_model</span><span class="p">()</span>
+
+<span class="n">user_list_display</span> <span class="o">=</span> <span class="n">SitePermissionUserAdmin</span><span class="o">.</span><span class="n">list_display</span>
+<span class="n">user_list_display</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;is_active&quot;</span><span class="p">,</span> <span class="s2">&quot;date_joined&quot;</span><span class="p">,</span> <span class="s2">&quot;last_login&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="UserProfileAdmin"><a class="viewcode-back" href="../../../packages.html#mezzanine.accounts.admin.UserProfileAdmin">[docs]</a><span class="k">class</span> <span class="nc">UserProfileAdmin</span><span class="p">(</span><span class="n">SitePermissionUserAdmin</span><span class="p">):</span>
+
+    <span class="n">list_display</span> <span class="o">=</span> <span class="n">user_list_display</span>
+
+<div class="viewcode-block" id="UserProfileAdmin.save_model"><a class="viewcode-back" href="../../../packages.html#mezzanine.accounts.admin.UserProfileAdmin.save_model">[docs]</a>    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        If the ``ACCOUNTS_APPROVAL_REQUIRED`` setting is ``True``,</span>
+<span class="sd">        send a notification email to the user being saved if their</span>
+<span class="sd">        ``active`` status has changed to ``True``.</span>
+<span class="sd">        If the ``ACCOUNTS_VERIFICATION_REQUIRED`` setting is ``True``,</span>
+<span class="sd">        send a verification email instead.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">must_send_verification_mail_after_save</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">change</span> <span class="ow">and</span> <span class="n">settings</span><span class="o">.</span><span class="n">ACCOUNTS_APPROVAL_REQUIRED</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">is_active</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">ACCOUNTS_VERIFICATION_REQUIRED</span><span class="p">:</span>
+                    <span class="c1"># Accounts verification requires an inactive account</span>
+                    <span class="n">obj</span><span class="o">.</span><span class="n">is_active</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="c1"># The token generated by send_verification_mail()</span>
+                    <span class="c1"># must match the _saved_ User object,</span>
+                    <span class="c1"># so postpone send_verification_mail() until later</span>
+                    <span class="n">must_send_verification_mail_after_save</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">send_approved_mail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">save_model</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">change</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">must_send_verification_mail_after_save</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">send_verification_mail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="s2">&quot;signup_verify&quot;</span><span class="p">)</span></div></div>
+
+
+<span class="k">try</span><span class="p">:</span>
+
+    <span class="k">class</span> <span class="nc">ProfileInline</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">StackedInline</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">get_profile_model</span><span class="p">()</span>
+        <span class="n">can_delete</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;admin/profile_inline.html&quot;</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">def</span> <span class="nf">get_min_num</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;This causes profile forms to be shown when editing but hidden</span>
+<span class="sd">            when creating. If min_num is fixed at 1, Django&#39;s initial user</span>
+<span class="sd">            creation form fails if the profile model has a required field.&quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span>
+
+    <span class="n">UserProfileAdmin</span><span class="o">.</span><span class="n">inlines</span> <span class="o">+=</span> <span class="p">(</span><span class="n">ProfileInline</span><span class="p">,)</span>
+<span class="k">except</span> <span class="n">ProfileNotConfigured</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<span class="k">if</span> <span class="n">User</span> <span class="ow">in</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">_registry</span><span class="p">:</span>
+    <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">unregister</span><span class="p">(</span><span class="n">User</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">UserProfileAdmin</span><span class="p">)</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../accounts.html" >mezzanine.accounts</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.accounts.admin</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

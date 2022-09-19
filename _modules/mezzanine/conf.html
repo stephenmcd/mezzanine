@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.conf &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mezzanine.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.conf</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.conf</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Drop-in replacement for ``django.conf.settings`` that provides a</span>
+<span class="sd">consistent access method for settings defined in applications, the project</span>
+<span class="sd">or Django itself. Settings can also be made editable via the admin.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span> <span class="nn">weakref</span> <span class="kn">import</span> <span class="n">WeakKeyDictionary</span>
+
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span> <span class="k">as</span> <span class="n">django_settings</span>
+<span class="kn">from</span> <span class="nn">django.utils.functional</span> <span class="kn">import</span> <span class="n">Promise</span>
+<span class="kn">from</span> <span class="nn">django.utils.module_loading</span> <span class="kn">import</span> <span class="n">module_has_submodule</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine</span> <span class="kn">import</span> <span class="n">__version__</span>  <span class="c1"># noqa</span>
+<span class="kn">from</span> <span class="nn">mezzanine.core.request</span> <span class="kn">import</span> <span class="n">current_request</span>
+
+<span class="n">registry</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<div class="viewcode-block" id="register_setting"><a class="viewcode-back" href="../../packages.html#mezzanine.conf.register_setting">[docs]</a><span class="k">def</span> <span class="nf">register_setting</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">editable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">choices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">translatable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Registers a setting that can be edited via the admin. This mostly</span>
+<span class="sd">    equates to storing the given args as a dict in the ``registry``</span>
+<span class="sd">    dict by name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;mezzanine.conf.register_setting requires the &quot;</span> <span class="s2">&quot;&#39;name&#39; keyword argument.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">editable</span> <span class="ow">and</span> <span class="n">default</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;mezzanine.conf.register_setting requires the &quot;</span>
+            <span class="s2">&quot;&#39;default&#39; keyword argument when &#39;editable&#39; is True.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># append is True when called from an app (typically external)</span>
+    <span class="c1"># after the setting has already been registered, with the</span>
+    <span class="c1"># intention of appending to its default value.</span>
+    <span class="k">if</span> <span class="n">append</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">registry</span><span class="p">:</span>
+        <span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">default</span>
+        <span class="k">return</span>
+
+    <span class="c1"># If an editable setting has a value defined in the</span>
+    <span class="c1"># project&#39;s settings.py module, it can&#39;t be editable, since</span>
+    <span class="c1"># these lead to a lot of confusion once its value gets</span>
+    <span class="c1"># defined in the db.</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">django_settings</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">editable</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="c1"># Prevent bools treated as ints</span>
+        <span class="n">setting_type</span> <span class="o">=</span> <span class="nb">bool</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="c1"># An int or long or subclass on Py2</span>
+        <span class="n">setting_type</span> <span class="o">=</span> <span class="nb">int</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Promise</span><span class="p">)):</span>
+        <span class="c1"># A unicode or subclass on Py2</span>
+        <span class="n">setting_type</span> <span class="o">=</span> <span class="nb">str</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+        <span class="c1"># A byte-string or subclass on Py2</span>
+        <span class="n">setting_type</span> <span class="o">=</span> <span class="nb">bytes</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">setting_type</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+    <span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span>
+        <span class="s2">&quot;editable&quot;</span><span class="p">:</span> <span class="n">editable</span><span class="p">,</span>
+        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+        <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="n">default</span><span class="p">,</span>
+        <span class="s2">&quot;choices&quot;</span><span class="p">:</span> <span class="n">choices</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">setting_type</span><span class="p">,</span>
+        <span class="s2">&quot;translatable&quot;</span><span class="p">:</span> <span class="n">translatable</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Settings"><a class="viewcode-back" href="../../packages.html#mezzanine.conf.Settings">[docs]</a><span class="k">class</span> <span class="nc">Settings</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An object that provides settings via dynamic attribute access.</span>
+
+<span class="sd">    Settings that are registered as editable will be stored in the</span>
+<span class="sd">    database once the site settings form in the admin is first saved.</span>
+<span class="sd">    When these values are accessed via this settings object, *all*</span>
+<span class="sd">    database stored settings get retrieved from the database.</span>
+
+<span class="sd">    When accessing uneditable settings their default values are used,</span>
+<span class="sd">    unless they&#39;ve been given a value in the project&#39;s settings.py</span>
+<span class="sd">    module.</span>
+
+<span class="sd">    The settings object also provides access to Django settings via</span>
+<span class="sd">    ``django.conf.settings``, in order to provide a consistent method</span>
+<span class="sd">    of access for all settings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Settings.Placeholder"><a class="viewcode-back" href="../../packages.html#mezzanine.conf.Settings.Placeholder">[docs]</a>    <span class="k">class</span> <span class="nc">Placeholder</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;A Weakly-referable wrapper of ``object``.&quot;&quot;&quot;</span>
+
+        <span class="k">pass</span></div>
+
+    <span class="n">NULL_REQUEST</span> <span class="o">=</span> <span class="n">Placeholder</span><span class="p">()</span>
+
+    <span class="c1"># These functions map setting types to the functions that should be</span>
+    <span class="c1"># used to convert them from the Unicode string stored in the database.</span>
+    <span class="c1"># If a type doesn&#39;t appear in this map, the type itself will be used.</span>
+    <span class="n">TYPE_FUNCTIONS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nb">bool</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">val</span><span class="p">:</span> <span class="n">val</span> <span class="o">!=</span> <span class="s2">&quot;False&quot;</span><span class="p">,</span>
+        <span class="nb">bytes</span><span class="p">:</span> <span class="n">partial</span><span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_current_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">current_request</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">NULL_REQUEST</span>
+
+<div class="viewcode-block" id="Settings.use_editable"><a class="viewcode-back" href="../../packages.html#mezzanine.conf.Settings.use_editable">[docs]</a>    <span class="k">def</span> <span class="nf">use_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the cache for the current request so that editable settings are</span>
+<span class="sd">        fetched from the database on next access. Using editable settings</span>
+<span class="sd">        is the default, so this is deprecated in favour of ``clear_cache()``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cache</span><span class="p">()</span>
+        <span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Because editable settings are now used by default, &quot;</span>
+            <span class="s2">&quot;settings.use_editable() is deprecated. If you need to re-load &quot;</span>
+            <span class="s2">&quot;settings from the database during a request, please use &quot;</span>
+            <span class="s2">&quot;settings.clear_cache() instead.&quot;</span><span class="p">,</span>
+            <span class="ne">DeprecationWarning</span><span class="p">,</span>
+            <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Settings.clear_cache"><a class="viewcode-back" href="../../packages.html#mezzanine.conf.Settings.clear_cache">[docs]</a>    <span class="k">def</span> <span class="nf">clear_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear the settings cache for the current request.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_editable_caches&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_editable_caches</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_request</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_editable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the dictionary of editable settings for a given request. Settings</span>
+<span class="sd">        are fetched from the database once per request and then stored in</span>
+<span class="sd">        ``_editable_caches``, a WeakKeyDictionary that will automatically</span>
+<span class="sd">        discard each entry when no more references to the request exist.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_editable_caches&quot;</span><span class="p">):</span>
+            <span class="c1"># The ``_editable_caches`` attribute maps Request objects to dicts of</span>
+            <span class="c1"># editable settings loaded from the database. We cache settings per-request</span>
+            <span class="c1"># to ensure that the database is hit at most once per request, and that each</span>
+            <span class="c1"># request sees the same settings for its duration.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_editable_caches</span> <span class="o">=</span> <span class="n">WeakKeyDictionary</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">editable_settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_editable_caches</span><span class="p">[</span><span class="n">request</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">editable_settings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">NULL_REQUEST</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_editable_caches</span><span class="p">[</span><span class="n">request</span><span class="p">]</span> <span class="o">=</span> <span class="n">editable_settings</span>
+        <span class="k">return</span> <span class="n">editable_settings</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_to_python</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">setting</span><span class="p">,</span> <span class="n">raw_value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a value stored in the database for a particular setting</span>
+<span class="sd">        to its correct type, as determined by ``register_setting()``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">type_fn</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">TYPE_FUNCTIONS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">setting</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">])</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">type_fn</span><span class="p">(</span><span class="n">raw_value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># Shouldn&#39;t occur, but just a safeguard in case</span>
+            <span class="c1"># the db value somehow ended up as an invalid type.</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;The setting </span><span class="si">%s</span><span class="s2"> should be of type </span><span class="si">%s</span><span class="s2">, but the value &quot;</span>
+                <span class="s2">&quot;retrieved from the database (</span><span class="si">%s</span><span class="s2">) could not be converted. &quot;</span>
+                <span class="s2">&quot;Using the default instead: </span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="p">(</span>
+                    <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+                    <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                    <span class="nb">repr</span><span class="p">(</span><span class="n">raw_value</span><span class="p">),</span>
+                    <span class="nb">repr</span><span class="p">(</span><span class="n">setting</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]),</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load editable settings from the database and return them as a dict.</span>
+<span class="sd">        Delete any settings from the database that are no longer registered,</span>
+<span class="sd">        and emit a warning if there are settings that are defined in both</span>
+<span class="sd">        settings.py and the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">mezzanine.conf.models</span> <span class="kn">import</span> <span class="n">Setting</span>
+
+        <span class="n">removed_settings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">conflicting_settings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">new_cache</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">setting_obj</span> <span class="ow">in</span> <span class="n">Setting</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+
+            <span class="c1"># Check that the Setting object corresponds to a setting that has</span>
+            <span class="c1"># been declared in code using ``register_setting()``. If not, add</span>
+            <span class="c1"># it to a list of items to be deleted from the database later.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">setting</span> <span class="o">=</span> <span class="n">registry</span><span class="p">[</span><span class="n">setting_obj</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">removed_settings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">setting_obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># Convert a string from the database to the correct Python type.</span>
+            <span class="n">setting_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_python</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">setting_obj</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+            <span class="c1"># If a setting is defined both in the database and in settings.py,</span>
+            <span class="c1"># raise a warning and use the value defined in settings.py.</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">django_settings</span><span class="p">,</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">setting_value</span> <span class="o">!=</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]:</span>
+                    <span class="n">conflicting_settings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">setting_obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+            <span class="c1"># If nothing went wrong, use the value from the database!</span>
+            <span class="n">new_cache</span><span class="p">[</span><span class="n">setting</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">setting_value</span>
+
+        <span class="k">if</span> <span class="n">removed_settings</span><span class="p">:</span>
+            <span class="n">Setting</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name__in</span><span class="o">=</span><span class="n">removed_settings</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">conflicting_settings</span><span class="p">:</span>
+            <span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;These settings are defined in both settings.py and &quot;</span>
+                <span class="s2">&quot;the database: </span><span class="si">%s</span><span class="s2">. The settings.py values will be used.&quot;</span>
+                <span class="o">%</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">conflicting_settings</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">new_cache</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+
+        <span class="c1"># If this setting isn&#39;t registered, defer to Django&#39;s settings object</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">setting</span> <span class="o">=</span> <span class="n">registry</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">django_settings</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># If the setting is editable, try the Django setting, then a value</span>
+        <span class="c1"># fetched from the database, then the registered default.</span>
+        <span class="k">if</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;editable&quot;</span><span class="p">]:</span>
+            <span class="n">editable_cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_editable</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_current_request</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span>
+                <span class="n">django_settings</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">editable_cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">])</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If if isn&#39;t editable, just try Django and then default.</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">django_settings</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">setting</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Forward attribute setting to the Django settings object.&quot;&quot;&quot;</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">django_settings</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__delattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Forward attribute deletion to the Django settings object.&quot;&quot;&quot;</span>
+        <span class="nb">delattr</span><span class="p">(</span><span class="n">django_settings</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span></div>
+
+
+<span class="n">mezz_first</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">app</span><span class="p">:</span> <span class="ow">not</span> <span class="n">app</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;mezzanine.&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">django_settings</span><span class="o">.</span><span class="n">INSTALLED_APPS</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">mezz_first</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.defaults&quot;</span> <span class="o">%</span> <span class="n">app</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>  <span class="c1"># noqa</span>
+            <span class="k">if</span> <span class="n">module_has_submodule</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">&quot;defaults&quot;</span><span class="p">):</span>
+                <span class="k">raise</span>
+
+<span class="n">settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">()</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.conf</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

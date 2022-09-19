@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Admin Customization &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Multi-Lingual Sites" href="multi-lingual-sites.html" />
+    <link rel="prev" title="Model Customization" href="model-customization.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="multi-lingual-sites.html" title="Multi-Lingual Sites"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="model-customization.html" title="Model Customization"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Admin Customization</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="admin-customization">
+<h1>Admin Customization<a class="headerlink" href="#admin-customization" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine uses <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/contrib/admin/" title="(in Django v4.2)"><span>The Django admin site</span></a> allowing you to
+add admin classes as you normally would with a Django project, but also
+provides the following enhancements to the admin interface that are
+configurable by the developer.</p>
+<section id="navigation">
+<h2>Navigation<a class="headerlink" href="#navigation" title="Permalink to this heading">¶</a></h2>
+<p>When first logging into the standard Django admin interface a user is
+presented with the list of models that they have permission to modify data
+for. Mezzanine takes this feature and uses it to provide a navigation menu
+that persists across every section of the admin interface making the list
+of models always accessible.</p>
+<p>Using the standard Django admin the grouping and ordering of these models
+aren’t configurable, so Mezzanine provides the setting
+<a class="reference internal" href="configuration.html#admin-menu-order"><span class="std std-ref">ADMIN_MENU_ORDER</span></a> that can be used to control the grouping and
+ordering of models when listed in the admin area.</p>
+<p>This setting is a sequence of pairs where each pair represents a group of
+models. The first item in each pair is the name to give the group and the
+second item is the sequence of app/model names to use for the group. The
+ordering of both the groups and their models is maintained when they are
+displayed in the admin area.</p>
+<p>For example, to specify two groups <code class="docutils literal notranslate"><span class="pre">Content</span></code> and <code class="docutils literal notranslate"><span class="pre">Site</span></code> in your admin
+with the first group containing models from Mezzanine’s <a class="reference internal" href="packages.html#module-mezzanine.pages" title="mezzanine.pages"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pages</span></code></a> and
+<a class="reference internal" href="packages.html#module-mezzanine.blog" title="mezzanine.blog"><code class="xref py py-mod docutils literal notranslate"><span class="pre">blog</span></code></a> apps, and the second with the remaining models provided by Django,
+you would define the following in your projects’s <code class="docutils literal notranslate"><span class="pre">settings</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMIN_MENU_ORDER</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;Content&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;pages.Page&quot;</span><span class="p">,</span> <span class="s2">&quot;blog.BlogPost&quot;</span><span class="p">,</span> <span class="s2">&quot;blog.Comment&quot;</span><span class="p">,)),</span>
+    <span class="p">(</span><span class="s2">&quot;Site&quot;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;auth.User&quot;</span><span class="p">,</span> <span class="s2">&quot;auth.Group&quot;</span><span class="p">,</span> <span class="s2">&quot;sites.Site&quot;</span><span class="p">,</span> <span class="s2">&quot;redirects.Redirect&quot;</span><span class="p">)),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Any admin classes that aren’t specifed are included using Django’s normal
+approach of grouping models alphabetically by application name. You can
+also control this behavior by implementing a <a class="reference internal" href="packages.html#mezzanine.blog.admin.BlogCategoryAdmin.has_module_permission" title="mezzanine.blog.admin.BlogCategoryAdmin.has_module_permission"><code class="xref py py-meth docutils literal notranslate"><span class="pre">has_module_permission()</span></code></a> method on your
+admin class, which should return <code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code>. When implemented,
+this method controls whether the admin class appears in the menu or not.
+Here’s an advanced example that excludes the <a class="reference internal" href="packages.html#mezzanine.blog.admin.BlogCategoryAdmin" title="mezzanine.blog.admin.BlogCategoryAdmin"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlogCategoryAdmin</span></code></a> class
+from the menu, unless it is explicitly defined in <a class="reference internal" href="configuration.html#admin-menu-order"><span class="std std-ref">ADMIN_MENU_ORDER</span></a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+
+<span class="k">class</span> <span class="nc">BlogCategoryAdmin</span><span class="p">(</span><span class="n">admin</span><span class="o">.</span><span class="n">ModelAdmin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Admin class for blog categories. Hides itself from the admin menu</span>
+<span class="sd">    unless explicitly specified.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fieldsets</span> <span class="o">=</span> <span class="p">((</span><span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;title&quot;</span><span class="p">,)}),)</span>
+
+    <span class="k">def</span> <span class="nf">has_module_permission</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hide from the admin menu unless explicitly set in ``ADMIN_MENU_ORDER``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">ADMIN_MENU_ORDER</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;blog.BlogCategory&quot;</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-items">
+<h2>Custom Items<a class="headerlink" href="#custom-items" title="Permalink to this heading">¶</a></h2>
+<p>It is possible to inject custom navigation items into the
+<a class="reference internal" href="configuration.html#admin-menu-order"><span class="std std-ref">ADMIN_MENU_ORDER</span></a> setting by specifying an
+item using a two item sequence, the first item containing the title and
+second containing the named urlpattern that resolves to the url to be used.</p>
+<p>Continuing on from the previous example, Mezzanine includes a fork of the
+popular <a class="reference external" href="http://code.google.com/p/django-filebrowser/">django-filebrowser</a>
+application which contains a named urlpattern <code class="docutils literal notranslate"><span class="pre">fb_browse</span></code> and is given
+the title <code class="docutils literal notranslate"><span class="pre">Media</span> <span class="pre">Library</span></code> to create a custom navigation item:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ADMIN_MENU_ORDER</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span>
+        <span class="s2">&quot;Content&quot;</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;pages.Page&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;blog.BlogPost&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;blog.Comment&quot;</span><span class="p">,</span>
+            <span class="p">(</span><span class="s2">&quot;Media Library&quot;</span><span class="p">,</span> <span class="s2">&quot;fb_browse&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">&quot;Site&quot;</span><span class="p">,</span> <span class="p">(</span>
+            <span class="s2">&quot;auth.User&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;auth.Group&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sites.Site&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;redirects.Redirect&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also use this two-item sequence approach for regular app/model
+names if you’d like to give them a custom title.</p>
+</section>
+<section id="dashboard">
+<h2>Dashboard<a class="headerlink" href="#dashboard" title="Permalink to this heading">¶</a></h2>
+<p>When using the standard Django admin interface, the dashboard area shown
+when a user first logs in provides the list of available models and a list
+of the user’s recent actions. Mezzanine makes this dashboard configurable
+by the developer by providing a system for specifying Django <a class="reference external" href="http://docs.djangoproject.com/en/dev/howto/custom-template-tags/#inclusion-tags">Inclusion Tags</a>
+that will be displayed in the dashboard area.</p>
+<p>The dashboard area is broken up into three columns, the first being wide and
+the second and third being narrow. Mezzanine then provides the setting
+<a class="reference internal" href="configuration.html#dashboard-tags"><span class="std std-ref">DASHBOARD_TAGS</span></a> which is a sequence of three sequences - one for
+each the three columns. Each sequence contains the names of the inclusion
+tags in the format <code class="docutils literal notranslate"><span class="pre">tag_lib.tag_name</span></code> that will be rendered in each of the
+columns .</p>
+<p>The list of models and recent actions normally found in the Django admin are
+available as inclusion tags via <a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.app_list" title="mezzanine.core.templatetags.mezzanine_tags.app_list"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine_tags.app_list()</span></code></a> and
+<a class="reference internal" href="packages.html#mezzanine.core.templatetags.mezzanine_tags.recent_actions" title="mezzanine.core.templatetags.mezzanine_tags.recent_actions"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine_tags.recent_actions()</span></code></a> respectively. For example, to configure the
+dashboard with a blog form above the model list in
+the first column, a list of recent comments in the second column and the
+recent actions list in the third column, you would define the following in
+your projects’s <code class="docutils literal notranslate"><span class="pre">settings</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DASHBOARD_TAGS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s2">&quot;blog_tags.quick_blog&quot;</span><span class="p">,</span> <span class="s2">&quot;mezzanine_tags.app_list&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;comment_tags.recent_comments&quot;</span><span class="p">,),</span>
+    <span class="p">(</span><span class="s2">&quot;mezzanine_tags.recent_actions&quot;</span><span class="p">,),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Here we can see the <a class="reference internal" href="packages.html#mezzanine.blog.templatetags.blog_tags.quick_blog" title="mezzanine.blog.templatetags.blog_tags.quick_blog"><code class="xref py py-func docutils literal notranslate"><span class="pre">quick_blog()</span></code></a> inclusion tag provided by the
+<a class="reference internal" href="packages.html#module-mezzanine.blog.templatetags.blog_tags" title="mezzanine.blog.templatetags.blog_tags"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.blog.templatetags.blog_tags</span></code></a> module and the
+<a class="reference internal" href="packages.html#mezzanine.generic.templatetags.comment_tags.recent_comments" title="mezzanine.generic.templatetags.comment_tags.recent_comments"><code class="xref py py-func docutils literal notranslate"><span class="pre">recent_comments()</span></code></a> inclusion tag provided by the
+<a class="reference internal" href="packages.html#module-mezzanine.generic.templatetags.comment_tags" title="mezzanine.generic.templatetags.comment_tags"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.generic.templatetags.comment_tags()</span></code></a> module.</p>
+</section>
+<section id="wysiwyg-editor">
+<h2>WYSIWYG Editor<a class="headerlink" href="#wysiwyg-editor" title="Permalink to this heading">¶</a></h2>
+<p>By default, Mezzanine uses the
+<a class="reference external" href="http://tinymce.moxiecode.com/">TinyMCE editor</a> to provide rich
+editing for all model fields of the type
+<code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.fields.RichTextField</span></code>. The setting <a class="reference internal" href="configuration.html#richtext-widget-class"><span class="std std-ref">RICHTEXT_WIDGET_CLASS</span></a>
+contains the import path to the widget class that will be used for
+editing each of these fields, which therefore provides the ability for
+implementing your own editor widget which could be a modified version
+of TinyMCE, a different editor or even no editor at all.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’d only like to customize the TinyMCE options specified in its
+JavaScript setup, you can do so via the <a class="reference internal" href="configuration.html#tinymce-setup-js"><span class="std std-ref">TINYMCE_SETUP_JS</span></a> setting
+which lets you specify the path to your own TinyMCE setup JavaScript
+file.</p>
+</div>
+<p>The default value for the <a class="reference internal" href="configuration.html#richtext-widget-class"><span class="std std-ref">RICHTEXT_WIDGET_CLASS</span></a> setting is the
+string <code class="docutils literal notranslate"><span class="pre">&quot;mezzanine.core.forms.TinyMceWidget&quot;</span></code>. The <a class="reference internal" href="packages.html#mezzanine.core.forms.TinyMceWidget" title="mezzanine.core.forms.TinyMceWidget"><code class="xref py py-class docutils literal notranslate"><span class="pre">TinyMceWidget</span></code></a>
+class referenced here provides the necessary media files and HTML for
+implementing the TinyMCE editor, and serves as a good reference point
+for implementing your own widget class which would then be specified
+via the <a class="reference internal" href="configuration.html#richtext-widget-class"><span class="std std-ref">RICHTEXT_WIDGET_CLASS</span></a> setting.</p>
+<p>In addition to <a class="reference internal" href="configuration.html#richtext-widget-class"><span class="std std-ref">RICHTEXT_WIDGET_CLASS</span></a> you may need to customize the
+way your content is rendered at the template level. Post processing of
+the content can be achieved through the <a class="reference internal" href="configuration.html#richtext-filters"><span class="std std-ref">RICHTEXT_FILTERS</span></a> setting,
+which is a sequence of string, each one containing the dotted path to
+a Python function, that will be used as a processing pipeline for the
+content. Think of them like Django’s middleware or context processors.</p>
+<p>Say, for example, you had a <a class="reference internal" href="configuration.html#richtext-widget-class"><span class="std std-ref">RICHTEXT_WIDGET_CLASS</span></a> that allowed you
+to write your content in a popular wiki syntax such as markdown. You’d
+need a way to convert that wiki syntax into HTML right before the
+content was rendered:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... in myproj.filter</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="kn">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">markdown</span> <span class="kn">import</span> <span class="n">markdown</span>
+
+
+<span class="k">def</span> <span class="nf">markdown_filter</span><span class="p">(</span><span class="n">content</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts markdown formatted content to html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">mark_safe</span><span class="p">(</span><span class="n">markdown</span><span class="p">(</span><span class="n">content</span><span class="p">))</span>
+
+<span class="c1"># ... in myproj.settings</span>
+<span class="n">RICHTEXT_FILTERS</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;myproj.filter.markdown_filter&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>With the above, you’d now see the converted HTML content rendered to
+the template, rather than the raw markdown formatting.</p>
+</section>
+<section id="media-library-integration">
+<h2>Media Library Integration<a class="headerlink" href="#media-library-integration" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine’s Media Library (based on django-filebrowser) provides a
+<a class="reference external" href="http://jqueryui.com/">jQuery UI</a> <a class="reference external" href="http://jqueryui.com/dialog/">dialog</a>
+that can be used by custom widgets to allow users to select previously
+uploaded files.</p>
+<p>When using a custom widget for the WYSIWYG editor via the
+<a class="reference internal" href="configuration.html#richtext-widget-class"><span class="std std-ref">RICHTEXT_WIDGET_CLASS</span></a> setting, you can show the Media Library dialog
+from your custom widget, by doing the following:</p>
+<ol class="arabic">
+<li><p>Load the following media resources in your widget, perhaps using a
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/forms/media/">Django Media inner class</a>:</p>
+<dl class="field-list">
+<dt class="field-odd">css<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">filebrowser/css/smoothness/jquery-ui.min.css</span></code></p>
+</dd>
+<dt class="field-even">js<span class="colon">:</span></dt>
+<dd class="field-even"><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mezzanine/js/%s'</span> <span class="pre">%</span> <span class="pre">settings.JQUERY_FILENAME</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">filebrowser/js/jquery-ui-1.8.24.min.js</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">filebrowser/js/filebrowser-popup.js</span></code></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><p>Call the JavaScript function <code class="docutils literal notranslate"><span class="pre">browseMediaLibrary</span></code> to show the
+dialog. The function is defined in
+<code class="docutils literal notranslate"><span class="pre">filebrowser/js/filebrowser-popup.js</span></code>, and takes the following
+two arguments:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Callback function<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The function that will be called after the dialog is closed. The
+function will be called with a single argument, which will be:</p>
+<ul class="simple">
+<li><p>null: if no selection was made (e.g. dialog is closed by
+hitting <cite>ESC</cite>), or</p></li>
+<li><p>the path of the selected file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type (optional)<span class="colon">:</span></dt>
+<dd class="field-even"><p>Type of files that are selectable in the
+dialog. Defaults to image.</p>
+</dd>
+</dl>
+</li>
+</ol>
+</section>
+<section id="singleton-admin">
+<h2>Singleton Admin<a class="headerlink" href="#singleton-admin" title="Permalink to this heading">¶</a></h2>
+<p>The admin class <code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.utils.admin.SingletonAdmin</span></code> is a utility
+that can be used to create an admin interface for managing the case
+where only a single instance of a model should exist. Some cases
+include a single page site, where only a few fixed blocks of text
+need to be maintained. Perhaps a stand-alone admin section is
+required for managing a site-wide alert. There’s overlap here with
+Mezzanine’s <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> admin interface, but you may have a
+case that warrants its own admin section. Let’s look at an example of
+a site-wide alert model, that should only ever have a single record
+in the database.</p>
+<p>Here’s a model with a text field for managing the alert:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+<span class="k">class</span> <span class="nc">SiteAlert</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="n">message</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Make the plural name singular, to correctly</span>
+    <span class="c1"># label it in the admin interface.</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s2">&quot;Site Alert&quot;</span>
+</pre></div>
+</div>
+<p>Here’s our <code class="docutils literal notranslate"><span class="pre">admin.py</span></code> module in the same app:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mezzanine.utils.admin</span> <span class="kn">import</span> <span class="n">SingletonAdmin</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">SiteAlert</span>
+
+<span class="c1"># Subclassing allows us to customize the admin class,</span>
+<span class="c1"># but you could also register your model directly</span>
+<span class="c1"># against SingletonAdmin below.</span>
+<span class="k">class</span> <span class="nc">SiteAlertAdmin</span><span class="p">(</span><span class="n">SingletonAdmin</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">SiteAlert</span><span class="p">,</span> <span class="n">SiteAlertAdmin</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>What we achieve by using <code class="xref py py-class docutils literal notranslate"><span class="pre">SingletonAdmin</span></code> above, is an admin
+interface that hides the usual listing interface that lists all
+records in the model’s database table. When going to the “Site Alert”
+section of the admin, the user will be taken directly to the editing
+interface.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Admin Customization</a><ul>
+<li><a class="reference internal" href="#navigation">Navigation</a></li>
+<li><a class="reference internal" href="#custom-items">Custom Items</a></li>
+<li><a class="reference internal" href="#dashboard">Dashboard</a></li>
+<li><a class="reference internal" href="#wysiwyg-editor">WYSIWYG Editor</a></li>
+<li><a class="reference internal" href="#media-library-integration">Media Library Integration</a></li>
+<li><a class="reference internal" href="#singleton-admin">Singleton Admin</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="model-customization.html"
+                          title="previous chapter">Model Customization</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="multi-lingual-sites.html"
+                          title="next chapter">Multi-Lingual Sites</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/admin-customization.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="multi-lingual-sites.html" title="Multi-Lingual Sites"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="model-customization.html" title="Model Customization"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Admin Customization</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

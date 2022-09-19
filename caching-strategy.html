@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Caching Strategy &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Multi-Tenancy" href="multi-tenancy.html" />
+    <link rel="prev" title="In-line Editing" href="inline-editing.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="multi-tenancy.html" title="Multi-Tenancy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="inline-editing.html" title="In-line Editing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Caching Strategy</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="caching-strategy">
+<h1>Caching Strategy<a class="headerlink" href="#caching-strategy" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine takes great care to appropriately minimize database queries.
+This strategy enables Mezzanine to perform well without a caching
+configuration. However, caching is also well-supported in the event
+that you wish to implement customized caching for your Mezzanine site.
+Mezzanine is preconfigured to cache aggressively when deployed to a
+production site with a cache backend installed.</p>
+<section id="cache-middleware">
+<h2>Cache Middleware<a class="headerlink" href="#cache-middleware" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine’s caching system employs a hybrid approach which draws from
+several popular caching techniques and combines them into one overall
+implementation. Mezzanine provides its own implementation of <a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/cache/#the-per-site-cache">Django’s
+page-level cache middleware</a>, and behaves in a similar way.</p>
+<p>Pages are fetched from cache by
+<a class="reference internal" href="packages.html#mezzanine.core.middleware.FetchFromCacheMiddleware" title="mezzanine.core.middleware.FetchFromCacheMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.middleware.FetchFromCacheMiddleware</span></code></a>, which should
+appear at the end of the <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-MIDDLEWARE" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a> setting and therefore
+be activated at the end of the request phase. If a cache miss occurs,
+the request is marked as requiring a cache update, which is handled by
+<a class="reference internal" href="packages.html#mezzanine.core.middleware.UpdateCacheMiddleware" title="mezzanine.core.middleware.UpdateCacheMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">mezzanine.core.middleware.UpdateCacheMiddleware</span></code></a>, which in turn
+should appear at the start of <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-MIDDLEWARE" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a> and therefore
+be activated at the end of the response phase.</p>
+<p>Mezzanine’s cache middleware differs from its Django counterpart in
+a few subtle yet significant ways:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Setting <code class="docutils literal notranslate"><span class="pre">CACHE_ANONYMOUS_ONLY</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> will have no effect,
+so authenticated users will never use the cache system.</p></li>
+<li><p>Cache keys include the ID for the current Django <code class="docutils literal notranslate"><span class="pre">Site</span></code> object.</p></li>
+<li><p>Cache keys do not take Vary headers into account, so all
+unauthenticated visitors will receive the same page content per
+URL.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="two-phased-rendering">
+<h2>Two-Phased Rendering<a class="headerlink" href="#two-phased-rendering" title="Permalink to this heading">¶</a></h2>
+<p>One approach to caching Django sites is to use <a class="reference external" href="https://docs.djangoproject.com/en/dev/topics/cache/#template-fragment-caching">template fragment
+caching</a>, which defines the areas of templates to be
+cached. Another approach is two-phased rendering, which is the
+opposite. Using this method, all content is cached by default. We then
+define the sections of a template that should not be cached. These
+sections might be anything that makes use of the current request
+object, including session-specific data.</p>
+<p>Accordingly, Mezzanine provides the start and end template tags
+<code class="docutils literal notranslate"><span class="pre">nevercache</span></code> and <code class="docutils literal notranslate"><span class="pre">endnevercache</span></code>. Content wrapped in these tags
+will not be cached. With two-phased
+rendering, the page is cached without any of the template code
+inside <code class="docutils literal notranslate"><span class="pre">nevercache</span></code> and <code class="docutils literal notranslate"><span class="pre">endnevercache</span></code> executed for the first
+phase. The second phase then occurs after the page is retrieved from
+cache (or not), and any template code inside <code class="docutils literal notranslate"><span class="pre">nevercache</span></code> and
+<code class="docutils literal notranslate"><span class="pre">endnevercache</span></code> is then executed.</p>
+<p>Mezzanine’s two-phased rendering is based on Cody Soyland’s
+<a class="reference external" href="https://github.com/codysoyland/django-phased">django-phased</a> and
+Adrian Holovaty’s <a class="reference external" href="http://www.holovaty.com/writing/django-two-phased-rendering/">blog post</a> which
+originally described the technique.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The template code inside <code class="docutils literal notranslate"><span class="pre">nevercache</span></code> and <code class="docutils literal notranslate"><span class="pre">endnevercache</span></code> will
+only have access to template tags and variables provided by a
+normal request context, with the exception of any variables passed
+to the template from a view function. Variables added via context
+processors such as the current request and via Mezzanine’s
+settings will be available. Template tag libraries should be
+loaded inside these areas of content so as to make use of their
+template tags.</p>
+</div>
+</section>
+<section id="mint-cache">
+<h2>Mint Cache<a class="headerlink" href="#mint-cache" title="Permalink to this heading">¶</a></h2>
+<p>The final step in Mezzanine’s caching strategy involves a technique
+known as mint caching, in which the expiry value for any cache entry
+is stored in cache along with the cache entry itself. The real expiry
+value used is the given expiry plus the value defined by Mezzanine’s
+<a class="reference internal" href="configuration.html#cache-set-delay-seconds"><span class="std std-ref">CACHE_SET_DELAY_SECONDS</span></a> setting. Each time a cache entry is
+requested, the original expiry time is checked, and, if the expiry
+time has passed, the stale cache entry is placed back into the cache
+along with a new expiry time using the value of
+<a class="reference internal" href="configuration.html#cache-set-delay-seconds"><span class="std std-ref">CACHE_SET_DELAY_SECONDS</span></a>. In this case, no cache entry is returned,
+which has the effect of essentially faking a cache miss, so that the
+caller can know to regenerate the cache entry. This approach ensures
+that cache misses never actually occur and that (almost) only one
+client will ever perform regeneration of a cache entry.</p>
+<p>Mezzanine’s mint cache is based on <a class="reference external" href="http://djangosnippets.org/snippets/793/">this snippet</a> created by
+<a class="reference external" href="http://disqus.com">Disqus</a>.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Caching Strategy</a><ul>
+<li><a class="reference internal" href="#cache-middleware">Cache Middleware</a></li>
+<li><a class="reference internal" href="#two-phased-rendering">Two-Phased Rendering</a></li>
+<li><a class="reference internal" href="#mint-cache">Mint Cache</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="inline-editing.html"
+                          title="previous chapter">In-line Editing</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="multi-tenancy.html"
+                          title="next chapter">Multi-Tenancy</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/caching-strategy.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="multi-tenancy.html" title="Multi-Tenancy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="inline-editing.html" title="In-line Editing"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Caching Strategy</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

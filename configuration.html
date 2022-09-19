@@ -1,0 +1,794 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Configuration &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mezzanine.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Importing External Blogs" href="blog-importing.html" />
+    <link rel="prev" title="Search Engine" href="search-engine.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="blog-importing.html" title="Importing External Blogs"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="search-engine.html" title="Search Engine"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Configuration</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
+<p>Mezzanine provides a central system for defining settings within
+your project and applications that can then be edited by admin users.
+The package <a class="reference internal" href="packages.html#module-mezzanine.conf" title="mezzanine.conf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mezzanine.conf</span></code></a> contains the models for storing
+editable settings in the database as well as the functions for
+registering and loading these settings throughout your project.</p>
+<section id="registering-settings">
+<span id="id1"></span><h2>Registering Settings<a class="headerlink" href="#registering-settings" title="Permalink to this heading">¶</a></h2>
+<p>Settings are defined by creating a module named <code class="docutils literal notranslate"><span class="pre">defaults.py</span></code> inside
+one or more of the applications defined in your project’s
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> setting. Inside your <code class="docutils literal notranslate"><span class="pre">defaults.py</span></code> module
+you then call the function <a class="reference internal" href="packages.html#mezzanine.conf.register_setting" title="mezzanine.conf.register_setting"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.conf.register_setting()</span></code></a> for
+each setting you want to define which takes several keyword arguments:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The name of the setting.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>: The verbose name of the setting for the admin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">description</span></code>: The description of the setting.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">editable</span></code>: If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the setting will be editable via the admin.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default</span></code>: The default value of the setting.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">choices</span></code>: A list of choices the user can select from when the
+setting is editable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">append</span></code>: If registering an existing setting, the default value
+given will be appended to the current.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">translatable</span></code>: If <code class="docutils literal notranslate"><span class="pre">django-modeltranslation</span></code> is activated, this
+setting will store and display values on a per-language basis.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For settings registered with <code class="docutils literal notranslate"><span class="pre">editable</span></code> as <code class="docutils literal notranslate"><span class="pre">True</span></code>, currently only
+strings, integers/floats and boolean values are supported for the
+<code class="docutils literal notranslate"><span class="pre">default</span></code> value.</p>
+</div>
+<p>For example suppose we had a <code class="docutils literal notranslate"><span class="pre">authors</span></code> application and we wanted to
+create a setting that controls the number of books displayed per author
+page, we would define the following in <code class="docutils literal notranslate"><span class="pre">authors.defaults</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">register_setting</span>
+
+<span class="n">register_setting</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;AUTHORS_BOOKS_PER_PAGE&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Authors books per page&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The number of books to show per author page.&quot;</span><span class="p">,</span>
+    <span class="n">editable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are using Django 1.7 or greater and your app is included in your
+<a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> as an <code class="docutils literal notranslate"><span class="pre">AppConfig</span></code> (eg
+<code class="docutils literal notranslate"><span class="pre">authors.apps.MyCustomConfig</span></code>), Mezzanine won’t import your
+<code class="docutils literal notranslate"><span class="pre">defaults.py</span></code> automatically. Instead you must import it manually in your
+AppConfig’s <code class="docutils literal notranslate"><span class="pre">ready()</span></code> method.</p>
+</div>
+</section>
+<section id="reading-settings">
+<h2>Reading Settings<a class="headerlink" href="#reading-settings" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine provides a settings object via <code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.conf.settings()</span></code> in a
+similar way to Django’s <code class="xref py py-func docutils literal notranslate"><span class="pre">django.conf.settings()</span></code>. This settings object
+contains each of the settings registered above using their names as
+attributes. Continuing on from our previous example, suppose we have a view
+for photos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Book</span>
+
+<span class="k">def</span> <span class="nf">books_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">books</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()[:</span><span class="n">settings</span><span class="o">.</span><span class="n">AUTHORS_BOOKS_PER_PAGE</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;books.html&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;books&quot;</span><span class="p">:</span> <span class="n">books</span><span class="p">})</span>
+</pre></div>
+</div>
+<p>When defining editable settings, care should be taken when considering
+where in your project the setting will be used. For example if a setting
+is used in a <code class="docutils literal notranslate"><span class="pre">urlpattern</span></code> or the creation of a <code class="docutils literal notranslate"><span class="pre">model</span></code> class it would
+only be read when your site is first loaded, and therefore having it
+change at a later point by an admin user would not have any effect without
+reloading your entire project. In the snippet above, since the settings is
+being read within a view, the value of the setting being accessed is
+loaded each time the view is run. This ensures that if the value of the
+setting has been changed by an admin user it will be reflected on
+the website.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s also important to realize that with any settings flagged as editable,
+defining a value for these in your project’s <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> will always
+override the value stored in the database.</p>
+</div>
+</section>
+<section id="django-settings">
+<h2>Django Settings<a class="headerlink" href="#django-settings" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine’s settings object integrates with Django’s settings object in a
+couple of ways.</p>
+<p>Firstly it’s possible to override the default value for any setting defined
+using <a class="reference internal" href="packages.html#mezzanine.conf.register_setting" title="mezzanine.conf.register_setting"><code class="xref py py-func docutils literal notranslate"><span class="pre">mezzanine.conf.register_setting()</span></code></a> by adding its name and value as
+a regular setting to your project’s settings module. This is especially useful
+when any of your project’s <a class="reference external" href="https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INSTALLED_APPS" title="(in Django v4.2)"><code class="xref std std-setting docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a> (including Mezzanine
+itself) register settings that aren’t editable and you want to override
+these settings without modifying the application that registered them.</p>
+<p>Secondly it’s possible to access any of the settings defined by Django or
+your project’s settings module via Mezzanine’s settings object in the same
+way you would use Django’s settings object. This allows for a single access
+point for all settings regardless of how they are defined.</p>
+</section>
+<section id="default-settings">
+<h2>Default Settings<a class="headerlink" href="#default-settings" title="Permalink to this heading">¶</a></h2>
+<p>Mezzanine defines the following settings:</p>
+<section id="accounts-approval-emails">
+<span id="id2"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_APPROVAL_EMAILS</span></code><a class="headerlink" href="#accounts-approval-emails" title="Permalink to this heading">¶</a></h3>
+<p>A comma separated list of email addresses that will receive an email notification each time a new account is created that requires approval.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="accounts-approval-required">
+<span id="id3"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_APPROVAL_REQUIRED</span></code><a class="headerlink" href="#accounts-approval-required" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, when users create an account, they will not be enabled by default and a staff member will need to activate their account in the admin interface.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="accounts-min-password-length">
+<span id="id4"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_MIN_PASSWORD_LENGTH</span></code><a class="headerlink" href="#accounts-min-password-length" title="Permalink to this heading">¶</a></h3>
+<p>Minimum length for passwords</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+</section>
+<section id="accounts-no-username">
+<span id="id5"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_NO_USERNAME</span></code><a class="headerlink" href="#accounts-no-username" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the username field will be excluded from sign up and account update forms.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="accounts-profile-form-class">
+<span id="id6"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_FORM_CLASS</span></code><a class="headerlink" href="#accounts-profile-form-class" title="Permalink to this heading">¶</a></h3>
+<p>Dotted package path and class name of profile form to use for users signing up and updating their profile, when <code class="docutils literal notranslate"><span class="pre">mezzanine.accounts</span></code> is installed.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'mezzanine.accounts.forms.ProfileForm'</span></code></p>
+</section>
+<section id="accounts-profile-form-exclude-fields">
+<span id="id7"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS</span></code><a class="headerlink" href="#accounts-profile-form-exclude-fields" title="Permalink to this heading">¶</a></h3>
+<p>List of fields to exclude from the profile form.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">()</span></code></p>
+</section>
+<section id="accounts-profile-model">
+<span id="id8"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_MODEL</span></code><a class="headerlink" href="#accounts-profile-model" title="Permalink to this heading">¶</a></h3>
+<p>String in the form <cite>app_label.model_name</cite> for the model used for account profiles.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</section>
+<section id="accounts-profile-views-enabled">
+<span id="id9"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_VIEWS_ENABLED</span></code><a class="headerlink" href="#accounts-profile-views-enabled" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, users will have their own public profile pages.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="accounts-verification-required">
+<span id="id10"></span><h3><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_VERIFICATION_REQUIRED</span></code><a class="headerlink" href="#accounts-verification-required" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, when users create an account, they will be sent an email with a verification link, which they must click to enable their account.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="add-page-order">
+<span id="id11"></span><h3><code class="docutils literal notranslate"><span class="pre">ADD_PAGE_ORDER</span></code><a class="headerlink" href="#add-page-order" title="Permalink to this heading">¶</a></h3>
+<p>A sequence of <code class="docutils literal notranslate"><span class="pre">Page</span></code> subclasses in the format <code class="docutils literal notranslate"><span class="pre">app_label.model_name</span></code>, that controls the ordering of items in the select drop-down for adding new pages within the admin page tree interface.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('pages.RichTextPage',)</span></code></p>
+</section>
+<section id="admin-menu-collapsed">
+<span id="id12"></span><h3><code class="docutils literal notranslate"><span class="pre">ADMIN_MENU_COLLAPSED</span></code><a class="headerlink" href="#admin-menu-collapsed" title="Permalink to this heading">¶</a></h3>
+<p>Controls whether or not the left-hand admin menu is collapsed by default.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="admin-menu-order">
+<span id="id13"></span><h3><code class="docutils literal notranslate"><span class="pre">ADMIN_MENU_ORDER</span></code><a class="headerlink" href="#admin-menu-order" title="Permalink to this heading">¶</a></h3>
+<p>Controls the ordering and grouping of the admin menu.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">(('Content',</span> <span class="pre">('pages.Page',</span> <span class="pre">'blog.BlogPost',</span> <span class="pre">'generic.ThreadedComment',</span> <span class="pre">('Media</span> <span class="pre">Library',</span> <span class="pre">'media-library'))),</span> <span class="pre">('Site',</span> <span class="pre">('sites.Site',</span> <span class="pre">'redirects.Redirect',</span> <span class="pre">'conf.Setting')),</span> <span class="pre">('Users',</span> <span class="pre">('auth.User',</span> <span class="pre">'auth.Group')))</span></code></p>
+</section>
+<section id="admin-removal">
+<span id="id14"></span><h3><code class="docutils literal notranslate"><span class="pre">ADMIN_REMOVAL</span></code><a class="headerlink" href="#admin-removal" title="Permalink to this heading">¶</a></h3>
+<p>A sequence of Python dotted paths to models (eg: <code class="docutils literal notranslate"><span class="pre">['mezzanine.blog.models.BlogPost',]</span></code>) that should be removed from the admin.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">()</span></code></p>
+</section>
+<section id="admin-thumb-size">
+<span id="id15"></span><h3><code class="docutils literal notranslate"><span class="pre">ADMIN_THUMB_SIZE</span></code><a class="headerlink" href="#admin-thumb-size" title="Permalink to this heading">¶</a></h3>
+<p>Size of thumbnail previews for image fields in the admin interface.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'24x24'</span></code></p>
+</section>
+<section id="akismet-api-key">
+<span id="id16"></span><h3><code class="docutils literal notranslate"><span class="pre">AKISMET_API_KEY</span></code><a class="headerlink" href="#akismet-api-key" title="Permalink to this heading">¶</a></h3>
+<p>Key for <a class="reference external" href="http://akismet.com">http://akismet.com</a> spam filtering service. Used for filtering comments and forms.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="bitly-access-token">
+<span id="id17"></span><h3><code class="docutils literal notranslate"><span class="pre">BITLY_ACCESS_TOKEN</span></code><a class="headerlink" href="#bitly-access-token" title="Permalink to this heading">¶</a></h3>
+<p>Access token for <a class="reference external" href="http://bit.ly">http://bit.ly</a> URL shortening service.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="blog-post-per-page">
+<span id="id18"></span><h3><code class="docutils literal notranslate"><span class="pre">BLOG_POST_PER_PAGE</span></code><a class="headerlink" href="#blog-post-per-page" title="Permalink to this heading">¶</a></h3>
+<p>Number of blog posts shown on a blog listing page.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+</section>
+<section id="blog-rss-limit">
+<span id="id19"></span><h3><code class="docutils literal notranslate"><span class="pre">BLOG_RSS_LIMIT</span></code><a class="headerlink" href="#blog-rss-limit" title="Permalink to this heading">¶</a></h3>
+<p>Number of most recent blog posts shown in the RSS feed. Set to <code class="docutils literal notranslate"><span class="pre">None</span></code> to display all blog posts in the RSS feed.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
+</section>
+<section id="blog-slug">
+<span id="id20"></span><h3><code class="docutils literal notranslate"><span class="pre">BLOG_SLUG</span></code><a class="headerlink" href="#blog-slug" title="Permalink to this heading">¶</a></h3>
+<p>Slug of the page object for the blog.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'blog'</span></code></p>
+</section>
+<section id="blog-urls-date-format">
+<span id="id21"></span><h3><code class="docutils literal notranslate"><span class="pre">BLOG_URLS_DATE_FORMAT</span></code><a class="headerlink" href="#blog-urls-date-format" title="Permalink to this heading">¶</a></h3>
+<p>A string containing the value <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, or <code class="docutils literal notranslate"><span class="pre">day</span></code>, which controls the granularity of the date portion in the URL for each blog post. Eg: <code class="docutils literal notranslate"><span class="pre">year</span></code> will define URLs in the format /blog/yyyy/slug/, while <code class="docutils literal notranslate"><span class="pre">day</span></code> will define URLs with the format /blog/yyyy/mm/dd/slug/. An empty string means the URLs will only use the slug, and not contain any portion of the date at all.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="blog-use-featured-image">
+<span id="id22"></span><h3><code class="docutils literal notranslate"><span class="pre">BLOG_USE_FEATURED_IMAGE</span></code><a class="headerlink" href="#blog-use-featured-image" title="Permalink to this heading">¶</a></h3>
+<p>Enable featured images in blog posts</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="cache-set-delay-seconds">
+<span id="id23"></span><h3><code class="docutils literal notranslate"><span class="pre">CACHE_SET_DELAY_SECONDS</span></code><a class="headerlink" href="#cache-set-delay-seconds" title="Permalink to this heading">¶</a></h3>
+<p>Mezzanine’s caching uses a technique know as mint caching. This is where the requested expiry for a cache entry is stored with the cache entry in cache, and the real expiry used has the <code class="docutils literal notranslate"><span class="pre">CACHE_SET_DELAY</span></code> added to it. Then on a cache get, the store expiry is checked, and if it has passed, the cache entry is set again, and no entry is returned. This tries to ensure that cache misses never occur, and if many clients were to get a cache miss at once, only one would actually need to re-generated the cache entry.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
+</section>
+<section id="comments-account-required">
+<span id="id24"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_ACCOUNT_REQUIRED</span></code><a class="headerlink" href="#comments-account-required" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, users must log in to comment.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="comments-default-approved">
+<span id="id25"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_DEFAULT_APPROVED</span></code><a class="headerlink" href="#comments-default-approved" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, built-in comments are approved by default.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</section>
+<section id="comments-disqus-api-public-key">
+<span id="id26"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_DISQUS_API_PUBLIC_KEY</span></code><a class="headerlink" href="#comments-disqus-api-public-key" title="Permalink to this heading">¶</a></h3>
+<p>Public key for <a class="reference external" href="http://disqus.com">http://disqus.com</a> developer API</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="comments-disqus-api-secret-key">
+<span id="id27"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_DISQUS_API_SECRET_KEY</span></code><a class="headerlink" href="#comments-disqus-api-secret-key" title="Permalink to this heading">¶</a></h3>
+<p>Secret key for <a class="reference external" href="http://disqus.com">http://disqus.com</a> developer API</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="comments-disqus-shortname">
+<span id="id29"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_DISQUS_SHORTNAME</span></code><a class="headerlink" href="#comments-disqus-shortname" title="Permalink to this heading">¶</a></h3>
+<p>Shortname for the <a class="reference external" href="http://disqus.com">http://disqus.com</a> comments service.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="comments-notification-emails">
+<span id="id31"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_NOTIFICATION_EMAILS</span></code><a class="headerlink" href="#comments-notification-emails" title="Permalink to this heading">¶</a></h3>
+<p>A comma separated list of email addresses that will receive an email notification each time a new comment is posted on the site.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="comments-num-latest">
+<span id="id32"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_NUM_LATEST</span></code><a class="headerlink" href="#comments-num-latest" title="Permalink to this heading">¶</a></h3>
+<p>Number of latest comments shown in the admin dashboard.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+</section>
+<section id="comments-removed-visible">
+<span id="id33"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_REMOVED_VISIBLE</span></code><a class="headerlink" href="#comments-removed-visible" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, comments that have <code class="docutils literal notranslate"><span class="pre">removed</span></code> checked will still be displayed, but replaced with a <code class="docutils literal notranslate"><span class="pre">removed</span></code> message.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</section>
+<section id="comments-unapproved-visible">
+<span id="id34"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_UNAPPROVED_VISIBLE</span></code><a class="headerlink" href="#comments-unapproved-visible" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, comments that have <code class="docutils literal notranslate"><span class="pre">is_public</span></code> unchecked will still be displayed, but replaced with a <code class="docutils literal notranslate"><span class="pre">waiting</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">approved</span></code> message.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</section>
+<section id="comments-use-ratings">
+<span id="id35"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENTS_USE_RATINGS</span></code><a class="headerlink" href="#comments-use-ratings" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, comments can be rated.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</section>
+<section id="comment-filter">
+<span id="id36"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENT_FILTER</span></code><a class="headerlink" href="#comment-filter" title="Permalink to this heading">¶</a></h3>
+<p>Dotted path to the function to call on a comment’s value before it is rendered to the template.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</section>
+<section id="comment-form-class">
+<span id="id37"></span><h3><code class="docutils literal notranslate"><span class="pre">COMMENT_FORM_CLASS</span></code><a class="headerlink" href="#comment-form-class" title="Permalink to this heading">¶</a></h3>
+<p>The form class to use for adding new comments.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'mezzanine.generic.forms.ThreadedCommentForm'</span></code></p>
+</section>
+<section id="dashboard-tags">
+<span id="id38"></span><h3><code class="docutils literal notranslate"><span class="pre">DASHBOARD_TAGS</span></code><a class="headerlink" href="#dashboard-tags" title="Permalink to this heading">¶</a></h3>
+<p>A three item sequence, each containing a sequence of template tags used to render the admin dashboard.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">(('blog_tags.quick_blog',</span> <span class="pre">'mezzanine_tags.app_list'),</span> <span class="pre">('comment_tags.recent_comments',),</span> <span class="pre">('mezzanine_tags.recent_actions',))</span></code></p>
+</section>
+<section id="email-fail-silently">
+<span id="id39"></span><h3><code class="docutils literal notranslate"><span class="pre">EMAIL_FAIL_SILENTLY</span></code><a class="headerlink" href="#email-fail-silently" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, failures to send email will happen silently, otherwise an exception is raised. Defaults to <code class="docutils literal notranslate"><span class="pre">settings.DEBUG</span></code>.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="extra-model-fields">
+<span id="id40"></span><h3><code class="docutils literal notranslate"><span class="pre">EXTRA_MODEL_FIELDS</span></code><a class="headerlink" href="#extra-model-fields" title="Permalink to this heading">¶</a></h3>
+<p>A sequence of fields that will be injected into Mezzanine’s (or any library’s) models. Each item in the sequence is a four item sequence. The first two items are the dotted path to the model and its field name to be added, and the dotted path to the field class to use for the field. The third and fourth items are a sequence of positional args and a dictionary of keyword args, to use when creating the field instance. When specifying the field class, the path <code class="docutils literal notranslate"><span class="pre">django.models.db.</span></code> can be omitted for regular Django model fields.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">()</span></code></p>
+</section>
+<section id="forms-csv-delimiter">
+<span id="id41"></span><h3><code class="docutils literal notranslate"><span class="pre">FORMS_CSV_DELIMITER</span></code><a class="headerlink" href="#forms-csv-delimiter" title="Permalink to this heading">¶</a></h3>
+<p>Char to use as a field delimiter when exporting form responses as CSV.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">','</span></code></p>
+</section>
+<section id="forms-extra-fields">
+<span id="id42"></span><h3><code class="docutils literal notranslate"><span class="pre">FORMS_EXTRA_FIELDS</span></code><a class="headerlink" href="#forms-extra-fields" title="Permalink to this heading">¶</a></h3>
+<p>Extra field types for the forms app. Should contain a sequence of three-item sequences, each containing the ID, dotted import path for the field class, and field name, for each custom field type. The ID is simply a numeric constant for the field, but cannot be a value already used, so choose a high number such as 100 or greater to avoid conflicts.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">()</span></code></p>
+</section>
+<section id="forms-extra-widgets">
+<span id="id43"></span><h3><code class="docutils literal notranslate"><span class="pre">FORMS_EXTRA_WIDGETS</span></code><a class="headerlink" href="#forms-extra-widgets" title="Permalink to this heading">¶</a></h3>
+<p>Extra field widgets for the forms app. Should contain a sequence of two-item sequences, each containing an existing ID for a form field, and a dotted import path for the widget class.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">()</span></code></p>
+</section>
+<section id="forms-field-max-length">
+<span id="id44"></span><h3><code class="docutils literal notranslate"><span class="pre">FORMS_FIELD_MAX_LENGTH</span></code><a class="headerlink" href="#forms-field-max-length" title="Permalink to this heading">¶</a></h3>
+<p>Max length allowed for field values in the forms app.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">2000</span></code></p>
+</section>
+<section id="forms-upload-root">
+<span id="id45"></span><h3><code class="docutils literal notranslate"><span class="pre">FORMS_UPLOAD_ROOT</span></code><a class="headerlink" href="#forms-upload-root" title="Permalink to this heading">¶</a></h3>
+<p>Absolute path for storing file uploads for the forms app.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="forms-use-html5">
+<span id="id46"></span><h3><code class="docutils literal notranslate"><span class="pre">FORMS_USE_HTML5</span></code><a class="headerlink" href="#forms-use-html5" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, website forms will use HTML5 features.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="google-analytics-id">
+<span id="id47"></span><h3><code class="docutils literal notranslate"><span class="pre">GOOGLE_ANALYTICS_ID</span></code><a class="headerlink" href="#google-analytics-id" title="Permalink to this heading">¶</a></h3>
+<p>Google Analytics ID (<a class="reference external" href="http://www.google.com/analytics/">http://www.google.com/analytics/</a>)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="host-themes">
+<span id="id48"></span><h3><code class="docutils literal notranslate"><span class="pre">HOST_THEMES</span></code><a class="headerlink" href="#host-themes" title="Permalink to this heading">¶</a></h3>
+<p>A sequence mapping host names to themes, allowing different templates to be served per HTTP host. Each item in the sequence is a two item sequence, containing a host such as <code class="docutils literal notranslate"><span class="pre">othersite.example.com</span></code>, and the name of an importable Python package for the theme. If the host is matched for a request, the templates directory inside the theme package will be first searched when loading templates.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">()</span></code></p>
+</section>
+<section id="inline-editing-enabled">
+<span id="id49"></span><h3><code class="docutils literal notranslate"><span class="pre">INLINE_EDITING_ENABLED</span></code><a class="headerlink" href="#inline-editing-enabled" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, front-end inline editing will be enabled.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</section>
+<section id="jquery-filename">
+<span id="id50"></span><h3><code class="docutils literal notranslate"><span class="pre">JQUERY_FILENAME</span></code><a class="headerlink" href="#jquery-filename" title="Permalink to this heading">¶</a></h3>
+<p>Name of the jQuery file found in mezzanine/core/static/mezzanine/js/</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'jquery-3.4.1.js'</span></code></p>
+</section>
+<section id="jquery-ui-filename">
+<span id="id51"></span><h3><code class="docutils literal notranslate"><span class="pre">JQUERY_UI_FILENAME</span></code><a class="headerlink" href="#jquery-ui-filename" title="Permalink to this heading">¶</a></h3>
+<p>Name of the jQuery UI file found in mezzanine/core/static/mezzanine/js/</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'jquery-ui-1.12.1.js'</span></code></p>
+</section>
+<section id="max-paging-links">
+<span id="id52"></span><h3><code class="docutils literal notranslate"><span class="pre">MAX_PAGING_LINKS</span></code><a class="headerlink" href="#max-paging-links" title="Permalink to this heading">¶</a></h3>
+<p>Max number of paging links to display when paginating.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+</section>
+<section id="media-library-per-site">
+<span id="id53"></span><h3><code class="docutils literal notranslate"><span class="pre">MEDIA_LIBRARY_PER_SITE</span></code><a class="headerlink" href="#media-library-per-site" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, each site will use its own directory within the filebrowser media library.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="nevercache-key">
+<span id="id54"></span><h3><code class="docutils literal notranslate"><span class="pre">NEVERCACHE_KEY</span></code><a class="headerlink" href="#nevercache-key" title="Permalink to this heading">¶</a></h3>
+<p>Unique random string like <code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code>, but used for two-phased cache responses. Like <code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code>, should be automatically generated by the <code class="docutils literal notranslate"><span class="pre">mezzanine-project</span></code> command.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="ownable-models-all-editable">
+<span id="id55"></span><h3><code class="docutils literal notranslate"><span class="pre">OWNABLE_MODELS_ALL_EDITABLE</span></code><a class="headerlink" href="#ownable-models-all-editable" title="Permalink to this heading">¶</a></h3>
+<p>Models that subclass <code class="docutils literal notranslate"><span class="pre">Ownable</span></code> and use the <code class="docutils literal notranslate"><span class="pre">OwnableAdmin</span></code> have their admin change-list records filtered down to records owned by the current user. This setting contains a sequence of models in the format <code class="docutils literal notranslate"><span class="pre">app_label.object_name</span></code>, that when subclassing <code class="docutils literal notranslate"><span class="pre">Ownable</span></code>, will still show all records in the admin change-list interface, regardless of the current user.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">()</span></code></p>
+</section>
+<section id="pages-published-include-login-required">
+<span id="id56"></span><h3><code class="docutils literal notranslate"><span class="pre">PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED</span></code><a class="headerlink" href="#pages-published-include-login-required" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, pages with <code class="docutils literal notranslate"><span class="pre">login_required</span></code> checked will still be listed in menus and search results, for unauthenticated users. Regardless of this setting, when an unauthenticated user accesses a page with <code class="docutils literal notranslate"><span class="pre">login_required</span></code> checked, they’ll be redirected to the login page.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="page-menu-templates">
+<span id="id57"></span><h3><code class="docutils literal notranslate"><span class="pre">PAGE_MENU_TEMPLATES</span></code><a class="headerlink" href="#page-menu-templates" title="Permalink to this heading">¶</a></h3>
+<p>A sequence of templates used by the <code class="docutils literal notranslate"><span class="pre">page_menu</span></code> template tag. Each item in the sequence is a three item sequence, containing a unique ID for the template, a label for the template, and the template path. These templates are then available for selection when editing which menus a page should appear in. Note that if a menu template is used that doesn’t appear in this setting, all pages will appear in it.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">((1,</span> <span class="pre">'Top</span> <span class="pre">navigation</span> <span class="pre">bar',</span> <span class="pre">'pages/menus/dropdown.html'),</span> <span class="pre">(2,</span> <span class="pre">'Left-hand</span> <span class="pre">tree',</span> <span class="pre">'pages/menus/tree.html'),</span> <span class="pre">(3,</span> <span class="pre">'Footer',</span> <span class="pre">'pages/menus/footer.html'))</span></code></p>
+</section>
+<section id="page-menu-templates-default">
+<span id="id58"></span><h3><code class="docutils literal notranslate"><span class="pre">PAGE_MENU_TEMPLATES_DEFAULT</span></code><a class="headerlink" href="#page-menu-templates-default" title="Permalink to this heading">¶</a></h3>
+<p>A sequence of IDs from the <code class="docutils literal notranslate"><span class="pre">PAGE_MENU_TEMPLATES</span></code> setting that defines the default menu templates selected when creating new pages. By default all menu templates are selected. Set this setting to an empty sequence to have no templates selected by default.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+</section>
+<section id="ratings-account-required">
+<span id="id59"></span><h3><code class="docutils literal notranslate"><span class="pre">RATINGS_ACCOUNT_REQUIRED</span></code><a class="headerlink" href="#ratings-account-required" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, users must log in to rate content such as blog posts and comments.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="ratings-range">
+<span id="id60"></span><h3><code class="docutils literal notranslate"><span class="pre">RATINGS_RANGE</span></code><a class="headerlink" href="#ratings-range" title="Permalink to this heading">¶</a></h3>
+<p>A sequence of integers that are valid ratings.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5]</span></code></p>
+</section>
+<section id="richtext-allowed-attributes">
+<span id="id61"></span><h3><code class="docutils literal notranslate"><span class="pre">RICHTEXT_ALLOWED_ATTRIBUTES</span></code><a class="headerlink" href="#richtext-allowed-attributes" title="Permalink to this heading">¶</a></h3>
+<p>List of HTML attributes that won’t be stripped from <code class="docutils literal notranslate"><span class="pre">RichTextField</span></code> instances.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('abbr',</span> <span class="pre">'accept',</span> <span class="pre">'accept-charset',</span> <span class="pre">'accesskey',</span> <span class="pre">'action',</span> <span class="pre">'align',</span> <span class="pre">'alt',</span> <span class="pre">'axis',</span> <span class="pre">'border',</span> <span class="pre">'cellpadding',</span> <span class="pre">'cellspacing',</span> <span class="pre">'char',</span> <span class="pre">'charoff',</span> <span class="pre">'charset',</span> <span class="pre">'checked',</span> <span class="pre">'cite',</span> <span class="pre">'class',</span> <span class="pre">'clear',</span> <span class="pre">'cols',</span> <span class="pre">'colspan',</span> <span class="pre">'color',</span> <span class="pre">'compact',</span> <span class="pre">'coords',</span> <span class="pre">'datetime',</span> <span class="pre">'dir',</span> <span class="pre">'disabled',</span> <span class="pre">'enctype',</span> <span class="pre">'for',</span> <span class="pre">'frame',</span> <span class="pre">'headers',</span> <span class="pre">'height',</span> <span class="pre">'href',</span> <span class="pre">'hreflang',</span> <span class="pre">'hspace',</span> <span class="pre">'id',</span> <span class="pre">'ismap',</span> <span class="pre">'label',</span> <span class="pre">'lang',</span> <span class="pre">'longdesc',</span> <span class="pre">'maxlength',</span> <span class="pre">'media',</span> <span class="pre">'method',</span> <span class="pre">'multiple',</span> <span class="pre">'name',</span> <span class="pre">'nohref',</span> <span class="pre">'noshade',</span> <span class="pre">'nowrap',</span> <span class="pre">'prompt',</span> <span class="pre">'readonly',</span> <span class="pre">'rel',</span> <span class="pre">'rev',</span> <span class="pre">'rows',</span> <span class="pre">'rowspan',</span> <span class="pre">'rules',</span> <span class="pre">'scope',</span> <span class="pre">'selected',</span> <span class="pre">'shape',</span> <span class="pre">'size',</span> <span class="pre">'span',</span> <span class="pre">'src',</span> <span class="pre">'start',</span> <span class="pre">'style',</span> <span class="pre">'summary',</span> <span class="pre">'tabindex',</span> <span class="pre">'target',</span> <span class="pre">'title',</span> <span class="pre">'type',</span> <span class="pre">'usemap',</span> <span class="pre">'valign',</span> <span class="pre">'value',</span> <span class="pre">'vspace',</span> <span class="pre">'width',</span> <span class="pre">'xml:lang')</span></code></p>
+</section>
+<section id="richtext-allowed-styles">
+<span id="id62"></span><h3><code class="docutils literal notranslate"><span class="pre">RICHTEXT_ALLOWED_STYLES</span></code><a class="headerlink" href="#richtext-allowed-styles" title="Permalink to this heading">¶</a></h3>
+<p>List of inline CSS styles that won’t be stripped from <code class="docutils literal notranslate"><span class="pre">RichTextField</span></code> instances.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('border',</span> <span class="pre">'display',</span> <span class="pre">'float',</span> <span class="pre">'list-style-type',</span> <span class="pre">'margin',</span> <span class="pre">'margin-bottom',</span> <span class="pre">'margin-left',</span> <span class="pre">'margin-right',</span> <span class="pre">'margin-top',</span> <span class="pre">'padding-left',</span> <span class="pre">'text-align',</span> <span class="pre">'text-decoration',</span> <span class="pre">'vertical-align')</span></code></p>
+</section>
+<section id="richtext-allowed-tags">
+<span id="id63"></span><h3><code class="docutils literal notranslate"><span class="pre">RICHTEXT_ALLOWED_TAGS</span></code><a class="headerlink" href="#richtext-allowed-tags" title="Permalink to this heading">¶</a></h3>
+<p>List of HTML tags that won’t be stripped from <code class="docutils literal notranslate"><span class="pre">RichTextField</span></code> instances.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('a',</span> <span class="pre">'abbr',</span> <span class="pre">'acronym',</span> <span class="pre">'address',</span> <span class="pre">'area',</span> <span class="pre">'article',</span> <span class="pre">'aside',</span> <span class="pre">'b',</span> <span class="pre">'bdo',</span> <span class="pre">'big',</span> <span class="pre">'blockquote',</span> <span class="pre">'br',</span> <span class="pre">'button',</span> <span class="pre">'caption',</span> <span class="pre">'center',</span> <span class="pre">'cite',</span> <span class="pre">'code',</span> <span class="pre">'col',</span> <span class="pre">'colgroup',</span> <span class="pre">'dd',</span> <span class="pre">'del',</span> <span class="pre">'dfn',</span> <span class="pre">'dir',</span> <span class="pre">'div',</span> <span class="pre">'dl',</span> <span class="pre">'dt',</span> <span class="pre">'em',</span> <span class="pre">'fieldset',</span> <span class="pre">'figure',</span> <span class="pre">'font',</span> <span class="pre">'footer',</span> <span class="pre">'form',</span> <span class="pre">'h1',</span> <span class="pre">'h2',</span> <span class="pre">'h3',</span> <span class="pre">'h4',</span> <span class="pre">'h5',</span> <span class="pre">'h6',</span> <span class="pre">'header',</span> <span class="pre">'hr',</span> <span class="pre">'i',</span> <span class="pre">'img',</span> <span class="pre">'input',</span> <span class="pre">'ins',</span> <span class="pre">'kbd',</span> <span class="pre">'label',</span> <span class="pre">'legend',</span> <span class="pre">'li',</span> <span class="pre">'map',</span> <span class="pre">'men',</span> <span class="pre">'nav',</span> <span class="pre">'ol',</span> <span class="pre">'optgroup',</span> <span class="pre">'option',</span> <span class="pre">'p',</span> <span class="pre">'pre',</span> <span class="pre">'q',</span> <span class="pre">'s',</span> <span class="pre">'samp',</span> <span class="pre">'section',</span> <span class="pre">'select',</span> <span class="pre">'small',</span> <span class="pre">'span',</span> <span class="pre">'strike',</span> <span class="pre">'strong',</span> <span class="pre">'sub',</span> <span class="pre">'sup',</span> <span class="pre">'table',</span> <span class="pre">'tbody',</span> <span class="pre">'td',</span> <span class="pre">'textarea',</span> <span class="pre">'tfoot',</span> <span class="pre">'th',</span> <span class="pre">'thead',</span> <span class="pre">'tr',</span> <span class="pre">'tt',</span> <span class="pre">'',</span> <span class="pre">'ul',</span> <span class="pre">'var',</span> <span class="pre">'wbr')</span></code></p>
+</section>
+<section id="richtext-filters">
+<span id="id64"></span><h3><code class="docutils literal notranslate"><span class="pre">RICHTEXT_FILTERS</span></code><a class="headerlink" href="#richtext-filters" title="Permalink to this heading">¶</a></h3>
+<p>List of dotted paths to functions, called in order, on a <code class="docutils literal notranslate"><span class="pre">RichTextField</span></code> value before it is rendered to the template.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('mezzanine.utils.html.thumbnails',)</span></code></p>
+</section>
+<section id="richtext-filter-level">
+<span id="id65"></span><h3><code class="docutils literal notranslate"><span class="pre">RICHTEXT_FILTER_LEVEL</span></code><a class="headerlink" href="#richtext-filter-level" title="Permalink to this heading">¶</a></h3>
+<p><em>Do not change this setting unless you know what you’re doing.</em></p>
+<p>When content is saved in a Rich Text (WYSIWYG) field, unsafe HTML tags and attributes are stripped from the content to protect against staff members intentionally adding code that could be used to cause problems, such as changing their account to a super-user with full access to the system.</p>
+<p>This setting allows you to change the level of filtering that occurs. Setting it to low will allow certain extra tags to be permitted, such as those required for embedding video. While these tags are not the main candidates for users adding malicious code, they are still considered dangerous and could potentially be mis-used by a particularly technical user, and so are filtered out when the filtering level is set to high.</p>
+<p>Setting the filtering level to no filtering, will disable all filtering, and allow any code to be entered by staff members, including script tags.</p>
+<p>Choices: High: <code class="docutils literal notranslate"><span class="pre">1</span></code>, Low (allows video, iframe, Flash, etc): <code class="docutils literal notranslate"><span class="pre">2</span></code>, No filtering: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+</section>
+<section id="richtext-widget-class">
+<span id="id66"></span><h3><code class="docutils literal notranslate"><span class="pre">RICHTEXT_WIDGET_CLASS</span></code><a class="headerlink" href="#richtext-widget-class" title="Permalink to this heading">¶</a></h3>
+<p>Dotted package path and class name of the widget to use for the <code class="docutils literal notranslate"><span class="pre">RichTextField</span></code>.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'mezzanine.core.forms.TinyMceWidget'</span></code></p>
+</section>
+<section id="search-age-scale-factor">
+<span id="id67"></span><h3><code class="docutils literal notranslate"><span class="pre">SEARCH_AGE_SCALE_FACTOR</span></code><a class="headerlink" href="#search-age-scale-factor" title="Permalink to this heading">¶</a></h3>
+<p>The amount of emphasis to put on age when ranking search results. A higher number gives more emphasis to age, ranking newer results higher with less regard to their ordinary score. Setting this to zero disables weighing search results by age.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">1.5</span></code></p>
+</section>
+<section id="search-model-choices">
+<span id="id68"></span><h3><code class="docutils literal notranslate"><span class="pre">SEARCH_MODEL_CHOICES</span></code><a class="headerlink" href="#search-model-choices" title="Permalink to this heading">¶</a></h3>
+<p>Sequence of models that will be provided by default as choices in the search form. Each model should be in the format <code class="docutils literal notranslate"><span class="pre">app_label.model_name</span></code>. Only models that subclass <code class="docutils literal notranslate"><span class="pre">mezzanine.core.models.Displayable</span></code> should be used.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('pages.Page',</span> <span class="pre">'blog.BlogPost')</span></code></p>
+</section>
+<section id="search-per-page">
+<span id="id69"></span><h3><code class="docutils literal notranslate"><span class="pre">SEARCH_PER_PAGE</span></code><a class="headerlink" href="#search-per-page" title="Permalink to this heading">¶</a></h3>
+<p>Number of results shown in the search results page.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+</section>
+<section id="site-prefix">
+<span id="id70"></span><h3><code class="docutils literal notranslate"><span class="pre">SITE_PREFIX</span></code><a class="headerlink" href="#site-prefix" title="Permalink to this heading">¶</a></h3>
+<p>A URL prefix for mounting all of Mezzanine’s urlpatterns under. When using this, you’ll also need to manually apply it to your project’s root <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> module. The root <code class="docutils literal notranslate"><span class="pre">urls.py</span></code> module provided by Mezzanine’s <code class="docutils literal notranslate"><span class="pre">mezzanine-project</span></code> command contains an example of this towards its end.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="site-tagline">
+<span id="id71"></span><h3><code class="docutils literal notranslate"><span class="pre">SITE_TAGLINE</span></code><a class="headerlink" href="#site-tagline" title="Permalink to this heading">¶</a></h3>
+<p>A tag line that will appear at the top of all pages.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'An</span> <span class="pre">open</span> <span class="pre">source</span> <span class="pre">content</span> <span class="pre">management</span> <span class="pre">platform.'</span></code></p>
+</section>
+<section id="site-title">
+<span id="id72"></span><h3><code class="docutils literal notranslate"><span class="pre">SITE_TITLE</span></code><a class="headerlink" href="#site-title" title="Permalink to this heading">¶</a></h3>
+<p>Title that will display at the top of the site, and be appended to the content of the HTML title tags on every page.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'Mezzanine'</span></code></p>
+</section>
+<section id="slugify">
+<span id="id73"></span><h3><code class="docutils literal notranslate"><span class="pre">SLUGIFY</span></code><a class="headerlink" href="#slugify" title="Permalink to this heading">¶</a></h3>
+<p>Dotted Python path to the callable for converting strings into URL slugs. Defaults to <code class="docutils literal notranslate"><span class="pre">mezzanine.utils.urls.slugify_unicode</span></code> which allows for non-ascii URLs. Change to <code class="docutils literal notranslate"><span class="pre">django.template.defaultfilters.slugify</span></code> to use Django’s slugify function, or something of your own if required.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'mezzanine.utils.urls.slugify_unicode'</span></code></p>
+</section>
+<section id="spam-filters">
+<span id="id74"></span><h3><code class="docutils literal notranslate"><span class="pre">SPAM_FILTERS</span></code><a class="headerlink" href="#spam-filters" title="Permalink to this heading">¶</a></h3>
+<p>Sequence of dotted Python paths to callable functions used for checking posted content (such as forms or comments) is spam. Each function should accept three arguments: the request object, the form object, and the URL that was posted from. Defaults to <code class="docutils literal notranslate"><span class="pre">mezzanine.utils.views.is_spam_akismet</span></code> which will use the <a class="reference external" href="http://akismet.com">http://akismet.com</a> spam filtering service when the <code class="docutils literal notranslate"><span class="pre">AKISMET_API_KEY</span></code> setting is configured.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('mezzanine.utils.views.is_spam_akismet',)</span></code></p>
+</section>
+<section id="ssl-enabled">
+<span id="id76"></span><h3><code class="docutils literal notranslate"><span class="pre">SSL_ENABLED</span></code><a class="headerlink" href="#ssl-enabled" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, users will be automatically redirected to HTTPS for the URLs specified by the <code class="docutils literal notranslate"><span class="pre">SSL_FORCE_URL_PREFIXES</span></code> setting.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="ssl-forced-prefixes-only">
+<span id="id77"></span><h3><code class="docutils literal notranslate"><span class="pre">SSL_FORCED_PREFIXES_ONLY</span></code><a class="headerlink" href="#ssl-forced-prefixes-only" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, only URLs specified by the <code class="docutils literal notranslate"><span class="pre">SSL_FORCE_URL_PREFIXES</span></code> setting will be accessible over SSL, and all other URLs will be redirected back to HTTP if accessed over HTTPS.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p>
+</section>
+<section id="ssl-force-host">
+<span id="id78"></span><h3><code class="docutils literal notranslate"><span class="pre">SSL_FORCE_HOST</span></code><a class="headerlink" href="#ssl-force-host" title="Permalink to this heading">¶</a></h3>
+<p>Host name that the site should always be accessed via that matches the SSL certificate.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="ssl-force-url-prefixes">
+<span id="id79"></span><h3><code class="docutils literal notranslate"><span class="pre">SSL_FORCE_URL_PREFIXES</span></code><a class="headerlink" href="#ssl-force-url-prefixes" title="Permalink to this heading">¶</a></h3>
+<p>Sequence of URL prefixes that will be forced to run over SSL when <code class="docutils literal notranslate"><span class="pre">SSL_ENABLED</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>. i.e. (‘/admin’, ‘/example’) would force all URLs beginning with /admin or /example to run over SSL.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('/admin',</span> <span class="pre">'/account')</span></code></p>
+</section>
+<section id="stop-words">
+<span id="id80"></span><h3><code class="docutils literal notranslate"><span class="pre">STOP_WORDS</span></code><a class="headerlink" href="#stop-words" title="Permalink to this heading">¶</a></h3>
+<p>List of words which will be stripped from search queries.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('a',</span> <span class="pre">'about',</span> <span class="pre">'above',</span> <span class="pre">'above',</span> <span class="pre">'across',</span> <span class="pre">'after',</span> <span class="pre">'afterwards',</span> <span class="pre">'again',</span> <span class="pre">'against',</span> <span class="pre">'all',</span> <span class="pre">'almost',</span> <span class="pre">'alone',</span> <span class="pre">'along',</span> <span class="pre">'already',</span> <span class="pre">'also',</span> <span class="pre">'although',</span> <span class="pre">'always',</span> <span class="pre">'am',</span> <span class="pre">'among',</span> <span class="pre">'amongst',</span> <span class="pre">'amoungst',</span> <span class="pre">'amount',</span> <span class="pre">'an',</span> <span class="pre">'and',</span> <span class="pre">'another',</span> <span class="pre">'any',</span> <span class="pre">'anyhow',</span> <span class="pre">'anyone',</span> <span class="pre">'anything',</span> <span class="pre">'anyway',</span> <span class="pre">'anywhere',</span> <span class="pre">'are',</span> <span class="pre">'around',</span> <span class="pre">'as',</span> <span class="pre">'at',</span> <span class="pre">'back',</span> <span class="pre">'be',</span> <span class="pre">'became',</span> <span class="pre">'because',</span> <span class="pre">'become',</span> <span class="pre">'becomes',</span> <span class="pre">'becoming',</span> <span class="pre">'been',</span> <span class="pre">'before',</span> <span class="pre">'beforehand',</span> <span class="pre">'behind',</span> <span class="pre">'being',</span> <span class="pre">'below',</span> <span class="pre">'beside',</span> <span class="pre">'besides',</span> <span class="pre">'between',</span> <span class="pre">'beyond',</span> <span class="pre">'bill',</span> <span class="pre">'both',</span> <span class="pre">'bottom',</span> <span class="pre">'but',</span> <span class="pre">'by',</span> <span class="pre">'call',</span> <span class="pre">'can',</span> <span class="pre">'cannot',</span> <span class="pre">'cant',</span> <span class="pre">'co',</span> <span class="pre">'con',</span> <span class="pre">'could',</span> <span class="pre">'couldnt',</span> <span class="pre">'cry',</span> <span class="pre">'de',</span> <span class="pre">'describe',</span> <span class="pre">'detail',</span> <span class="pre">'do',</span> <span class="pre">'done',</span> <span class="pre">'down',</span> <span class="pre">'due',</span> <span class="pre">'during',</span> <span class="pre">'each',</span> <span class="pre">'eg',</span> <span class="pre">'eight',</span> <span class="pre">'either',</span> <span class="pre">'eleven',</span> <span class="pre">'else',</span> <span class="pre">'elsewhere',</span> <span class="pre">'empty',</span> <span class="pre">'enough',</span> <span class="pre">'etc',</span> <span class="pre">'even',</span> <span class="pre">'ever',</span> <span class="pre">'every',</span> <span class="pre">'everyone',</span> <span class="pre">'everything',</span> <span class="pre">'everywhere',</span> <span class="pre">'except',</span> <span class="pre">'few',</span> <span class="pre">'fifteen',</span> <span class="pre">'fifty',</span> <span class="pre">'fill',</span> <span class="pre">'find',</span> <span class="pre">'fire',</span> <span class="pre">'first',</span> <span class="pre">'five',</span> <span class="pre">'for',</span> <span class="pre">'former',</span> <span class="pre">'formerly',</span> <span class="pre">'forty',</span> <span class="pre">'found',</span> <span class="pre">'four',</span> <span class="pre">'from',</span> <span class="pre">'front',</span> <span class="pre">'full',</span> <span class="pre">'further',</span> <span class="pre">'get',</span> <span class="pre">'give',</span> <span class="pre">'go',</span> <span class="pre">'had',</span> <span class="pre">'has',</span> <span class="pre">'hasnt',</span> <span class="pre">'have',</span> <span class="pre">'he',</span> <span class="pre">'hence',</span> <span class="pre">'her',</span> <span class="pre">'here',</span> <span class="pre">'hereafter',</span> <span class="pre">'hereby',</span> <span class="pre">'herein',</span> <span class="pre">'hereupon',</span> <span class="pre">'hers',</span> <span class="pre">'herself',</span> <span class="pre">'him',</span> <span class="pre">'himself',</span> <span class="pre">'his',</span> <span class="pre">'how',</span> <span class="pre">'however',</span> <span class="pre">'hundred',</span> <span class="pre">'ie',</span> <span class="pre">'if',</span> <span class="pre">'in',</span> <span class="pre">'inc',</span> <span class="pre">'indeed',</span> <span class="pre">'interest',</span> <span class="pre">'into',</span> <span class="pre">'is',</span> <span class="pre">'it',</span> <span class="pre">'its',</span> <span class="pre">'itself',</span> <span class="pre">'keep',</span> <span class="pre">'last',</span> <span class="pre">'latter',</span> <span class="pre">'latterly',</span> <span class="pre">'least',</span> <span class="pre">'less',</span> <span class="pre">'ltd',</span> <span class="pre">'made',</span> <span class="pre">'many',</span> <span class="pre">'may',</span> <span class="pre">'me',</span> <span class="pre">'meanwhile',</span> <span class="pre">'might',</span> <span class="pre">'mill',</span> <span class="pre">'mine',</span> <span class="pre">'more',</span> <span class="pre">'moreover',</span> <span class="pre">'most',</span> <span class="pre">'mostly',</span> <span class="pre">'move',</span> <span class="pre">'much',</span> <span class="pre">'must',</span> <span class="pre">'my',</span> <span class="pre">'myself',</span> <span class="pre">'name',</span> <span class="pre">'namely',</span> <span class="pre">'neither',</span> <span class="pre">'never',</span> <span class="pre">'nevertheless',</span> <span class="pre">'next',</span> <span class="pre">'nine',</span> <span class="pre">'no',</span> <span class="pre">'nobody',</span> <span class="pre">'none',</span> <span class="pre">'noone',</span> <span class="pre">'nor',</span> <span class="pre">'not',</span> <span class="pre">'nothing',</span> <span class="pre">'now',</span> <span class="pre">'nowhere',</span> <span class="pre">'of',</span> <span class="pre">'off',</span> <span class="pre">'often',</span> <span class="pre">'on',</span> <span class="pre">'once',</span> <span class="pre">'one',</span> <span class="pre">'only',</span> <span class="pre">'onto',</span> <span class="pre">'or',</span> <span class="pre">'other',</span> <span class="pre">'others',</span> <span class="pre">'otherwise',</span> <span class="pre">'our',</span> <span class="pre">'ours',</span> <span class="pre">'ourselves',</span> <span class="pre">'out',</span> <span class="pre">'over',</span> <span class="pre">'own',</span> <span class="pre">'part',</span> <span class="pre">'per',</span> <span class="pre">'perhaps',</span> <span class="pre">'please',</span> <span class="pre">'put',</span> <span class="pre">'rather',</span> <span class="pre">'re',</span> <span class="pre">'same',</span> <span class="pre">'see',</span> <span class="pre">'seem',</span> <span class="pre">'seemed',</span> <span class="pre">'seeming',</span> <span class="pre">'seems',</span> <span class="pre">'serious',</span> <span class="pre">'several',</span> <span class="pre">'she',</span> <span class="pre">'should',</span> <span class="pre">'show',</span> <span class="pre">'side',</span> <span class="pre">'since',</span> <span class="pre">'sincere',</span> <span class="pre">'six',</span> <span class="pre">'sixty',</span> <span class="pre">'so',</span> <span class="pre">'some',</span> <span class="pre">'somehow',</span> <span class="pre">'someone',</span> <span class="pre">'something',</span> <span class="pre">'sometime',</span> <span class="pre">'sometimes',</span> <span class="pre">'somewhere',</span> <span class="pre">'still',</span> <span class="pre">'such',</span> <span class="pre">'system',</span> <span class="pre">'take',</span> <span class="pre">'ten',</span> <span class="pre">'than',</span> <span class="pre">'that',</span> <span class="pre">'the',</span> <span class="pre">'their',</span> <span class="pre">'them',</span> <span class="pre">'themselves',</span> <span class="pre">'then',</span> <span class="pre">'thence',</span> <span class="pre">'there',</span> <span class="pre">'thereafter',</span> <span class="pre">'thereby',</span> <span class="pre">'therefore',</span> <span class="pre">'therein',</span> <span class="pre">'thereupon',</span> <span class="pre">'these',</span> <span class="pre">'they',</span> <span class="pre">'thickv',</span> <span class="pre">'thin',</span> <span class="pre">'third',</span> <span class="pre">'this',</span> <span class="pre">'those',</span> <span class="pre">'though',</span> <span class="pre">'three',</span> <span class="pre">'through',</span> <span class="pre">'throughout',</span> <span class="pre">'thr',</span> <span class="pre">'thus',</span> <span class="pre">'to',</span> <span class="pre">'together',</span> <span class="pre">'too',</span> <span class="pre">'top',</span> <span class="pre">'toward',</span> <span class="pre">'towards',</span> <span class="pre">'twelve',</span> <span class="pre">'twenty',</span> <span class="pre">'two',</span> <span class="pre">'un',</span> <span class="pre">'under',</span> <span class="pre">'until',</span> <span class="pre">'up',</span> <span class="pre">'upon',</span> <span class="pre">'us',</span> <span class="pre">'very',</span> <span class="pre">'via',</span> <span class="pre">'was',</span> <span class="pre">'we',</span> <span class="pre">'well',</span> <span class="pre">'were',</span> <span class="pre">'what',</span> <span class="pre">'whatever',</span> <span class="pre">'when',</span> <span class="pre">'whence',</span> <span class="pre">'whenever',</span> <span class="pre">'where',</span> <span class="pre">'whereafter',</span> <span class="pre">'whereas',</span> <span class="pre">'whereby',</span> <span class="pre">'wherein',</span> <span class="pre">'whereupon',</span> <span class="pre">'wherever',</span> <span class="pre">'whether',</span> <span class="pre">'which',</span> <span class="pre">'while',</span> <span class="pre">'whither',</span> <span class="pre">'who',</span> <span class="pre">'whoever',</span> <span class="pre">'whole',</span> <span class="pre">'whom',</span> <span class="pre">'whose',</span> <span class="pre">'why',</span> <span class="pre">'will',</span> <span class="pre">'with',</span> <span class="pre">'within',</span> <span class="pre">'without',</span> <span class="pre">'would',</span> <span class="pre">'yet',</span> <span class="pre">'you',</span> <span class="pre">'your',</span> <span class="pre">'yours',</span> <span class="pre">'yourself',</span> <span class="pre">'yourselves',</span> <span class="pre">'the')</span></code></p>
+</section>
+<section id="tag-cloud-sizes">
+<span id="id81"></span><h3><code class="docutils literal notranslate"><span class="pre">TAG_CLOUD_SIZES</span></code><a class="headerlink" href="#tag-cloud-sizes" title="Permalink to this heading">¶</a></h3>
+<p>Number of different sizes for tags when shown as a cloud.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+</section>
+<section id="template-accessible-settings">
+<span id="id82"></span><h3><code class="docutils literal notranslate"><span class="pre">TEMPLATE_ACCESSIBLE_SETTINGS</span></code><a class="headerlink" href="#template-accessible-settings" title="Permalink to this heading">¶</a></h3>
+<p>Sequence of setting names available within templates.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">('ACCOUNTS_APPROVAL_REQUIRED',</span> <span class="pre">'ACCOUNTS_VERIFICATION_REQUIRED',</span> <span class="pre">'ADMIN_MENU_COLLAPSED',</span> <span class="pre">'BITLY_ACCESS_TOKEN',</span> <span class="pre">'BLOG_USE_FEATURED_IMAGE',</span> <span class="pre">'COMMENTS_DISQUS_SHORTNAME',</span> <span class="pre">'COMMENTS_NUM_LATEST',</span> <span class="pre">'COMMENTS_DISQUS_API_PUBLIC_KEY',</span> <span class="pre">'COMMENTS_DISQUS_API_SECRET_KEY',</span> <span class="pre">'COMMENTS_USE_RATINGS',</span> <span class="pre">'DEV_SERVER',</span> <span class="pre">'FORMS_USE_HTML5',</span> <span class="pre">'GRAPPELLI_INSTALLED',</span> <span class="pre">'GOOGLE_ANALYTICS_ID',</span> <span class="pre">'JQUERY_FILENAME',</span> <span class="pre">'JQUERY_UI_FILENAME',</span> <span class="pre">'LOGIN_URL',</span> <span class="pre">'LOGOUT_URL',</span> <span class="pre">'SITE_TITLE',</span> <span class="pre">'SITE_TAGLINE',</span> <span class="pre">'USE_L10N',</span> <span class="pre">'USE_MODELTRANSLATION')</span></code></p>
+</section>
+<section id="thumbnails-dir-name">
+<span id="id83"></span><h3><code class="docutils literal notranslate"><span class="pre">THUMBNAILS_DIR_NAME</span></code><a class="headerlink" href="#thumbnails-dir-name" title="Permalink to this heading">¶</a></h3>
+<p>Directory name to store thumbnails in, that will be created relative to the original image’s directory.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'.thumbnails'</span></code></p>
+</section>
+<section id="tinymce-setup-js">
+<span id="id84"></span><h3><code class="docutils literal notranslate"><span class="pre">TINYMCE_SETUP_JS</span></code><a class="headerlink" href="#tinymce-setup-js" title="Permalink to this heading">¶</a></h3>
+<p>URL for the JavaScript file (relative to <code class="docutils literal notranslate"><span class="pre">STATIC_URL</span></code>) that handles configuring TinyMCE when the default <code class="docutils literal notranslate"><span class="pre">RICHTEXT_WIDGET_CLASS</span></code> is used.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'mezzanine/js/tinymce_setup.js'</span></code></p>
+</section>
+<section id="twitter-access-token-key">
+<span id="id85"></span><h3><code class="docutils literal notranslate"><span class="pre">TWITTER_ACCESS_TOKEN_KEY</span></code><a class="headerlink" href="#twitter-access-token-key" title="Permalink to this heading">¶</a></h3>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="twitter-access-token-secret">
+<span id="id86"></span><h3><code class="docutils literal notranslate"><span class="pre">TWITTER_ACCESS_TOKEN_SECRET</span></code><a class="headerlink" href="#twitter-access-token-secret" title="Permalink to this heading">¶</a></h3>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="twitter-consumer-key">
+<span id="id87"></span><h3><code class="docutils literal notranslate"><span class="pre">TWITTER_CONSUMER_KEY</span></code><a class="headerlink" href="#twitter-consumer-key" title="Permalink to this heading">¶</a></h3>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="twitter-consumer-secret">
+<span id="id88"></span><h3><code class="docutils literal notranslate"><span class="pre">TWITTER_CONSUMER_SECRET</span></code><a class="headerlink" href="#twitter-consumer-secret" title="Permalink to this heading">¶</a></h3>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">''</span></code></p>
+</section>
+<section id="twitter-default-num-tweets">
+<span id="id89"></span><h3><code class="docutils literal notranslate"><span class="pre">TWITTER_DEFAULT_NUM_TWEETS</span></code><a class="headerlink" href="#twitter-default-num-tweets" title="Permalink to this heading">¶</a></h3>
+<p>Number of tweets to display in the default Twitter feed.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+</section>
+<section id="twitter-default-query">
+<span id="id90"></span><h3><code class="docutils literal notranslate"><span class="pre">TWITTER_DEFAULT_QUERY</span></code><a class="headerlink" href="#twitter-default-query" title="Permalink to this heading">¶</a></h3>
+<p>Twitter query to use for the default query type.</p>
+<p><em>Note:</em> Once you change this from the default, you’ll need to configure each of the oAuth consumer/access key/secret settings. Please refer to <a class="reference external" href="http://dev.twitter.com">http://dev.twitter.com</a> for more information on creating an application and acquiring these settings.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'from:stephen_mcd</span> <span class="pre">mezzanine'</span></code></p>
+</section>
+<section id="twitter-default-query-type">
+<span id="id91"></span><h3><code class="docutils literal notranslate"><span class="pre">TWITTER_DEFAULT_QUERY_TYPE</span></code><a class="headerlink" href="#twitter-default-query-type" title="Permalink to this heading">¶</a></h3>
+<p>Type of query that will be used to retrieve tweets for the default Twitter feed.</p>
+<p>Choices: User: <code class="docutils literal notranslate"><span class="pre">user</span></code>, List: <code class="docutils literal notranslate"><span class="pre">list</span></code>, Search: <code class="docutils literal notranslate"><span class="pre">search</span></code></p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'search'</span></code></p>
+</section>
+<section id="upload-to-handlers">
+<span id="id92"></span><h3><code class="docutils literal notranslate"><span class="pre">UPLOAD_TO_HANDLERS</span></code><a class="headerlink" href="#upload-to-handlers" title="Permalink to this heading">¶</a></h3>
+<p>Dict mapping file field names in the format <code class="docutils literal notranslate"><span class="pre">app_label.model_name.field_name</span></code> to the Python dotted path to function names that will be used for the file field’s <code class="docutils literal notranslate"><span class="pre">upload_to</span></code> argument.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">{}</span></code></p>
+</section>
+<section id="use-modeltranslation">
+<span id="id93"></span><h3><code class="docutils literal notranslate"><span class="pre">USE_MODELTRANSLATION</span></code><a class="headerlink" href="#use-modeltranslation" title="Permalink to this heading">¶</a></h3>
+<p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the django-modeltranslation application will be automatically added to the <code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code> setting.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Configuration</a><ul>
+<li><a class="reference internal" href="#registering-settings">Registering Settings</a></li>
+<li><a class="reference internal" href="#reading-settings">Reading Settings</a></li>
+<li><a class="reference internal" href="#django-settings">Django Settings</a></li>
+<li><a class="reference internal" href="#default-settings">Default Settings</a><ul>
+<li><a class="reference internal" href="#accounts-approval-emails"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_APPROVAL_EMAILS</span></code></a></li>
+<li><a class="reference internal" href="#accounts-approval-required"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_APPROVAL_REQUIRED</span></code></a></li>
+<li><a class="reference internal" href="#accounts-min-password-length"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_MIN_PASSWORD_LENGTH</span></code></a></li>
+<li><a class="reference internal" href="#accounts-no-username"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_NO_USERNAME</span></code></a></li>
+<li><a class="reference internal" href="#accounts-profile-form-class"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_FORM_CLASS</span></code></a></li>
+<li><a class="reference internal" href="#accounts-profile-form-exclude-fields"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_FORM_EXCLUDE_FIELDS</span></code></a></li>
+<li><a class="reference internal" href="#accounts-profile-model"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_MODEL</span></code></a></li>
+<li><a class="reference internal" href="#accounts-profile-views-enabled"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_PROFILE_VIEWS_ENABLED</span></code></a></li>
+<li><a class="reference internal" href="#accounts-verification-required"><code class="docutils literal notranslate"><span class="pre">ACCOUNTS_VERIFICATION_REQUIRED</span></code></a></li>
+<li><a class="reference internal" href="#add-page-order"><code class="docutils literal notranslate"><span class="pre">ADD_PAGE_ORDER</span></code></a></li>
+<li><a class="reference internal" href="#admin-menu-collapsed"><code class="docutils literal notranslate"><span class="pre">ADMIN_MENU_COLLAPSED</span></code></a></li>
+<li><a class="reference internal" href="#admin-menu-order"><code class="docutils literal notranslate"><span class="pre">ADMIN_MENU_ORDER</span></code></a></li>
+<li><a class="reference internal" href="#admin-removal"><code class="docutils literal notranslate"><span class="pre">ADMIN_REMOVAL</span></code></a></li>
+<li><a class="reference internal" href="#admin-thumb-size"><code class="docutils literal notranslate"><span class="pre">ADMIN_THUMB_SIZE</span></code></a></li>
+<li><a class="reference internal" href="#akismet-api-key"><code class="docutils literal notranslate"><span class="pre">AKISMET_API_KEY</span></code></a></li>
+<li><a class="reference internal" href="#bitly-access-token"><code class="docutils literal notranslate"><span class="pre">BITLY_ACCESS_TOKEN</span></code></a></li>
+<li><a class="reference internal" href="#blog-post-per-page"><code class="docutils literal notranslate"><span class="pre">BLOG_POST_PER_PAGE</span></code></a></li>
+<li><a class="reference internal" href="#blog-rss-limit"><code class="docutils literal notranslate"><span class="pre">BLOG_RSS_LIMIT</span></code></a></li>
+<li><a class="reference internal" href="#blog-slug"><code class="docutils literal notranslate"><span class="pre">BLOG_SLUG</span></code></a></li>
+<li><a class="reference internal" href="#blog-urls-date-format"><code class="docutils literal notranslate"><span class="pre">BLOG_URLS_DATE_FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#blog-use-featured-image"><code class="docutils literal notranslate"><span class="pre">BLOG_USE_FEATURED_IMAGE</span></code></a></li>
+<li><a class="reference internal" href="#cache-set-delay-seconds"><code class="docutils literal notranslate"><span class="pre">CACHE_SET_DELAY_SECONDS</span></code></a></li>
+<li><a class="reference internal" href="#comments-account-required"><code class="docutils literal notranslate"><span class="pre">COMMENTS_ACCOUNT_REQUIRED</span></code></a></li>
+<li><a class="reference internal" href="#comments-default-approved"><code class="docutils literal notranslate"><span class="pre">COMMENTS_DEFAULT_APPROVED</span></code></a></li>
+<li><a class="reference internal" href="#comments-disqus-api-public-key"><code class="docutils literal notranslate"><span class="pre">COMMENTS_DISQUS_API_PUBLIC_KEY</span></code></a></li>
+<li><a class="reference internal" href="#comments-disqus-api-secret-key"><code class="docutils literal notranslate"><span class="pre">COMMENTS_DISQUS_API_SECRET_KEY</span></code></a></li>
+<li><a class="reference internal" href="#comments-disqus-shortname"><code class="docutils literal notranslate"><span class="pre">COMMENTS_DISQUS_SHORTNAME</span></code></a></li>
+<li><a class="reference internal" href="#comments-notification-emails"><code class="docutils literal notranslate"><span class="pre">COMMENTS_NOTIFICATION_EMAILS</span></code></a></li>
+<li><a class="reference internal" href="#comments-num-latest"><code class="docutils literal notranslate"><span class="pre">COMMENTS_NUM_LATEST</span></code></a></li>
+<li><a class="reference internal" href="#comments-removed-visible"><code class="docutils literal notranslate"><span class="pre">COMMENTS_REMOVED_VISIBLE</span></code></a></li>
+<li><a class="reference internal" href="#comments-unapproved-visible"><code class="docutils literal notranslate"><span class="pre">COMMENTS_UNAPPROVED_VISIBLE</span></code></a></li>
+<li><a class="reference internal" href="#comments-use-ratings"><code class="docutils literal notranslate"><span class="pre">COMMENTS_USE_RATINGS</span></code></a></li>
+<li><a class="reference internal" href="#comment-filter"><code class="docutils literal notranslate"><span class="pre">COMMENT_FILTER</span></code></a></li>
+<li><a class="reference internal" href="#comment-form-class"><code class="docutils literal notranslate"><span class="pre">COMMENT_FORM_CLASS</span></code></a></li>
+<li><a class="reference internal" href="#dashboard-tags"><code class="docutils literal notranslate"><span class="pre">DASHBOARD_TAGS</span></code></a></li>
+<li><a class="reference internal" href="#email-fail-silently"><code class="docutils literal notranslate"><span class="pre">EMAIL_FAIL_SILENTLY</span></code></a></li>
+<li><a class="reference internal" href="#extra-model-fields"><code class="docutils literal notranslate"><span class="pre">EXTRA_MODEL_FIELDS</span></code></a></li>
+<li><a class="reference internal" href="#forms-csv-delimiter"><code class="docutils literal notranslate"><span class="pre">FORMS_CSV_DELIMITER</span></code></a></li>
+<li><a class="reference internal" href="#forms-extra-fields"><code class="docutils literal notranslate"><span class="pre">FORMS_EXTRA_FIELDS</span></code></a></li>
+<li><a class="reference internal" href="#forms-extra-widgets"><code class="docutils literal notranslate"><span class="pre">FORMS_EXTRA_WIDGETS</span></code></a></li>
+<li><a class="reference internal" href="#forms-field-max-length"><code class="docutils literal notranslate"><span class="pre">FORMS_FIELD_MAX_LENGTH</span></code></a></li>
+<li><a class="reference internal" href="#forms-upload-root"><code class="docutils literal notranslate"><span class="pre">FORMS_UPLOAD_ROOT</span></code></a></li>
+<li><a class="reference internal" href="#forms-use-html5"><code class="docutils literal notranslate"><span class="pre">FORMS_USE_HTML5</span></code></a></li>
+<li><a class="reference internal" href="#google-analytics-id"><code class="docutils literal notranslate"><span class="pre">GOOGLE_ANALYTICS_ID</span></code></a></li>
+<li><a class="reference internal" href="#host-themes"><code class="docutils literal notranslate"><span class="pre">HOST_THEMES</span></code></a></li>
+<li><a class="reference internal" href="#inline-editing-enabled"><code class="docutils literal notranslate"><span class="pre">INLINE_EDITING_ENABLED</span></code></a></li>
+<li><a class="reference internal" href="#jquery-filename"><code class="docutils literal notranslate"><span class="pre">JQUERY_FILENAME</span></code></a></li>
+<li><a class="reference internal" href="#jquery-ui-filename"><code class="docutils literal notranslate"><span class="pre">JQUERY_UI_FILENAME</span></code></a></li>
+<li><a class="reference internal" href="#max-paging-links"><code class="docutils literal notranslate"><span class="pre">MAX_PAGING_LINKS</span></code></a></li>
+<li><a class="reference internal" href="#media-library-per-site"><code class="docutils literal notranslate"><span class="pre">MEDIA_LIBRARY_PER_SITE</span></code></a></li>
+<li><a class="reference internal" href="#nevercache-key"><code class="docutils literal notranslate"><span class="pre">NEVERCACHE_KEY</span></code></a></li>
+<li><a class="reference internal" href="#ownable-models-all-editable"><code class="docutils literal notranslate"><span class="pre">OWNABLE_MODELS_ALL_EDITABLE</span></code></a></li>
+<li><a class="reference internal" href="#pages-published-include-login-required"><code class="docutils literal notranslate"><span class="pre">PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED</span></code></a></li>
+<li><a class="reference internal" href="#page-menu-templates"><code class="docutils literal notranslate"><span class="pre">PAGE_MENU_TEMPLATES</span></code></a></li>
+<li><a class="reference internal" href="#page-menu-templates-default"><code class="docutils literal notranslate"><span class="pre">PAGE_MENU_TEMPLATES_DEFAULT</span></code></a></li>
+<li><a class="reference internal" href="#ratings-account-required"><code class="docutils literal notranslate"><span class="pre">RATINGS_ACCOUNT_REQUIRED</span></code></a></li>
+<li><a class="reference internal" href="#ratings-range"><code class="docutils literal notranslate"><span class="pre">RATINGS_RANGE</span></code></a></li>
+<li><a class="reference internal" href="#richtext-allowed-attributes"><code class="docutils literal notranslate"><span class="pre">RICHTEXT_ALLOWED_ATTRIBUTES</span></code></a></li>
+<li><a class="reference internal" href="#richtext-allowed-styles"><code class="docutils literal notranslate"><span class="pre">RICHTEXT_ALLOWED_STYLES</span></code></a></li>
+<li><a class="reference internal" href="#richtext-allowed-tags"><code class="docutils literal notranslate"><span class="pre">RICHTEXT_ALLOWED_TAGS</span></code></a></li>
+<li><a class="reference internal" href="#richtext-filters"><code class="docutils literal notranslate"><span class="pre">RICHTEXT_FILTERS</span></code></a></li>
+<li><a class="reference internal" href="#richtext-filter-level"><code class="docutils literal notranslate"><span class="pre">RICHTEXT_FILTER_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#richtext-widget-class"><code class="docutils literal notranslate"><span class="pre">RICHTEXT_WIDGET_CLASS</span></code></a></li>
+<li><a class="reference internal" href="#search-age-scale-factor"><code class="docutils literal notranslate"><span class="pre">SEARCH_AGE_SCALE_FACTOR</span></code></a></li>
+<li><a class="reference internal" href="#search-model-choices"><code class="docutils literal notranslate"><span class="pre">SEARCH_MODEL_CHOICES</span></code></a></li>
+<li><a class="reference internal" href="#search-per-page"><code class="docutils literal notranslate"><span class="pre">SEARCH_PER_PAGE</span></code></a></li>
+<li><a class="reference internal" href="#site-prefix"><code class="docutils literal notranslate"><span class="pre">SITE_PREFIX</span></code></a></li>
+<li><a class="reference internal" href="#site-tagline"><code class="docutils literal notranslate"><span class="pre">SITE_TAGLINE</span></code></a></li>
+<li><a class="reference internal" href="#site-title"><code class="docutils literal notranslate"><span class="pre">SITE_TITLE</span></code></a></li>
+<li><a class="reference internal" href="#slugify"><code class="docutils literal notranslate"><span class="pre">SLUGIFY</span></code></a></li>
+<li><a class="reference internal" href="#spam-filters"><code class="docutils literal notranslate"><span class="pre">SPAM_FILTERS</span></code></a></li>
+<li><a class="reference internal" href="#ssl-enabled"><code class="docutils literal notranslate"><span class="pre">SSL_ENABLED</span></code></a></li>
+<li><a class="reference internal" href="#ssl-forced-prefixes-only"><code class="docutils literal notranslate"><span class="pre">SSL_FORCED_PREFIXES_ONLY</span></code></a></li>
+<li><a class="reference internal" href="#ssl-force-host"><code class="docutils literal notranslate"><span class="pre">SSL_FORCE_HOST</span></code></a></li>
+<li><a class="reference internal" href="#ssl-force-url-prefixes"><code class="docutils literal notranslate"><span class="pre">SSL_FORCE_URL_PREFIXES</span></code></a></li>
+<li><a class="reference internal" href="#stop-words"><code class="docutils literal notranslate"><span class="pre">STOP_WORDS</span></code></a></li>
+<li><a class="reference internal" href="#tag-cloud-sizes"><code class="docutils literal notranslate"><span class="pre">TAG_CLOUD_SIZES</span></code></a></li>
+<li><a class="reference internal" href="#template-accessible-settings"><code class="docutils literal notranslate"><span class="pre">TEMPLATE_ACCESSIBLE_SETTINGS</span></code></a></li>
+<li><a class="reference internal" href="#thumbnails-dir-name"><code class="docutils literal notranslate"><span class="pre">THUMBNAILS_DIR_NAME</span></code></a></li>
+<li><a class="reference internal" href="#tinymce-setup-js"><code class="docutils literal notranslate"><span class="pre">TINYMCE_SETUP_JS</span></code></a></li>
+<li><a class="reference internal" href="#twitter-access-token-key"><code class="docutils literal notranslate"><span class="pre">TWITTER_ACCESS_TOKEN_KEY</span></code></a></li>
+<li><a class="reference internal" href="#twitter-access-token-secret"><code class="docutils literal notranslate"><span class="pre">TWITTER_ACCESS_TOKEN_SECRET</span></code></a></li>
+<li><a class="reference internal" href="#twitter-consumer-key"><code class="docutils literal notranslate"><span class="pre">TWITTER_CONSUMER_KEY</span></code></a></li>
+<li><a class="reference internal" href="#twitter-consumer-secret"><code class="docutils literal notranslate"><span class="pre">TWITTER_CONSUMER_SECRET</span></code></a></li>
+<li><a class="reference internal" href="#twitter-default-num-tweets"><code class="docutils literal notranslate"><span class="pre">TWITTER_DEFAULT_NUM_TWEETS</span></code></a></li>
+<li><a class="reference internal" href="#twitter-default-query"><code class="docutils literal notranslate"><span class="pre">TWITTER_DEFAULT_QUERY</span></code></a></li>
+<li><a class="reference internal" href="#twitter-default-query-type"><code class="docutils literal notranslate"><span class="pre">TWITTER_DEFAULT_QUERY_TYPE</span></code></a></li>
+<li><a class="reference internal" href="#upload-to-handlers"><code class="docutils literal notranslate"><span class="pre">UPLOAD_TO_HANDLERS</span></code></a></li>
+<li><a class="reference internal" href="#use-modeltranslation"><code class="docutils literal notranslate"><span class="pre">USE_MODELTRANSLATION</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="search-engine.html"
+                          title="previous chapter">Search Engine</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="blog-importing.html"
+                          title="next chapter">Importing External Blogs</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/configuration.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="blog-importing.html" title="Importing External Blogs"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="search-engine.html" title="Search Engine"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Configuration</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.twitter.models &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.twitter.models</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.twitter.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="kn">import</span> <span class="n">urlize</span>
+<span class="kn">from</span> <span class="nn">django.utils.timezone</span> <span class="kn">import</span> <span class="n">make_aware</span><span class="p">,</span> <span class="n">utc</span>
+<span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
+<span class="kn">from</span> <span class="nn">requests_oauthlib</span> <span class="kn">import</span> <span class="n">OAuth1</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.twitter</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QUERY_TYPE_CHOICES</span><span class="p">,</span>
+    <span class="n">QUERY_TYPE_LIST</span><span class="p">,</span>
+    <span class="n">QUERY_TYPE_SEARCH</span><span class="p">,</span>
+    <span class="n">QUERY_TYPE_USER</span><span class="p">,</span>
+    <span class="n">get_auth_settings</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">mezzanine.twitter.managers</span> <span class="kn">import</span> <span class="n">TweetManager</span>
+
+<span class="n">re_usernames</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(^|\W)@([0-9a-zA-Z+_]+)&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+<span class="n">re_hashtags</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;#([0-9a-zA-Z+_]+)&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+<span class="n">replace_hashtags</span> <span class="o">=</span> <span class="s1">&#39;&lt;a href=&quot;http://twitter.com/search?q=%23</span><span class="se">\\</span><span class="s1">1&quot;&gt;#</span><span class="se">\\</span><span class="s1">1&lt;/a&gt;&#39;</span>
+<span class="n">replace_usernames</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">1&lt;a href=&quot;http://twitter.com/</span><span class="se">\\</span><span class="s1">2&quot;&gt;@</span><span class="se">\\</span><span class="s1">2&lt;/a&gt;&#39;</span>
+
+
+<div class="viewcode-block" id="TwitterQueryException"><a class="viewcode-back" href="../../../packages.html#mezzanine.twitter.models.TwitterQueryException">[docs]</a><span class="k">class</span> <span class="nc">TwitterQueryException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Query"><a class="viewcode-back" href="../../../packages.html#mezzanine.twitter.models.Query">[docs]</a><span class="k">class</span> <span class="nc">Query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Type&quot;</span><span class="p">),</span> <span class="n">choices</span><span class="o">=</span><span class="n">QUERY_TYPE_CHOICES</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">140</span><span class="p">)</span>
+    <span class="n">interested</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="s2">&quot;Interested&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Twitter query&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Twitter queries&quot;</span><span class="p">)</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;-id&quot;</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_type_display</span><span class="p">()</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<div class="viewcode-block" id="Query.run"><a class="viewcode-back" href="../../../packages.html#mezzanine.twitter.models.Query.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request new tweets from the Twitter API.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">QUERY_TYPE_USER</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">&quot;https://api.twitter.com/1.1/statuses/&quot;</span>
+                <span class="s2">&quot;user_timeline.json?screen_name=</span><span class="si">%s</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;&amp;include_rts=true&quot;</span> <span class="o">%</span> <span class="n">value</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">QUERY_TYPE_LIST</span><span class="p">:</span> <span class="p">(</span>
+                <span class="s2">&quot;https://api.twitter.com/1.1/lists/statuses.json&quot;</span>
+                <span class="s2">&quot;?list_id=</span><span class="si">%s</span><span class="s2">&amp;include_rts=true&quot;</span> <span class="o">%</span> <span class="n">value</span>
+            <span class="p">),</span>
+            <span class="n">QUERY_TYPE_SEARCH</span><span class="p">:</span> <span class="s2">&quot;https://api.twitter.com/1.1/search/tweets.json&quot;</span>
+            <span class="s2">&quot;?q=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">value</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">urls</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TwitterQueryException</span><span class="p">(</span><span class="s2">&quot;Invalid query type: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+        <span class="n">auth_settings</span> <span class="o">=</span> <span class="n">get_auth_settings</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">auth_settings</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">registry</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">registry</span><span class="p">[</span><span class="s2">&quot;TWITTER_DEFAULT_QUERY&quot;</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]:</span>
+                <span class="c1"># These are some read-only keys and secrets we use</span>
+                <span class="c1"># for the default query (eg nothing has been configured)</span>
+                <span class="n">auth_settings</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">&quot;KxZTRD3OBft4PP0iQW0aNQ&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;sXpQRSDUVJ2AVPZTfh6MrJjHfOGcdK4wRb1WTGQ&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;1368725588-ldWCsd54AJpG2xcB5nyTHyCeIC3RJcNVUAkB1OI&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;r9u7qS18t8ad4Hu9XVqmCGxlIpzoCN3e1vx6LOSVgyw3R&quot;</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">TwitterQueryException</span><span class="p">(</span><span class="s2">&quot;Twitter OAuth settings missing&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tweets</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">OAuth1</span><span class="p">(</span><span class="o">*</span><span class="n">auth_settings</span><span class="p">))</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TwitterQueryException</span><span class="p">(</span><span class="s2">&quot;Error retrieving: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TwitterQueryException</span><span class="p">(</span><span class="n">tweets</span><span class="p">[</span><span class="s2">&quot;errors&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;search&quot;</span><span class="p">:</span>
+            <span class="n">tweets</span> <span class="o">=</span> <span class="n">tweets</span><span class="p">[</span><span class="s2">&quot;statuses&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">tweet_json</span> <span class="ow">in</span> <span class="n">tweets</span><span class="p">:</span>
+            <span class="n">remote_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+            <span class="n">tweet</span><span class="p">,</span> <span class="n">created</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tweets</span><span class="o">.</span><span class="n">get_or_create</span><span class="p">(</span><span class="n">remote_id</span><span class="o">=</span><span class="n">remote_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">created</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="s2">&quot;retweeted_status&quot;</span> <span class="ow">in</span> <span class="n">tweet_json</span><span class="p">:</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">retweeter_user_name</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;screen_name&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">retweeter_full_name</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">retweeter_profile_image_url</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;profile_image_url&quot;</span><span class="p">]</span>
+                <span class="n">tweet_json</span> <span class="o">=</span> <span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;retweeted_status&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">QUERY_TYPE_SEARCH</span><span class="p">:</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">user_name</span> <span class="o">=</span> <span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">][</span><span class="s2">&quot;screen_name&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">full_name</span> <span class="o">=</span> <span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">profile_image_url</span> <span class="o">=</span> <span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">][</span><span class="s2">&quot;profile_image_url&quot;</span><span class="p">]</span>
+                <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%a</span><span class="s2"> %b </span><span class="si">%d</span><span class="s2"> %H:%M:%S +0000 %Y&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">user_name</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;screen_name&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">full_name</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">profile_image_url</span> <span class="o">=</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;profile_image_url&quot;</span><span class="p">]</span>
+                <span class="n">date_format</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%a</span><span class="s2"> %b </span><span class="si">%d</span><span class="s2"> %H:%M:%S +0000 %Y&quot;</span>
+            <span class="n">tweet</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">urlize</span><span class="p">(</span><span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+            <span class="n">tweet</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">re_usernames</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace_usernames</span><span class="p">,</span> <span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">tweet</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">re_hashtags</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="n">replace_hashtags</span><span class="p">,</span> <span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s2">&quot;TWITTER_STRIP_HIGH_MULTIBYTE&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="n">chars</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">tweet</span><span class="o">.</span><span class="n">text</span> <span class="k">if</span> <span class="nb">ord</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mh">0x800</span><span class="p">]</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chars</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">tweet_json</span><span class="p">[</span><span class="s2">&quot;created_at&quot;</span><span class="p">],</span> <span class="n">date_format</span><span class="p">)</span>
+            <span class="n">tweet</span><span class="o">.</span><span class="n">created_at</span> <span class="o">=</span> <span class="n">make_aware</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">utc</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tweet</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Warning</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="n">tweet</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">interested</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="Tweet"><a class="viewcode-back" href="../../../packages.html#mezzanine.twitter.models.Tweet">[docs]</a><span class="k">class</span> <span class="nc">Tweet</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+
+    <span class="n">remote_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Twitter ID&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="n">created_at</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Date/time&quot;</span><span class="p">),</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Message&quot;</span><span class="p">),</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">profile_image_url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Profile image URL&quot;</span><span class="p">),</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">user_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;User name&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">full_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">_</span><span class="p">(</span><span class="s2">&quot;Full name&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">retweeter_profile_image_url</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">URLField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Profile image URL (Retweeted by)&quot;</span><span class="p">),</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">retweeter_user_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;User name (Retweeted by)&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">retweeter_full_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span>
+        <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Full name (Retweeted by)&quot;</span><span class="p">),</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s2">&quot;Query&quot;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s2">&quot;tweets&quot;</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">TweetManager</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Tweet&quot;</span><span class="p">)</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s2">&quot;Tweets&quot;</span><span class="p">)</span>
+        <span class="n">ordering</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;-created_at&quot;</span><span class="p">,)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">user_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="nf">is_retweet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">retweeter_user_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.twitter.models</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>

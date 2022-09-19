@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mezzanine.forms.page_processors &#8212; Mezzanine 6.0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mezzanine.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+<meta name="viewport" content="width=device-width">
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.forms.page_processors</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for mezzanine.forms.page_processors</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">RequestContext</span>
+
+<span class="kn">from</span> <span class="nn">mezzanine.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">mezzanine.forms.forms</span> <span class="kn">import</span> <span class="n">FormForForm</span>
+<span class="kn">from</span> <span class="nn">mezzanine.forms.models</span> <span class="kn">import</span> <span class="n">Form</span>
+<span class="kn">from</span> <span class="nn">mezzanine.forms.signals</span> <span class="kn">import</span> <span class="n">form_invalid</span><span class="p">,</span> <span class="n">form_valid</span>
+<span class="kn">from</span> <span class="nn">mezzanine.pages.page_processors</span> <span class="kn">import</span> <span class="n">processor_for</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.email</span> <span class="kn">import</span> <span class="n">send_mail_template</span><span class="p">,</span> <span class="n">split_addresses</span>
+<span class="kn">from</span> <span class="nn">mezzanine.utils.views</span> <span class="kn">import</span> <span class="n">is_spam</span>
+
+
+<div class="viewcode-block" id="format_value"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.page_processors.format_value">[docs]</a><span class="k">def</span> <span class="nf">format_value</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a list into a comma separated string, for displaying</span>
+<span class="sd">    select multiple values in emails.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="form_processor"><a class="viewcode-back" href="../../../packages.html#mezzanine.forms.page_processors.form_processor">[docs]</a><span class="nd">@processor_for</span><span class="p">(</span><span class="n">Form</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">form_processor</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display a built form and handle submission.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">form</span> <span class="o">=</span> <span class="n">FormForForm</span><span class="p">(</span>
+        <span class="n">page</span><span class="o">.</span><span class="n">form</span><span class="p">,</span> <span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">),</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span> <span class="ow">or</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_absolute_url</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;?sent=1&quot;</span>
+        <span class="k">if</span> <span class="n">is_spam</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">attachments</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">attachments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()))</span>
+        <span class="n">entry</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">subject</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">email_subject</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">subject</span><span class="p">:</span>
+            <span class="n">subject</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">entry</span><span class="o">.</span><span class="n">entry_time</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">format_value</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="p">]</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">page</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">email_message</span><span class="p">,</span>
+            <span class="s2">&quot;request&quot;</span><span class="p">:</span> <span class="n">request</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">email_from</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">email_from</span> <span class="ow">or</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEFAULT_FROM_EMAIL</span>
+        <span class="n">email_to</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">email_to</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">email_to</span> <span class="ow">and</span> <span class="n">page</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">send_email</span><span class="p">:</span>
+            <span class="n">send_mail_template</span><span class="p">(</span>
+                <span class="n">subject</span><span class="p">,</span> <span class="s2">&quot;email/form_response&quot;</span><span class="p">,</span> <span class="n">email_from</span><span class="p">,</span> <span class="n">email_to</span><span class="p">,</span> <span class="n">context</span>
+            <span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">email_to</span><span class="p">:</span>
+            <span class="c1"># Add the email entered as a Reply-To header</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Reply-To&quot;</span><span class="p">:</span> <span class="n">email_to</span><span class="p">}</span>
+        <span class="n">email_copies</span> <span class="o">=</span> <span class="n">split_addresses</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">email_copies</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">email_copies</span><span class="p">:</span>
+            <span class="n">send_mail_template</span><span class="p">(</span>
+                <span class="n">subject</span><span class="p">,</span>
+                <span class="s2">&quot;email/form_response_copies&quot;</span><span class="p">,</span>
+                <span class="n">email_from</span><span class="p">,</span>
+                <span class="n">email_copies</span><span class="p">,</span>
+                <span class="n">context</span><span class="p">,</span>
+                <span class="n">attachments</span><span class="o">=</span><span class="n">attachments</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">form_valid</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="n">entry</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">form_invalid</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;form&quot;</span><span class="p">:</span> <span class="n">form</span><span class="p">}</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Mezzanine 6.0.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">mezzanine.forms.page_processors</a></li> 
+      </ul>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2009 - 2022, Stephen McDonald.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+<script>
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-52596-12']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+$(function() {
+    $('a.reference[href^="configuration.html"] span').addClass('pre');
+});
+
+</script>
+
+  </body>
+</html>
