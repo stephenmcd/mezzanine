@@ -426,7 +426,7 @@ def thumbnail(
             pad_top = 0
             pad_left = (pad_width - from_width) // 2
         if pad_size is not None:
-            pad_container = Image.new("RGBA", pad_size, padding_color)
+            pad_container = Image.new(image.mode, pad_size, padding_color)
             pad_container.paste(image, (pad_left, pad_top))
             image = pad_container
 
