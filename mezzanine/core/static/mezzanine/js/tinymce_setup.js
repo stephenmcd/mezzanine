@@ -84,8 +84,16 @@
     };
 
     function initialise_richtext_fields($elements) {
+        tinymce_config['target'] = {}
+
         if ($elements && typeof tinyMCE != 'undefined') {
-            $elements.tinymce(tinymce_config);
+            for (var i= 0; i < $elements.length; i++){
+               tinymce_config['target'] = $elements[i];
+                // $elements.tinymce(tinymce_config);
+                tinymce.init(tinymce_config).then(function (editors) {
+                    console.log("Finalised TinyMCE initialization");
+                });
+            }
         }
     }
 
