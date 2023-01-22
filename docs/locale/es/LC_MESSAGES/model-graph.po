@@ -1,0 +1,22 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../model-graph.rst:3
+msgid "Model Graph"
+msgstr ""
+
+#: ../model-graph.rst:5
+msgid ""
+"The below diagram depicts the fields and relationships for all the models in"
+" Mezzanine. Click it to view a full version."
+msgstr ""
