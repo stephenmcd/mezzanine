@@ -112,7 +112,6 @@ except ImportError:
                 kwargs.pop(fb_arg, None)
             super().__init__(*args, **kwargs)
 
-
 else:
 
     class FileField(FileBrowseField):

@@ -52,7 +52,6 @@ if "compressor" in settings.INSTALLED_APPS:
 
         return compress(parser, token)
 
-
 else:
 
     @register.to_end_tag

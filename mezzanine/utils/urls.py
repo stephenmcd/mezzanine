@@ -117,7 +117,7 @@ def login_redirect(request):
     if next in ignorable_nexts:
         next = settings.LOGIN_REDIRECT_URL
         if next == "/accounts/profile/":
-            # Use the homepage if LOGIN_REDIRECT_URL is Django's defaut.
+            # Use the homepage if LOGIN_REDIRECT_URL is Django's default.
             next = get_script_prefix()
         else:
             try:

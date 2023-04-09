@@ -47,7 +47,6 @@ if settings.USE_MODELTRANSLATION:
                 "all": (static("mezzanine/css/admin/tabbed_translation_fields.css"),),
             }
 
-
 else:
 
     class BaseTranslationModelAdmin(admin.ModelAdmin):
@@ -408,11 +407,10 @@ class SitePermissionInline(admin.TabularInline):
 class SitePermissionUserAdminForm(UserAdmin.form):
     def clean_email(form):
         email = form.cleaned_data.get("email")
-        try:
-            User.objects.exclude(id=form.instance.id).get(email=email)
-        except User.DoesNotExist:
-            return email
-        raise ValidationError(_("This email is already registered"))
+        same_email = User.objects.exclude(id=form.instance.id).filter(email=email)
+        if email and same_email.exists():
+            raise ValidationError(_("This email is already registered"))
+        return email
 
 
 class SitePermissionUserAdmin(UserAdmin):

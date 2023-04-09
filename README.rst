@@ -51,7 +51,7 @@ interface, Mezzanine provides the following:
 * Configurable `dashboard`_ widgets
 * Blog engine
 * Tagging
-* `Free Themes`_, and a `Premium Themes`_ Marketplace
+* `Free Themes`_ Marketplace
 * User accounts and profiles with email verification
 * Translated to over 35 languages
 * Sharing via Facebook or Twitter
@@ -157,7 +157,6 @@ Quotes
 .. _`Search engine and API`: http://mezzanine.jupo.org/docs/search-engine.html
 .. _`dashboard`: http://mezzanine.jupo.org/docs/admin-customization.html#dashboard
 .. _`Free Themes`: https://github.com/thecodinghouse/mezzanine-themes
-.. _`Premium Themes`: http://mezzathe.me/
 .. _`Custom templates`: http://mezzanine.jupo.org/docs/content-architecture.html#page-templates
 .. _`Multi-lingual sites`: http://mezzanine.jupo.org/docs/multi-lingual-sites.html
 .. _`JVM`: http://en.wikipedia.org/wiki/Java_virtual_machine

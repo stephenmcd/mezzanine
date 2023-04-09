@@ -68,7 +68,7 @@ class Command(BaseCommand):
 
         # The project template dir in Mezzanine requires __init__.py so that
         # the documentation can be generated, but including it in new projects
-        # causes issues with running tests under Python >= 3.6, so remove it.
+        # causes issues with running tests under Python >= 3.7, so remove it.
         os.remove(os.path.join(project_dir, "__init__.py"))
 
     def get_project_directory(self, name, target):

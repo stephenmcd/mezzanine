@@ -9,7 +9,7 @@ from warnings import warn
 
 from django.core.management import call_command
 from django.template.defaultfilters import urlize
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.functional import Promise
 
 from mezzanine.conf import registry
@@ -18,14 +18,14 @@ from mezzanine.utils.importing import import_dotted_path
 
 def deep_force_unicode(value):
     """
-    Recursively call force_text on value.
+    Recursively call force_str on value.
     """
     if isinstance(value, (list, tuple, set)):
         value = type(value)(map(deep_force_unicode, value))
     elif isinstance(value, dict):
         value = type(value)(map(deep_force_unicode, value.items()))
     elif isinstance(value, Promise):
-        value = force_text(value)
+        value = force_str(value)
     return value
 
 
@@ -65,7 +65,7 @@ def build_settings_docs(docs_path, prefix=None):
         )
         if setting["choices"]:
             choices = ", ".join(
-                f"{str(v)}: ``{force_text(k)}``" for k, v in setting["choices"]
+                f"{str(v)}: ``{force_str(k)}``" for k, v in setting["choices"]
             )
             lines.extend(["", "Choices: %s" % choices, ""])
         lines.extend(["", "Default: ``%s``" % setting_default])

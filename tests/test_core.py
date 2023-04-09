@@ -309,14 +309,14 @@ class CoreTests(TestCase):
 
     def _get_csrftoken(self, response):
         csrf = re.findall(
-            br'<input type="hidden" name="csrfmiddlewaretoken" ' br'value="([^"]+)">',
+            rb'<input type="hidden" name="csrfmiddlewaretoken" ' rb'value="([^"]+)">',
             response.content,
         )
         self.assertEqual(len(csrf), 1, "No csrfmiddlewaretoken found!")
         return csrf[0]
 
     def _get_formurl(self, response):
-        action = re.findall(br'<form action="([^"]*)" method="post">', response.content)
+        action = re.findall(rb'<form action="([^"]*)" method="post">', response.content)
         self.assertEqual(len(action), 1, "No form with action found!")
         if action[0] == b"":
             action = response.request["PATH_INFO"]

@@ -31,7 +31,6 @@ try:
             model = get_profile_model()
             exclude = (get_profile_user_fieldname(),) + _exclude_fields
 
-
 except ProfileNotConfigured:
     pass
 

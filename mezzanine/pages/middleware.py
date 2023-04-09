@@ -1,13 +1,14 @@
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import MiddlewareNotUsed
 from django.http import Http404, HttpResponse
+from django.utils.deprecation import MiddlewareMixin
 
 from mezzanine.conf import settings
 from mezzanine.pages import context_processors, page_processors
 from mezzanine.pages.models import Page
 from mezzanine.pages.views import page as page_view
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
-from mezzanine.utils.deprecation import MiddlewareMixin, is_authenticated
+from mezzanine.utils.deprecation import is_authenticated
 from mezzanine.utils.urls import path_to_slug
 
 

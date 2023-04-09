@@ -1,6 +1,6 @@
 import threading
 
-from mezzanine.utils.deprecation import MiddlewareMixin
+from django.utils.deprecation import MiddlewareMixin
 
 _thread_local = threading.local()
 
@@ -19,9 +19,3 @@ class CurrentRequestMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         _thread_local.request = request
-
-    # def process_response(self, request, response):
-    #     try:
-    #         return response
-    #     finally:
-    #         _thread_local.request = None

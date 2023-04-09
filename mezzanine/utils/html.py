@@ -1,18 +1,5 @@
-try:
-    from html.entities import name2codepoint
-    from html.parser import HTMLParser
-
-    try:
-        from html.parser import HTMLParseError
-    except ImportError:  # Python 3.5+
-
-        class HTMLParseError(Exception):
-            pass
-
-
-except ImportError:  # Python 2
-    from HTMLParser import HTMLParser, HTMLParseError
-    from htmlentitydefs import name2codepoint
+from html.entities import name2codepoint
+from html.parser import HTMLParser
 
 import re
 
@@ -99,6 +86,7 @@ def escape(html):
     ``RICHTEXT_ALLOWED_ATTRIBUTES``, ``RICHTEXT_ALLOWED_STYLES``.
     """
     from bleach import ALLOWED_PROTOCOLS, clean
+    from bleach.css_sanitizer import CSSSanitizer
 
     from mezzanine.conf import settings
     from mezzanine.core import defaults
@@ -107,7 +95,9 @@ def escape(html):
         return html
     tags = settings.RICHTEXT_ALLOWED_TAGS
     attrs = settings.RICHTEXT_ALLOWED_ATTRIBUTES
-    styles = settings.RICHTEXT_ALLOWED_STYLES
+    css_sanitizer = CSSSanitizer(
+        allowed_css_properties=settings.RICHTEXT_ALLOWED_STYLES
+    )
     if settings.RICHTEXT_FILTER_LEVEL == defaults.RICHTEXT_FILTER_LEVEL_LOW:
         tags += LOW_FILTER_TAGS
         attrs += LOW_FILTER_ATTRS
@@ -119,7 +109,7 @@ def escape(html):
         attributes=attrs,
         strip=True,
         strip_comments=False,
-        css_sanitizer=styles,
+        css_sanitizer=css_sanitizer,
         protocols=ALLOWED_PROTOCOLS.union(["tel"]),
     )
 
@@ -164,12 +154,8 @@ class TagCloser(HTMLParser):
         HTMLParser.__init__(self)
         self.html = html
         self.tags = []
-        try:
-            self.feed(self.html)
-        except HTMLParseError:
-            pass
-        else:
-            self.html += "".join("</%s>" % tag for tag in self.tags)
+        self.feed(self.html)
+        self.html += "".join("</%s>" % tag for tag in self.tags)
 
     def handle_starttag(self, tag, attrs):
         if tag not in SELF_CLOSING_TAGS:
