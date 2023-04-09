@@ -119,8 +119,8 @@ def escape(html):
         attributes=attrs,
         strip=True,
         strip_comments=False,
-        styles=styles,
-        protocols=ALLOWED_PROTOCOLS + ["tel"],
+        css_sanitizer=styles,
+        protocols=ALLOWED_PROTOCOLS.union(["tel"]),
     )
 
 
