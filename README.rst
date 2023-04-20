@@ -73,7 +73,30 @@ The Mezzanine admin dashboard:
 
 .. image:: http://mezzanine.jupo.org/docs/_images/dashboard.png
 
+How to Contribute
+=================
 
+Mezzanine is an open-source project, and we welcome contributions from the community. 
+If you're interested in contributing to Mezzanine, there are several ways you can get involved:
+
+Set up a Development Environment
+To contribute to Mezzanine, you'll need to set up a development environment on your local machine. 
+You can do this by following these steps:
+
+Fork the Mezzanine repository on GitHub
+Clone your forked repository to your local machine
+Create a virtual environment and activate it
+Install the necessary packages using pip install -r requirements.txt
+Set up the database using python manage.py migrate
+You can now start working on Mezzanine by making changes to the codebase.
+
+Submit Pull Requests
+If you've made changes to Mezzanine and would like to submit them for review, you can create a pull request on GitHub. 
+Make sure to include a detailed description of your changes and any relevant test cases.
+
+Get Involved with the Community
+Mezzanine has an active community of users and developers, and we welcome new members. 
+You can get involved with the Mezzanine community by joining our mailing list or IRC channel, or by participating in our forums or social media channels.
 Support
 =======
 
