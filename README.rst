@@ -167,6 +167,28 @@ Quotes
 * "You need to check out the open source project Mezzanine. In one
   word: Elegant" - `Nick Hagianis`_, developer
 
+How Mezzanine Integrates with Django
+====================================
+Mezzanine is built on top of Django and extends its core features. 
+Here are some examples of how Mezzanine builds on top of Django:
+
+Models
+======
+Mezzanine provides several custom models that extend Django's core models, 
+such as the Page model for creating pages with custom templates, 
+and the BlogPost model for creating blog posts with categories and tags.
+
+Forms 
+=====
+Mezzanine provides several custom forms that extend Django's core forms, 
+such as the ContactForm for creating contact forms with reCAPTCHA, 
+and the CommentForm for creating comments on blog posts.
+
+Templates
+=========
+Mezzanine provides several custom templates that extend Django's core templates, 
+such as the base.html template for creating a base template that all other templates extend, 
+and the blog_post_detail.html template for displaying a single blog
 
 .. _`Django`: http://djangoproject.com/
 .. _`Django Code of Conduct`: https://www.djangoproject.com/conduct/
