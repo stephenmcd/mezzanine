@@ -4,13 +4,10 @@ consistent access method for settings defined in applications, the project
 or Django itself. Settings can also be made editable via the admin.
 """
 
-from __future__ import unicode_literals
-from weakref import WeakKeyDictionary
-from future.builtins import bytes, str
-
 from functools import partial
 from importlib import import_module
 from warnings import warn
+from weakref import WeakKeyDictionary
 
 from django.conf import settings as django_settings
 from django.utils.functional import Promise
@@ -22,20 +19,30 @@ from mezzanine.core.request import current_request
 registry = {}
 
 
-def register_setting(name=None, label=None, editable=False, description=None,
-                     default=None, choices=None, append=False,
-                     translatable=False):
+def register_setting(
+    name=None,
+    label=None,
+    editable=False,
+    description=None,
+    default=None,
+    choices=None,
+    append=False,
+    translatable=False,
+):
     """
     Registers a setting that can be edited via the admin. This mostly
     equates to storing the given args as a dict in the ``registry``
     dict by name.
     """
     if name is None:
-        raise TypeError("mezzanine.conf.register_setting requires the "
-                        "'name' keyword argument.")
+        raise TypeError(
+            "mezzanine.conf.register_setting requires the " "'name' keyword argument."
+        )
     if editable and default is None:
-        raise TypeError("mezzanine.conf.register_setting requires the "
-                        "'default' keyword argument when 'editable' is True.")
+        raise TypeError(
+            "mezzanine.conf.register_setting requires the "
+            "'default' keyword argument when 'editable' is True."
+        )
 
     # append is True when called from an app (typically external)
     # after the setting has already been registered, with the
@@ -53,9 +60,6 @@ def register_setting(name=None, label=None, editable=False, description=None,
     if label is None:
         label = name.replace("_", " ").title()
 
-    # Python 2/3 compatibility. isinstance() is overridden by future
-    # on Python 2 to behave as Python 3 in conjunction with either
-    # Python 2's native types or the future.builtins types.
     if isinstance(default, bool):
         # Prevent bools treated as ints
         setting_type = bool
@@ -70,13 +74,19 @@ def register_setting(name=None, label=None, editable=False, description=None,
         setting_type = bytes
     else:
         setting_type = type(default)
-    registry[name] = {"name": name, "label": label, "editable": editable,
-                      "description": description, "default": default,
-                      "choices": choices, "type": setting_type,
-                      "translatable": translatable}
+    registry[name] = {
+        "name": name,
+        "label": label,
+        "editable": editable,
+        "description": description,
+        "default": default,
+        "choices": choices,
+        "type": setting_type,
+        "translatable": translatable,
+    }
 
 
-class Settings(object):
+class Settings:
     """
     An object that provides settings via dynamic attribute access.
 
@@ -94,8 +104,9 @@ class Settings(object):
     of access for all settings.
     """
 
-    class Placeholder(object):
+    class Placeholder:
         """A Weakly-referable wrapper of ``object``."""
+
         pass
 
     NULL_REQUEST = Placeholder()
@@ -105,17 +116,8 @@ class Settings(object):
     # If a type doesn't appear in this map, the type itself will be used.
     TYPE_FUNCTIONS = {
         bool: lambda val: val != "False",
-        bytes: partial(bytes, encoding='utf8')
+        bytes: partial(bytes, encoding="utf8"),
     }
-
-    def __init__(self):
-        """
-        The ``_editable_caches`` attribute maps Request objects to dicts of
-        editable settings loaded from the database. We cache settings per-
-        request to ensure that the database is hit at most once per request,
-        and that each request sees the same settings for its duration.
-        """
-        self._editable_caches = WeakKeyDictionary()
 
     @property
     def _current_request(self):
@@ -128,16 +130,19 @@ class Settings(object):
         is the default, so this is deprecated in favour of ``clear_cache()``.
         """
         self.clear_cache()
-        warn("Because editable settings are now used by default, "
-             "settings.use_editable() is deprecated. If you need to re-load "
-             "settings from the database during a request, please use "
-             "settings.clear_cache() instead.",
-             DeprecationWarning,
-             stacklevel=2)
+        warn(
+            "Because editable settings are now used by default, "
+            "settings.use_editable() is deprecated. If you need to re-load "
+            "settings from the database during a request, please use "
+            "settings.clear_cache() instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
     def clear_cache(self):
         """Clear the settings cache for the current request."""
-        self._editable_caches.pop(self._current_request, None)
+        if hasattr(self, "_editable_caches"):
+            self._editable_caches.pop(self._current_request, None)
 
     def _get_editable(self, request):
         """
@@ -146,6 +151,12 @@ class Settings(object):
         ``_editable_caches``, a WeakKeyDictionary that will automatically
         discard each entry when no more references to the request exist.
         """
+        if not hasattr(self, "_editable_caches"):
+            # The ``_editable_caches`` attribute maps Request objects to dicts of
+            # editable settings loaded from the database. We cache settings per-request
+            # to ensure that the database is hit at most once per request, and that each
+            # request sees the same settings for its duration.
+            self._editable_caches = WeakKeyDictionary()
         try:
             editable_settings = self._editable_caches[request]
         except KeyError:
@@ -168,11 +179,17 @@ class Settings(object):
         except ValueError:
             # Shouldn't occur, but just a safeguard in case
             # the db value somehow ended up as an invalid type.
-            warn("The setting %s should be of type %s, but the value "
-                 "retrieved from the database (%s) could not be converted. "
-                 "Using the default instead: %s"
-                 % (setting["name"], setting["type"].__name__,
-                    repr(raw_value), repr(setting["default"])))
+            warn(
+                "The setting %s should be of type %s, but the value "
+                "retrieved from the database (%s) could not be converted. "
+                "Using the default instead: %s"
+                % (
+                    setting["name"],
+                    setting["type"].__name__,
+                    repr(raw_value),
+                    repr(setting["default"]),
+                )
+            )
             value = setting["default"]
 
         return value
@@ -218,9 +235,11 @@ class Settings(object):
             Setting.objects.filter(name__in=removed_settings).delete()
 
         if conflicting_settings:
-            warn("These settings are defined in both settings.py and "
-                 "the database: %s. The settings.py values will be used."
-                 % ", ".join(conflicting_settings))
+            warn(
+                "These settings are defined in both settings.py and "
+                "the database: %s. The settings.py values will be used."
+                % ", ".join(conflicting_settings)
+            )
 
         return new_cache
 
@@ -236,8 +255,9 @@ class Settings(object):
         # fetched from the database, then the registered default.
         if setting["editable"]:
             editable_cache = self._get_editable(request=self._current_request)
-            return getattr(django_settings, name,
-                           editable_cache.get(name, setting["default"]))
+            return getattr(
+                django_settings, name, editable_cache.get(name, setting["default"])
+            )
 
         # If if isn't editable, just try Django and then default.
         return getattr(django_settings, name, setting["default"])
@@ -260,7 +280,7 @@ for app in sorted(django_settings.INSTALLED_APPS, key=mezz_first):
     else:
         try:
             import_module("%s.defaults" % app)
-        except:
+        except:  # noqa
             if module_has_submodule(module, "defaults"):
                 raise
 

@@ -5,3 +5,4 @@
 .coverage
 local_settings.py
 /static
+/media

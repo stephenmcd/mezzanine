@@ -1,21 +1,18 @@
-from __future__ import unicode_literals
-
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.contrib.syndication.views import Feed, add_domain
-from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.feedgenerator import Atom1Feed
 from django.utils.html import strip_tags
 
-from mezzanine.blog.models import BlogPost, BlogCategory
+from mezzanine.blog.models import BlogCategory, BlogPost
 from mezzanine.conf import settings
-from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.core.request import current_request
+from mezzanine.core.templatetags.mezzanine_tags import richtext_filters
 from mezzanine.generic.models import Keyword
 from mezzanine.utils.html import absolute_urls
 from mezzanine.utils.sites import current_site_id
-
 
 User = get_user_model()
 
@@ -40,11 +37,12 @@ class PostsRSS(Feed):
         self.tag = kwargs.pop("tag", None)
         self.category = kwargs.pop("category", None)
         self.username = kwargs.pop("username", None)
-        super(PostsRSS, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._public = True
         page = None
         if "mezzanine.pages" in settings.INSTALLED_APPS:
             from mezzanine.pages.models import Page
+
             try:
                 page = Page.objects.published().get(slug=settings.BLOG_SLUG)
             except Page.DoesNotExist:
@@ -53,7 +51,7 @@ class PostsRSS(Feed):
                 self._public = not page.login_required
         if self._public:
             if page is not None:
-                self._title = "%s | %s" % (page.title, settings.SITE_TITLE)
+                self._title = f"{page.title} | {settings.SITE_TITLE}"
                 self._description = strip_tags(page.description)
             else:
                 self._title = settings.SITE_TITLE
@@ -62,7 +60,7 @@ class PostsRSS(Feed):
     def __call__(self, *args, **kwarg):
         self._request = current_request()
         self._site = Site.objects.get(id=current_site_id())
-        return super(PostsRSS, self).__call__(*args, **kwarg)
+        return super().__call__(*args, **kwarg)
 
     def add_domain(self, link):
         return add_domain(self._site.domain, link, self._request.is_secure())
@@ -79,8 +77,11 @@ class PostsRSS(Feed):
     def items(self):
         if not self._public:
             return []
-        blog_posts = BlogPost.objects.published().select_related("user"
-            ).prefetch_related("categories")
+        blog_posts = (
+            BlogPost.objects.published()
+            .select_related("user")
+            .prefetch_related("categories")
+        )
         if self.tag:
             tag = get_object_or_404(Keyword, slug=self.tag)
             blog_posts = blog_posts.filter(keywords__keyword=tag)
@@ -92,7 +93,7 @@ class PostsRSS(Feed):
             blog_posts = blog_posts.filter(user=author)
         limit = settings.BLOG_RSS_LIMIT
         if limit is not None:
-            blog_posts = blog_posts[:settings.BLOG_RSS_LIMIT]
+            blog_posts = blog_posts[: settings.BLOG_RSS_LIMIT]
         return blog_posts
 
     def item_description(self, item):
@@ -111,7 +112,7 @@ class PostsRSS(Feed):
         return self.add_domain(self._request.path)
 
     def item_link(self, item):
-        return self.add_domain(super(PostsRSS, self).item_link(item))
+        return self.add_domain(super().item_link(item))
 
     def item_author_name(self, item):
         return item.user.get_full_name() or item.user.username

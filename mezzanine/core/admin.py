@@ -1,23 +1,25 @@
-from __future__ import unicode_literals
-
 from copy import deepcopy
 
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User as AuthUser
-from django.contrib.redirects.admin import RedirectAdmin
 from django.contrib.messages import error
-from django.urls import NoReverseMatch
-from django.forms import ValidationError, ModelForm
+from django.contrib.redirects.admin import RedirectAdmin
+from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext_lazy as _
+from django.urls import NoReverseMatch
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import DynamicInlineAdminForm
 from mezzanine.core.models import (
-    Orderable, ContentTyped, SitePermission, CONTENT_STATUS_PUBLISHED)
+    CONTENT_STATUS_PUBLISHED,
+    ContentTyped,
+    Orderable,
+    SitePermission,
+)
 from mezzanine.utils.models import base_concrete_model
 from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.static import static_lazy as static
@@ -25,27 +27,28 @@ from mezzanine.utils.urls import admin_url
 
 if settings.USE_MODELTRANSLATION:
     from collections import OrderedDict
+
     from django.utils.translation import activate, get_language
-    from modeltranslation.admin import (TranslationAdmin,
-                                        TranslationInlineModelAdmin)
+    from modeltranslation.admin import TranslationAdmin, TranslationInlineModelAdmin
 
     class BaseTranslationModelAdmin(TranslationAdmin):
         """
         Mimic modeltranslation's TabbedTranslationAdmin but uses a
         custom tabbed_translation_fields.js
         """
+
         class Media:
             js = (
-                static("modeltranslation/js/force_jquery.js"),
+                "admin/js/jquery.init.js",
                 static("mezzanine/js/%s" % settings.JQUERY_UI_FILENAME),
                 static("mezzanine/js/admin/tabbed_translation_fields.js"),
             )
             css = {
-                "all": (static(
-                    "mezzanine/css/admin/tabbed_translation_fields.css"),),
+                "all": (static("mezzanine/css/admin/tabbed_translation_fields.css"),),
             }
 
 else:
+
     class BaseTranslationModelAdmin(admin.ModelAdmin):
         """
         Abstract class used to handle the switch between translation
@@ -53,6 +56,7 @@ else:
         for the Media class so we can extend it consistently regardless
         of whether or not modeltranslation is used.
         """
+
         class Media:
             js = ()
             css = {"all": ()}
@@ -62,13 +66,13 @@ User = get_user_model()
 
 
 class DisplayableAdminForm(ModelForm):
-
     def clean_content(form):
         status = form.cleaned_data.get("status")
         content = form.cleaned_data.get("content")
         if status == CONTENT_STATUS_PUBLISHED and not content:
-            raise ValidationError(_("This field is required if status "
-                                    "is set to published."))
+            raise ValidationError(
+                _("This field is required if status " "is set to published.")
+            )
         return content
 
 
@@ -87,24 +91,38 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
     date_hierarchy = None if settings.USE_MODELTRANSLATION else "publish_date"
     radio_fields = {"status": admin.HORIZONTAL}
     fieldsets = (
-        (None, {
-            "fields": ["title", "status", ("publish_date", "expiry_date")],
-        }),
-        (_("Meta data"), {
-            "fields": ["_meta_title", "slug",
-                       ("description", "gen_description"),
-                        "keywords", "in_sitemap"],
-            "classes": ("collapse-closed",)
-        }),
+        (
+            None,
+            {
+                "fields": ["title", "status", ("publish_date", "expiry_date")],
+            },
+        ),
+        (
+            _("Meta data"),
+            {
+                "fields": [
+                    "_meta_title",
+                    "slug",
+                    ("description", "gen_description"),
+                    "keywords",
+                    "in_sitemap",
+                ],
+                "classes": ("collapse-closed",),
+            },
+        ),
     )
 
     form = DisplayableAdminForm
 
     def __init__(self, *args, **kwargs):
-        super(DisplayableAdmin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         try:
-            self.search_fields = list(set(list(self.search_fields) + list(
-                               self.model.objects.get_search_fields().keys())))
+            self.search_fields = list(
+                set(
+                    list(self.search_fields)
+                    + list(self.model.objects.get_search_fields().keys())
+                )
+            )
         except AttributeError:
             pass
 
@@ -120,21 +138,21 @@ class DisplayableAdmin(BaseTranslationModelAdmin):
         Save model for every language so that field auto-population
         is done for every each of it.
         """
-        super(DisplayableAdmin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
         if settings.USE_MODELTRANSLATION:
             lang = get_language()
             for code in OrderedDict(settings.LANGUAGES):
                 if code != lang:  # Already done
                     try:
                         activate(code)
-                    except:
+                    except:  # noqa
                         pass
                     else:
                         obj.save()
             activate(lang)
 
 
-class BaseDynamicInlineAdmin(object):
+class BaseDynamicInlineAdmin:
     """
     Admin inline that uses JS to inject an "Add another" link which
     when clicked, dynamically reveals another fieldset. Also handles
@@ -150,7 +168,7 @@ class BaseDynamicInlineAdmin(object):
         For subclasses of ``Orderable``, the ``_order`` field must
         always be present and be the last field.
         """
-        fields = super(BaseDynamicInlineAdmin, self).get_fields(request, obj)
+        fields = super().get_fields(request, obj)
         if issubclass(self.model, Orderable):
             fields = list(fields)
             try:
@@ -164,12 +182,14 @@ class BaseDynamicInlineAdmin(object):
         """
         Same as above, but for fieldsets.
         """
-        fieldsets = super(BaseDynamicInlineAdmin, self).get_fieldsets(
-                                                            request, obj)
+        fieldsets = super().get_fieldsets(request, obj)
         if issubclass(self.model, Orderable):
             for fieldset in fieldsets:
-                fields = [f for f in list(fieldset[1]["fields"])
-                          if not hasattr(f, "translated_field")]
+                fields = [
+                    f
+                    for f in list(fieldset[1]["fields"])
+                    if not hasattr(f, "translated_field")
+                ]
                 try:
                     fields.remove("_order")
                 except ValueError:
@@ -181,25 +201,29 @@ class BaseDynamicInlineAdmin(object):
 
 def get_inline_base_class(cls):
     if settings.USE_MODELTRANSLATION:
+
         class InlineBase(TranslationInlineModelAdmin, cls):
             """
             Abstract class that mimics django-modeltranslation's
             Translation{Tabular,Stacked}Inline. Used as a placeholder
             for future improvement.
             """
+
             pass
+
         return InlineBase
     return cls
 
 
-class TabularDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                get_inline_base_class(admin.TabularInline)):
+class TabularDynamicInlineAdmin(
+    BaseDynamicInlineAdmin, get_inline_base_class(admin.TabularInline)
+):
     pass
 
 
-class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
-                                get_inline_base_class(admin.StackedInline)):
-
+class StackedDynamicInlineAdmin(
+    BaseDynamicInlineAdmin, get_inline_base_class(admin.StackedInline)
+):
     def __init__(self, *args, **kwargs):
         """
         Stacked dynamic inlines won't work without grappelli
@@ -211,7 +235,7 @@ class StackedDynamicInlineAdmin(BaseDynamicInlineAdmin,
         if grappelli_name not in settings.INSTALLED_APPS:
             error = "StackedDynamicInlineAdmin requires Grappelli installed."
             raise Exception(error)
-        super(StackedDynamicInlineAdmin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
 
 class OwnableAdmin(admin.ModelAdmin):
@@ -235,7 +259,7 @@ class OwnableAdmin(admin.ModelAdmin):
         obj = form.save(commit=False)
         if obj.user_id is None:
             obj.user = request.user
-        return super(OwnableAdmin, self).save_form(request, form, change)
+        return super().save_form(request, form, change)
 
     def get_queryset(self, request):
         """
@@ -248,17 +272,16 @@ class OwnableAdmin(admin.ModelAdmin):
         not imply permission to edit.
         """
         opts = self.model._meta
-        model_name = ("%s.%s" % (opts.app_label, opts.object_name)).lower()
+        model_name = (f"{opts.app_label}.{opts.object_name}").lower()
         models_all_editable = settings.OWNABLE_MODELS_ALL_EDITABLE
         models_all_editable = [m.lower() for m in models_all_editable]
-        qs = super(OwnableAdmin, self).get_queryset(request)
+        qs = super().get_queryset(request)
         if request.user.is_superuser or model_name in models_all_editable:
             return qs
         return qs.filter(user__id=request.user.id)
 
 
-class ContentTypedAdmin(object):
-
+class ContentTypedAdmin:
     def __init__(self, *args, **kwargs):
         """
         For subclasses that are registered with an Admin class
@@ -267,13 +290,15 @@ class ContentTypedAdmin(object):
         adding all model fields when no fieldsets are defined on the
         Admin class.
         """
-        super(ContentTypedAdmin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.concrete_model = base_concrete_model(ContentTyped, self.model)
 
         # Test that the fieldsets don't differ from the concrete admin's.
-        if (self.model is not self.concrete_model and
-                self.fieldsets == self.base_concrete_modeladmin.fieldsets):
+        if (
+            self.model is not self.concrete_model
+            and self.fieldsets == self.base_concrete_modeladmin.fieldsets
+        ):
 
             # Make a copy so that we aren't modifying other Admin
             # classes' fieldsets.
@@ -283,8 +308,9 @@ class ContentTypedAdmin(object):
             # fields. Do so in reverse order to retain the order of
             # the model's fields.
             model_fields = self.concrete_model._meta.get_fields()
-            concrete_field = '{concrete_model}_ptr'.format(
-                concrete_model=self.concrete_model.get_content_model_name())
+            concrete_field = "{concrete_model}_ptr".format(
+                concrete_model=self.concrete_model.get_content_model_name()
+            )
             exclude_fields = [f.name for f in model_fields] + [concrete_field]
 
             try:
@@ -297,16 +323,18 @@ class ContentTypedAdmin(object):
             except (AttributeError, TypeError):
                 pass
 
-            fields = (self.model._meta.get_fields() +
-                      self.model._meta.many_to_many)
+            fields = self.model._meta.get_fields() + self.model._meta.many_to_many
             for field in reversed(fields):
                 if field.name not in exclude_fields and field.editable:
-                    if not hasattr(field, "translated_field"):
+                    if (
+                        not hasattr(field, "translated_field")
+                        and field.name not in self.fieldsets[0][1]["fields"]
+                    ):
                         self.fieldsets[0][1]["fields"].insert(3, field.name)
 
     @property
     def base_concrete_modeladmin(self):
-        """ The class inheriting directly from ContentModelAdmin. """
+        """The class inheriting directly from ContentModelAdmin."""
         candidates = [self.__class__]
         while candidates:
             candidate = candidates.pop()
@@ -333,27 +361,23 @@ class ContentTypedAdmin(object):
         self.check_permission(request, content_model, "change")
 
         if content_model.__class__ != self.model:
-            change_url = admin_url(content_model.__class__, "change",
-                                   content_model.id)
+            change_url = admin_url(content_model.__class__, "change", content_model.id)
             return HttpResponseRedirect(change_url)
 
-        return super(ContentTypedAdmin, self).change_view(
-            request, object_id, **kwargs)
+        return super().change_view(request, object_id, **kwargs)
 
     def changelist_view(self, request, extra_context=None):
-        """ Redirect to the changelist view for subclasses. """
+        """Redirect to the changelist view for subclasses."""
         if self.model is not self.concrete_model:
-            return HttpResponseRedirect(
-                admin_url(self.concrete_model, "changelist"))
+            return HttpResponseRedirect(admin_url(self.concrete_model, "changelist"))
 
         extra_context = extra_context or {}
         extra_context["content_models"] = self.get_content_models()
 
-        return super(ContentTypedAdmin, self).changelist_view(
-            request, extra_context)
+        return super().changelist_view(request, extra_context)
 
     def get_content_models(self):
-        """ Return all subclasses that are admin registered. """
+        """Return all subclasses that are admin registered."""
         models = []
 
         for model in self.concrete_model.get_content_models():
@@ -373,6 +397,7 @@ class ContentTypedAdmin(object):
 # User Admin with Site Permissions #
 ####################################
 
+
 class SitePermissionInline(admin.TabularInline):
     model = SitePermission
     max_num = 1
@@ -380,14 +405,12 @@ class SitePermissionInline(admin.TabularInline):
 
 
 class SitePermissionUserAdminForm(UserAdmin.form):
-
     def clean_email(form):
         email = form.cleaned_data.get("email")
-        try:
-            User.objects.exclude(id=form.instance.id).get(email=email)
-        except User.DoesNotExist:
-            return email
-        raise ValidationError(_("This email is already registered"))
+        same_email = User.objects.exclude(id=form.instance.id).filter(email=email)
+        if email and same_email.exists():
+            raise ValidationError(_("This email is already registered"))
+        return email
 
 
 class SitePermissionUserAdmin(UserAdmin):
@@ -399,16 +422,22 @@ class SitePermissionUserAdmin(UserAdmin):
         """
         Provides a warning if the user is an active admin with no admin access.
         """
-        super(SitePermissionUserAdmin, self).save_model(
-            request, obj, form, change)
+        super().save_model(request, obj, form, change)
         user = self.model.objects.get(id=obj.id)
         has_perms = len(user.get_all_permissions()) > 0
-        has_sites = SitePermission.objects.filter(user=user).count() > 0
-        if user.is_active and user.is_staff and not user.is_superuser and not (
-                has_perms and has_sites):
-            error(request, "The user is active but won't be able to access "
-                           "the admin, due to no edit/site permissions being "
-                           "selected")
+        has_sites = SitePermission.objects.filter(user=user).exists()
+        if (
+            user.is_active
+            and user.is_staff
+            and not user.is_superuser
+            and not (has_perms and has_sites)
+        ):
+            error(
+                request,
+                "The user is active but won't be able to access "
+                "the admin, due to no edit/site permissions being "
+                "selected",
+            )
 
 
 # only register if User hasn't been overridden
@@ -419,7 +448,6 @@ if User == AuthUser:
 
 
 class SiteRedirectAdminForm(RedirectAdmin.form):
-
     def clean_old_path(form):
         path = form.cleaned_data.get("old_path")
         try:
@@ -445,7 +473,7 @@ class SiteRedirectAdmin(RedirectAdmin):
         """
         Filters the list view by current site.
         """
-        queryset = super(SiteRedirectAdmin, self).get_queryset(request)
+        queryset = super().get_queryset(request)
         return queryset.filter(site_id=current_site_id())
 
     def save_form(self, request, form, change):
@@ -455,11 +483,12 @@ class SiteRedirectAdmin(RedirectAdmin):
         obj = form.save(commit=False)
         if not obj.site_id:
             obj.site_id = current_site_id()
-        return super(SiteRedirectAdmin, self).save_form(request, form, change)
+        return super().save_form(request, form, change)
 
 
 if "django.contrib.redirects" in settings.INSTALLED_APPS:
     from django.contrib.redirects.models import Redirect
+
     if Redirect in admin.site._registry:
         admin.site.unregister(Redirect)
     admin.site.register(Redirect, SiteRedirectAdmin)

@@ -1,11 +1,8 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
+from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import ImproperlyConfigured
-from django.http import HttpResponse, Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
-from django.contrib import messages
 from django.template.response import TemplateResponse
 
 from mezzanine.pages.models import Page, PageMoveException
@@ -21,16 +18,17 @@ def admin_page_ordering(request):
     def get_id(s):
         s = s.split("_")[-1]
         return int(s) if s.isdigit() else None
-    page = get_object_or_404(Page, id=get_id(request.POST['id']))
+
+    page = get_object_or_404(Page, id=get_id(request.POST["id"]))
     old_parent_id = page.parent_id
-    new_parent_id = get_id(request.POST['parent_id'])
+    new_parent_id = get_id(request.POST["parent_id"])
     new_parent = Page.objects.get(id=new_parent_id) if new_parent_id else None
 
     try:
         page.get_content_model().can_move(request, new_parent)
     except PageMoveException as e:
         messages.error(request, e)
-        return HttpResponse('error')
+        return HttpResponse("error")
 
     # Perform the page move
     if new_parent_id != page.parent_id:
@@ -38,16 +36,16 @@ def admin_page_ordering(request):
         # previous siblings.
         page.set_parent(new_parent)
         pages = Page.objects.filter(parent_id=old_parent_id)
-        for i, page in enumerate(pages.order_by('_order')):
+        for i, page in enumerate(pages.order_by("_order")):
             Page.objects.filter(id=page.id).update(_order=i)
     # Set the new order for the moved page and its current siblings.
-    for i, page_id in enumerate(request.POST.getlist('siblings[]')):
+    for i, page_id in enumerate(request.POST.getlist("siblings[]")):
         Page.objects.filter(id=get_id(page_id)).update(_order=i)
 
     return HttpResponse("ok")
 
 
-def page(request, slug, template=u"pages/page.html", extra_context=None):
+def page(request, slug, template="pages/page.html", extra_context=None):
     """
     Select a template for a page and render it. The request
     object should have a ``page`` attribute that's added via
@@ -67,11 +65,13 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     """
 
     from mezzanine.pages.middleware import PageMiddleware
+
     if not PageMiddleware.installed():
-        raise ImproperlyConfigured("mezzanine.pages.middleware.PageMiddleware "
-                                   "(or a subclass of it) is missing from " +
-                                   "settings.MIDDLEWARE_CLASSES or " +
-                                   "settings.MIDDLEWARE")
+        raise ImproperlyConfigured(
+            "mezzanine.pages.middleware.PageMiddleware "
+            "(or a subclass of it) is missing from "
+            "settings.MIDDLEWARE"
+        )
 
     if not hasattr(request, "page") or request.page.slug != slug:
         raise Http404
@@ -80,21 +80,21 @@ def page(request, slug, template=u"pages/page.html", extra_context=None):
     # is configured as a page instance, the template "pages/index.html" is
     # used, since the slug "/" won't match a template name.
     template_name = str(slug) if slug != home_slug() else "index"
-    templates = [u"pages/%s.html" % template_name]
+    templates = ["pages/%s.html" % template_name]
     method_template = request.page.get_content_model().get_template_name()
     if method_template:
         templates.insert(0, method_template)
     if request.page.content_model is not None:
-        templates.append(u"pages/%s/%s.html" % (template_name,
-            request.page.content_model))
+        templates.append(f"pages/{template_name}/{request.page.content_model}.html")
     for parent in request.page.get_ascendants(for_user=request.user):
         parent_template_name = str(parent.slug)
         # Check for a template matching the page's content model.
         if request.page.content_model is not None:
-            templates.append(u"pages/%s/%s.html" % (parent_template_name,
-                request.page.content_model))
+            templates.append(
+                f"pages/{parent_template_name}/{request.page.content_model}.html"
+            )
     # Check for a template matching the page's content model.
     if request.page.content_model is not None:
-        templates.append(u"pages/%s.html" % request.page.content_model)
+        templates.append("pages/%s.html" % request.page.content_model)
     templates.append(template)
     return TemplateResponse(request, templates, extra_context or {})

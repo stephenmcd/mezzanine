@@ -1,7 +1,5 @@
-from __future__ import print_function, unicode_literals
-
-from django.core.management.base import BaseCommand
 from django import db
+from django.core.management.base import BaseCommand
 
 from mezzanine.twitter.models import Query, TwitterQueryException
 
@@ -22,8 +20,8 @@ class Command(BaseCommand):
             try:
                 query.run()
             except TwitterQueryException as e:
-                print("Twitter query error [%s]: %s" % (query, e))
+                print(f"Twitter query error [{query}]: {e}")
         try:
             db.close_connection()
-        except:
+        except:  # noqa
             pass

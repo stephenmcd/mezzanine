@@ -1,27 +1,15 @@
-from __future__ import division, unicode_literals
-
 import warnings
-
-from future.builtins import int
-
 from datetime import datetime, timedelta
-
-try:
-    from urllib.parse import urlencode
-except ImportError:  # Python 2
-    from urllib import urlencode
-try:
-    from urllib.request import Request, urlopen
-except ImportError:  # Python 2
-    from urllib2 import Request, urlopen
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 import django
 from django.contrib.auth import get_permission_codename
-from django.core.paginator import Paginator, InvalidPage, EmptyPage
-from django.forms import EmailField, URLField, Textarea
+from django.core.paginator import EmptyPage, InvalidPage, Paginator
+from django.forms import EmailField, Textarea, URLField
 from django.template import RequestContext
 from django.template.response import TemplateResponse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 import mezzanine
 from mezzanine.conf import settings
@@ -41,10 +29,12 @@ def is_editable(obj, request):
         return obj.is_editable(request)
     else:
         codename = get_permission_codename("change", obj._meta)
-        perm = "%s.%s" % (obj._meta.app_label, codename)
-        return (is_authenticated(request.user) and
-                has_site_permission(request.user) and
-                request.user.has_perm(perm))
+        perm = f"{obj._meta.app_label}.{codename}"
+        return (
+            is_authenticated(request.user)
+            and has_site_permission(request.user)
+            and request.user.has_perm(perm)
+        )
 
 
 def ip_for_request(request):
@@ -103,23 +93,23 @@ def is_spam_akismet(request, form, url):
         if data_field and not data.get(data_field):
             cleaned_data = form.cleaned_data.get(name)
             try:
-                data[data_field] = cleaned_data.encode('utf-8')
+                data[data_field] = cleaned_data.encode("utf-8")
             except UnicodeEncodeError:
                 data[data_field] = cleaned_data
     if not data.get("comment_content"):
         return False
-    api_url = ("http://%s.rest.akismet.com/1.1/comment-check" %
-               settings.AKISMET_API_KEY)
+    api_url = "http://%s.rest.akismet.com/1.1/comment-check" % settings.AKISMET_API_KEY
     versions = (django.get_version(), mezzanine.__version__)
     headers = {"User-Agent": "Django/%s | Mezzanine/%s" % versions}
     try:
-        response = urlopen(Request(api_url, urlencode(data).encode('utf-8'),
-                                   headers)).read()
+        response = urlopen(
+            Request(api_url, urlencode(data).encode("utf-8"), headers)
+        ).read()
     except Exception:
         return False
 
     # Python 3 returns response as a bytestring, Python 2 as a regular str
-    return response in (b'true', 'true')
+    return response in (b"true", "true")
 
 
 def is_spam(request, form, url):
@@ -152,15 +142,16 @@ def paginate(objects, page_num, per_page, max_paging_links):
         objects = paginator.page(paginator.num_pages)
     page_range = objects.paginator.page_range
     if len(page_range) > max_paging_links:
-        start = min(objects.paginator.num_pages - max_paging_links,
-            max(0, objects.number - (max_paging_links // 2) - 1))
-        page_range = list(page_range)[start:start + max_paging_links]
+        start = min(
+            objects.paginator.num_pages - max_paging_links,
+            max(0, objects.number - (max_paging_links // 2) - 1),
+        )
+        page_range = list(page_range)[start : start + max_paging_links]
     objects.visible_page_range = page_range
     return objects
 
 
-def render(request, templates, dictionary=None, context_instance=None,
-           **kwargs):
+def render(request, templates, dictionary=None, context_instance=None, **kwargs):
     """
     Mimics ``django.shortcuts.render`` but uses a TemplateResponse for
     ``mezzanine.core.middleware.TemplateForDeviceMiddleware``
@@ -170,7 +161,7 @@ def render(request, templates, dictionary=None, context_instance=None,
         "mezzanine.utils.views.render is deprecated and will be removed "
         "in a future version. Please update your project to use Django's "
         "TemplateResponse, which now provides equivalent functionality.",
-        DeprecationWarning
+        DeprecationWarning,
     )
 
     dictionary = dictionary or {}
@@ -188,14 +179,14 @@ def set_cookie(response, name, value, expiry_seconds=None, secure=False):
     """
     if expiry_seconds is None:
         expiry_seconds = 90 * 24 * 60 * 60  # Default to 90 days.
-    expires = datetime.strftime(datetime.utcnow() +
-                                timedelta(seconds=expiry_seconds),
-                                "%a, %d-%b-%Y %H:%M:%S GMT")
+    expires = datetime.strftime(
+        datetime.utcnow() + timedelta(seconds=expiry_seconds),
+        "%a, %d-%b-%Y %H:%M:%S GMT",
+    )
     # Django doesn't seem to support unicode cookie keys correctly on
     # Python 2. Work around by encoding it. See
     # https://code.djangoproject.com/ticket/19802
     try:
         response.set_cookie(name, value, expires=expires, secure=secure)
     except (KeyError, TypeError):
-        response.set_cookie(name.encode('utf-8'), value, expires=expires,
-                            secure=secure)
+        response.set_cookie(name.encode("utf-8"), value, expires=expires, secure=secure)

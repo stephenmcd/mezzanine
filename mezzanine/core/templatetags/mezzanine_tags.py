@@ -1,8 +1,6 @@
-from __future__ import absolute_import, division, unicode_literals
-from future.builtins import int, open, str
-
-from hashlib import md5
 import os
+from hashlib import md5
+
 try:
     from urllib.parse import quote, unquote
 except ImportError:
@@ -15,34 +13,34 @@ from django.contrib.sites.models import Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files import File
 from django.core.files.storage import default_storage
-from django.urls import reverse, resolve, NoReverseMatch
 from django.db.models import Model
-from django.template import Node, Template, TemplateSyntaxError
-from django.template.base import (TOKEN_BLOCK, TOKEN_COMMENT,
-                                  TOKEN_TEXT, TOKEN_VAR, TextNode)
+from django.template import Template, TemplateSyntaxError
+from django.template.base import TextNode, TokenType
 from django.template.defaultfilters import escape
+from django.template.defaulttags import IfNode
 from django.template.loader import get_template
+from django.urls import NoReverseMatch, resolve, reverse
 from django.utils import translation
 from django.utils.html import strip_tags
-from django.utils.text import capfirst
 from django.utils.safestring import SafeText, mark_safe
+from django.utils.text import capfirst
 
+from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.core.fields import RichTextField
 from mezzanine.core.forms import get_edit_form
-from mezzanine.utils.cache import nevercache_token, cache_installed
+from mezzanine.utils.cache import cache_installed, nevercache_token
 from mezzanine.utils.html import decode_entities
 from mezzanine.utils.importing import import_dotted_path
 from mezzanine.utils.sites import current_site_id, has_site_permission
 from mezzanine.utils.urls import admin_url, home_slug
 from mezzanine.utils.views import is_editable
-from mezzanine import template
-
 
 register = template.Library()
 
 
 if "compressor" in settings.INSTALLED_APPS:
+
     @register.tag
     def compress(parser, token):
         """
@@ -51,8 +49,11 @@ if "compressor" in settings.INSTALLED_APPS:
         a dummy version when django-compressor isn't installed.
         """
         from compressor.templatetags.compress import compress
+
         return compress(parser, token)
+
 else:
+
     @register.to_end_tag
     def compress(parsed, context, token):
         """
@@ -63,6 +64,7 @@ else:
 
 def initialize_nevercache():
     if cache_installed():
+
         @register.tag
         def nevercache(parser, token):
             """
@@ -74,21 +76,23 @@ def initialize_nevercache():
             text = []
             end_tag = "endnevercache"
             tag_mapping = {
-                TOKEN_TEXT: ("", ""),
-                TOKEN_VAR: ("{{", "}}"),
-                TOKEN_BLOCK: ("{%", "%}"),
-                TOKEN_COMMENT: ("{#", "#}"),
+                TokenType.TEXT: ("", ""),
+                TokenType.VAR: ("{{", "}}"),
+                TokenType.BLOCK: ("{%", "%}"),
+                TokenType.COMMENT: ("{#", "#}"),
             }
             delimiter = nevercache_token()
             while parser.tokens:
                 token = parser.next_token()
                 token_type = token.token_type
-                if token_type == TOKEN_BLOCK and token.contents == end_tag:
+                if token_type == TokenType.BLOCK and token.contents == end_tag:
                     return TextNode(delimiter + "".join(text) + delimiter)
                 start, end = tag_mapping[token_type]
-                text.append("%s%s%s" % (start, token.contents, end))
+                text.append(f"{start}{token.contents}{end}")
             parser.unclosed_block_tag(end_tag)
+
     else:
+
         @register.to_end_tag
         def nevercache(parsed, context, token):
             """
@@ -123,6 +127,7 @@ def sort_by(items, attr):
     """
     General sort filter - sorts by either attribute or key.
     """
+
     def key_func(item):
         try:
             return getattr(item, attr)
@@ -131,6 +136,7 @@ def sort_by(items, attr):
                 return item[attr]
             except TypeError:
                 getattr(item, attr)  # Reraise AttributeError
+
     return sorted(items, key=key_func)
 
 
@@ -141,52 +147,46 @@ def is_installed(app_name):
     ``INSTALLED_APPS`` setting.
     """
     from warnings import warn
-    warn("The is_installed filter is deprecated. Please use the tag "
-         "{% ifinstalled appname %}{% endifinstalled %}")
+
+    warn(
+        "The is_installed filter is deprecated. Please use the tag "
+        "{% ifinstalled appname %}{% endifinstalled %}"
+    )
     return app_name in settings.INSTALLED_APPS
+
+
+class EvalWrapper:
+    def __init__(self, value):
+        """Compatibility class for ``value`` to work with Django's ``IfNode``"""
+        self.value = value
+
+    def eval(self, context):
+        return self.value
 
 
 @register.tag
 def ifinstalled(parser, token):
     """
-    Old-style ``if`` tag that renders contents if the given app is
-    installed. The main use case is:
+    ``if`` tag that renders contents if the given app is installed. The main use case
+    is:
 
-    {% ifinstalled app_name %}
+    {% ifinstalled "app_name" %}
     {% include "app_name/template.html" %}
     {% endifinstalled %}
-
-    so we need to manually pull out all tokens if the app isn't
-    installed, since if we used a normal ``if`` tag with a False arg,
-    the include tag will still try and find the template to include.
     """
     try:
         tag, app = token.split_contents()
     except ValueError:
-        raise TemplateSyntaxError("ifinstalled should be in the form: "
-                                  "{% ifinstalled app_name %}"
-                                  "{% endifinstalled %}")
+        raise TemplateSyntaxError(
+            "ifinstalled should be in the form: "
+            "{% ifinstalled app_name %}{% endifinstalled %}"
+        )
 
-    end_tag = "end" + tag
-    unmatched_end_tag = 1
-    if app.strip("\"'") not in settings.INSTALLED_APPS:
-        while unmatched_end_tag:
-            token = parser.tokens.pop(0)
-            if token.token_type == TOKEN_BLOCK:
-                block_name = token.contents.split()[0]
-                if block_name == tag:
-                    unmatched_end_tag += 1
-                if block_name == end_tag:
-                    unmatched_end_tag -= 1
-        parser.tokens.insert(0, token)
-    nodelist = parser.parse((end_tag,))
-    parser.delete_first_token()
-
-    class IfInstalledNode(Node):
-        def render(self, context):
-            return nodelist.render(context)
-
-    return IfInstalledNode()
+    condition = app.strip("\"'") in settings.INSTALLED_APPS
+    nodelist = parser.parse([f"end{tag}"])
+    conditions_nodelists = [(EvalWrapper(condition), nodelist)]
+    token = parser.next_token()
+    return IfNode(conditions_nodelists)
 
 
 @register.render_tag
@@ -272,8 +272,17 @@ def search_form(context, search_model_names=None):
 
 
 @register.simple_tag
-def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
-              top=.5, padding=False, padding_color="#fff"):
+def thumbnail(
+    image_url,
+    width,
+    height,
+    upscale=True,
+    quality=95,
+    left=0.5,
+    top=0.5,
+    padding=False,
+    padding_color="#fff",
+):
     """
     Given the URL to an image, resizes the image using the given width
     and height on the first time it is requested, and returns the URL
@@ -296,15 +305,15 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     image_dir, image_name = os.path.split(image_url)
     image_prefix, image_ext = os.path.splitext(image_name)
     filetype = {".png": "PNG", ".gif": "GIF"}.get(image_ext.lower(), "JPEG")
-    thumb_name = "%s-%sx%s" % (image_prefix, width, height)
+    thumb_name = f"{image_prefix}-{width}x{height}"
     if not upscale:
         thumb_name += "-no-upscale"
-    if left != .5 or top != .5:
+    if left != 0.5 or top != 0.5:
         left = min(1, max(0, left))
         top = min(1, max(0, top))
-        thumb_name = "%s-%sx%s" % (thumb_name, left, top)
+        thumb_name = f"{thumb_name}-{left}x{top}"
     thumb_name += "-padded-%s" % padding_color if padding else ""
-    thumb_name = "%s%s" % (thumb_name, image_ext)
+    thumb_name = f"{thumb_name}{image_ext}"
 
     # `image_name` is used here for the directory path, as each image
     # requires its own sub-directory using its own name - this is so
@@ -312,8 +321,9 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     # image, which is something we do in filebrowser when a new image
     # is written, allowing us to purge any previously generated
     # thumbnails that may match a new image name.
-    thumb_dir = os.path.join(settings.MEDIA_ROOT, image_dir,
-                             settings.THUMBNAILS_DIR_NAME, image_name)
+    thumb_dir = os.path.join(
+        settings.MEDIA_ROOT, image_dir, settings.THUMBNAILS_DIR_NAME, image_name
+    )
     if not os.path.exists(thumb_dir):
         try:
             os.makedirs(thumb_dir)
@@ -321,12 +331,14 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
             pass
 
     thumb_path = os.path.join(thumb_dir, thumb_name)
-    thumb_url = "%s/%s/%s" % (settings.THUMBNAILS_DIR_NAME,
-                              quote(image_name.encode("utf-8")),
-                              quote(thumb_name.encode("utf-8")))
+    thumb_url = "{}/{}/{}".format(
+        settings.THUMBNAILS_DIR_NAME,
+        quote(image_name.encode("utf-8")),
+        quote(thumb_name.encode("utf-8")),
+    )
     image_url_path = os.path.dirname(image_url)
     if image_url_path:
-        thumb_url = "%s/%s" % (image_url_path, thumb_url)
+        thumb_url = f"{image_url_path}/{thumb_url}"
 
     try:
         thumb_exists = os.path.exists(thumb_path)
@@ -335,6 +347,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         # but somehow the locale has changed and the filesystem does not
         # support utf-8.
         from mezzanine.core.exceptions import FileSystemEncodingChanged
+
         raise FileSystemEncodingChanged()
     if thumb_exists:
         # Thumbnail exists, don't generate it.
@@ -346,7 +359,7 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     f = default_storage.open(image_url)
     try:
         image = Image.open(f)
-    except:
+    except:  # noqa
         # Invalid image format.
         return image_url
 
@@ -358,19 +371,20 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
     # - http://caniuse.com/#feat=css-image-orientation
     try:
         orientation = image._getexif().get(0x0112)
-    except:
+    except:  # noqa
         orientation = None
     if orientation:
         methods = {
-           2: (Image.FLIP_LEFT_RIGHT,),
-           3: (Image.ROTATE_180,),
-           4: (Image.FLIP_TOP_BOTTOM,),
-           5: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_90),
-           6: (Image.ROTATE_270,),
-           7: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_270),
-           8: (Image.ROTATE_90,)}.get(orientation, ())
+            2: (Image.FLIP_LEFT_RIGHT,),
+            3: (Image.ROTATE_180,),
+            4: (Image.FLIP_TOP_BOTTOM,),
+            5: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_90),
+            6: (Image.ROTATE_270,),
+            7: (Image.FLIP_LEFT_RIGHT, Image.ROTATE_270),
+            8: (Image.ROTATE_90,),
+        }.get(orientation, ())
         if methods:
-            image_info.pop('exif', None)
+            image_info.pop("exif", None)
             for method in methods:
                 image = image.transpose(method)
 
@@ -388,11 +402,10 @@ def thumbnail(image_url, width, height, upscale=True, quality=95, left=.5,
         to_width = from_width * to_height // from_height
     elif to_height == 0:
         to_height = from_height * to_width // from_width
-    if image.mode not in ("P", "L", "RGBA") \
-            and filetype not in ("JPG", "JPEG"):
+    if image.mode not in ("P", "L", "RGBA") and filetype not in ("JPG", "JPEG"):
         try:
             image = image.convert("RGBA")
-        except:
+        except:  # noqa
             return image_url
     # Required for progressive jpgs.
     ImageFile.MAXBLOCK = 2 * (max(image.size) ** 2)
@@ -455,17 +468,15 @@ def editable_loader(context):
         "has_site_permission": has_site_permission(user),
         "request": context["request"],
     }
-    if (settings.INLINE_EDITING_ENABLED and
-            template_vars["has_site_permission"]):
+    if settings.INLINE_EDITING_ENABLED and template_vars["has_site_permission"]:
         t = get_template("includes/editable_toolbar.html")
         template_vars["REDIRECT_FIELD_NAME"] = REDIRECT_FIELD_NAME
-        template_vars["editable_obj"] = context.get("editable_obj",
-                                        context.get("page", None))
-        template_vars["accounts_logout_url"] = context.get(
-            "accounts_logout_url", None)
+        template_vars["editable_obj"] = context.get(
+            "editable_obj", context.get("page", None)
+        )
+        template_vars["accounts_logout_url"] = context.get("accounts_logout_url", None)
         template_vars["toolbar"] = t.render(template_vars)
-        template_vars["richtext_media"] = RichTextField().formfield(
-            ).widget.media
+        template_vars["richtext_media"] = RichTextField().formfield().widget.media
     return template_vars
 
 
@@ -480,17 +491,19 @@ def richtext_filters(content):
         content = filter_func(content)
         if not isinstance(content, SafeText):
             # raise TypeError(
-                # filter_name + " must mark it's return value as safe. See "
-                # "https://docs.djangoproject.com/en/stable/topics/security/"
-                # "#cross-site-scripting-xss-protection")
+            # filter_name + " must mark it's return value as safe. See "
+            # "https://docs.djangoproject.com/en/stable/topics/security/"
+            # "#cross-site-scripting-xss-protection")
             import warnings
+
             warnings.warn(
                 filter_name + " needs to ensure that any untrusted inputs are "
                 "properly escaped and mark the html it returns as safe. In a "
                 "future release this will cause an exception. See "
                 "https://docs.djangoproject.com/en/stable/topics/security/"
                 "cross-site-scripting-xss-protection",
-                FutureWarning)
+                FutureWarning,
+            )
             content = mark_safe(content)
     return content
 
@@ -504,6 +517,7 @@ def editable(parsed, context, token):
     ``True``, or the logged in user has change permissions for the
     model.
     """
+
     def parse_field(field):
         field = field.split(".")
         obj = context.get(field.pop(0), None)
@@ -520,14 +534,14 @@ def editable(parsed, context, token):
         fields = [f for f in fields if len(f) == 2 and f[0] is fields[0][0]]
     if not parsed.strip():
         try:
-            parsed = "".join([str(getattr(*field)) for field in fields])
+            parsed = "".join(str(getattr(*field)) for field in fields)
         except AttributeError:
             pass
 
     if settings.INLINE_EDITING_ENABLED and fields and "request" in context:
         obj = fields[0][0]
         if isinstance(obj, Model) and is_editable(obj, context["request"]):
-            field_names = ",".join([f[1] for f in fields])
+            field_names = ",".join(f[1] for f in fields)
             context["editable_form"] = get_edit_form(obj, field_names)
             context["original"] = parsed
             t = get_template("includes/editable_form.html")
@@ -543,6 +557,7 @@ def try_url(url_name):
     tests are running.
     """
     from warnings import warn
+
     warn("try_url is deprecated, use the url tag with the 'as' arg instead.")
     try:
         url = reverse(url_name)
@@ -570,8 +585,7 @@ def admin_app_list(request):
                 item_title, item = item
             else:
                 item_title = None
-            menu_order[item] = (group_index, group_title,
-                                item_index, item_title)
+            menu_order[item] = (group_index, group_title, item_index, item_title)
 
     # Add all registered models, using group and title from menu order.
     for (model, model_admin) in admin.site._registry.items():
@@ -579,12 +593,14 @@ def admin_app_list(request):
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
         if hasattr(model_admin, "in_menu"):
             import warnings
+
             warnings.warn(
-                'ModelAdmin.in_menu() has been replaced with '
-                'ModelAdmin.has_module_permission(request). See '
-                'https://docs.djangoproject.com/en/stable/ref/contrib/admin/'
-                '#django.contrib.admin.ModelAdmin.has_module_permission.',
-                DeprecationWarning)
+                "ModelAdmin.in_menu() has been replaced with "
+                "ModelAdmin.has_module_permission(request). See "
+                "https://docs.djangoproject.com/en/stable/ref/contrib/admin/"
+                "#django.contrib.admin.ModelAdmin.has_module_permission.",
+                DeprecationWarning,
+            )
         in_menu = in_menu and model_admin.has_module_permission(request)
         if in_menu and request.user.has_module_perms(opts.app_label):
             admin_url_name = ""
@@ -599,10 +615,11 @@ def admin_app_list(request):
             else:
                 add_url = None
             if admin_url_name:
-                model_label = "%s.%s" % (opts.app_label, opts.object_name)
+                model_label = f"{opts.app_label}.{opts.object_name}"
                 try:
-                    app_index, app_title, model_index, model_title = \
-                        menu_order[model_label]
+                    app_index, app_title, model_index, model_title = menu_order[
+                        model_label
+                    ]
                 except KeyError:
                     app_index = None
                     try:
@@ -625,14 +642,16 @@ def admin_app_list(request):
                         "name": app_title,
                         "models": [],
                     }
-                app_dict[app_title]["models"].append({
-                    "index": model_index,
-                    "perms": model_admin.get_model_perms(request),
-                    "name": model_title,
-                    "object_name": opts.object_name,
-                    "admin_url": change_url,
-                    "add_url": add_url
-                })
+                app_dict[app_title]["models"].append(
+                    {
+                        "index": model_index,
+                        "perms": model_admin.get_model_perms(request),
+                        "name": model_title,
+                        "object_name": opts.object_name,
+                        "admin_url": change_url,
+                        "add_url": add_url,
+                    }
+                )
 
     # Menu may also contain view or url pattern names given as (title, name).
     for (item_url, item) in menu_order.items():
@@ -647,12 +666,14 @@ def admin_app_list(request):
                 "name": app_title,
                 "models": [],
             }
-        app_dict[app_title]["models"].append({
-            "index": item_index,
-            "perms": {"custom": True},
-            "name": item_title,
-            "admin_url": item_url,
-        })
+        app_dict[app_title]["models"].append(
+            {
+                "index": item_index,
+                "perms": {"custom": True},
+                "name": item_title,
+                "admin_url": item_url,
+            }
+        )
 
     app_list = list(app_dict.values())
     sort = lambda x: (x["index"] if x["index"] is not None else 999, x["name"])
@@ -662,8 +683,7 @@ def admin_app_list(request):
     return app_list
 
 
-@register.inclusion_tag("admin/includes/dropdown_menu.html",
-    takes_context=True)
+@register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
 def admin_dropdown_menu(context):
     """
     Renders the app list for the admin dropdown menu navigation.
@@ -692,8 +712,7 @@ def app_list(context):
     return context.flatten()
 
 
-@register.inclusion_tag("admin/includes/recent_actions.html",
-                        takes_context=True)
+@register.inclusion_tag("admin/includes/recent_actions.html", takes_context=True)
 def recent_actions(context):
     """
     Renders the recent actions list for the admin dashboard widget.
@@ -737,14 +756,17 @@ def translate_url(context, language):
             url = reverse(view.func, args=view.args, kwargs=view.kwargs)
         except NoReverseMatch:
             try:
-                url_name = (view.url_name if not view.namespace
-                            else '%s:%s' % (view.namespace, view.url_name))
+                url_name = (
+                    view.url_name
+                    if not view.namespace
+                    else f"{view.namespace}:{view.url_name}"
+                )
                 url = reverse(url_name, args=view.args, kwargs=view.kwargs)
             except NoReverseMatch:
                 url_name = "admin:" + view.url_name
                 url = reverse(url_name, args=view.args, kwargs=view.kwargs)
     translation.activate(current_language)
-    qs = context['request'].META.get("QUERY_STRING", "")
+    qs = context["request"].META.get("QUERY_STRING", "")
     if qs:
         url += "?" + qs
     return url

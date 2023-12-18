@@ -1,12 +1,9 @@
 """
 Provides models and utilities for displaying different types of Twitter feeds.
 """
-from __future__ import unicode_literals
-
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine import __version__  # noqa
-
 
 # Constants/choices for the different query types.
 
@@ -26,11 +23,14 @@ def get_auth_settings():
     only if they're all defined.
     """
     from mezzanine.conf import settings
+
     try:
-        auth_settings = (settings.TWITTER_CONSUMER_KEY,
-                         settings.TWITTER_CONSUMER_SECRET,
-                         settings.TWITTER_ACCESS_TOKEN_KEY,
-                         settings.TWITTER_ACCESS_TOKEN_SECRET)
+        auth_settings = (
+            settings.TWITTER_CONSUMER_KEY,
+            settings.TWITTER_CONSUMER_SECRET,
+            settings.TWITTER_ACCESS_TOKEN_KEY,
+            settings.TWITTER_ACCESS_TOKEN_SECRET,
+        )
     except AttributeError:
         return None
     else:

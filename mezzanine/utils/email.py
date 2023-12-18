@@ -1,15 +1,12 @@
-from __future__ import unicode_literals
-from future.builtins import bytes, str
-
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
-from django.urls import reverse
 from django.template import loader
+from django.urls import reverse
 from django.utils.http import int_to_base36
 
 from mezzanine.conf import settings
-from mezzanine.utils.urls import admin_url, next_url
 from mezzanine.conf.context_processors import settings as context_settings
+from mezzanine.utils.urls import admin_url, next_url
 
 
 def split_addresses(email_string_list):
@@ -29,9 +26,17 @@ def subject_template(template, context):
     return " ".join(subject.splitlines()).strip()
 
 
-def send_mail_template(subject, template, addr_from, addr_to, context=None,
-                       attachments=None, fail_silently=None, addr_bcc=None,
-                       headers=None):
+def send_mail_template(
+    subject,
+    template,
+    addr_from,
+    addr_to,
+    context=None,
+    attachments=None,
+    fail_silently=None,
+    addr_bcc=None,
+    headers=None,
+):
     """
     Send email rendering text and html versions for the specified
     template name using the context dictionary passed in.
@@ -50,16 +55,16 @@ def send_mail_template(subject, template, addr_from, addr_to, context=None,
     # doesn't work: if not hasattr(addr_to, "__iter__"):
     if isinstance(addr_to, str) or isinstance(addr_to, bytes):
         addr_to = [addr_to]
-    if addr_bcc is not None and (isinstance(addr_bcc, str) or
-                                 isinstance(addr_bcc, bytes)):
+    if addr_bcc is not None and (
+        isinstance(addr_bcc, str) or isinstance(addr_bcc, bytes)
+    ):
         addr_bcc = [addr_bcc]
     # Loads a template passing in vars as context.
-    render = lambda type: loader.get_template("%s.%s" %
-                          (template, type)).render(context)
+    render = lambda type: loader.get_template(f"{template}.{type}").render(context)
     # Create and send email.
-    msg = EmailMultiAlternatives(subject, render("txt"),
-                                 addr_from, addr_to, addr_bcc,
-                                 headers=headers)
+    msg = EmailMultiAlternatives(
+        subject, render("txt"), addr_from, addr_to, addr_bcc, headers=headers
+    )
     msg.attach_alternative(render("html"), "text/html")
     for attachment in attachments:
         msg.attach(*attachment)
@@ -75,10 +80,17 @@ def send_verification_mail(request, user, verification_type):
     the verification link, as well as the names of the email templates
     to use.
     """
-    verify_url = reverse(verification_type, kwargs={
-        "uidb36": int_to_base36(user.id),
-        "token": default_token_generator.make_token(user),
-    }) + "?next=" + (next_url(request) or "/")
+    verify_url = (
+        reverse(
+            verification_type,
+            kwargs={
+                "uidb36": int_to_base36(user.id),
+                "token": default_token_generator.make_token(user),
+            },
+        )
+        + "?next="
+        + (next_url(request) or "/")
+    )
     context = {
         "request": request,
         "user": user,
@@ -86,9 +98,13 @@ def send_verification_mail(request, user, verification_type):
     }
     subject_template_name = "email/%s_subject.txt" % verification_type
     subject = subject_template(subject_template_name, context)
-    send_mail_template(subject, "email/%s" % verification_type,
-                       settings.DEFAULT_FROM_EMAIL, user.email,
-                       context=context)
+    send_mail_template(
+        subject,
+        "email/%s" % verification_type,
+        settings.DEFAULT_FROM_EMAIL,
+        user.email,
+        context=context,
+    )
 
 
 def send_approve_mail(request, user):
@@ -106,9 +122,13 @@ def send_approve_mail(request, user):
         "change_url": admin_url(user.__class__, "change", user.id),
     }
     subject = subject_template("email/account_approve_subject.txt", context)
-    send_mail_template(subject, "email/account_approve",
-                       settings.DEFAULT_FROM_EMAIL, approval_emails,
-                       context=context)
+    send_mail_template(
+        subject,
+        "email/account_approve",
+        settings.DEFAULT_FROM_EMAIL,
+        approval_emails,
+        context=context,
+    )
 
 
 def send_approved_mail(request, user):
@@ -119,6 +139,10 @@ def send_approved_mail(request, user):
     """
     context = {"request": request, "user": user}
     subject = subject_template("email/account_approved_subject.txt", context)
-    send_mail_template(subject, "email/account_approved",
-                       settings.DEFAULT_FROM_EMAIL, user.email,
-                       context=context)
+    send_mail_template(
+        subject,
+        "email/account_approved",
+        settings.DEFAULT_FROM_EMAIL,
+        user.email,
+        context=context,
+    )

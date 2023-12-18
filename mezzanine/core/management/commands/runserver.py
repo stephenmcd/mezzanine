@@ -1,11 +1,10 @@
-
 import platform
 import sys
 
 import django
 from django.conf import settings
-from django.contrib.staticfiles.management.commands import runserver
 from django.contrib.staticfiles.handlers import StaticFilesHandler
+from django.contrib.staticfiles.management.commands import runserver
 from django.core.management.color import supports_color
 from django.db import connection
 from django.http import Http404
@@ -16,12 +15,11 @@ import mezzanine
 
 
 class MezzStaticFilesHandler(StaticFilesHandler):
-
     def _should_handle(self, path):
         return path.startswith((settings.STATIC_URL, settings.MEDIA_URL))
 
     def get_response(self, request):
-        response = super(MezzStaticFilesHandler, self).get_response(request)
+        response = super().get_response(request)
         if response.status_code == 404:
             locations = (
                 (settings.STATIC_URL, settings.STATIC_ROOT),
@@ -40,15 +38,17 @@ class MezzStaticFilesHandler(StaticFilesHandler):
 
 def banner():
 
-    # Database name - this is just the ``vendor`` atrribute of
+    # Database name - this is just the ``vendor`` attribute of
     # the connection backend, with some exceptions where we
     # replace it with something else, such as microsoft -> sql server.
     conn = connection
     db_name = {
         "microsoft": "sql server",
     }.get(conn.vendor, conn.vendor)
-    db_name = "%s%s" % (db_name[:1].upper(),
-        db_name.replace("sql", "SQL").replace("db", "DB")[1:])
+    db_name = "{}{}".format(
+        db_name[:1].upper(),
+        db_name.replace("sql", "SQL").replace("db", "DB")[1:],
+    )
 
     # Database version - vendor names mapped to functions that
     # retrieve the version, which should be a sequence of things
@@ -71,7 +71,8 @@ def banner():
     db_version = ".".join(map(str, db_version_func()))
 
     # The raw banner split into lines.
-    lines = ("""
+    lines = (
+        """
 
               .....
           _d^^^^^^^^^b_
@@ -90,15 +91,17 @@ def banner():
               ''''
 
 
-""" % {
-        "mezzanine_version": mezzanine.__version__,
-        "django_version": django.get_version(),
-        "python_version": sys.version.split(" ", 1)[0],
-        "db_name": db_name,
-        "db_version": db_version,
-        "os_name": platform.system(),
-        "os_version": platform.release(),
-    }).splitlines()[2:]
+"""
+        % {
+            "mezzanine_version": mezzanine.__version__,
+            "django_version": django.get_version(),
+            "python_version": sys.version.split(" ", 1)[0],
+            "db_name": db_name,
+            "db_version": db_version,
+            "os_name": platform.system(),
+            "os_version": platform.release(),
+        }
+    ).splitlines()[2:]
 
     if not supports_color():
         return "\n".join(lines)
@@ -110,8 +113,10 @@ def banner():
     color_states = [
         (lambda c: c != " ", {}),
         (lambda c: c == " ", {"fg": "red"}),
-        (lambda c: c != " " and not c.isupper(),
-            {"fg": "white", "bg": "red", "opts": ["bold"]}),
+        (
+            lambda c: c != " " and not c.isupper(),
+            {"fg": "white", "bg": "red", "opts": ["bold"]},
+        ),
         (lambda c: c == " ", {"fg": "red"}),
         (lambda c: c == "*", {}),
         (lambda c: c != "*", {"fg": "red"}),
@@ -143,11 +148,13 @@ class Command(runserver.Command):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
-            '--nobanner', action="store_false", dest='show_banner',
+            "--nobanner",
+            action="store_false",
+            dest="show_banner",
             default=True,
-            help='Tells Mezzanine not to show a banner at startup.',
+            help="Tells Mezzanine not to show a banner at startup.",
         )
 
     def inner_run(self, *args, **kwargs):
@@ -158,12 +165,12 @@ class Command(runserver.Command):
             # shouldn't be able to crash the development server.
             try:
                 self.stdout.write(banner())
-            except:
+            except:  # noqa
                 pass
-        super(Command, self).inner_run(*args, **kwargs)
+        super().inner_run(*args, **kwargs)
 
     def get_handler(self, *args, **options):
-        handler = super(Command, self).get_handler(*args, **options)
+        handler = super().get_handler(*args, **options)
         if settings.DEBUG or options["insecure_serving"]:
             handler = MezzStaticFilesHandler(handler)
         return handler

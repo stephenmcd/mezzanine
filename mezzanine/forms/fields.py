@@ -1,20 +1,11 @@
-from __future__ import unicode_literals
-
-from django.core.exceptions import ImproperlyConfigured
 from django import forms
-
-try:
-    from django.forms.widgets import SelectDateWidget
-except ImportError:
-    # Django 1.8
-    from django.forms.extras.widgets import SelectDateWidget
-
-from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ImproperlyConfigured
+from django.forms.widgets import SelectDateWidget
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import SplitSelectDateTimeWidget
 from mezzanine.utils.importing import import_dotted_path
-
 
 # Constants for all available field types.
 TEXT = 1
@@ -88,16 +79,18 @@ DATES = (DATE, DATE_TIME, DOB)
 MULTIPLE = (CHECKBOX_MULTIPLE, SELECT_MULTIPLE)
 
 # HTML5 Widgets
-html5_field = lambda name, base: type(str(""), (base,), {"input_type": name})
+html5_field = lambda name, base: type("", (base,), {"input_type": name})
 if getattr(settings, "FORMS_USE_HTML5", False):
-    WIDGETS.update({
-        DATE: html5_field("date", forms.DateInput),
-        DATE_TIME: html5_field("datetime", forms.DateTimeInput),
-        DOB: html5_field("date", forms.DateInput),
-        EMAIL: html5_field("email", forms.TextInput),
-        NUMBER: html5_field("number", forms.TextInput),
-        URL: html5_field("url", forms.TextInput),
-    })
+    WIDGETS.update(
+        {
+            DATE: html5_field("date", forms.DateInput),
+            DATE_TIME: html5_field("datetime", forms.DateTimeInput),
+            DOB: html5_field("date", forms.DateInput),
+            EMAIL: html5_field("email", forms.TextInput),
+            NUMBER: html5_field("number", forms.TextInput),
+            URL: html5_field("url", forms.TextInput),
+        }
+    )
 
 # Allow extra fields types to be defined via the FORMS_EXTRA_FIELDS
 # setting, which should contain a sequence of three-item sequences,

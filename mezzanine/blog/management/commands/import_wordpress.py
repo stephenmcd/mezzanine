@@ -1,12 +1,9 @@
-from __future__ import unicode_literals
-from future.builtins import int
-
+import re
 from collections import defaultdict
 from datetime import datetime, timedelta
-import re
 from time import mktime, timezone
-from xml.dom.minidom import parse
 from xml.dom import Node
+from xml.dom.minidom import parse
 
 from django.core.management.base import CommandError
 from django.utils.html import linebreaks
@@ -21,9 +18,8 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
-        parser.add_argument(
-            "-u", "--url", dest="url", help="URL to import file")
+        super().add_arguments(parser)
+        parser.add_argument("-u", "--url", dest="url", help="URL to import file")
 
     def get_text(self, xml, name):
         """
@@ -31,7 +27,7 @@ class Command(BaseImporterCommand):
         """
         nodes = xml.getElementsByTagName("wp:comment_" + name)[0].childNodes
         accepted_types = [Node.CDATA_SECTION_NODE, Node.TEXT_NODE]
-        return "".join([n.data for n in nodes if n.nodeType in accepted_types])
+        return "".join(n.data for n in nodes if n.nodeType in accepted_types)
 
     def handle_import(self, options):
         """
@@ -73,10 +69,14 @@ class Command(BaseImporterCommand):
                 terms[item.scheme].add(item.term)
 
             if entry.wp_post_type == "post":
-                post = self.add_post(title=entry.title, content=content,
-                                     pub_date=pub_date, tags=terms["tag"],
-                                     categories=terms["category"],
-                                     old_url=entry.get('link', entry.id))
+                post = self.add_post(
+                    title=entry.title,
+                    content=content,
+                    pub_date=pub_date,
+                    tags=terms["tag"],
+                    categories=terms["category"],
+                    old_url=entry.get("link", entry.id),
+                )
 
                 # Get the comments from the xml doc.
                 for c in xmlitem.getElementsByTagName("wp:comment"):
@@ -88,16 +88,25 @@ class Command(BaseImporterCommand):
                     fmt = "%Y-%m-%d %H:%M:%S"
                     pub_date = datetime.strptime(pub_date, fmt)
                     pub_date -= timedelta(seconds=timezone)
-                    self.add_comment(post=post, name=name, email=email,
-                                     body=body, website=url,
-                                     pub_date=pub_date)
+                    self.add_comment(
+                        post=post,
+                        name=name,
+                        email=email,
+                        body=body,
+                        website=url,
+                        pub_date=pub_date,
+                    )
 
             elif entry.wp_post_type == "page":
                 old_id = getattr(entry, "wp_post_id")
                 parent_id = getattr(entry, "wp_post_parent")
-                self.add_page(title=entry.title, content=content,
-                              tags=terms["tag"], old_id=old_id,
-                              old_parent_id=parent_id)
+                self.add_page(
+                    title=entry.title,
+                    content=content,
+                    tags=terms["tag"],
+                    old_id=old_id,
+                    old_parent_id=parent_id,
+                )
 
     def wp_caption(self, post):
         """
@@ -105,17 +114,17 @@ class Command(BaseImporterCommand):
         match HTML.
         """
         for match in re.finditer(r"\[caption (.*?)\](.*?)\[/caption\]", post):
-            meta = '<div '
-            caption = ''
+            meta = "<div "
+            caption = ""
             for imatch in re.finditer(r'(\w+)="(.*?)"', match.group(1)):
-                if imatch.group(1) == 'id':
+                if imatch.group(1) == "id":
                     meta += 'id="%s" ' % imatch.group(2)
-                if imatch.group(1) == 'align':
+                if imatch.group(1) == "align":
                     meta += 'class="wp-caption %s" ' % imatch.group(2)
-                if imatch.group(1) == 'width':
+                if imatch.group(1) == "width":
                     width = int(imatch.group(2)) + 10
                     meta += 'style="width: %spx;" ' % width
-                if imatch.group(1) == 'caption':
+                if imatch.group(1) == "caption":
                     caption = imatch.group(2)
             parts = (match.group(2), caption)
             meta += '>%s<p class="wp-caption-text">%s</p></div>' % parts

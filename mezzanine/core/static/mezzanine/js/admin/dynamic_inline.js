@@ -26,6 +26,8 @@ jQuery(function($) {
                     return field.value && field.value != field.defaultValue;
                 case 'checkbox':
                     return field.checked != field.defaultChecked;
+                case 'radio':
+                    return field.checked != field.defaultChecked;
                 case 'hidden':
                     return false;
                 default:

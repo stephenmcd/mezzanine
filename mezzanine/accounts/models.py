@@ -1,8 +1,8 @@
 from django.db import DatabaseError, connection
 from django.db.models.signals import post_save
+
 from mezzanine.accounts import get_profile_for_user
 from mezzanine.conf import settings
-
 
 __all__ = ()
 
@@ -20,5 +20,4 @@ if getattr(settings, "ACCOUNTS_PROFILE_MODEL", None):
                 # gets re-opened, allowing syncdb to continue and complete.
                 connection.close()
 
-    post_save.connect(create_profile, sender=settings.AUTH_USER_MODEL,
-                      weak=False)
+    post_save.connect(create_profile, sender=settings.AUTH_USER_MODEL, weak=False)

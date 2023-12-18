@@ -2,6 +2,10 @@
 Twitter Integration
 ===================
 
+.. deprecated:: 5.0
+   :mod:`mezzanine.twitter` has been deprecated and will be removed in a
+   future version.
+
 The :mod:`mezzanine.twitter` application exposes the ability to consume,
 store, and display your own tweets on your site in an efficient manner,
 as well as the ability to send tweets when publishing new content to

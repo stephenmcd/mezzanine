@@ -1,6 +1,3 @@
-from __future__ import unicode_literals
-from future.builtins import str as _str
-
 from collections import defaultdict
 from importlib import import_module
 
@@ -9,7 +6,6 @@ from django.utils.module_loading import module_has_submodule
 
 from mezzanine.pages.models import Page
 from mezzanine.utils.importing import get_app_name_list
-
 
 processors = defaultdict(list)
 
@@ -28,7 +24,7 @@ def processor_for(content_model_or_slug, exact_page=False):
     """
     content_model = None
     slug = ""
-    if isinstance(content_model_or_slug, (str, _str)):
+    if isinstance(content_model_or_slug, str):
         try:
             parts = content_model_or_slug.split(".", 1)
             content_model = apps.get_model(*parts)
@@ -37,10 +33,11 @@ def processor_for(content_model_or_slug, exact_page=False):
     elif issubclass(content_model_or_slug, Page):
         content_model = content_model_or_slug
     else:
-        raise TypeError("%s is not a valid argument for page_processor, "
-                        "which should be a model subclass of Page in class "
-                        "or string form (app.model), or a valid slug" %
-                        content_model_or_slug)
+        raise TypeError(
+            "%s is not a valid argument for page_processor, "
+            "which should be a model subclass of Page in class "
+            "or string form (app.model), or a valid slug" % content_model_or_slug
+        )
 
     def decorator(func):
         parts = (func, exact_page)
@@ -50,6 +47,7 @@ def processor_for(content_model_or_slug, exact_page=False):
         else:
             processors["slug:%s" % slug].insert(0, parts)
         return func
+
     return decorator
 
 
@@ -73,6 +71,6 @@ def autodiscover():
         else:
             try:
                 import_module("%s.page_processors" % app)
-            except:
+            except:  # noqa
                 if module_has_submodule(module, "page_processors"):
                     raise

@@ -1,8 +1,10 @@
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import TranslationOptions, translator
+
 from mezzanine.conf.models import Setting
 
 
 class TranslatedSetting(TranslationOptions):
-    fields = ('value',)
+    fields = ("value",)
+
 
 translator.register(Setting, TranslatedSetting)

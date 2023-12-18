@@ -1,15 +1,13 @@
-from __future__ import unicode_literals
-
+from functools import lru_cache
 from hashlib import md5
 from time import time
 
 from django.core.cache import cache
-from django.utils.lru_cache import lru_cache
 from django.utils.cache import _i18n_cache_key_suffix
 
 from mezzanine.conf import settings
-from mezzanine.utils.sites import current_site_id
 from mezzanine.utils.conf import middlewares_or_subclasses_installed
+from mezzanine.utils.sites import current_site_id
 
 
 def _hashed_key(key):
@@ -65,11 +63,17 @@ def cache_installed():
     """
     has_key = bool(getattr(settings, "NEVERCACHE_KEY", ""))
 
-    return (has_key and settings.CACHES and not settings.TESTING and
-            middlewares_or_subclasses_installed([
+    return (
+        has_key
+        and settings.CACHES
+        and not settings.TESTING
+        and middlewares_or_subclasses_installed(
+            [
                 "mezzanine.core.middleware.UpdateCacheMiddleware",
                 "mezzanine.core.middleware.FetchFromCacheMiddleware",
-            ]))
+            ]
+        )
+    )
 
 
 def cache_key_prefix(request):
@@ -77,7 +81,7 @@ def cache_key_prefix(request):
     Cache key for Mezzanine's cache middleware. Adds the current
     site ID.
     """
-    cache_key = "%s.%s.%s" % (
+    cache_key = "{}.{}.{}".format(
         settings.CACHE_MIDDLEWARE_KEY_PREFIX,
         current_site_id(),
         # This last part used to indicate the device type for the request,

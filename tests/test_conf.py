@@ -1,34 +1,30 @@
-from __future__ import unicode_literals
-from future.builtins import bytes, str
-
-import sys
-from unittest import skipUnless
 import warnings
+from unittest import skipUnless
 
 from django.conf import settings as django_settings
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
-from mezzanine.conf import settings, registry, register_setting
+from mezzanine.conf import register_setting, registry, settings
 from mezzanine.conf.context_processors import TemplateSettings
 from mezzanine.conf.models import Setting
 from mezzanine.utils.tests import TestCase
 
-PY2 = sys.version_info[0] == 2
-
 
 class ConfTests(TestCase):
-
     @skipUnless(False, "Only run manually - see Github issue #1126")
     def test_threading_race(self):
         import multiprocessing.pool
         import random
+
         from django.db import connections
 
-        type_modifiers = {int: lambda s: s + 1,
-                          float: lambda s: s + 1.0,
-                          bool: lambda s: not s,
-                          str: lambda s: s + u"test",
-                          bytes: lambda s: s + b"test"}
+        type_modifiers = {
+            int: lambda s: s + 1,
+            float: lambda s: s + 1.0,
+            bool: lambda s: not s,
+            str: lambda s: s + "test",
+            bytes: lambda s: s + b"test",
+        }
 
         # Store a non-default value for every editable setting in the database
         editable_settings = {}
@@ -47,8 +43,7 @@ class ConfTests(TestCase):
         for conn in connections.all():
             # If using in-memory sqlite databases, pass the connections to
             # the server thread.
-            if (conn.vendor == 'sqlite' and
-                    conn.settings_dict['NAME'] == ':memory:'):
+            if conn.vendor == "sqlite" and conn.settings_dict["NAME"] == ":memory:":
                 # Explicitly enable thread-shareability for this connection
                 conn._old_allow_thread_sharing = conn.allow_thread_sharing
                 conn.allow_thread_sharing = True
@@ -69,8 +64,9 @@ class ConfTests(TestCase):
                 yield random.choice(choices)
 
         try:
-            for setting in thread_pool.imap_unordered(retrieve_setting,
-                                                      choose_random_setting()):
+            for setting in thread_pool.imap_unordered(
+                retrieve_setting, choose_random_setting()
+            ):
                 name, retrieved_value = setting
                 self.assertEqual(retrieved_value, editable_settings[name])
         finally:
@@ -103,11 +99,11 @@ class ConfTests(TestCase):
             elif setting_type is bool:
                 setting_value = not setting_value
             elif setting_type is str:
-                setting_value += u"test"
+                setting_value += "test"
             elif setting_type is bytes:
                 setting_value += b"test"
             else:
-                setting = "%s: %s" % (setting_name, setting_type)
+                setting = f"{setting_name}: {setting_type}"
                 self.fail("Unsupported setting type for %s" % setting)
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=setting_value)
@@ -131,16 +127,6 @@ class ConfTests(TestCase):
         second_value = settings.FOO
         self.assertEqual(first_value, second_value)
 
-    @skipUnless(PY2, "Needed only in Python 2")
-    def test_bytes_conversion(self):
-
-        settings.clear_cache()
-
-        register_setting(name="BYTES_TEST_SETTING", editable=True, default=b"")
-        Setting.objects.create(name="BYTES_TEST_SETTING",
-                               value="A unicode value")
-        self.assertEqual(settings.BYTES_TEST_SETTING, b"A unicode value")
-
     def test_invalid_value_warning(self):
         """
         Test that a warning is raised when a database setting has an invalid
@@ -150,10 +136,10 @@ class ConfTests(TestCase):
         settings.clear_cache()
 
         register_setting(name="INVALID_INT_SETTING", editable=True, default=0)
-        Setting.objects.create(name="INVALID_INT_SETTING", value='zero')
+        Setting.objects.create(name="INVALID_INT_SETTING", value="zero")
         with warnings.catch_warnings():
-            warning_re = r'The setting \w+ should be of type'
-            warnings.filterwarnings('error', warning_re, UserWarning)
+            warning_re = r"The setting \w+ should be of type"
+            warnings.filterwarnings("error", warning_re, UserWarning)
             with self.assertRaises(UserWarning):
                 settings.INVALID_INT_SETTING
         self.assertEqual(settings.INVALID_INT_SETTING, 0)
@@ -167,7 +153,7 @@ class ConfTests(TestCase):
         settings.clear_cache()
 
         register_setting(name="REGISTERED_SETTING", editable=True, default="")
-        Setting.objects.create(name="UNREGISTERED_SETTING", value='')
+        Setting.objects.create(name="UNREGISTERED_SETTING", value="")
 
         with self.assertRaises(AttributeError):
             settings.UNREGISTERED_SETTING
@@ -193,9 +179,10 @@ class ConfTests(TestCase):
         settings.CONFLICTING_SETTING = 3
 
         with warnings.catch_warnings():
-            warning_re = ("These settings are defined in both "
-                          r"settings\.py and the database")
-            warnings.filterwarnings('error', warning_re, UserWarning)
+            warning_re = (
+                "These settings are defined in both " r"settings\.py and the database"
+            )
+            warnings.filterwarnings("error", warning_re, UserWarning)
 
             with self.assertRaises(UserWarning):
                 settings.CONFLICTING_SETTING
@@ -218,12 +205,13 @@ class ConfTests(TestCase):
 
         # Ensure usage with no current request does not break caching
         from mezzanine.core.request import _thread_local
+
         try:
             del _thread_local.request
         except AttributeError:
             pass
 
-        setting = Setting.objects.create(name='SITE_TITLE', value="Mezzanine")
+        setting = Setting.objects.create(name="SITE_TITLE", value="Mezzanine")
         original_site_title = settings.SITE_TITLE
         setting.value = "Foobar"
         setting.save()
@@ -235,39 +223,38 @@ class ConfTests(TestCase):
 class TemplateSettingsTests(TestCase):
     def test_allowed(self):
         # We choose a setting that will definitely exist:
-        ts = TemplateSettings(settings, ['INSTALLED_APPS'])
+        ts = TemplateSettings(settings, ["INSTALLED_APPS"])
         self.assertEqual(ts.INSTALLED_APPS, settings.INSTALLED_APPS)
-        self.assertEqual(ts['INSTALLED_APPS'], settings.INSTALLED_APPS)
+        self.assertEqual(ts["INSTALLED_APPS"], settings.INSTALLED_APPS)
 
     def test_not_allowed(self):
         ts = TemplateSettings(settings, [])
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             self.assertRaises(AttributeError, lambda: ts.INSTALLED_APPS)
-            self.assertRaises(KeyError, lambda: ts['INSTALLED_APPS'])
+            self.assertRaises(KeyError, lambda: ts["INSTALLED_APPS"])
 
     def test_add(self):
-        ts = TemplateSettings(settings, ['INSTALLED_APPS'])
-        ts['EXTRA_THING'] = 'foo'
-        self.assertEqual(ts.EXTRA_THING, 'foo')
-        self.assertEqual(ts['EXTRA_THING'], 'foo')
+        ts = TemplateSettings(settings, ["INSTALLED_APPS"])
+        ts["EXTRA_THING"] = "foo"
+        self.assertEqual(ts.EXTRA_THING, "foo")
+        self.assertEqual(ts["EXTRA_THING"], "foo")
 
     def test_repr(self):
         ts = TemplateSettings(settings, [])
-        self.assertEqual(repr(ts), '{}')
+        self.assertEqual(repr(ts), "{}")
 
-        ts2 = TemplateSettings(settings,
-                               ['DEBUG', 'SOME_NON_EXISTANT_SETTING'])
+        ts2 = TemplateSettings(settings, ["DEBUG", "SOME_NON_EXISTANT_SETTING"])
         self.assertIn("'DEBUG': False", repr(ts2))
 
         ts3 = TemplateSettings(settings, [])
-        ts3['EXTRA_THING'] = 'foo'
+        ts3["EXTRA_THING"] = "foo"
         self.assertIn("'EXTRA_THING'", repr(ts3))
         self.assertIn("'foo'", repr(ts3))
 
-    def test_force_text(self):
+    def test_force_str(self):
         ts = TemplateSettings(settings, [])
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
-            self.assertEqual(force_text(ts), '{}')
+            self.assertEqual(force_str(ts), "{}")
         self.assertEqual(len(w), 0)

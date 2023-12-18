@@ -75,12 +75,6 @@ within Mezzanine that are added to ``settings.INSTALLED_APPS``.
 .. automodule:: mezzanine.core.request
    :members:
 
-``mezzanine.core.tests``
-------------------------
-
-.. automodule:: mezzanine.core.tests
-   :members:
-
 
 
 

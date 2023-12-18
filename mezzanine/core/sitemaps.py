@@ -1,12 +1,9 @@
-from __future__ import unicode_literals
-
 from django.contrib.sitemaps import Sitemap
 from django.contrib.sites.models import Site
 
 from mezzanine.conf import settings
 from mezzanine.core.models import Displayable
 from mezzanine.utils.sites import current_site_id
-
 
 blog_installed = "mezzanine.blog" in settings.INSTALLED_APPS
 if blog_installed:
@@ -35,4 +32,4 @@ class DisplayableSitemap(Sitemap):
         Ensure the correct host by injecting the current site.
         """
         kwargs["site"] = Site.objects.get(id=current_site_id())
-        return super(DisplayableSitemap, self).get_urls(**kwargs)
+        return super().get_urls(**kwargs)

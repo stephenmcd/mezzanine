@@ -45,8 +45,8 @@ standard Django environment), with the following dependencies, which
 unless noted as optional, should be installed automatically following
 the above instructions:
 
-* `Python`_ 2.7 to 3.6
-* `Django`_ 1.8 to 1.11
+* `Python`_ 3.7 to 3.10
+* `Django`_ 2.2 to 4.0
 * `django-contrib-comments`_ - for built-in threaded comments
 * `Pillow`_ - for image resizing (`Python Imaging Library`_ fork)
 * `grappelli-safe`_ - admin skin (`Grappelli`_ fork)
@@ -57,24 +57,23 @@ the above instructions:
 * `django-modeltranslation`_ - for multi-lingual content (optional)
 * `django-compressor`_ - for merging JS/CSS assets (optional)
 * `requests`_ and `requests_oauthlib`_ - for interacting with external APIs
-* `pyflakes`_ and `pep8`_ - for running the test suite (optional)
 
-Note that various systems may contain 
-`specialized instructions for installing Pillow`_. 
+Note that various systems may contain
+`specialized instructions for installing Pillow`_.
 
 Themes
 ======
 
 A handful of attractive `Free Themes`_ are available thanks to
-`@abhinavsohani`_, while there is also a marketplace for buying and
-selling `Premium Themes`_ thanks to `@joshcartme`_.
+`@abhinavsohani`_.
 
 
 Browser Support
 ===============
 
-Mezzanine's admin interface works with all modern browsers.
-Internet Explorer 7 and earlier are generally unsupported.
+Mezzanine's admin interface works with all modern browsers including Google
+Chrome, Safari, Firefox and MS Edge. Internet Explorer and Edge < 79 are
+generally unsupported.
 
 
 Third-Party Plug-Ins
@@ -305,7 +304,6 @@ certain sites.
 * `Adrenaline <http://www.adrln.com/>`_
 * `ACE EdVenture Programme <http://aceedventure.com/>`_
 * `Butchershop Creative <http://www.butchershopcreative.com/>`_
-* `Sam Kingston <http://www.sjkingston.com>`_
 * `Ludwig von Mises Institute <http://mises.fi>`_
 * `Incendio <http://incendio.no/>`_
 * `Alexander Lillevik <http://lillevikdesign.no/>`_
@@ -343,7 +341,6 @@ certain sites.
 * `SaniCo <https://sanimedicaltourism.com>`_
 * `Grupo Invista <http://grupoinvista.com>`_
 * `Brooklyn Navy Yard <http://brooklynnavyyard.org/>`_
-* `MEZZaTHEME <http://mezzathe.me/>`_
 * `Nektra Advanced Computing <http://www.nektra.com/>`_
 * `Bootstrap ASAP <https://bootstrapasap.com/>`_
 * `California Center for Jobs <http://www.centerforjobs.org/>`_
@@ -462,12 +459,14 @@ certain sites.
 * `The Federation of Egalitarian Communities <http://thefec.org>`_
 * `Caffeinated Lifestyle <https://caffeinatedlifestyle.com>`_
 * `The National: New Australian Art <https://the-national.com.au>`_
+
+.. _`@abhinavsohani`: https://twitter.com/abhinavsohani
+.. _`@joshcartme`: https://twitter.com/joshcartme
 .. _`Mezzanine Grid on djangopackages.com`: http://www.djangopackages.com/grids/g/mezzanine/
 .. _`Cartridge`: http://cartridge.jupo.org/
 .. _`Drum`: https://github.com/stephenmcd/drum
 .. _`Hacker News`: https://news.ycombinator.com
 .. _`Reddit`: http://www.reddit.com
-.. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
 .. _`mezzanine-html5boilerplate`: https://github.com/tvon/mezzanine-html5boilerplate
 .. _`html5boilerplate project`: http://html5boilerplate.com/
 .. _`mezzanine-mdown`: https://bitbucket.org/onelson/mezzanine-mdown
@@ -543,7 +542,6 @@ certain sites.
 .. _`Smartling Translations`: http://www.smartling.com/
 .. _`dpaste`: https://github.com/bartTC/dpaste
 
-
 .. _`Python`: http://python.org/
 .. _`django-contrib-comments`: https://pypi.python.org/pypi/django-contrib-comments
 .. _`bleach`: http://pypi.python.org/pypi/bleach
@@ -560,9 +558,7 @@ certain sites.
 .. _`pip`: http://www.pip-installer.org/
 .. _`requests`: http://docs.python-requests.org/en/latest/
 .. _`requests_oauthlib`: http://requests-oauthlib.readthedocs.org/
-.. _`pyflakes`: http://pypi.python.org/pypi/pyflakes
 .. _`chardet`: https://chardet.readthedocs.org
-.. _`pep8`: http://pypi.python.org/pypi/pep8
 .. _`specialized instructions for installing Pillow`: https://pillow.readthedocs.io/en/latest/installation.html
 .. _`Homebrew`: http://mxcl.github.com/homebrew/
 .. _`django-modeltranslation`: http://django-modeltranslation.readthedocs.org

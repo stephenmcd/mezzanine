@@ -1,5 +1,5 @@
 {% extends "admin/change_list.html" %}
-{% load pages_tags staticfiles %}
+{% load pages_tags static %}
 
 {% block extrahead %}
 {{ block.super }}
@@ -9,17 +9,14 @@
 .grappelli-delete {width:11px; height:11px; margin:4px 4px 0 10px; background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/icons/icon-inline_item_tools-deletelink.png" %}');}
 .grappelli-delete:hover {background:url('{% static settings.MEZZANINE_ADMIN_PREFIX|add:"img/icons/icon-inline_item_tools-deletelink-hover.png" %}');}
 </style>
-<script>window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
-{% if not settings.USE_MODELTRANSLATION %}
 <script src="{% static "mezzanine/js/"|add:settings.JQUERY_UI_FILENAME %}"></script>
-{% endif %}
+<script>window.__page_ordering_url = '{% url "admin_page_ordering" %}';</script>
 <script src="{% static "mezzanine/js/admin/jquery.mjs.nestedSortable.js" %}"></script>
 <script src="{% static "mezzanine/js/admin/page_tree.js" %}"></script>
-{% endblock %}
+{% endblock extrahead %}
 
 {% block content %}
 <div id="content-main">
-
     {% if has_add_permission %}
         {% include "admin/includes/content_typed_change_list.html" %}
     {% endif %}
@@ -31,4 +28,4 @@
     {% endif %}
 
 </div>
-{% endblock %}
+{% endblock content %}

@@ -1,14 +1,9 @@
-from __future__ import unicode_literals
-from future.builtins import int, str
-
 from collections import defaultdict
 
-from mezzanine.conf import settings
-from mezzanine.twitter import (QUERY_TYPE_USER, QUERY_TYPE_LIST,
-                               QUERY_TYPE_SEARCH)
-from mezzanine.twitter.models import Tweet, TwitterQueryException
 from mezzanine import template
-
+from mezzanine.conf import settings
+from mezzanine.twitter import QUERY_TYPE_LIST, QUERY_TYPE_SEARCH, QUERY_TYPE_USER
+from mezzanine.twitter.models import Tweet, TwitterQueryException
 
 register = template.Library()
 
@@ -32,7 +27,7 @@ def tweets_for(query_type, args, per_user=None):
         tweets = sum(_tweets.values(), [])
         tweets.sort(key=lambda t: t.created_at, reverse=True)
     if len(args) > 1 and str(args[-1]).isdigit():
-        tweets = tweets[:int(args[-1])]
+        tweets = tweets[: int(args[-1])]
     return tweets
 
 
@@ -66,8 +61,7 @@ def tweets_default(*args):
     Tweets for the default settings.
     """
     query_type = settings.TWITTER_DEFAULT_QUERY_TYPE
-    args = (settings.TWITTER_DEFAULT_QUERY,
-            settings.TWITTER_DEFAULT_NUM_TWEETS)
+    args = (settings.TWITTER_DEFAULT_QUERY, settings.TWITTER_DEFAULT_NUM_TWEETS)
     per_user = None
     if query_type == QUERY_TYPE_LIST:
         per_user = 1

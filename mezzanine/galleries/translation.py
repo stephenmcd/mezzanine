@@ -1,6 +1,7 @@
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import TranslationOptions, translator
+
 from mezzanine.core.translation import TranslatedRichText
-from mezzanine.galleries.models import GalleryImage, Gallery
+from mezzanine.galleries.models import Gallery, GalleryImage
 
 
 class TranslatedGallery(TranslatedRichText):
@@ -8,7 +9,8 @@ class TranslatedGallery(TranslatedRichText):
 
 
 class TranslatedGalleryImage(TranslationOptions):
-    fields = ('description',)
+    fields = ("description",)
+
 
 translator.register(Gallery, TranslatedGallery)
 translator.register(GalleryImage, TranslatedGalleryImage)

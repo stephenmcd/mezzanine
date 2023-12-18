@@ -1,16 +1,12 @@
-from __future__ import unicode_literals
-from future.builtins import int
-
 from collections import defaultdict
 
-from django.urls import reverse
 from django.template.defaultfilters import linebreaksbr, urlize
+from django.urls import reverse
 
 from mezzanine import template
 from mezzanine.conf import settings
 from mezzanine.generic.models import ThreadedComment
 from mezzanine.utils.importing import import_dotted_path
-
 
 register = template.Library()
 
@@ -24,13 +20,16 @@ def comments_for(context, obj):
     form_class = import_dotted_path(settings.COMMENT_FORM_CLASS)
     form = form_class(context["request"], obj)
     context_form = context.get("posted_comment_form", form)
-    context.update({
-        'posted_comment_form':
-            context_form if context_form.target_object == obj else form,
-        'unposted_comment_form': form,
-        'comment_url': reverse("comment"),
-        'object_for_comments': obj,
-    })
+    context.update(
+        {
+            "posted_comment_form": context_form
+            if context_form.target_object == obj
+            else form,
+            "unposted_comment_form": form,
+            "comment_url": reverse("comment"),
+            "object_for_comments": obj,
+        }
+    )
     return context.flatten()
 
 
@@ -54,18 +53,19 @@ def comment_thread(context, parent):
     parent_id = parent.id if isinstance(parent, ThreadedComment) else None
     try:
         replied_to = int(context["request"].POST["replied_to"])
-    except KeyError:
+    except (KeyError, ValueError):
         replied_to = 0
-    context.update({
-        "comments_for_thread": context["all_comments"].get(parent_id, []),
-        "no_comments": parent_id is None and not context["all_comments"],
-        "replied_to": replied_to,
-    })
+    context.update(
+        {
+            "comments_for_thread": context["all_comments"].get(parent_id, []),
+            "no_comments": parent_id is None and not context["all_comments"],
+            "replied_to": replied_to,
+        }
+    )
     return context.flatten()
 
 
-@register.inclusion_tag("admin/includes/recent_comments.html",
-    takes_context=True)
+@register.inclusion_tag("admin/includes/recent_comments.html", takes_context=True)
 def recent_comments(context):
     """
     Dashboard widget for displaying recent comments.
@@ -86,8 +86,10 @@ def comment_filter(comment_text):
     """
     filter_func = settings.COMMENT_FILTER
     if not filter_func:
+
         def filter_func(s):
             return linebreaksbr(urlize(s, autoescape=True), autoescape=True)
+
     elif not callable(filter_func):
         filter_func = import_dotted_path(filter_func)
     return filter_func(comment_text)

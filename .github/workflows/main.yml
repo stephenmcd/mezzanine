@@ -1,0 +1,142 @@
+name: Test and release
+
+# Fires on all incoming commits
+on:
+  pull_request:
+  push:
+
+jobs:
+
+  # Test all supported Python & Django versions
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Django 2.2
+          - tox-env: "py37-dj22"
+            python-version: "3.7"
+          - tox-env: "py38-dj22"
+            python-version: "3.8"
+          - tox-env: "py39-dj22"
+            python-version: "3.9"
+          # Django 3.0
+          - tox-env: "py37-dj30"
+            python-version: "3.7"
+          - tox-env: "py38-dj30"
+            python-version: "3.8"
+          - tox-env: "py39-dj30"
+            python-version: "3.9"
+          # Django 3.1
+          - tox-env: "py37-dj31"
+            python-version: "3.7"
+          - tox-env: "py38-dj31"
+            python-version: "3.8"
+          - tox-env: "py39-dj31"
+            python-version: "3.9"
+          # Django 3.2
+          - tox-env: "py37-dj32"
+            python-version: "3.7"
+          - tox-env: "py38-dj32"
+            python-version: "3.8"
+          - tox-env: "py39-dj32"
+            python-version: "3.9"
+          - tox-env: "py310-dj32"
+            python-version: "3.10"
+          # Django 4.0
+          - tox-env: "py38-dj40"
+            python-version: "3.8"
+          - tox-env: "py39-dj40"
+            python-version: "3.9"
+          - tox-env: "py310-dj40"
+            python-version: "3.10"
+          # Django 4.1
+          - tox-env: "py38-dj41"
+            python-version: "3.8"
+          - tox-env: "py39-dj41"
+            python-version: "3.9"
+          - tox-env: "py310-dj41"
+            python-version: "3.10"
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install -U pip tox
+      - name: Run tests
+        run: tox -e ${{ matrix.tox-env }}
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        with:
+          report_paths: '**/junit/TEST-*.xml'
+
+  # Lint
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install dependencies
+        run: pip install tox -U pip
+      - name: Lint
+        run: tox -e package -e lint -e pyupgrade
+
+  # Create a new semantic release
+  # Only runs on the original repo, not forks
+  release:
+    if: github.repository_owner == 'stephenmcd'
+    needs: [test, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - uses: actions/setup-node@v3
+      - uses: cycjimmy/semantic-release-action@v3
+        with:
+          semantic_version: 18
+          extra_plugins: |
+            @semantic-release/exec@6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+
+  # Build and deploy docs  
+  docs:
+    if: github.ref == 'refs/heads/stable'
+    needs: release
+    name: build and deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Install deps
+        run: pip install -e . && pip install sphinx
+      - uses: actions-ecosystem/action-get-latest-tag@v1
+        id: get-latest-tag
+        with:
+          semver_only: true
+      - name: Get release tag
+        run: echo "RELEASE_TAG=${{ steps.get-latest-tag.outputs.tag }}" >> $GITHUB_ENV
+      - name: Build docs
+        run: sphinx-build -b html docs docs/build
+      - name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: docs/build
+          fqdn: mezzanine.jupo.org
+          jekyll: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

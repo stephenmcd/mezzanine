@@ -1,24 +1,22 @@
-from __future__ import unicode_literals
-from future.builtins import str
-from mezzanine.utils.sites import override_current_site_id
+from urllib.parse import urljoin
 
-try:
-    from urllib.parse import urljoin
-except ImportError:  # Python 2
-    from urlparse import urljoin
-
-from django.urls import resolve, reverse
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _, ugettext
+from django.urls import resolve, reverse
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.models import (
-    ContentTyped, Displayable, Orderable, RichText)
+    ContentTyped,
+    Displayable,
+    Orderable,
+    RichText,
+    wrapped_manager,
+)
 from mezzanine.pages.fields import MenusField
 from mezzanine.pages.managers import PageManager
+from mezzanine.utils.sites import override_current_site_id
 from mezzanine.utils.urls import path_to_slug
-from mezzanine.core.models import wrapped_manager
 
 
 class BasePage(Orderable, Displayable):
@@ -34,19 +32,22 @@ class BasePage(Orderable, Displayable):
         abstract = True
 
 
-@python_2_unicode_compatible
 class Page(BasePage, ContentTyped):
     """
     A page in the page tree. This is the base class that custom content types
     need to subclass.
     """
 
-    parent = models.ForeignKey("Page", on_delete=models.CASCADE,
-        blank=True, null=True, related_name="children")
+    parent = models.ForeignKey(
+        "Page", on_delete=models.CASCADE, blank=True, null=True, related_name="children"
+    )
     in_menus = MenusField(_("Show in menus"), blank=True, null=True)
     titles = models.CharField(editable=False, max_length=1000, null=True)
-    login_required = models.BooleanField(_("Login required"), default=False,
-        help_text=_("If checked, only logged in users can view this page"))
+    login_required = models.BooleanField(
+        _("Login required"),
+        default=False,
+        help_text=_("If checked, only logged in users can view this page"),
+    )
 
     class Meta:
         verbose_name = _("Page")
@@ -66,7 +67,7 @@ class Page(BasePage, ContentTyped):
         slug = self.slug
         if self.content_model == "link":
             # Ensure the URL is absolute.
-            slug = urljoin('/', slug)
+            slug = urljoin("/", slug)
             return slug
         if slug == "/":
             return reverse("home")
@@ -85,7 +86,7 @@ class Page(BasePage, ContentTyped):
             titles.insert(0, parent.title)
             parent = parent.parent
         self.titles = " / ".join(titles)
-        super(Page, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def description_from_content(self):
         """
@@ -97,7 +98,7 @@ class Page(BasePage, ContentTyped):
         if self.__class__ == Page:
             if self.content_model:
                 return self.get_content_model().description_from_content()
-        return super(Page, self).description_from_content()
+        return super().description_from_content()
 
     def get_ascendants(self, for_user=None):
         """
@@ -117,8 +118,7 @@ class Page(BasePage, ContentTyped):
             if self.slug:
                 kwargs = {"for_user": for_user}
                 with override_current_site_id(self.site_id):
-                    pages = Page.objects.with_ascendants_for_slug(self.slug,
-                                                                  **kwargs)
+                    pages = Page.objects.with_ascendants_for_slug(self.slug, **kwargs)
                 self._ascendants = pages[0]._ascendants
             else:
                 self._ascendants = []
@@ -136,9 +136,9 @@ class Page(BasePage, ContentTyped):
         """
         Recursively build the slug from the chain of parents.
         """
-        slug = super(Page, self).get_slug()
+        slug = super().get_slug()
         if self.parent is not None:
-            return "%s/%s" % (self.parent.slug, slug)
+            return f"{self.parent.slug}/{slug}"
         return slug
 
     def set_slug(self, new_slug):
@@ -149,7 +149,7 @@ class Page(BasePage, ContentTyped):
         slug_prefix = "%s/" % self.slug
         for page in Page.objects.filter(slug__startswith=slug_prefix):
             if not page.overridden():
-                page.slug = new_slug + page.slug[len(self.slug):]
+                page.slug = new_slug + page.slug[len(self.slug) :]
                 page.save()
         self.slug = new_slug
         self.save()
@@ -167,20 +167,21 @@ class Page(BasePage, ContentTyped):
         parent = new_parent
         while parent is not None:
             if parent.pk == self.pk:
-                raise AttributeError("You can't set a page or its child as"
-                                     " a parent.")
+                raise AttributeError(
+                    "You can't set a page or its child as" " a parent."
+                )
             parent = parent.parent
 
         self.parent = new_parent
         self.save()
 
-        if self_slug and not (self.content_model == "link" and
-                              self.slug.startswith("http")):
+        if self_slug and not (
+            self.content_model == "link" and self.slug.startswith("http")
+        ):
             if not old_parent_slug:
                 self.set_slug("/".join((new_parent_slug, self.slug)))
             elif self.slug.startswith(old_parent_slug):
-                new_slug = self.slug.replace(old_parent_slug,
-                                             new_parent_slug, 1)
+                new_slug = self.slug.replace(old_parent_slug, new_parent_slug, 1)
                 self.set_slug(new_slug.strip("/"))
 
     def overridden(self):
@@ -189,6 +190,7 @@ class Page(BasePage, ContentTyped):
         urlpattern and is therefore considered to be overridden.
         """
         from mezzanine.pages.views import page
+
         page_url = reverse("page", kwargs={"slug": self.slug})
         resolved_view = resolve(page_url)[0]
         return resolved_view != page
@@ -247,6 +249,7 @@ class Page(BasePage, ContentTyped):
         def is_c_or_a(page_id):
             parent_id = context.get("_parent_page_ids", {}).get(page_id)
             return self.id == page_id or (parent_id and is_c_or_a(parent_id))
+
         self.is_current_or_ascendant = lambda: bool(is_c_or_a(current_page_id))
         self.is_current_parent = self.id == current_parent_id
         # Am I a primary page?
@@ -300,7 +303,7 @@ class PageMoveException(Exception):
     """
 
     def __init__(self, msg=None):
-        self.msg = msg or ugettext("Illegal page move")
+        self.msg = msg or gettext("Illegal page move")
 
     def __str__(self):
         return self.msg

@@ -1,18 +1,15 @@
-from __future__ import unicode_literals
-from future.builtins import str
-
 from copy import copy
 
 from django.contrib import admin
 from django.contrib.messages import info
 from django.http import HttpResponseRedirect
-from django.utils.translation import ugettext_lazy as _
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
+from django.utils.translation import gettext_lazy as _
 
-from mezzanine.core.admin import BaseTranslationModelAdmin
 from mezzanine.conf import settings
-from mezzanine.conf.models import Setting
 from mezzanine.conf.forms import SettingsForm
+from mezzanine.conf.models import Setting
+from mezzanine.core.admin import BaseTranslationModelAdmin
 from mezzanine.utils.static import static_lazy as static
 from mezzanine.utils.urls import admin_url
 
@@ -26,9 +23,13 @@ class SettingsAdmin(admin.ModelAdmin):
     class Media(BaseTranslationModelAdmin.Media):
         css = copy(BaseTranslationModelAdmin.Media.css)
         css["all"] += (static("mezzanine/css/admin/settings.css"),)
-        js = [js.replace(str(static("tabbed_translation_fields.js")),
-                         str(static("tabbed_translatable_settings.js")))
-              for js in BaseTranslationModelAdmin.Media.js]
+        js = [
+            js.replace(
+                str(static("tabbed_translation_fields.js")),
+                str(static("tabbed_translatable_settings.js")),
+            )
+            for js in BaseTranslationModelAdmin.Media.js
+        ]
 
     def changelist_redirect(self):
         changelist_url = admin_url(Setting, "changelist")
@@ -50,10 +51,11 @@ class SettingsAdmin(admin.ModelAdmin):
             info(request, _("Settings were successfully updated."))
             return self.changelist_redirect()
         extra_context["settings_form"] = settings_form
-        extra_context["title"] = u"%s %s" % (
-            _("Change"), force_text(Setting._meta.verbose_name_plural))
-        return super(SettingsAdmin, self).changelist_view(request,
-                                                            extra_context)
+        extra_context["title"] = "{} {}".format(
+            _("Change"),
+            force_str(Setting._meta.verbose_name_plural),
+        )
+        return super().changelist_view(request, extra_context)
 
 
 admin.site.register(Setting, SettingsAdmin)

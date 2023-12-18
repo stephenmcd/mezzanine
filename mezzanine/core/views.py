@@ -1,39 +1,28 @@
-from __future__ import absolute_import, unicode_literals
-from future.builtins import int, open, str
-
-import os
 import mimetypes
-
+import os
 from json import dumps
-
-from django.template.response import TemplateResponse
-
-try:
-    from urllib.parse import urljoin, urlparse
-except ImportError:
-    from urlparse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse
 
 from django.apps import apps
 from django.contrib import admin
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.admin.options import ModelAdmin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.staticfiles import finders
 from django.core.exceptions import PermissionDenied
-from django.urls import reverse
-from django.http import (HttpResponse, HttpResponseServerError,
-                         HttpResponseNotFound)
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import redirect
 from django.template.loader import get_template
-from django.utils.translation import ugettext_lazy as _
+from django.template.response import TemplateResponse
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import requires_csrf_token
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import get_edit_form
 from mezzanine.core.models import Displayable, SitePermission
-from mezzanine.utils.views import is_editable, paginate
 from mezzanine.utils.sites import has_site_permission
 from mezzanine.utils.urls import next_url
-
+from mezzanine.utils.views import is_editable, paginate
 
 mimetypes.init()
 
@@ -84,8 +73,9 @@ def edit(request):
     """
     model = apps.get_model(request.POST["app"], request.POST["model"])
     obj = model.objects.get(id=request.POST["id"])
-    form = get_edit_form(obj, request.POST["fields"], data=request.POST,
-                         files=request.FILES)
+    form = get_edit_form(
+        obj, request.POST["fields"], data=request.POST, files=request.FILES
+    )
     if not (is_editable(obj, request) and has_site_permission(request.user)):
         response = _("Permission denied")
     elif form.is_valid():
@@ -119,8 +109,7 @@ def search(request, template="search_results.html", extra_context=None):
         search_type = search_model._meta.verbose_name_plural.capitalize()
     results = search_model.objects.search(query, for_user=request.user)
     paginated = paginate(results, page, per_page, max_paging_links)
-    context = {"query": query, "results": paginated,
-               "search_type": search_type}
+    context = {"query": query, "results": paginated, "search_type": search_type}
     context.update(extra_context or {})
     return TemplateResponse(request, template, context)
 
@@ -158,13 +147,13 @@ def static_proxy(request):
             if not urlparse(static_url).scheme:
                 static_url = urljoin(host, static_url)
             base_tag = "<base href='%s'>" % static_url
-            with open(path, "r") as f:
+            with open(path) as f:
                 response = f.read().replace("<head>", "<head>" + base_tag)
         else:
             try:
                 with open(path, "rb") as f:
                     response = f.read()
-            except IOError:
+            except OSError:
                 return HttpResponseNotFound()
     return HttpResponse(response, content_type=content_type)
 
@@ -178,6 +167,7 @@ def displayable_links_js(request):
     links = []
     if "mezzanine.pages" in settings.INSTALLED_APPS:
         from mezzanine.pages.models import Page
+
         is_page = lambda obj: isinstance(obj, Page)
     else:
         is_page = lambda obj: False
@@ -190,9 +180,9 @@ def displayable_links_js(request):
         page = is_page(obj)
         if real:
             verbose_name = _("Page") if page else obj._meta.verbose_name
-            title = "%s: %s" % (verbose_name, title)
+            title = f"{verbose_name}: {title}"
         links.append((not page and real, {"title": str(title), "value": url}))
-    sorted_links = sorted(links, key=lambda link: (link[0], link[1]['value']))
+    sorted_links = sorted(links, key=lambda link: (link[0], link[1]["value"]))
     return HttpResponse(dumps([link[1] for link in sorted_links]))
 
 

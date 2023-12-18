@@ -8,12 +8,13 @@ import django
 from django.conf import settings
 
 
-# Middleware mixin for Django 1.10
-try:
-    from django.utils.deprecation import MiddlewareMixin
-except ImportError:
-    class MiddlewareMixin(object):
-        pass
+def request_is_ajax(request):
+    """
+    request.is_ajax() is deprecated. Check the content_type
+
+    Returns true if request CONTENT_TYPE is "application/json"
+    """
+    return request.META.get("CONTENT_TYPE") == "application/json"
 
 
 def get_middleware_setting_name():
@@ -62,9 +63,12 @@ def get_related_model(field):
 
 def mark_safe(s):
     from django.utils.safestring import mark_safe as django_safe
+
     if callable(s):
+
         @wraps(s)
         def wrapper(*args, **kwargs):
             return django_safe(s(*args, **kwargs))
+
         return wrapper
     return django_safe(s)

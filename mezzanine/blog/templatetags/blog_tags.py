@@ -1,14 +1,13 @@
-from __future__ import unicode_literals
 from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.db.models import Count, Q
 from django.utils import timezone
 
-from mezzanine.blog.forms import BlogPostForm
-from mezzanine.blog.models import BlogPost, BlogCategory
-from mezzanine.generic.models import Keyword
 from mezzanine import template
+from mezzanine.blog.forms import BlogPostForm
+from mezzanine.blog.models import BlogCategory, BlogPost
+from mezzanine.generic.models import Keyword
 
 User = get_user_model()
 

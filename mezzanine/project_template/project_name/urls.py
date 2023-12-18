@@ -1,11 +1,9 @@
-from __future__ import unicode_literals
-
-from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
+from django.urls import include, path
+from django.views.generic import TemplateView
 from django.views.i18n import set_language
 
-from mezzanine.core.views import direct_to_template
 from mezzanine.conf import settings
 
 # Uncomment to use blog as home page. See also urlpatterns section below.
@@ -20,27 +18,24 @@ admin.autodiscover()
 urlpatterns = i18n_patterns(
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
-    url(r"^admin/", include(admin.site.urls)),
+    path("admin/", include(admin.site.urls)),
 )
 
 if settings.USE_MODELTRANSLATION:
     urlpatterns += [
-        url('^i18n/$', set_language, name='set_language'),
+        path("i18n", set_language, name="set_language"),
     ]
 
 urlpatterns += [
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
-
     # HOMEPAGE AS STATIC TEMPLATE
     # ---------------------------
     # This pattern simply loads the index.html template. It isn't
     # commented out like the others, so it's the default. You only need
     # one homepage pattern, so if you use a different one, comment this
     # one out.
-
-    url(r"^$", direct_to_template, {"template": "index.html"}, name="home"),
-
+    path("", TemplateView.as_view(template_name="index.html"), name="home"),
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
     # This pattern gives us a normal ``Page`` object, so that your
@@ -54,9 +49,7 @@ urlpatterns += [
     # "/.html" - so for this case, the template "pages/index.html"
     # should be used if you want to customize the homepage's template.
     # NOTE: Don't forget to import the view function too!
-
-    # url(r"^$", mezzanine.pages.views.page, {"slug": "/"}, name="home"),
-
+    # path("", mezzanine.pages.views.page, {"slug": "/"}, name="home"),
     # HOMEPAGE FOR A BLOG-ONLY SITE
     # -----------------------------
     # This pattern points the homepage to the blog post listing page,
@@ -65,22 +58,18 @@ urlpatterns += [
     # ``settings.py`` module, and delete the blog page object from the
     # page tree in the admin if it was installed.
     # NOTE: Don't forget to import the view function too!
-
-    # url(r"^$", blog_views.blog_post_list, name="home"),
-
+    # path("", blog_views.blog_post_list, name="home"),
     # MEZZANINE'S URLS
     # ----------------
     # ADD YOUR OWN URLPATTERNS *ABOVE* THE LINE BELOW.
     # ``mezzanine.urls`` INCLUDES A *CATCH ALL* PATTERN
     # FOR PAGES, SO URLPATTERNS ADDED BELOW ``mezzanine.urls``
     # WILL NEVER BE MATCHED!
-
     # If you'd like more granular control over the patterns in
     # ``mezzanine.urls``, go right ahead and take the parts you want
     # from it, and use them directly below instead of using
     # ``mezzanine.urls``.
-    url(r"^", include("mezzanine.urls")),
-
+    path("", include("mezzanine.urls")),
     # MOUNTING MEZZANINE UNDER A PREFIX
     # ---------------------------------
     # You can also mount all of Mezzanine's urlpatterns under a
@@ -94,9 +83,7 @@ urlpatterns += [
     # of this file as well.
     # Note that for any of the various homepage patterns above, you'll
     # need to use the ``SITE_PREFIX`` setting as well.
-
     # ("^%s/" % settings.SITE_PREFIX, include("mezzanine.urls"))
-
 ]
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error

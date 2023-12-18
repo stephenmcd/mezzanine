@@ -8,16 +8,12 @@ until ``admin.autodiscover`` to avoid some timing issues around
 custom fields not being available when custom admin classes are
 registered.
 """
-from __future__ import unicode_literals
-
 from collections import defaultdict
 
-from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models.signals import class_prepared
 
 from mezzanine.boot.lazy_admin import LazyAdminSite
 from mezzanine.utils.importing import import_dotted_path
@@ -30,8 +26,8 @@ def parse_field_path(field_path):
     and a field name, e.g. "feature_image".
     """
     model_path, field_name = field_path.rsplit(".", 1)
-    app_name, model_name = model_path.split('.models.')
-    _, app_label = app_name.rsplit('.', 1)
+    app_name, model_name = model_path.split(".models.")
+    _, app_label = app_name.rsplit(".", 1)
     return (app_label, model_name.lower()), field_name
 
 
@@ -40,16 +36,18 @@ def import_field(field_classpath):
     Imports a field by its dotted class path, prepending "django.db.models"
     to raw class names and raising an exception if the import fails.
     """
-    if '.' in field_classpath:
+    if "." in field_classpath:
         fully_qualified = field_classpath
     else:
         fully_qualified = "django.db.models.%s" % field_classpath
     try:
         return import_dotted_path(fully_qualified)
     except ImportError:
-        raise ImproperlyConfigured("The EXTRA_MODEL_FIELDS setting contains "
-                                   "the field '%s' which could not be "
-                                   "imported." % field_classpath)
+        raise ImproperlyConfigured(
+            "The EXTRA_MODEL_FIELDS setting contains "
+            "the field '%s' which could not be "
+            "imported." % field_classpath
+        )
 
 
 def parse_extra_model_fields(extra_model_fields):
@@ -69,7 +67,8 @@ def parse_extra_model_fields(extra_model_fields):
         except TypeError as e:
             raise ImproperlyConfigured(
                 "The EXTRA_MODEL_FIELDS setting contains arguments for the "
-                "field '%s' which could not be applied: %s" % (entry[1], e))
+                "field '%s' which could not be applied: %s" % (entry[1], e)
+            )
         fields[model_key].append((field_name, field))
     return fields
 
@@ -88,13 +87,8 @@ def add_extra_model_fields(sender, **kwargs):
         field.contribute_to_class(sender, field_name)
 
 
-if DJANGO_VERSION < (1, 9):
-    if fields:
-        class_prepared.connect(add_extra_model_fields,
-            dispatch_uid="FQFEQ#rfq3r")
-else:
-    for model_key in fields:
-        apps.lazy_model_operation(add_extra_model_fields, model_key)
+for model_key in fields:
+    apps.lazy_model_operation(add_extra_model_fields, model_key)
 
 
 # Override django.contrib.admin.site with LazyAdminSite. It must
@@ -113,5 +107,6 @@ def autodiscover(*args, **kwargs):
     """
     django_autodiscover(*args, **kwargs)
     admin_site.lazy_registration()
+
 
 admin.autodiscover = autodiscover

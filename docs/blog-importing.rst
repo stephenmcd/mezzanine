@@ -162,7 +162,7 @@ The first step is to define any custom arguments the command will
 require using Python's `argparse
 <http://docs.python.org/library/argparse.html>`_ handling.
 
-The main responsbility of the ``Command`` class is then to implement a
+The main responsibility of the ``Command`` class is then to implement a
 :meth:`~mezzanine.blog.management.base.BaseImporterCommand.handle_import`
 method which handles retrieving blog posts and comments from the
 particular blogging platform. The :meth:`~mezzanine.blog.management.\

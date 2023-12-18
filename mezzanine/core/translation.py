@@ -2,12 +2,12 @@ from modeltranslation.translator import TranslationOptions
 
 
 class TranslatedSlugged(TranslationOptions):
-    fields = ('title',)
+    fields = ("title",)
 
 
 class TranslatedDisplayable(TranslatedSlugged):
-    fields = ('_meta_title', 'description')
+    fields = ("_meta_title", "description")
 
 
 class TranslatedRichText(TranslationOptions):
-    fields = ('content',)
+    fields = ("content",)

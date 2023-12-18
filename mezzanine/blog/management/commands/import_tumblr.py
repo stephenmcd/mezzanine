@@ -1,21 +1,12 @@
-from __future__ import print_function
-from __future__ import unicode_literals
-from future.builtins import int
-
 from datetime import datetime
 from json import loads
 from time import sleep
-
-try:
-    from urllib.request import urlopen
-except ImportError:
-    from urllib import urlopen
+from urllib.request import urlopen
 
 from django.core.management.base import CommandError
 from django.utils.html import strip_tags
 
 from mezzanine.blog.management.base import BaseImporterCommand
-
 
 MAX_POSTS_PER_CALL = 20  # Max number of posts Tumblr API will return per call.
 MAX_RETRIES_PER_CALL = 3  # Max times to retry API call after failing.
@@ -39,10 +30,10 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
-            "-t", "--tumblr-user", dest="tumblr_user",
-            help="Tumblr username")
+            "-t", "--tumblr-user", dest="tumblr_user", help="Tumblr username"
+        )
 
     help = "Import Tumblr blog posts into the blog app."
 
@@ -60,7 +51,7 @@ class Command(BaseImporterCommand):
         while True:
             retries = MAX_RETRIES_PER_CALL
             try:
-                call_url = "%s?start=%s" % (json_url, start_index)
+                call_url = f"{json_url}?start={start_index}"
                 if verbosity >= 2:
                     print("Calling %s" % call_url)
                 response = urlopen(call_url)
@@ -76,8 +67,8 @@ class Command(BaseImporterCommand):
                     sleep(3)
                     continue
                 elif response.code != 200:
-                    raise IOError("HTTP status %s" % response.code)
-            except IOError as e:
+                    raise OSError("HTTP status %s" % response.code)
+            except OSError as e:
                 error = "Error communicating with Tumblr API (%s)" % e
                 raise CommandError(error)
 
@@ -91,9 +82,13 @@ class Command(BaseImporterCommand):
                 if handler is not None:
                     title, content = handler(post)
                     pub_date = datetime.strptime(post["date"], date_format)
-                    self.add_post(title=title, content=content,
-                                  pub_date=pub_date, tags=post.get("tags"),
-                                  old_url=post["url-with-slug"])
+                    self.add_post(
+                        title=title,
+                        content=content,
+                        pub_date=pub_date,
+                        tags=post.get("tags"),
+                        old_url=post["url-with-slug"],
+                    )
             if len(posts) < MAX_POSTS_PER_CALL:
                 break
 
@@ -102,14 +97,16 @@ class Command(BaseImporterCommand):
 
     def handle_link_post(self, post):
         title = post["link-text"]
-        content = ('<p><a href="%(link-url)s">%(link-text)s</a></p>'
-                  '%(link-description)s') % post
+        content = (
+            '<p><a href="%(link-url)s">%(link-text)s</a></p>' "%(link-description)s"
+        ) % post
         return title, content
 
     def handle_quote_post(self, post):
         title = post["quote-text"]
-        content = ("<blockquote>%(quote-text)s</blockquote>"
-                  "<p>%(quote-source)s</p>") % post
+        content = (
+            "<blockquote>%(quote-text)s</blockquote>" "<p>%(quote-source)s</p>"
+        ) % post
         return title, content
 
     def handle_photo_post(self, post):

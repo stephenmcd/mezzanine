@@ -210,7 +210,7 @@ body.popup .breadcrumbs + ul.messagelist {
 fieldset.module {
     margin-bottom: 25px;
 }
-fieldset .field-box {
+fieldset .fieldBox {
     margin: 0 150px 10px 0 !important;
 }
 .form-row label + p.datetime {
@@ -240,14 +240,18 @@ td, th, th a, label, .help, p.help {
     font-size: 13px !important;
 }
 /* mezzanine.core.fields.MultiChoiceField */
+.multicheckbox > * {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+}
 .multicheckbox li {
     list-style-type: none;
-    float: left;
-    margin-right: 10px;
 }
-.multicheckbox li label {
+.multicheckbox label {
     width: auto;
     font-weight: normal;
+    margin-right: 10px;
 }
 .multicheckbox input {
     margin: -1px 6px 0 0;
@@ -305,6 +309,8 @@ td, th, th a, label, .help, p.help {
     position: relative;
 }
 .related-widget-wrapper .selector {
+    align-items: center;
+    display: flex;
     margin-right: 10px;
 }
 /*=====================================

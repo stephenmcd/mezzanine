@@ -49,8 +49,9 @@ update profile forms, as well as in the user's public profile page.
 
 .. note::
 
-    Profile pages are automatically made available when a profile
-    model is configured.
+    By default users will only be able to view and edit their own profile
+    information. The setting :ref:`ACCOUNTS_PROFILE_VIEWS_ENABLED` can be set
+    to ``True`` to enable public profile pages.
 
 Restricting Account Fields
 ==========================
@@ -81,6 +82,9 @@ If you don't want to expose the ``username`` field to the user, Mezzanine
 provides the setting :ref:`ACCOUNTS_NO_USERNAME`, which when set to
 ``True``, will expose the ``email`` field as the sole login for the user.
 
+To further customize the profile form you can provide a custom form class using
+the :ref:`ACCOUNTS_PROFILE_FORM_CLASS` setting.
+
 Account Verification
 ====================
 
@@ -101,7 +105,7 @@ To enable this, Mezzanine provides the setting
 :ref:`ACCOUNTS_APPROVAL_REQUIRED`, which when set to ``True``, will set
 newly created accounts as inactive, requiring a staff member to activate
 each account in the admin interface. A list of email addresses can be
-configured in the admin settings interface, which will then be notified by
+configured in the Settings section of the admin, which will then be notified by
 email each time a new account is created and requires activation. Users
 are then sent a notification when their accounts are activated by a staff
 member.

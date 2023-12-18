@@ -26,7 +26,7 @@
 {% block breadcrumb_menu %}
 {{ block.super }}
 {% if tag or category or year or month or author %}
-<li>{% spaceless %}
+<li class="breadcrumb-item active">{% spaceless %}
 {% if tag %}
     {% trans "Tag:" %} {{ tag }}
 {% else %}{% if category %}

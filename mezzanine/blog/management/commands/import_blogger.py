@@ -1,8 +1,6 @@
-from __future__ import unicode_literals
-
+import re
 from datetime import datetime, timedelta
 from time import timezone
-import re
 
 from django.core.management.base import CommandError
 
@@ -17,10 +15,13 @@ class Command(BaseImporterCommand):
     """
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
-            "-b", "--blogger-id", dest="blog_id",
-            help="Blogger Blog ID from blogger dashboard")
+            "-b",
+            "--blogger-id",
+            dest="blog_id",
+            help="Blogger Blog ID from blogger dashboard",
+        )
 
     def handle_import(self, options):
         """
@@ -55,10 +56,13 @@ class Command(BaseImporterCommand):
             try:
                 feed = blogger.Get(query.ToUri())
             except service.RequestError as err:
-                message = "There was a service error. The response was: " \
+                message = (
+                    "There was a service error. The response was: "
                     "%(status)s %(reason)s - %(body)s" % err.message
-                raise CommandError(message, blogger.server + query.feed,
-                                   err.message["status"])
+                )
+                raise CommandError(
+                    message, blogger.server + query.feed, err.message["status"]
+                )
 
             for (i, entry) in enumerate(feed.entry):
                 # this basically gets the unique post ID from the URL to itself
@@ -72,16 +76,18 @@ class Command(BaseImporterCommand):
                 title = entry.title.text
                 content = entry.content.text
                 # this strips off the time zone info off the end as we want UTC
-                clean_date = entry.published.text[:re.search(r"\.\d{3}",
-                    entry.published.text).end()]
+                clean_date = entry.published.text[
+                    : re.search(r"\.\d{3}", entry.published.text).end()
+                ]
 
                 published_date = self.parse_datetime(clean_date)
 
                 # TODO - issues with content not generating correct <P> tags
 
                 tags = [tag.term for tag in entry.category]
-                post = self.add_post(title=title, content=content,
-                                     pub_date=published_date, tags=tags)
+                post = self.add_post(
+                    title=title, content=content, pub_date=published_date, tags=tags
+                )
 
                 # get the comments from the post feed and then add them to
                 # the post details
@@ -92,8 +98,9 @@ class Command(BaseImporterCommand):
                     email = comment.author[0].email.text
                     author_name = comment.author[0].name.text
                     # Strip off the time zone info off the end as we want UTC
-                    clean_date = comment.published.text[:re.search(r"\.\d{3}",
-                        comment.published.text).end()]
+                    clean_date = comment.published.text[
+                        : re.search(r"\.\d{3}", comment.published.text).end()
+                    ]
 
                     comment_date = self.parse_datetime(clean_date)
 
@@ -103,9 +110,14 @@ class Command(BaseImporterCommand):
                     body = comment.content.text
 
                     # add the comment as a dict to the end of the comments list
-                    self.add_comment(post=post, name=author_name, email=email,
-                                     body=body, website=website,
-                                     pub_date=comment_date)
+                    self.add_comment(
+                        post=post,
+                        name=author_name,
+                        email=email,
+                        body=body,
+                        website=website,
+                        pub_date=comment_date,
+                    )
 
                 processed_posts.append(post_id)
                 new_posts += 1
@@ -114,11 +126,9 @@ class Command(BaseImporterCommand):
 
     def parse_datetime(self, datetime_string):
         try:
-            parsed_datetime = datetime.strptime(datetime_string,
-                                                "%Y-%m-%dT%H:%M:%S.%f")
+            parsed_datetime = datetime.strptime(datetime_string, "%Y-%m-%dT%H:%M:%S.%f")
         except ValueError:
-            parsed_datetime = datetime.strptime(datetime_string,
-                                                "%Y-%m-%dT%H:%M:%S")
+            parsed_datetime = datetime.strptime(datetime_string, "%Y-%m-%dT%H:%M:%S")
 
         parsed_datetime -= timedelta(seconds=timezone)
         return parsed_datetime

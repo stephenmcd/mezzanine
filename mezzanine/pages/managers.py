@@ -1,14 +1,10 @@
-from __future__ import unicode_literals
-from future.builtins import range
-
 from mezzanine.conf import settings
 from mezzanine.core.managers import DisplayableManager
-from mezzanine.utils.urls import home_slug
 from mezzanine.utils.deprecation import is_authenticated
+from mezzanine.utils.urls import home_slug
 
 
 class PageManager(DisplayableManager):
-
     def published(self, for_user=None, include_login_required=False):
         """
         Override ``DisplayableManager.published`` to exclude
@@ -22,10 +18,13 @@ class PageManager(DisplayableManager):
         ``login_required`` field manually, such as the case in
         ``PageMiddleware``.
         """
-        published = super(PageManager, self).published(for_user=for_user)
+        published = super().published(for_user=for_user)
         unauthenticated = for_user and not is_authenticated(for_user)
-        if (unauthenticated and not include_login_required and
-                not settings.PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED):
+        if (
+            unauthenticated
+            and not include_login_required
+            and not settings.PAGES_PUBLISHED_INCLUDE_LOGIN_REQUIRED
+        ):
             published = published.exclude(login_required=True)
         return published
 
