@@ -439,7 +439,7 @@ def thumbnail(
     to_size = (to_width, to_height)
     to_pos = (left, top)
     try:
-        image = ImageOps.fit(image, to_size, Image.ANTIALIAS, 0, to_pos)
+        image = ImageOps.fit(image, to_size, Image.LANCZOS, 0, to_pos)
         image = image.save(thumb_path, filetype, quality=quality, **image_info)
         # Push a remote copy of the thumbnail if MEDIA_URL is
         # absolute.
