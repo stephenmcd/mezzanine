@@ -15,6 +15,8 @@ class MezzanineBackend(ModelBackend):
     Args are either ``username`` and ``password``, or ``uidb36``
     and ``token``. In either case, ``is_active`` can also be given.
 
+    Usernames and Email addresses are not case sensitive
+
     For login, is_active is not given, so that the login form can
     raise a specific error for inactive users.
     For password reset, True is given for is_active.
@@ -25,7 +27,7 @@ class MezzanineBackend(ModelBackend):
         if kwargs:
             username = kwargs.pop("username", None)
             if username:
-                username_or_email = Q(username=username) | Q(email=username)
+                username_or_email = Q(username__iexact=username) | Q(email__iexact=username)
                 password = kwargs.pop("password", None)
                 try:
                     user = User.objects.get(username_or_email, **kwargs)

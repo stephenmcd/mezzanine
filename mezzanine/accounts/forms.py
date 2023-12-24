@@ -181,7 +181,7 @@ class ProfileForm(Html5Mixin, forms.ModelForm):
         Ensure the email address is not already registered.
         """
         email = self.cleaned_data.get("email")
-        qs = User.objects.exclude(id=self.instance.id).filter(email=email)
+        qs = User.objects.exclude(id=self.instance.id).filter(email__iexact=email)
         if len(qs) == 0:
             return email
         raise forms.ValidationError(gettext("This email is already registered"))
@@ -261,7 +261,7 @@ class PasswordResetForm(Html5Mixin, forms.Form):
 
     def clean(self):
         username = self.cleaned_data.get("username")
-        username_or_email = Q(username=username) | Q(email=username)
+        username_or_email = Q(username__iexact=username) | Q(email__iexact=username)
         try:
             user = User.objects.get(username_or_email, is_active=True)
         except User.DoesNotExist:
