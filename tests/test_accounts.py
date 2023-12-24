@@ -1,3 +1,4 @@
+import django
 from django.contrib.auth import get_user, get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.core import mail
@@ -82,26 +83,29 @@ class AccountsTests(TestCase):
 
         self.client.logout()
 
-        # Create another account with the same user name
-        settings.ACCOUNTS_VERIFICATION_REQUIRED = False
-        data = self.account_data("test1")
-        form = ProfileForm(data=data)
-        self.assertFormError(form, 'username', 'This username is already registered')
+        if django.VERSION[0:1] >= (4, 1):
+            # This form of assertFormError is only available since Django 4.1
 
-        # Create another account with the same user name, but case is different
-        data['username'] = 'TEST1'
-        form = ProfileForm(data=data)
-        self.assertFormError(form, 'username', 'This username is already registered')
+            # Create another account with the same user name
+            settings.ACCOUNTS_VERIFICATION_REQUIRED = False
+            data = self.account_data("test1")
+            form = ProfileForm(data=data)
+            self.assertFormError(form, 'username', 'This username is already registered')
 
-        # Create another account with a different username, but same email
-        data['username'] = 'test3'
-        form = ProfileForm(data=data)
-        self.assertFormError(form, 'email', 'This email is already registered')
+            # Create another account with the same user name, but case is different
+            data['username'] = 'TEST1'
+            form = ProfileForm(data=data)
+            self.assertFormError(form, 'username', 'This username is already registered')
 
-        # Create another account with a different username, but same email with different case
-        data['email'] = 'Test1@EXAMPLE.com'
-        form = ProfileForm(data=data)
-        self.assertFormError(form, 'email', 'This email is already registered')
+            # Create another account with a different username, but same email
+            data['username'] = 'test3'
+            form = ProfileForm(data=data)
+            self.assertFormError(form, 'email', 'This email is already registered')
+
+            # Create another account with a different username, but same email with different case
+            data['email'] = 'Test1@EXAMPLE.com'
+            form = ProfileForm(data=data)
+            self.assertFormError(form, 'email', 'This email is already registered')
 
 
     def test_account_login(self):
@@ -222,12 +226,15 @@ class AccountsTests(TestCase):
         self._verify_password_reset_email(new_user, emails)
         self.client.logout()
 
-        # Reset password with invalid username
-        rdata = {'username': 'badusername'}
-        form = PasswordResetForm(data=rdata)
-        self.assertFormError(form, None, 'Invalid username/email')
+        if django.VERSION[0:1] >= (4, 1):
+            # This form of assertFormError is only available since Django 4.1
 
-        # Reset password with invalid email
-        rdata = {'username': 'badusername@example.com'}
-        form = PasswordResetForm(data=rdata)
-        self.assertFormError(form, None, 'Invalid username/email')
+            # Reset password with invalid username
+            rdata = {'username': 'badusername'}
+            form = PasswordResetForm(data=rdata)
+            self.assertFormError(form, None, 'Invalid username/email')
+
+            # Reset password with invalid email
+            rdata = {'username': 'badusername@example.com'}
+            form = PasswordResetForm(data=rdata)
+            self.assertFormError(form, None, 'Invalid username/email')
