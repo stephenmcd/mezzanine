@@ -42,10 +42,6 @@ jobs:
           - tox-env: "py311-dj42"
             python-version: "3.11"
           # Django 5.0
-          - tox-env: "py38-dj50"
-            python-version: "3.8"
-          - tox-env: "py39-dj50"
-            python-version: "3.9"
           - tox-env: "py310-dj50"
             python-version: "3.10"
           - tox-env: "py311-dj50"
