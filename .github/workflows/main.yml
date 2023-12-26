@@ -14,36 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Django 2.2
-          - tox-env: "py37-dj22"
-            python-version: "3.7"
-          - tox-env: "py38-dj22"
-            python-version: "3.8"
-          - tox-env: "py39-dj22"
-            python-version: "3.9"
-          # Django 3.0
-          - tox-env: "py37-dj30"
-            python-version: "3.7"
-          - tox-env: "py38-dj30"
-            python-version: "3.8"
-          - tox-env: "py39-dj30"
-            python-version: "3.9"
-          # Django 3.1
-          - tox-env: "py37-dj31"
-            python-version: "3.7"
-          - tox-env: "py38-dj31"
-            python-version: "3.8"
-          - tox-env: "py39-dj31"
-            python-version: "3.9"
-          # Django 3.2
-          - tox-env: "py37-dj32"
-            python-version: "3.7"
-          - tox-env: "py38-dj32"
-            python-version: "3.8"
-          - tox-env: "py39-dj32"
-            python-version: "3.9"
-          - tox-env: "py310-dj32"
-            python-version: "3.10"
           # Django 4.0
           - tox-env: "py38-dj40"
             python-version: "3.8"
@@ -51,6 +21,8 @@ jobs:
             python-version: "3.9"
           - tox-env: "py310-dj40"
             python-version: "3.10"
+          - tox-env: "py311-dj40"
+            python-version: "3.11"
           # Django 4.1
           - tox-env: "py38-dj41"
             python-version: "3.8"
@@ -58,7 +30,22 @@ jobs:
             python-version: "3.9"
           - tox-env: "py310-dj41"
             python-version: "3.10"
-
+          - tox-env: "py311-dj41"
+            python-version: "3.11"
+          # Django 4.2
+          - tox-env: "py38-dj42"
+            python-version: "3.8"
+          - tox-env: "py39-dj42"
+            python-version: "3.9"
+          - tox-env: "py310-dj42"
+            python-version: "3.10"
+          - tox-env: "py311-dj42"
+            python-version: "3.11"
+          # Django 5.0
+          - tox-env: "py310-dj50"
+            python-version: "3.10"
+          - tox-env: "py311-dj50"
+            python-version: "3.11"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
