@@ -1,6 +1,6 @@
 .. image:: https://img.shields.io/pypi/v/mezzanine.svg
    :target: https://pypi.org/project/mezzanine/
-.. image:: https://img.shields.io/pypi/pyversions/mezzanine.svg
+.. image:: https://img.shields.io/pypi/pyversions/mezzanine
    :target: https://pypi.org/project/mezzanine/
 .. image:: https://img.shields.io/pypi/djversions/mezzanine.svg
    :target: https://pypi.org/project/mezzanine/
