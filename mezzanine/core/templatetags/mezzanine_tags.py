@@ -679,6 +679,7 @@ def admin_app_list(request):
     app_list.sort(key=sort_key)
     return app_list
 
+
 @register.inclusion_tag("admin/includes/dropdown_menu.html", takes_context=True)
 def admin_dropdown_menu(context):
     """
