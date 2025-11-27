@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.forms import SplitSelectDateTimeWidget
+from mezzanine.forms.widgets import TitleWidget
 from mezzanine.utils.importing import import_dotted_path
 
 # Constants for all available field types.
@@ -23,6 +24,7 @@ HIDDEN = 12
 NUMBER = 13
 URL = 14
 DOB = 15
+TITLE = 16
 
 # Names for all available field types.
 NAMES = (
@@ -41,6 +43,7 @@ NAMES = (
     (DATE_TIME, _("Date/time")),
     (DOB, _("Date of birth")),
     (HIDDEN, _("Hidden")),
+    (TITLE, _("Title")),
 )
 
 # Field classes for all available field types.
@@ -60,6 +63,7 @@ CLASSES = {
     HIDDEN: forms.CharField,
     NUMBER: forms.FloatField,
     URL: forms.URLField,
+    TITLE: forms.CharField,
 }
 
 # Widgets for field types where a specialised widget is required.
@@ -71,6 +75,7 @@ WIDGETS = {
     DATE_TIME: SplitSelectDateTimeWidget,
     DOB: SelectDateWidget,
     HIDDEN: forms.HiddenInput,
+    TITLE: TitleWidget,
 }
 
 # Some helper groupings of field types.
