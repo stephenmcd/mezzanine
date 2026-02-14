@@ -73,7 +73,30 @@ The Mezzanine admin dashboard:
 
 .. image:: http://mezzanine.jupo.org/docs/_images/dashboard.png
 
+How to Contribute
+=================
 
+Mezzanine is an open-source project, and we welcome contributions from the community. 
+If you're interested in contributing to Mezzanine, there are several ways you can get involved:
+
+Set up a Development Environment
+To contribute to Mezzanine, you'll need to set up a development environment on your local machine. 
+You can do this by following these steps:
+
+Fork the Mezzanine repository on GitHub
+Clone your forked repository to your local machine
+Create a virtual environment and activate it
+Install the necessary packages using pip install -r requirements.txt
+Set up the database using python manage.py migrate
+You can now start working on Mezzanine by making changes to the codebase.
+
+Submit Pull Requests
+If you've made changes to Mezzanine and would like to submit them for review, you can create a pull request on GitHub. 
+Make sure to include a detailed description of your changes and any relevant test cases.
+
+Get Involved with the Community
+Mezzanine has an active community of users and developers, and we welcome new members. 
+You can get involved with the Mezzanine community by joining our mailing list or IRC channel, or by participating in our forums or social media channels.
 Support
 =======
 
@@ -144,6 +167,28 @@ Quotes
 * "You need to check out the open source project Mezzanine. In one
   word: Elegant" - `Nick Hagianis`_, developer
 
+How Mezzanine Integrates with Django
+====================================
+Mezzanine is built on top of Django and extends its core features. 
+Here are some examples of how Mezzanine builds on top of Django:
+
+Models
+======
+Mezzanine provides several custom models that extend Django's core models, 
+such as the Page model for creating pages with custom templates, 
+and the BlogPost model for creating blog posts with categories and tags.
+
+Forms 
+=====
+Mezzanine provides several custom forms that extend Django's core forms, 
+such as the ContactForm for creating contact forms with reCAPTCHA, 
+and the CommentForm for creating comments on blog posts.
+
+Templates
+=========
+Mezzanine provides several custom templates that extend Django's core templates, 
+such as the base.html template for creating a base template that all other templates extend, 
+and the blog_post_detail.html template for displaying a single blog
 
 .. _`Django`: http://djangoproject.com/
 .. _`Django Code of Conduct`: https://www.djangoproject.com/conduct/
