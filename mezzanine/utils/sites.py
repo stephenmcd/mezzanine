@@ -72,7 +72,7 @@ def override_current_site_id(site_id):
     Context manager that overrides the current site id for code executed
     within it. Used to access SiteRelated objects outside the current site.
     """
-    if hasattr(override_current_site_id.thread_local,'site_id'):
+    if hasattr(override_current_site_id.thread_local, 'site_id'):
         raise RecursionError(f'''override_current_site_id can't be nested''')
     override_current_site_id.thread_local.site_id = site_id
     try:
