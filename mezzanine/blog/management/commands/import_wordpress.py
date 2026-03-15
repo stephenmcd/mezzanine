@@ -51,7 +51,7 @@ class Command(BaseImporterCommand):
         xml = parse(url)
         xmlitems = xml.getElementsByTagName("item")
 
-        for (i, entry) in enumerate(feed["entries"]):
+        for i, entry in enumerate(feed["entries"]):
             # Get a pointer to the right position in the minidom as well.
             xmlitem = xmlitems[i]
             content = linebreaks(self.wp_caption(entry.content[0]["value"]))

@@ -19,7 +19,7 @@ class TestsForm(TestCase):
         """
         for required in (True, False):
             form = Form.objects.create(title="Form", status=CONTENT_STATUS_PUBLISHED)
-            for (i, (field, _)) in enumerate(fields.NAMES):
+            for i, (field, _) in enumerate(fields.NAMES):
                 form.fields.create(
                     label="Field %s" % i,
                     field_type=field,

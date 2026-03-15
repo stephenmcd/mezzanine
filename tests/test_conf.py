@@ -92,7 +92,7 @@ class ConfTests(TestCase):
                 names_by_type[setting["type"]] = setting["name"]
         # Create a modified value for each setting and save it.
         values_by_name = {}
-        for (setting_type, setting_name) in names_by_type.items():
+        for setting_type, setting_name in names_by_type.items():
             setting_value = registry[setting_name]["default"]
             if setting_type in (int, float):
                 setting_value += 1
@@ -108,7 +108,7 @@ class ConfTests(TestCase):
             values_by_name[setting_name] = setting_value
             Setting.objects.create(name=setting_name, value=setting_value)
         # Load the settings and make sure the DB values have persisted.
-        for (name, value) in values_by_name.items():
+        for name, value in values_by_name.items():
             self.assertEqual(getattr(settings, name), value)
 
     def test_editable_override(self):

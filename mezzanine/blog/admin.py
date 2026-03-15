@@ -60,7 +60,7 @@ class BlogCategoryAdmin(BaseTranslationModelAdmin):
         """
         Hide from the admin menu unless explicitly set in ``ADMIN_MENU_ORDER``.
         """
-        for (name, items) in settings.ADMIN_MENU_ORDER:
+        for name, items in settings.ADMIN_MENU_ORDER:
             if "blog.BlogCategory" in items:
                 return True
         return False

@@ -60,7 +60,7 @@ def direct_to_template(request, template, extra_context=None, **kwargs):
     """
     context = extra_context or {}
     context["params"] = kwargs
-    for (key, value) in context.items():
+    for key, value in context.items():
         if callable(value):
             context[key] = value()
     return TemplateResponse(request, template, context)

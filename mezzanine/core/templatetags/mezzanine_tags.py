@@ -573,9 +573,9 @@ def admin_app_list(request):
 
     # Model or view --> (group index, group title, item index, item title).
     menu_order = {}
-    for (group_index, group) in enumerate(settings.ADMIN_MENU_ORDER):
+    for group_index, group in enumerate(settings.ADMIN_MENU_ORDER):
         group_title, items = group
-        for (item_index, item) in enumerate(items):
+        for item_index, item in enumerate(items):
             if isinstance(item, (tuple, list)):
                 item_title, item = item
             else:
@@ -583,7 +583,7 @@ def admin_app_list(request):
             menu_order[item] = (group_index, group_title, item_index, item_title)
 
     # Add all registered models, using group and title from menu order.
-    for (model, model_admin) in admin.site._registry.items():
+    for model, model_admin in admin.site._registry.items():
         opts = model._meta
         in_menu = not hasattr(model_admin, "in_menu") or model_admin.in_menu()
         if hasattr(model_admin, "in_menu"):
@@ -649,7 +649,7 @@ def admin_app_list(request):
                 )
 
     # Menu may also contain view or url pattern names given as (title, name).
-    for (item_url, item) in menu_order.items():
+    for item_url, item in menu_order.items():
         app_index, app_title, item_index, item_title = item
         try:
             item_url = reverse(item_url)

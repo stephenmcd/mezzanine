@@ -72,8 +72,8 @@ def override_current_site_id(site_id):
     Context manager that overrides the current site id for code executed
     within it. Used to access SiteRelated objects outside the current site.
     """
-    if hasattr(override_current_site_id.thread_local, 'site_id'):
-        raise RecursionError(f'''override_current_site_id can't be nested''')
+    if hasattr(override_current_site_id.thread_local, "site_id"):
+        raise RecursionError("""override_current_site_id can't be nested""")
     override_current_site_id.thread_local.site_id = site_id
     try:
         yield
@@ -111,7 +111,7 @@ def host_theme_path():
     # than a request object here, as it may differ for admin users.
     domain = None
 
-    for (host, theme) in settings.HOST_THEMES:
+    for host, theme in settings.HOST_THEMES:
         if domain is None:
             domain = Site.objects.get(id=current_site_id()).domain
         if host.lower() == domain.lower():

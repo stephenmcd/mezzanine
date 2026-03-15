@@ -234,7 +234,7 @@ class SearchableQuerySet(QuerySet):
             for i, result in enumerate(results):
                 count = 0
                 related_weights = []
-                for (field, weight) in self._search_fields.items():
+                for field, weight in self._search_fields.items():
                     if "__" in field:
                         related_weights.append(weight)
                     for term in self._search_terms:
