@@ -5,6 +5,7 @@ with user profiles models defined by the ``ACCOUNTS_PROFILE_MODEL``
 setting. Some utility functions for probing the profile model are
 included below.
 """
+
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model

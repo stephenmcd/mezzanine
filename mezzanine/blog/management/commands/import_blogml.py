@@ -3,6 +3,7 @@ Imports blog posts from a BlogMl file.
 
 Dependends on python-dateutil being installed.
 """
+
 import xml.etree.ElementTree
 
 from django.core.management.base import CommandError

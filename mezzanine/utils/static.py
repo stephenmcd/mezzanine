@@ -1,6 +1,7 @@
 """
 Utils for working with static files.
 """
+
 from django.conf import settings
 from django.templatetags.static import static
 from django.utils.functional import lazy

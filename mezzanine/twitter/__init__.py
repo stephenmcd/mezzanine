@@ -1,6 +1,7 @@
 """
 Provides models and utilities for displaying different types of Twitter feeds.
 """
+
 from django.utils.translation import gettext_lazy as _
 
 from mezzanine import __version__  # noqa
