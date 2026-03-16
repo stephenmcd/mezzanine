@@ -107,7 +107,7 @@ class SettingsForm(forms.Form):
         groups = defaultdict(int)
         for field in fields:
             groups[group(field)] += 1
-        for (i, field) in enumerate(fields):
+        for i, field in enumerate(fields):
             setattr(fields[i], "group", group(field))
             if groups[fields[i].group] == 1:
                 fields[i].group = misc
@@ -118,7 +118,7 @@ class SettingsForm(forms.Form):
         Save each of the settings to the DB.
         """
         active_language = get_language()
-        for (name, value) in self.cleaned_data.items():
+        for name, value in self.cleaned_data.items():
             if name not in registry:
                 name, code = name.rsplit("_modeltranslation_", 1)
             else:

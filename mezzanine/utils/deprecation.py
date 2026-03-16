@@ -2,6 +2,7 @@
 Various utils for dealing with backward compatibility across Django
 versions.
 """
+
 from functools import wraps
 
 import django

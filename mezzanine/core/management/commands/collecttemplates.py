@@ -70,7 +70,7 @@ class Command(BaseCommand):
         for app in apps:
             from_dir = os.path.join(path_for_import(app), "templates")
             if os.path.exists(from_dir):
-                for (dirpath, dirnames, filenames) in os.walk(from_dir):
+                for dirpath, dirnames, filenames in os.walk(from_dir):
                     for f in filenames:
                         path = os.path.join(dirpath, f)
                         name = path[len(from_dir) + 1 :]

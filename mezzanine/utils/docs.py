@@ -2,6 +2,7 @@
 Utils called from project_root/docs/conf.py when Sphinx
 documentation is generated.
 """
+
 import os.path
 from shutil import copyfile, move
 from socket import gethostname

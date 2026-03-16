@@ -64,7 +64,7 @@ class Command(BaseImporterCommand):
                     message, blogger.server + query.feed, err.message["status"]
                 )
 
-            for (i, entry) in enumerate(feed.entry):
+            for i, entry in enumerate(feed.entry):
                 # this basically gets the unique post ID from the URL to itself
                 # and pulls the ID off the end.
                 post_id = entry.GetSelfLink().href.split("/")[-1]
