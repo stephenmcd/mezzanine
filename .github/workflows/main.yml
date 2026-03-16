@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.9
       - name: Install dependencies
@@ -60,8 +60,9 @@ jobs:
     needs: [test, lint]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@latest
+      - uses: actions/setup-python@6
+
         with:
           python-version: 3.9
       - uses: actions/setup-node@v4
@@ -84,7 +85,7 @@ jobs:
     steps:
       - name: Checkout 
         uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: 3.9
       - name: Install deps
