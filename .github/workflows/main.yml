@@ -43,6 +43,8 @@ jobs:
             python-version: "3.9"
           - tox-env: "py310-dj40"
             python-version: "3.10"
+          - tox-env: "py311-dj40"
+            python-version: "3.11"
           # Django 4.1
           - tox-env: "py38-dj41"
             python-version: "3.8"
@@ -63,7 +65,31 @@ jobs:
             python-version: "3.11"
           - tox-env: "py312-dj42"
             python-version: "3.12"
-
+          # Django 5.0
+          - tox-env: "py310-dj50"
+            python-version: "3.10"
+          - tox-env: "py311-dj50"
+            python-version: "3.11"
+          - tox-env: "py312-dj50"
+            python-version: "3.12"
+          # Django 5.1
+          - tox-env: "py310-dj51"
+            python-version: "3.10"
+          - tox-env: "py311-dj51"
+            python-version: "3.11"
+          - tox-env: "py312-dj51"
+            python-version: "3.12"
+          # Django 5.2
+          - tox-env: "py310-dj52"
+            python-version: "3.10"
+          - tox-env: "py311-dj52"
+            python-version: "3.11"
+          - tox-env: "py312-dj52"
+            python-version: "3.12"
+          - tox-env: "py313-dj52"
+            python-version: "3.13"
+          - tox-env: "py314-dj52"
+            python-version: "3.14"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -113,14 +139,14 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
 
-  # Build and deploy docs  
+  # Build and deploy docs
   docs:
     if: github.ref == 'refs/heads/stable'
     needs: release
     name: build and deploy docs
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
