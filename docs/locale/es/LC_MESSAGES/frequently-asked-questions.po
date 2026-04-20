@@ -1,0 +1,772 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: 2014-09-01 21:24-0600\n"
+"Last-Translator: Eduardo Rivas <jerivasmelgar@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: ../frequently-asked-questions.rst:3
+msgid "Frequently Asked Questions"
+msgstr "Preguntas frecuentes"
+
+#: ../frequently-asked-questions.rst:5
+msgid ""
+"These are some of the most frequently asked questions on the `Mezzanine "
+"mailing list <http://groups.google.com/group/mezzanine-users>`_."
+msgstr ""
+"Estas son algunas de las preguntas hechas con mayor frecuencia en la `lista "
+"de correo de Mezzanine <http://groups.google.com/group/mezzanine-users>`_."
+
+#: ../frequently-asked-questions.rst:8
+msgid ":ref:`prerequisites`"
+msgstr ":ref:`prerequisites`"
+
+#: ../frequently-asked-questions.rst:9
+msgid ":ref:`static-files`"
+msgstr ":ref:`static-files`"
+
+#: ../frequently-asked-questions.rst:10
+msgid ":ref:`wysiwyg-filtering`"
+msgstr ":ref:`wysiwyg-filtering`"
+
+#: ../frequently-asked-questions.rst:11
+msgid ":ref:`homepage`"
+msgstr ":ref:`homepage`"
+
+#: ../frequently-asked-questions.rst:12
+msgid ":ref:`project-vs-app`"
+msgstr ":ref:`project-vs-app`"
+
+#: ../frequently-asked-questions.rst:13
+msgid ":ref:`templates`"
+msgstr ":ref:`templates`"
+
+#: ../frequently-asked-questions.rst:14
+msgid ":ref:`themes`"
+msgstr ":ref:`themes`"
+
+#: ../frequently-asked-questions.rst:15
+msgid ":ref:`not-invented-here`"
+msgstr ":ref:`not-invented-here`"
+
+#: ../frequently-asked-questions.rst:16
+msgid ":ref:`existing-projects`"
+msgstr ":ref:`existing-projects`"
+
+#: ../frequently-asked-questions.rst:17
+msgid ":ref:`grappelli-filebrowser-forks`"
+msgstr ":ref:`grappelli-filebrowser-forks`"
+
+#: ../frequently-asked-questions.rst:18
+msgid ":ref:`what-is-pillow`"
+msgstr ":ref:`what-is-pillow`"
+
+#: ../frequently-asked-questions.rst:19
+msgid ":ref:`missing-features`"
+msgstr ":ref:`missing-features`"
+
+#: ../frequently-asked-questions.rst:20
+msgid ":ref:`cartridge-without-mezzanine`"
+msgstr ":ref:`cartridge-without-mezzanine`"
+
+#: ../frequently-asked-questions.rst:21
+msgid ":ref:`contributing`"
+msgstr ":ref:`contributing`"
+
+#: ../frequently-asked-questions.rst:26
+msgid "What do I need to know to use Mezzanine?"
+msgstr "¿Qué necesito saber para poder usar Mezzanine?"
+
+#: ../frequently-asked-questions.rst:28
+msgid ""
+"First and foremost, Mezzanine is based on the `Django framework <https://www."
+"djangoproject.com/>`_. All aspects of working with Mezzanine will benefit "
+"from a good understanding of how Django works. Many questions that are asked "
+"within the Mezzanine community can easily be answered by reading the `Django "
+"documentation <https://docs.djangoproject.com/en/>`_."
+msgstr ""
+"Primero que nada, Mezzanine está basado en el `framework Django <https://www."
+"djangoproject.com/>`_. Todos los aspectos de trabajar con Mezzanine se verán "
+"beneficiados de un buen conocimiento de la forma en que Django trabaja. "
+"Muchas de las preguntas que se hacen en la comunidad Mezzanine pueden "
+"responderse con facilidad leyendo la `documentación de Django <https://docs."
+"djangoproject.com/en/>`_."
+
+#: ../frequently-asked-questions.rst:35
+msgid ""
+"Setting up a development environment, and deploying a Mezzanine site, is the "
+"same process as doing so with a regular Django site. Areas such as version "
+"control, installing Python packages, and setting up a web server  such as "
+"`Apache <http://httpd.apache.org/>`_ or `NGINX <http://nginx.org/>`_, will "
+"all be touched upon."
+msgstr ""
+"Configurar un entorno de desarrollo y desplegar un sitio Mezzanine son "
+"actividades que siguen el mismo proceso que un sitio Django regular. Se "
+"incluyen cosas como control de versión, instalación de paquetes Python, y la "
+"configuración de un servidor web como `Apache <http://httpd.apache.org/>`_ o "
+"`NGINX <http://nginx.org/>`_."
+
+#: ../frequently-asked-questions.rst:41
+msgid ""
+"Modifying the look and feel of a Mezzanine powered site requires at least an "
+"understanding of HTML, CSS and `Django's templating system <https://docs."
+"djangoproject.com/en/dev/topics/templates/>`_."
+msgstr ""
+"Para modificar el aspecto gráfico de un sitio Mezzanine, es necesario "
+"entender HTML, CSS y el `lenguaje de plantillas Django <https://docs."
+"djangoproject.com/en/dev/topics/templates/>`_."
+
+#: ../frequently-asked-questions.rst:45
+msgid ""
+"Extending Mezzanine by :ref:`creating-custom-content-types` or using "
+"additional Django apps, will require some knowledge of programming with "
+"`Python <http://python.org>`_, as well as a good understanding of Django's "
+"components, such as `models <https://docs.djangoproject.com/en/dev/topics/db/"
+"models/>`_, `views <https://docs.djangoproject.com/en/dev/topics/http/views/"
+">`_, `urlpatterns <https://docs.djangoproject.com/en/dev/topics/http/urls/"
+">`_ and the `admin <https://docs.djangoproject.com/en/dev/ref/contrib/admin/"
+">`_."
+msgstr ""
+"Extender Mezzanine con :ref:`creating-custom-content-types` o utilizando "
+"apps Django adicionales requiere de conocimientos de programación en `Python "
+"<http://python.org>`_, y una buena idea de los componentes de Django, como "
+"los `modelos <https://docs.djangoproject.com/en/dev/topics/db/models/>`_, "
+"`vistas <https://docs.djangoproject.com/en/dev/topics/http/views/>`_, "
+"`urlpatterns <https://docs.djangoproject.com/en/dev/topics/http/urls/>`_ y "
+"el `sitio administrativo <https://docs.djangoproject.com/en/dev/ref/contrib/"
+"admin/>`_."
+
+#: ../frequently-asked-questions.rst:54 ../frequently-asked-questions.rst:84
+#: ../frequently-asked-questions.rst:117 ../frequently-asked-questions.rst:146
+#: ../frequently-asked-questions.rst:165 ../frequently-asked-questions.rst:188
+#: ../frequently-asked-questions.rst:218 ../frequently-asked-questions.rst:242
+#: ../frequently-asked-questions.rst:271 ../frequently-asked-questions.rst:301
+#: ../frequently-asked-questions.rst:319 ../frequently-asked-questions.rst:344
+#: ../frequently-asked-questions.rst:364 ../frequently-asked-questions.rst:388
+msgid "`Back to top <#>`_"
+msgstr "`Volver al inicio <#>`_"
+
+#: ../frequently-asked-questions.rst:59
+msgid "Why aren't my JavaScript and CSS files showing up?"
+msgstr "¿Por qué no se muestran mis archivos CSS y Javascript?"
+
+#: ../frequently-asked-questions.rst:61
+msgid ""
+"Mezzanine makes exclusive use of `Django's staticfiles app <https://docs."
+"djangoproject.com/en/dev/ref/contrib/staticfiles/>`_, for managing static "
+"files such as JavaScript, CSS, and images."
+msgstr ""
+"Mezzanine utiliza exclusivamente la `aplicación Django staticfiles <https://"
+"docs.djangoproject.com/en/dev/ref/contrib/staticfiles/>`_, para gestionar "
+"archivos estáticos como Javascript, CSS e imágenes."
+
+#: ../frequently-asked-questions.rst:65
+msgid ""
+"When the ``DEBUG`` setting is set to ``True``, as it would be during "
+"development, the URL defined by the setting ``STATIC_URL`` (usually ``/"
+"static/``), will host any files found in the ``static`` directory of any "
+"application listed in the ``INSTALLED_APPS`` setting."
+msgstr ""
+"Cuando la variable de configuración ``DEBUG`` se establece como ``True``, "
+"como se haría durante la fase de desarrollo, la URL definida en la variable "
+"de configuración ``STATIC_URL`` (por lo general es ``/static/``), almacenará "
+"todos los archivos que se encuentren en la carpeta ``static`` de cada una "
+"de las aplicaciones definidas en la variable de configuración "
+"``INSTALLED_APPS``."
+
+#: ../frequently-asked-questions.rst:70
+msgid ""
+"When ``DEBUG`` is set to ``False``, as it would be for your deployed "
+"production site, you must run the ``collectstatic`` command on your live "
+"site, which will copy all of the files from the ``static`` directory in each "
+"application, to the location defined by the ``STATIC_ROOT`` setting. You "
+"then need to configure an alias in your web server's config (Apache, NGINX, "
+"etc) that maps the URL defined by ``STATIC_URL`` to serve files from this "
+"directory."
+msgstr ""
+"Cuando  ``DEBUG`` se establece como ``False``, como se haría para el sitio "
+"web desplegado en producción, se debe ejecutar el comando ``collectstatic`` "
+"en el sitio en vivo, que copia todos los archivos de la carpeta ``static`` "
+"de cada aplicación a la ubicación definida por la variable de configuración "
+"``STATIC_ROOT``. Luego se debe configurar un alias en el servidor web "
+"(Apache, NGINX, etc) que indique que se deben servir los contenidos de este "
+"direcotorio bajo la URL definida en ``STATIC_URL``."
+
+#: ../frequently-asked-questions.rst:78
+msgid ""
+"Long story short, Django doesn't serve static content when deployed in "
+"production, leaving this up to the public facing web server, which is "
+"absolutely the best tool for this job. Consult `Django's staticfiles guide "
+"<https://docs.djangoproject.com/en/dev/howto/static-files/>`_ for more "
+"information."
+msgstr ""
+"En resumen, Django no sirve el contenido estático cuando es desplegado en "
+"producción, dejando esta tarea al servidor web con el que interactua el "
+"público, que es el mejor capacitado para esta tarea. La `guía de staticfiles "
+"de Django <https://docs.djangoproject.com/en/dev/howto/static-files/>`_ "
+"contiene más información al respecto."
+
+#: ../frequently-asked-questions.rst:89
+msgid "Why does the WYSIWYG editor strip out my custom HTML?"
+msgstr "¿Por qué el editor LQVELQO elimina mi HTML personalizado?"
+
+#: ../frequently-asked-questions.rst:91
+msgid ""
+"By default, Mezzanine strips out potentially dangerous HTML from fields "
+"controlled by the WYSIWYG editor, such as tags and attributes that could be "
+"used to inject JavaScript into a page. If this didn't occur, a clever staff "
+"member could potentially add JavaScript to a page, that when viewed by an "
+"administrator (a staff member with superuser status), would cause the "
+"administrator's browser to post an update via the admin, that updates the "
+"staff member's user account and assigns them superuser status."
+msgstr ""
+"Por defecto, Mezzanine elimina el HTML potencialmente peligroso de los "
+"campos controlados por el editor LQVELQO, como etiquetas y atributos que "
+"podrían ser utilizados para inyectar Javascript en una página. Si no se "
+"hiciera esto, un miembro astuto del staff podría añadir Javascript a una "
+"página para que cuando un administrador del sitio (un miembro del staff con "
+"permisos de superusuario) visite la página, el navegador automáticamente "
+"haga una actualización a través del sitio administrativo y le otorgue "
+"permisos elevados al usuario con permisos regulares."
+
+#: ../frequently-asked-questions.rst:100
+msgid ""
+"The above scenario is a fairly obscure one, so it's possible to customise "
+"the level of filtering that occurs. Three levels of filtering are "
+"implemented by default, that can be controlled in the settings section of "
+"the admin. These are High (the default), Low (which allows extra tags such "
+"as those required for embedding videos), and None (no filtering occurs). "
+"This is implemented via the ``RICHTEXT_FILTER_LEVEL`` setting."
+msgstr ""
+"El caso descrito anteriormente no es muy común, por lo que es posible "
+"personalizar el nivel de filtrado aplicado. Por defecto, se implementan tres "
+"niveles de filtrado que se pueden controlar en la sección de configuración "
+"del sitio administrativo. Estos son: Alto (por defecto), Bajo (que permite "
+"etiquetas adicionales, como las necesarias para incrustar videos) y Ninguno "
+"(no se aplica filtrado). Esto se implementa a través de la variable de "
+"configuración ``RICHTEXT_FILTER_LEVEL``."
+
+#: ../frequently-asked-questions.rst:108
+msgid ""
+"If your situation is one where your staff members are completely trusted, "
+"and custom HTML within WYSIWYG fields is required, then you can modify the "
+"filter level accordingly. Further customisation is possible via the "
+"``RICHTEXT_ALLOWED_TAGS``, ``RICHTEXT_ALLOWED_ATTRIBUTES`` and "
+"``RICHTEXT_ALLOWED_STYLES`` settings, which can have extra allowed values "
+"appended to using the ``append`` argument in Mezzanine's settings API. See "
+"the :ref:`registering-settings` section for more information."
+msgstr ""
+"En caso de que se considere que todos los miembros del staff son de "
+"confianza y se requiera HTML personalizado en los campos LQVELQO, se puede "
+"modificar el nivel de filtrado aplicado. La personalización avanzada es "
+"posible a través de las variables de configuración "
+"``RICHTEXT_ALLOWED_TAGS``, ``RICHTEXT_ALLOWED_ATTRIBUTES`` y "
+"``RICHTEXT_ALLOWED_STYLES``, a las cuales se les pueden añadir valores "
+"utilizando el argumento ``append`` en la API de configuración de Mezzanine. "
+"La sección :ref:`registering-settings` contiene más información al respecto."
+
+#: ../frequently-asked-questions.rst:122
+msgid "Why isn't the homepage a Page object I can edit via the admin?"
+msgstr ""
+"¿Por qué la página de inicio no es un objecto Page editable desde la "
+"interfaz administrativa?"
+
+#: ../frequently-asked-questions.rst:124
+msgid ""
+"In our experience, the homepage of a beautiful, content driven website, is "
+"quite different from other pages of the site, that all fall under sets of "
+"repeatable page types. The homepage also differs greatly from site to site. "
+"Given this, Mezzanine doesn't presume how your homepage will be structured "
+"and managed. It's up to you to implement how it works per site."
+msgstr ""
+"En nuestra experiencia, la página de inicio de un sitio web bonito y "
+"orientado a contenido es bastante diferente a las otras páginas del sitio, "
+"las cuales forman parte de un patrón repetitivo de tipos de página. La "
+"página de inicio también varía ampliamente de sitio a sitio. Con esto en "
+"mente, Mezzanine no hace asunciones respecto a como será administrada y "
+"estructurada la página de inicio. Es responsabilidad del desarrolladar "
+"implementar la página de inicio en cada sitio."
+
+#: ../frequently-asked-questions.rst:131
+msgid ""
+"By default, the homepage provided with Mezzanine is a static template, "
+"namely ``mezzanine/core/templates/index.html`` (or ``templates/index.html`` "
+"if stored directly in your project). You can change the ``urlpattern`` for "
+"the homepage in your project's ``urls.py`` module. Be certain to take a look "
+"at the `urls.py module <https://github.com/stephenmcd/mezzanine/tree/master/"
+"mezzanine/project_template/urls.py>`_, as it contains several examples of "
+"different types of homepages. In ``urls.py`` you'll find examples of "
+"pointing the homepage to a ``Page`` object in the page tree, or pointing the "
+"homepage to the blog post listing page, which is useful for sites that are "
+"primarily blogs."
+msgstr ""
+"Por defecto, la página de inicio provista por Mezzanine es una plantilla "
+"estática, se encuentra en ``mezzanine/core/templates/index.html`` (o "
+"``templates/index.html`` si se almacena directamente en el proyecto). Se "
+"puede cambiar el ``urlpattern`` de la página de inicio en el módulo ``urls."
+"py`` del proyecto. Se recomienda leer los contenidos del `módulo urls.py "
+"<https://github.com/stephenmcd/mezzanine/tree/master/mezzanine/"
+"project_template/urls.py>`_, ya que contiene varios ejemplos para distintos "
+"tipos de página de inicio. En ``urls.py`` se encuentran ejemplos de como "
+"apuntar la página de inicio a un objeto ``Page`` en el árbol de páginas, o a "
+"una lista de entradas recientes del blog, lo que es útil para sitios que son "
+"usados como blogs principalmente."
+
+#: ../frequently-asked-questions.rst:142
+msgid ""
+"Of course with Django's models, admin classes, and template tags, the sky is "
+"the limit and you're free to set up the homepage to be managed in any way "
+"you like."
+msgstr ""
+"Por supuesto, con los modelos, clases de admin y etiquetas de plantillas de "
+"Django, el cielo es el límite, y se tiene libertad completa para que la "
+"página de inicio sea gestionada de cualquier forma."
+
+#: ../frequently-asked-questions.rst:151
+msgid "Why is Mezzanine a Django project, and not a Django app?"
+msgstr "¿Por qué es Mezzanine un proyecto Django, y no una app Django?"
+
+#: ../frequently-asked-questions.rst:153
+msgid ""
+"Mezzanine comes with many features that are related to content driven "
+"websites, yet are quite distinct from each other. For example user-built "
+"forms and blog posts are both common requirements for a website, yet aren't "
+"particularly related to each other. So Mezzanine as a whole is a collection "
+"of different Django apps, all packaged together to work seamlessly."
+msgstr ""
+"Mezzanine provee muchas características relacionadas a sitios web orientados "
+"a contenido, sin embargo, están bastante separadas unas de otras. Por "
+"ejemplo, es común que un sitio web requiera formularios construido por el "
+"usuario y un blog, pero estas dos características no están particularmente "
+"relacionadas entre ellas. Así que Mezzanine es una colección de apps Django, "
+"todas empaquetadas en conjunto para trabajar hombro a hombro."
+
+#: ../frequently-asked-questions.rst:160
+msgid ""
+"Mezzanine provides its own `project template <https://github.com/stephenmcd/"
+"mezzanine/tree/master/mezzanine/project_template>`_, with ``settings.py`` "
+"and ``urls.py`` modules that configure all of Mezzanine's apps, which you "
+"can (and should) modify per project."
+msgstr ""
+"Mezzanien incluye su propia `plantilla de proyecto <https://github.com/"
+"stephenmcd/mezzanine/tree/master/mezzanine/project_template>`_, con módulos "
+"``settings.py`` y ``urls.py`` que configuran todas las apps de Mezzanine. "
+"Estos módulos pueden (y deben) ser editados para cada proyecto."
+
+#: ../frequently-asked-questions.rst:170
+msgid "Where are all the templates I can modify?"
+msgstr "¿Dónde se encuentran todas las plantillas que puedo modificar?"
+
+#: ../frequently-asked-questions.rst:172
+msgid ""
+"Each of the templates Mezzanine provides can be found in the ``templates`` "
+"directory of each Django app that Mezzanine is comprised of. Take the time "
+"to explore the structure of these, starting with the base template "
+"``mezzanine/core/templates/base.html`` (or ``templates/base.html`` if stored "
+"directly in your project) which is the foundation for the entire site, going "
+"more granular as needed."
+msgstr ""
+"Todas las plantillas provistas por Mezzanine pueden encontrarse en la "
+"carpeta ``templates`` de cada app Django incluída con Mezzanine. Se "
+"recomienda tomarse un tiempo para explorar la estructura de estas carpetas, "
+"empezando con la plantilla base `mezzanine/core/templates/base.html`` (o "
+"``templates/base.html`` si se almacena en el proyecto), que es la fundación "
+"de todo el sitio. Desde esta plantilla se incluyen otras que proveen control "
+"más granular según sea necesario."
+
+#: ../frequently-asked-questions.rst:179
+msgid ""
+"Once you're familiar with the templates you'd like to modify, copy them into "
+"your project's ``templates`` directory and modify them there. You can also "
+"use the ``collecttemplates`` command to copy templates over automatically. "
+"Run ``python manage.py collecttemplates --help`` for more info. Be mindful "
+"that this means the copied templates will always be used, rather than the "
+"ones stored within Mezzanine itself, which is something to keep in mind if "
+"you upgrade to a newer version of Mezzanine."
+msgstr ""
+"Una vez se esté familiarizado con las plantillas que se desea modificar, se "
+"deben copiar a la carpeta ``templates`` del proyecto para modificarse allí. "
+"También se puede utilizar el comando ``collecttemplates`` para copiar las "
+"plantillas automáticamente. Para más información, se puede ejecutar  "
+"``python manage.py collecttemplates --help``. Se debe hacer notar que esto "
+"implica que las plantillas copiadas al proyecto serán utilizadas de ahora en "
+"adelante en lugar de las almacenadas en Mezzanine. Esto debe recordarse "
+"especialmente al actualizar a nuevas versiones de Mezzanine."
+
+#: ../frequently-asked-questions.rst:193
+msgid "How do I create/install a theme?"
+msgstr "¿Cómo crear/instalar temas?"
+
+#: ../frequently-asked-questions.rst:195
+msgid ""
+"Prior to version 1.0, Mezzanine had a set of features for creating and "
+"installing themes. These mostly were in place to address handling static "
+"files, since at that time Mezzanine was not integrated with `Django's "
+"staticfiles app <https://docs.djangoproject.com/en/dev/ref/contrib/"
+"staticfiles/>`_. Mezzanine 1.0 makes full use of ``staticfiles``, and so the "
+"theming features were removed since they became redundant."
+msgstr ""
+"Antes de la versión 1.0, Mezzanine tenía un conjunto de características para "
+"crear e instalar temas. Esto se debía en gran parte a la necesidad de "
+"manejar archivos estáticos, ya que Mezzanine no estaba integrado con la `app "
+"staticfiles de Django <https://docs.djangoproject.com/en/dev/ref/contrib/"
+"staticfiles/>`_. A partir de Mezzanine 1.0, se hizo uso de ``staticfiles``, "
+"y se removieron las características relacionadas a los temas por ser "
+"redundantes."
+
+#: ../frequently-asked-questions.rst:203
+msgid ""
+"From that point on, a theme in Mezzanine can be implemented entirely as a "
+"standard Django app. Simply create a Django app with ``templates`` and "
+"``static`` directories, copy the relevant HTML, CSS and JavaScript files "
+"into it from Mezzanine that you wish to modify, and then add the theme app's "
+"name to your project's ``INSTALLED_APPS`` setting. Be sure to add the theme "
+"to the top of the ``INSTALLED_APPS`` list, so that its templates are found "
+"before Mezzanine's versions of the templates."
+msgstr ""
+"De allí en adelante, un tema Mezzanine puede ser implementado en su "
+"totalidad como una app Django estándar. Simplemente se debe crear una app "
+"Django con las carpetas ``templates`` y ``static``, copiar los archivos "
+"HTML, CSS y Javascript que se quieran utilizar desde Mezzanine, y finalizar "
+"añadiendo el nombre de la aplicación a la variable de configuración "
+"``INSTALLED_APPS`` del proyecto. El tema debe añadirse al inicio de la lista "
+"``INSTALLED_APPS``, para que sus plantillas sean encontradas antes que las "
+"de Mezzanine."
+
+#: ../frequently-asked-questions.rst:212
+msgid ""
+"Have you created a cool theme that you'd like to share with the community? "
+"Package your theme up and put it on `PyPI <http://pypi.python.org/pypi>`_ "
+"and let us know via the `mailing list <http://groups.google.com/group/"
+"mezzanine-users>`_- that way people can automatically install it along with "
+"their Mezzanine project."
+msgstr ""
+"¿Has creado un tema genial que te gustaría compartir con la comunidad? Los "
+"temas se pueden empaquetar y poner en `PyPI <http://pypi.python.org/pypi>`_, "
+"luego haznos saber a través de la `lista de correo <http://groups.google.com/"
+"group/mezzanine-users>`_, y así la gente puede instalarlos con facilidad en "
+"sus proyectos Mezzanine."
+
+#: ../frequently-asked-questions.rst:223
+msgid ""
+"Why does Mezzanine contain its own [FEATURE] instead of using [PACKAGE]?"
+msgstr ""
+"¿Por qué Mezzanine contiene su propia [CARACTERÍSTICA] en lugar de usar tal "
+"[PAQUETE]?"
+
+#: ../frequently-asked-questions.rst:225
+msgid ""
+"To be honest you could implement most of Mezzanine's features by gluing "
+"together dozens of smaller, stand-alone, open source Django apps. Several "
+"larger Django site-building frameworks take this approach, and it's a noble "
+"one. The downside to this is that a significant portion of time on your "
+"project will be spent maintaining the glue between these apps, as their "
+"development evolves independently from each other, as well as from your "
+"project itself. At best you'll be able to work with the apps' developers to "
+"ease this evolution, at worst you'll be stuck hacking work-arounds for "
+"incompatibilities between the apps."
+msgstr ""
+"Honestamente, sería posible implementar la mayoría de las características de "
+"Mezzanine uniendo docenas de aplicaciones Django más pequeñas, "
+"independientes y de código abierto. Varios frameworks de desarrollo de "
+"sitios web basados en Django utilizan ese enfoque, y es uno noble. La "
+"desventaja es que requiere dedicar una gran cantidad de tiempo a mantener el "
+"\"pegamento\" entre cada una de las aplicaciones, ya que cada una se "
+"desarrolla de manera independiente a las otras y al proyecto en sí. En el "
+"mejor de los casos, sería posible trabajar con los otros desarrolladores "
+"para facilitar el proceso de evolución; y en el peor, uno se queda atrapado "
+"desarrollando complicados arreglos para conciliar las incompatibilidades "
+"entre aplicaciones."
+
+#: ../frequently-asked-questions.rst:235
+msgid ""
+"One of the core goals of Mezzanine is to avoid this situation, by providing "
+"all of the features commonly required by content driven sites, with just the "
+"right level of extensibility to customize your Mezzanine powered site as "
+"required. By taking this approach, the team behind Mezzanine is in complete "
+"control over its components, and can ensure they work together seamlessly."
+msgstr ""
+"Una de las metas centrales de Mezzanine es evitar esa última situación, y lo "
+"hace proveyendo todas las características comúnmente necesitadas en sitios "
+"web orientados a contenido con el nivel justo de extensibilidad para "
+"alcanzar la personalización necesaria para cada sitio. Siguiendo este "
+"enfoque, el equipo detrás de Mezzanine está en completo control de sus "
+"componentes, y puede asegurarse que funcionan sin problemas entre sí. "
+
+#: ../frequently-asked-questions.rst:247
+msgid "How can I add Mezzanine to an existing Django project?"
+msgstr "¿Cómo añadir Mezzanine a un proyecto Django existente?"
+
+#: ../frequently-asked-questions.rst:249
+msgid ""
+"Mezzanine is a Django project made up of multiple Django apps, and is geared "
+"towards being used as the basis for new Django projects, however adding "
+"Mezzanine to an existing Django project should be as simple as adding the "
+"necessary settings and urlpatterns."
+msgstr ""
+"Mezzanine es un proyecto Django compuesto de múltiples apps Django, y está "
+"pensado para ser utilizado como una base de proyectos Django nuevos. Sin "
+"embargo, añadir Mezzanine a un proyecto existente no debería requerir más "
+"que añadir las variables de configuración y urlpatterns necesarios."
+
+#: ../frequently-asked-questions.rst:254
+msgid ""
+"Mezzanine contains a `project_template directory <https://github.com/"
+"stephenmcd/mezzanine/tree/master/mezzanine/project_template>`_, which it "
+"uses to create new projects. In here you'll find the necessary ``settings."
+"py`` and ``urls.py`` modules, containing the project-level setup for "
+"Mezzanine. Of particular note are the following settings:"
+msgstr ""
+"Mezzanine contiene una carpeta llamada `project_template <https://github.com/"
+"stephenmcd/mezzanine/tree/master/mezzanine/project_template>`_, la cual es "
+"utilizada para crear nuevos proyectos. En ella se encuentran los módulos "
+"``settings.py`` y ``urls.py`` que contienen la configuración de Mezzanine a "
+"nivel de proyecto. A continuación se describen algunas variables de "
+"configuración de especial interés:"
+
+#: ../frequently-asked-questions.rst:261
+msgid "``INSTALLED_APPS``"
+msgid "``INSTALLED_APPS``"
+
+#: ../frequently-asked-questions.rst:262
+msgid "``TEMPLATE_CONTEXT_PROCESSORS``"
+msgid "``TEMPLATE_CONTEXT_PROCESSORS``"
+
+#: ../frequently-asked-questions.rst:263
+msgid "``MIDDLEWARE_CLASSES``"
+msgid "``MIDDLEWARE_CLASSES``"
+
+#: ../frequently-asked-questions.rst:264
+msgid ""
+"``PACKAGE_NAME_GRAPPELLI`` and ``PACKAGE_NAME_FILEBROWSER`` (for `django-"
+"grappelli <https://github.com/sehmaschine/django-grappelli>`_ and `django-"
+"filebrowser <https://github.com/sehmaschine/django-filebrowser>`_ "
+"integration)"
+msgstr ""
+"``PACKAGE_NAME_GRAPPELLI`` y ``PACKAGE_NAME_FILEBROWSER`` (para integración "
+"con `django-grappelli <https://github.com/sehmaschine/django-grappelli>`_ y "
+"`django-filebrowser <https://github.com/sehmaschine/django-filebrowser>`_)"
+
+#: ../frequently-asked-questions.rst:268
+msgid ""
+"The call to ``mezzanine.utils.conf.set_dynamic_settings`` at the very end of "
+"the ``settings.py`` module."
+msgstr ""
+"La llamada a ``mezzanine.utils.conf.set_dynamic_settings`` justo al final "
+"del módulo ``settings.py``."
+
+#: ../frequently-asked-questions.rst:276
+msgid "Why are Grappelli and Filebrowser forked?"
+msgstr "¿Por qué se hicieron forks de Grappelli y Filebrowser?"
+
+#: ../frequently-asked-questions.rst:278
+msgid ""
+"`Grappelli <https://github.com/sehmaschine/django-grappelli>`_ and "
+"`Filebrowser <https://github.com/sehmaschine/django-filebrowser>`_ are "
+"fantastic Django apps, and Mezzanine's admin interface would be much poorer "
+"without them. When Mezzanine was first created, both of these apps had "
+"packaging issues that went unaddressed for quite some time. Development of "
+"Mezzanine moved extremely quickly during its early days, and so the forks "
+"`grappelli_safe <https://github.com/stephenmcd/grappelli-safe>`_ and "
+"`filebrowser_safe <https://github.com/stephenmcd/filebrowser-safe>`_ were "
+"created to allow Mezzanine to be packaged up and installed in a single step."
+msgstr ""
+"`Grappelli <https://github.com/sehmaschine/django-grappelli>`_ y "
+"`Filebrowser <https://github.com/sehmaschine/django-filebrowser>`_ son apps "
+"Django fantásticas, y la interfaz administrativa de Mezzanine sería mucho "
+"más pobre sin ellas. Durante las primeras fases de desarrollo de Mezzanine, "
+"ambas aplicaciones tenían problemas de empaquetado que no fueron resueltas "
+"durante un tiempo considerable. Mientras tanto, el desarrollo de Mezzanine "
+"se movía a un ritmo veloz, y se crearon los forks `grappelli_safe <https://"
+"github.com/stephenmcd/grappelli-safe>`_ y `filebrowser_safe <https://github."
+"com/stephenmcd/filebrowser-safe>`_ para permitir que Mezzanine fuera "
+"empaquetado e instalado en un solo paso."
+
+#: ../frequently-asked-questions.rst:289
+msgid ""
+"Over time the packaging issues were resolved, but Grappelli and Filebrowser "
+"took paths that weren't desired in Mezzanine. They're only used in Mezzanine "
+"for skinning the admin, and providing a generic media library. Extra "
+"features that have been added to Grappelli and Filebrowser along the way, "
+"haven't been necessary for Mezzanine."
+msgstr ""
+"Con el tiempo, los problemas de empaquetado fueron resueltos, pero Grappelli "
+"y Filebrowser tomaron caminos que no eran los deseados en Mezzanine. Sólo "
+"son utilizados para cambiar la apariencia del admin y para proveer una "
+"biblioteca de medios genérica. Las características adicionales que se les "
+"han añadido en el camino no han sido necesarias para Mezzanine."
+
+#: ../frequently-asked-questions.rst:296
+msgid ""
+"Over time, small changes have also been made to the ``grappelli_safe`` and "
+"``filebrowser_safe`` forks, in order to integrate them more closely with "
+"Mezzanine. So to this day, the forks are still used as dependencies. They're "
+"stable, and have relatively low activity."
+msgstr ""
+"Con el tiempo, también se han realizado pequeños cambios a los forks "
+"``grappelli_safe`` y ``filebrowser_safe`` para integrarlos más fuertemente "
+"con Mezzanine. Hasta este día, los forks se utilizan como dependencias de "
+"Mezzanine. Son estables y su actividad es relativamente baja."
+
+#: ../frequently-asked-questions.rst:306
+msgid "What is this Pillow dependency?"
+msgstr "¿Por qué Pillow es una dependencia?"
+
+#: ../frequently-asked-questions.rst:308
+msgid ""
+"Mezzanine makes use of `Python Imaging Library <http://www.pythonware.com/"
+"products/pil/>`_ (PIL) for generating thumbnails. Having PIL as a dependency "
+"that gets automatically installed with Mezzanine has caused issues for some "
+"people, due to certain issues with PIL's own packaging setup."
+msgstr ""
+"Mezzanine hace uso de `Python Imaging Library <http://www.pythonware.com/"
+"products/pil/>`_ (PIL) para generar miniaturas de imágenes. Algunos usuarios "
+"experimentan problemas al instalar PIL automáticamente con Mezzanine debido "
+"a como está empaquetado."
+
+#: ../frequently-asked-questions.rst:314
+msgid ""
+"`Pillow <http://pypi.python.org/pypi/Pillow>`_ is simply a packaging wrapper "
+"around PIL that addresses these issues, and ensures PIL is automatically "
+"installed correctly when installing Mezzanine. Pillow is only used when PIL "
+"is not already installed."
+msgstr ""
+"`Pillow <http://pypi.python.org/pypi/Pillow>`_ es simplemente un envoltorio "
+"de empaquetado alrededor de PIL que se hace cargo de esos problemas, y se "
+"asegura que PIL sea instalado correctamente de manera automática al instalar "
+"Mezzanine. Pillow sólo es utilizado si PIL no está instalado."
+
+#: ../frequently-asked-questions.rst:324
+msgid "Why doesn't Mezzanine have [FEATURE]?"
+msgstr "¿Por qué Mezzanine no tiene [CARACTERÍSTICA]?"
+
+#: ../frequently-asked-questions.rst:326
+msgid ""
+"The best answer to this might be found by searching the `mailing list "
+"<http://groups.google.com/group/mezzanine-users>`_, where many features that "
+"aren't currently in Mezzanine have been thoroughly discussed."
+msgstr ""
+"La mejor respuesta podría encontrarse buscando en la `lista de correo  "
+"<http://groups.google.com/group/mezzanine-users>`_, donde se han discutido "
+"ampliamente muchas de las características que no forman parte de Mezzanine "
+"actualmente."
+
+#: ../frequently-asked-questions.rst:331
+msgid ""
+"Sometimes the conclusion is that certain features aren't within the scope of "
+"what Mezzanine aims to be. Sometimes they're great ideas, yet no one has had "
+"the time to implement them yet. In the case of the latter, the quickest way "
+"to get your feature added is to get working on it yourself."
+msgstr ""
+"A veces la conclusión es que algunas características no son parte del "
+"alcance de lo que Mezzanine quiere llegar a ser. Otras veces son grandes "
+"ideas, pero nadie ha tenido el tiempo para implementarlas. En ese caso, la "
+"manera más rápida de añadir una característica a Mezzanine es trabajando en "
+"ella uno mismo."
+
+#: ../frequently-asked-questions.rst:337
+msgid ""
+"Communication via the mailing list is key though. Features have been "
+"developed and rejected before, simply because they were relatively large in "
+"size, and developed in a silo without any feedback from the community. "
+"Unfortunately these types of contributions are difficult to accept, since "
+"they have the greatest resource requirements in understanding everything "
+"involved, without any previous communication."
+msgstr ""
+"Hay que tener en cuenta que la comunicación en la lista de correo es clave. "
+"Han habido casos en que algunas características han sido desarrolladas solo "
+"para ser rechazadas, simplemente por ser de tamaño relativamente grande y "
+"ser desarolladas de manera aislada, sin retroalimentación de la comunidad. "
+"Lamentablemente es difícil aceptar este tipo de contribuciones, ya que "
+"requieren entender todo lo que implican sin haber tenido ningún tipo de "
+"comunicación previa."
+
+#: ../frequently-asked-questions.rst:349
+msgid "Can I use Cartridge without Mezzanine?"
+msgstr "¿Puedo utilizar Cartridge sin Mezzanine?"
+
+#: ../frequently-asked-questions.rst:351
+msgid ""
+"No. `Cartridge <http://cartridge.jupo.org>`_ (an ecommerce app) heavily "
+"leverages Mezzanine, and in fact it is implemented as an advanced example of "
+"a Mezzanine content type, where each shop category is a page in Mezzanine's "
+"navigation tree. This allows for a very flexible shop structure, where "
+"hierarchical categories can be set up to create your shop."
+msgstr ""
+"No. `Cartridge <http://cartridge.jupo.org>`_ (una aplicación de comercio "
+"electrónico) se apoya ampliamente en Mezzanine, y de hecho está implementado "
+"como un ejemplo avanzado de un tipo de contenido Mezzanine, donde cada "
+"categoría de tienda es una página en el árbol de navegación de Mezzanine. "
+"Esto permite una estructura de tienda muy flexible, donde se puede crear una "
+"jerarquía de categorías para crear la tienda."
+
+#: ../frequently-asked-questions.rst:358
+msgid ""
+"You could very well use Cartridge and Mezzanine to build a pure Cartridge "
+"site, without using any of Mezzanine's features that aren't relevant to "
+"Cartridge. However more often than not, you'll find that general content "
+"pages and forms, will be required to some extent anyway."
+msgstr ""
+"Es posible construir un sitio Cartrdige \"puro\" utilizando Mezzanine y "
+"Cartridge dejando fuera todas las características de Mezzanine que no sean "
+"relevantes para Cartridge. Sin embargo, por lo general las páginas de "
+"contenido y los formularios son necesarios de alguna manera."
+
+#: ../frequently-asked-questions.rst:369
+msgid "I don't know how to code, how can I contribute?"
+msgstr "No puedo programar. ¿Cómo puedo contribuir?"
+
+#: ../frequently-asked-questions.rst:371
+msgid ""
+"You're in luck! Programming is by far the most abundant skill contributed to "
+"Mezzanine, and subsequently the least needed. There are many ways to "
+"contribute without writing any code:"
+msgstr ""
+"¡Estás de suerte! La programación es la habilitad contribuida con mayor "
+"frecuencia a Mezzanine, lo que la hace la menos necesitada. Hay muchas "
+"maneras de contribuir sin escribir código:"
+
+#: ../frequently-asked-questions.rst:375
+msgid ""
+"Answering questions on the `mailing list <http://groups.google.com/group/"
+"mezzanine-users>`_"
+msgstr ""
+"Respondiendo preguntas en `lista de correo <http://groups.google.com/group/"
+"mezzanine-users>`_"
+
+#: ../frequently-asked-questions.rst:377
+msgid ""
+"Triaging `issues on GitHub <https://github.com/stephenmcd/mezzanine/issues>`_"
+msgstr ""
+"Reportando y clasificando `problemas (issues) en GitHub <https://github.com/"
+"stephenmcd/mezzanine/issues>`_"
+
+#: ../frequently-asked-questions.rst:379
+msgid "Improving the documentation"
+msgstr "Mejorando la documentación"
+
+#: ../frequently-asked-questions.rst:380
+msgid "Promoting Mezzanine via blogs, `Twitter <http://twitter.com>`_, etc."
+msgstr "Promoviendo Mezzanine en blogs, `Twitter <http://twitter.com>`_, etc."
+
+#: ../frequently-asked-questions.rst:382
+msgid ""
+"If you don't have time for any of these things, and still want to contribute "
+"back to Mezzanine, donations are always welcome and can be made via Flattr "
+"or PayPal on the `Mezzanine homepage <http://mezzanine.jupo.org>`_. "
+"Donations help to support the continued development of Mezzanine, and go "
+"towards paying for infrastructure, such as hosting for the demo site."
+msgstr ""
+"Si no tienes tiempo para ninguna de las actividades anteriores y aún quieres "
+"contribuir a Mezzanine, las donaciones son siempre bienvenidas y pueden "
+"realizar a través de Flattr o PayPal en la `página oficial de Mezzanine "
+"<http://mezzanine.jupo.org>`_. Las donaciones ayudan a mantener el "
+"desarrollo continuo de Mezzanine y son dirigidas a pagar por "
+"infraestructura, como el alojamiento web para el sitio demo."

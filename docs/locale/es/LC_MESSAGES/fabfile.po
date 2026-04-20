@@ -1,0 +1,82 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../fabfile.rst:1
+msgid "``fab all`` - Installs everything required on a new system and deploy."
+msgstr ""
+
+#: ../fabfile.rst:2
+msgid "``fab apt`` - Installs one or more system packages via apt."
+msgstr ""
+
+#: ../fabfile.rst:3
+msgid "``fab backup`` - Backs up the database."
+msgstr ""
+
+#: ../fabfile.rst:4
+msgid "``fab create`` - Create a new virtual environment for a project."
+msgstr ""
+
+#: ../fabfile.rst:5
+msgid "``fab deploy`` - Deploy latest version of the project."
+msgstr ""
+
+#: ../fabfile.rst:6
+msgid ""
+"``fab install`` - Installs the base system and Python requirements for the "
+"entire server."
+msgstr ""
+
+#: ../fabfile.rst:7
+msgid "``fab manage`` - Runs a Django management command."
+msgstr ""
+
+#: ../fabfile.rst:8
+msgid ""
+"``fab pip`` - Installs one or more Python packages within the virtual "
+"environment."
+msgstr ""
+
+#: ../fabfile.rst:9
+msgid "``fab psql`` - Runs SQL against the project's database."
+msgstr ""
+
+#: ../fabfile.rst:10
+msgid ""
+"``fab python`` - Runs Python code in the project's virtual environment, with"
+" Django loaded."
+msgstr ""
+
+#: ../fabfile.rst:11
+msgid "``fab remove`` - Blow away the current project."
+msgstr ""
+
+#: ../fabfile.rst:12
+msgid "``fab restart`` - Restart gunicorn worker processes for the project."
+msgstr ""
+
+#: ../fabfile.rst:13
+msgid "``fab restore`` - Restores the database."
+msgstr ""
+
+#: ../fabfile.rst:14
+msgid "``fab rollback`` - Reverts project state to the last deploy."
+msgstr ""
+
+#: ../fabfile.rst:15
+msgid "``fab run`` - Runs a shell comand on the remote server."
+msgstr ""
+
+#: ../fabfile.rst:16
+msgid "``fab sudo`` - Runs a command as sudo."
+msgstr ""

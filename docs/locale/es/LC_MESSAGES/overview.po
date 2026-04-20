@@ -1,0 +1,1840 @@
+#
+# Eduardo Rivas <jerivasmelgar@gmail.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: 2014-09-03 09:45-0600\n"
+"Last-Translator: Eduardo Rivas <jerivasmelgar@gmail.com>\n"
+"Language-Team: Español; Castellano <>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
+
+#: ../../README.rst:4
+msgid "Created by `Stephen McDonald <http://twitter.com/stephen_mcd>`_"
+msgstr "Creado por `Stephen McDonald <http://twitter.com/stephen_mcd>`_"
+
+#: ../../README.rst:8
+msgid "Overview"
+msgstr "Visión general"
+
+#: ../../README.rst:10
+msgid ""
+"Mezzanine is a powerful, consistent, and flexible content management "
+"platform. Built using the `Django`_ framework, Mezzanine provides a simple "
+"yet highly extensible architecture that encourages diving in and hacking on "
+"the code. Mezzanine is `BSD licensed`_ and supported by a diverse and active "
+"community."
+msgstr ""
+"Mezzanine es una plataforma de gestión de contenido poderosa, consistente y "
+"flexible. Construido utilizando el framework `Django`_, Mezzanine provee una "
+"arquitectura simple pero altamente extensible que favorece la exploración y "
+"modificación del código. Mezzanine utiliza la `licencia BSD`_ y está "
+"soportado por una comunidad diversa y activa."
+
+#: ../../README.rst:16
+msgid ""
+"In some ways, Mezzanine resembles tools such as `Wordpress`_ that provide an "
+"intuitive interface for managing pages, blog posts, form data, store "
+"products, and other types of content. But Mezzanine is also different. "
+"Unlike many other platforms that make extensive use of modules or reusable "
+"applications, Mezzanine provides most of its functionality by default. This "
+"approach yields a more integrated and efficient platform."
+msgstr ""
+"En algunas maneras, Mezzanine se asemeja a herramientas como `Wordpress`_ "
+"que proveen una interfaz intuitiva para gestionar páginas, entradas de blog, "
+"datos de formularios, productos de tiendas y otros tipos de contenido. Pero "
+"Mezzanine también es diferente. A diferencia de muchas otras plataformas que "
+"hacen uso extensivo de módulos y aplicaciones reutilizables, Mezzanine "
+"provee la mayoría de su funcionalidad por defecto. Este enfoque produce una "
+"plataforma más integrada y eficiente."
+
+#: ../../README.rst:24
+msgid ""
+"Visit the `Mezzanine project page`_ to see some of the `great sites people "
+"have built using Mezzanine`_."
+msgstr ""
+"Visita la `página del proyecto Mezzanine`_ para ver algunos de los "
+"`grandiosos sitios que la gente ha construido con Mezzanine`_."
+
+#: ../../README.rst:28
+msgid "Features"
+msgstr "Características"
+
+#: ../../README.rst:30
+msgid ""
+"In addition to the usual features provided by Django such as MVC "
+"architecture, ORM, templating, caching and an automatic admin interface, "
+"Mezzanine provides the following:"
+msgstr ""
+"Además de las características usuales provistas por Django como una "
+"arquitectura MVC, ORM, plantillas, cacheo y una interfaz administrativa "
+"automática, Mezzanine provee lo siguiente:"
+
+#: ../../README.rst:34
+msgid "Hierarchical page navigation"
+msgstr "Navegación jerárquica de páginas"
+
+#: ../../README.rst:35
+msgid "Save as draft and preview on site"
+msgstr "Guardar como borrador con vista previa en el sitio"
+
+#: ../../README.rst:36
+msgid "Scheduled publishing"
+msgstr "Publicación programada"
+
+#: ../../README.rst:37
+msgid "Drag-and-drop page ordering"
+msgstr "Arrastrar y soltar para ordenar páginas"
+
+#: ../../README.rst:38
+msgid "WYSIWYG editing"
+msgstr "Edición LQVELQO"
+
+#: ../../README.rst:39
+msgid "`In-line page editing`_"
+msgstr "`Edición de página in-line`_"
+
+#: ../../README.rst:40
+msgid "Drag-and-drop HTML5 forms builder with CSV export"
+msgstr ""
+"Creador de formularios HTML5 a través de arrastrar-y-soltar y con "
+"exportación a CSV"
+
+#: ../../README.rst:41
+msgid "SEO friendly URLs and meta data"
+msgstr "Meta datos y URLs amigables con motores de búsqueda"
+
+#: ../../README.rst:42
+msgid "Shopping cart module (`Cartridge`_)"
+msgstr "Módulo de carrito de compras (`Cartridge`_)"
+
+#: ../../README.rst:43
+msgid "Configurable `dashboard`_ widgets"
+msgstr "`Tablero`_ de widgets configurables"
+
+#: ../../README.rst:44
+msgid "Blog engine"
+msgstr "Motor de blog"
+
+#: ../../README.rst:45
+msgid "Tagging"
+msgstr "Etiquetado"
+
+#: ../../README.rst:46
+msgid "`Free Themes`_, and a `Premium Themes`_ Marketplace"
+msgstr "Mercado de `temas gratuitos`_ y `temas premium`"
+
+#: ../../README.rst:47
+msgid "User accounts and profiles with email verification"
+msgstr "Cuentas y perfiles de usuario con verificación por correo electrónico"
+
+#: ../../README.rst:48
+msgid "Translated to over 35 languages"
+msgstr "Traducido a más de 35 idiomas"
+
+#: ../../README.rst:49
+msgid "Sharing via Facebook or Twitter"
+msgstr "Compartir a través de Facebook y Twitter"
+
+#: ../../README.rst:50
+msgid "`Custom templates`_ per page or blog post"
+msgstr "`Plantillas personalizadas` por página o entrada de blog"
+
+#: ../../README.rst:51
+msgid "`Twitter Bootstrap`_ integration"
+msgstr "Integración con `Twitter Bootstrap`_"
+
+#: ../../README.rst:52
+msgid "API for `custom content types`_"
+msgstr "API para `tipos de contenido personalizados`_"
+
+#: ../../README.rst:53
+msgid "`Search engine and API`_"
+msgstr "`API para motor de búsqueda`_"
+
+#: ../../README.rst:54
+msgid "Seamless integration with third-party Django apps"
+msgstr "Integración transparente con apps Django de terceros"
+
+#: ../../README.rst:55
+msgid "Multi-device detection and template handling"
+msgstr "Detección de dispositivos y gestión de plantillas"
+
+#: ../../README.rst:56
+msgid "One step migration from other blogging engines"
+msgstr "Migración de un solo paso de otras plataformas de blogs"
+
+#: ../../README.rst:57
+msgid "Automated production provisioning and deployments"
+msgstr "Configuración y despliegue automatizados en ambientes de producción"
+
+#: ../../README.rst:58
+msgid "`Disqus`_ integration, or built-in threaded comments"
+msgstr "`Integración con Disqus`_, o comentarios anidados integrados"
+
+#: ../../README.rst:59
+msgid "`Gravatar`_ integration"
+msgstr "Integración con `Gravatar`_"
+
+#: ../../README.rst:60
+msgid "`Google Analytics`_ integration"
+msgstr "Integración con `Google Analytics`_"
+
+#: ../../README.rst:61
+msgid "`Twitter`_ feed integration"
+msgstr "Integración con feeds de `Twitter`_"
+
+#: ../../README.rst:62
+msgid "`bit.ly`_ integration"
+msgstr "Integración con `bit.ly`_"
+
+#: ../../README.rst:63
+msgid "`Akismet`_ spam filtering"
+msgstr "Filtro de spam `Akismet`_"
+
+#: ../../README.rst:64
+msgid "Built-in `test suite`_"
+msgstr "`Conjunto de pruebas` incluído"
+
+#: ../../README.rst:65
+msgid "`JVM`_ compatible (via `Jython`_)"
+msgstr "Compatible con `JVM`_ (a través de `Jython`_)"
+
+#: ../../README.rst:67
+msgid "The Mezzanine admin dashboard:"
+msgstr "El tablero administrativo de Mezzanine:"
+
+#: ../../README.rst:72
+msgid "Dependencies"
+msgstr "Dependencias"
+
+#: ../../README.rst:74
+msgid ""
+"Mezzanine makes use of as few libraries as possible (apart from a standard "
+"Django environment), with the following dependencies:"
+msgstr ""
+"Mezzanine hace uso de la menor cantidad posible de librerías (fuera del "
+"entorno estándar Django), y cuenta con las siguientes dependencias:"
+
+#: ../../README.rst:77
+msgid "`Python`_ 2.6 / 2.7 / 3.3"
+msgstr "`Python`_ 2.6 / 2.7 / 3.3"
+
+#: ../../README.rst:78
+msgid "`Django`_ 1.4 / 1.5 / 1.6"
+msgstr "`Django`_ 1.4 / 1.5 / 1.6"
+
+#: ../../README.rst:79
+msgid "`Pillow`_ - for image resizing (`Python Imaging Library`_ fork)"
+msgstr ""
+"`Pillow`_ - para redimensionar imágenes (fork de `Python Image Library`_)"
+
+#: ../../README.rst:80
+msgid "`grappelli-safe`_ - admin skin (`Grappelli`_ fork)"
+msgstr ""
+"`grappelli-safe`_ - tema de la interfaz administrativa (fork de `Grappelli` "
+"_)"
+
+#: ../../README.rst:81
+msgid "`filebrowser-safe`_ - for managing file uploads (`FileBrowser`_ fork)"
+msgstr ""
+"`filebrowser-safe`_ - para gestionar archivos subidos (fork de "
+"`FileBrowser`_)"
+
+#: ../../README.rst:82
+msgid "`bleach`_ and `BeautifulSoup`_ - for sanitizing markup in content"
+msgstr ""
+"`bleach`_ y `BeautifulSoup`_ - para limpiar el lenguaje de etiquetas en el "
+"contenido"
+
+#: ../../README.rst:83
+msgid "`pytz`_ and `tzlocal`_ - for timezone support"
+msgstr "`pytz`_ y `tzlocal`_ - para soporte de zonas horarias"
+
+#: ../../README.rst:84
+msgid "`South`_ - for database migrations (optional)"
+msgstr "`South`_ - para migraciones de la base de datos (opcional)"
+
+#: ../../README.rst:85
+msgid "`django-compressor`_ - for merging JS/CSS assets (optional)"
+msgstr "`django-compressor`_ - para unir recursos JS/CSS (opcional)"
+
+#: ../../README.rst:86
+msgid ""
+"`requests`_ and `requests_oauthlib`_ - for interacting with external APIs"
+msgstr ""
+"`requests`_ y `requstas_oauthlib`_ - para interactuar con APIs externas"
+
+#: ../../README.rst:87
+msgid "`pyflakes`_ and `pep8`_ - for running the test suite (optional)"
+msgstr ""
+"`pyflakes`_ y `pep8`_ - para ejecutar el conjunto de pruebas (opcional)"
+
+#: ../../README.rst:89
+msgid ""
+"Users on Debian or Ubuntu will require some system packages to support the "
+"imaging library::"
+msgstr ""
+"Los usuarios de Debian o Ubuntu requieren de algunos paquetes para soportar "
+"la librería de imágenes::"
+
+#: ../../README.rst:95
+msgid "OSX users can do the same via `Homebrew`_::"
+msgstr "Los usuarios de OSX pueden hacer lo mismo a través de `Homebrew`_::"
+
+#: ../../README.rst:100
+msgid "Themes"
+msgstr "Temas"
+
+#: ../../README.rst:102
+msgid ""
+"A handful of attractive `Free Themes`_ are available thanks to "
+"`@abhinavsohani`_, while there is also a marketplace for buying and selling "
+"`Premium Themes`_ thanks to `@joshcartme`_."
+msgstr ""
+"Un puñado de atractivos `temas gratuitos`_ están disponibles gracias a "
+"`@abhinavsohani`_, y también hay un mercado para vender y comprar `temas "
+"premium`_ gracias a `@joshcartme`_."
+
+#: ../../README.rst:107
+msgid "Browser Support"
+msgstr "Soporte de navegadores"
+
+#: ../../README.rst:109
+msgid ""
+"Mezzanine's admin interface works with all modern browsers. Internet "
+"Explorer 7 and earlier are generally unsupported."
+msgstr ""
+"La interfaz administrativa de Mezzanine funciona en todos los navegadores "
+"modernos. Por lo general, Internet Explorer 7 y anteriores no son soportados."
+
+#: ../../README.rst:113
+msgid "Installation"
+msgstr "Instalación"
+
+#: ../../README.rst:115
+msgid ""
+"The easiest method is to install directly from pypi using `pip`_ by running "
+"the command below, which will also install the required dependencies "
+"mentioned above::"
+msgstr ""
+"La manera más fácil de instalar es directamente desde pypi usando `pip`_ "
+"ejecutando el comando a continuación, que instalará automáticamente las "
+"dependencias mencionadas anteriormente::"
+
+#: ../../README.rst:121
+msgid ""
+"If you prefer, you can download Mezzanine and install it directly from "
+"source::"
+msgstr ""
+"También se puede descargar Mezzanine e instalarlo desde el código fuente::"
+
+#: ../../README.rst:126
+msgid ""
+"Once installed, the command ``mezzanine-project`` can be used to create a "
+"new Mezzanine project in similar fashion to ``django-admin.py``::"
+msgstr ""
+"Una vez instalado, el comando ``mezzanine-project`` puede ser utilizado para "
+"crear un nuevo proyecto Mezzanine de manera similiar a ``django-admin.py``::"
+
+#: ../../README.rst:137
+msgid ""
+"The ``createdb`` command is a shortcut for using Django's ``syncdb`` command "
+"and setting the initial migration state for `South`_. You can alternatively "
+"use ``syncdb`` and ``migrate`` if preferred. South is automatically added to "
+"INSTALLED_APPS if the ``USE_SOUTH`` setting is set to ``True``."
+msgstr ""
+"El comando ``createdb`` es un atajo para utilizar el comando ``syncdb`` de "
+"Django y establecer el estado inicial de migraciones para `South`_. Si se "
+"prefiere, se puede utilizar ``syncdb`` y ``migrate``. South esa añadido "
+"automáticamente a INSTALLED_APPS si la variable de configuración "
+"``USE_SOUTH`` está establecida como ``True``."
+
+#: ../../README.rst:143
+msgid ""
+"``createdb`` will also install some demo content, such as a contact form and "
+"image gallery. If you'd like to omit this step, use the ``--nodata`` option "
+"with ``createdb``."
+msgstr ""
+"``createdb`` también instalará un poco de contenido demo, como un formulario "
+"de contacto y una galería de imágenes. Para omitir este paso se debe usar la "
+"opción ``--nodata`` al llamar a ``createdb``."
+
+#: ../../README.rst:147
+msgid ""
+"You should then be able to browse to http://127.0.0.1:8000/admin/ and log in "
+"using the default account (``username: admin, password: default``). If you'd "
+"like to specify a different username and password during set up, simply "
+"exclude the ``--noinput`` option included above when running ``createdb``."
+msgstr ""
+"Para ese entonces debería ser posible visitar http://127.0.0.1:8000/admin/ e "
+"iniciar sesión usando la cuenta por defecto (``usuario: admin, contraseña: "
+"default``). Si se desea especificar un usuario y contraseña diferentes "
+"durante la configuración, nada más debe excluirse la opción ``--noinput`` al "
+"ejecutar ``createdb``."
+
+#: ../../README.rst:153
+msgid ""
+"For information on how to add Mezzanine to an existing Django project, see "
+"the FAQ section of the documentation."
+msgstr ""
+"Para más información respecto a como añadir Mezzanine a un proyecto Django "
+"existente, puede visitarse la sección de Preguntas frecuentes en la "
+"documentación."
+
+#: ../../README.rst:157
+msgid "Contributing"
+msgstr "Contribuciones"
+
+#: ../../README.rst:159
+msgid ""
+"Mezzanine is an open source project managed using both the Git and Mercurial "
+"version control systems. These repositories are hosted on both `GitHub`_ and "
+"`Bitbucket`_ respectively, so contributing is as easy as forking the project "
+"on either of these sites and committing back your enhancements."
+msgstr ""
+"Mezzanine es un proyecto de código abierto gestionado por los sistemas de "
+"control de versión Git y Mercurial. Estos repositorios están alojados tanto "
+"en `GitHub`_ como en `Bitbucket`_ respectivamente, así que contribuir es tan "
+"fácil como hacer un fork del proyecto en cualquiera de estos sitios y hacer "
+"commits con las mejoras."
+
+#: ../../README.rst:165
+msgid "Please note the following guidelines for contributing:"
+msgstr "Los siguientes lineamientos deben notarse para hacer contribuciones:"
+
+#: ../../README.rst:167
+msgid ""
+"Contributed code must be written in the existing style. For Python (and to a "
+"decent extent, JavaScript as well), this is as simple as following the "
+"`Django coding style`_ and (most importantly) `PEP 8`_. Front-end CSS should "
+"adhere to the `Bootstrap CSS guidelines`_."
+msgstr ""
+"El código a contribuir debe ser escrito de acuerdo al estilo existente. Para "
+"Python (y hasta cierto punto para Javascript también) esto se logra "
+"sencillamente siguiendo el `estilo de código de Django`_ y (aun más "
+"importante) `PEP 8`_. El CSS del front-end debe adherirse a los "
+"`lineamientos de CSS de Bootstrap`_."
+
+#: ../../README.rst:172
+msgid ""
+"Contributions must be available on a separately named branch based on the "
+"latest version of the main branch."
+msgstr ""
+"Las contribuciones deben estar disponibles en una rama separada basada en la "
+"versión más reciente de la rama principal."
+
+#: ../../README.rst:174
+msgid ""
+"Run the tests before committing your changes. If your changes cause the "
+"tests to break, they won't be accepted."
+msgstr ""
+"Las pruebas deben ejecutarse antes de hacer un commit con cambios. Si los "
+"cambios contribuidos causan una falla en las pruebas, no serán aceptados."
+
+#: ../../README.rst:176
+msgid ""
+"If you are adding new functionality, you must include basic tests and "
+"documentation."
+msgstr ""
+"Si la contribución comprende nueva funcionalidad, será necesario incluir "
+"pruebas y documentación básicas."
+
+#: ../../README.rst:179
+msgid ""
+"Here's a quick start to hacking on Mezzanine after forking it on GitHub, by "
+"using the internal \"project_template\" as your current project::"
+msgstr ""
+"A continuación se presenta una guía rápida para empezar a modificar el "
+"código de Mezzanine después de hacer un fork en GitHub, utilizando "
+"\"project_template\" como el proyecto actual::"
+
+#: ../../README.rst:199
+msgid "Language Translations"
+msgstr "Traducción de idiomas"
+
+#: ../../README.rst:201
+msgid ""
+"Mezzanine makes full use of translation strings, which allow Mezzanine to be "
+"translated into multiple languages using `Django's internationalization`_ "
+"methodology. Translations are managed on the `Transiflex`_ website but can "
+"also be submitted via `GitHub`_ or `Bitbucket`_. Consult the documentation "
+"for `Django's internationalization`_ methodology for more information on "
+"creating translations and using them."
+msgstr ""
+"Mezzanine hace uso completo de cadenas de traducción, lo que le permite ser "
+"traducido a múltiples idiomas utilizando la metodología de "
+"`internacionalización de Django`_. Las traducciones son gestionadas en el "
+"sitio web `Transifex`_ pero también pueden ser enviadas a través de "
+"`GitHub`_ o `Bitbucket`_. La documentación de la metodología de "
+"`internacionalización de Django`_ contiene mayor información al respecto."
+
+#: ../../README.rst:210
+msgid "Third-party Modules"
+msgstr "Módulos de terceros"
+
+#: ../../README.rst:212
+msgid ""
+"The following modules have been developed outside of Mezzanine. If you have "
+"developed a module to integrate with Mezzanine and would like to list it "
+"here, send an email to the `mezzanine-users`_ mailing list. You can also add "
+"modules to the `Mezzanine Grid on djangopackages.com`_."
+msgstr ""
+"Los módulos a continuación han sido desarrollados de manera externa a "
+"Mezzanine. Si has creado un módulo que se integra con Mezzanine y te "
+"gustaría que apareciera en esta lista, envía un correo electrónico a la "
+"lista de correo `mezzanine-users`_. También puedes añadir módulos a la "
+"`cuadrícula de Mezzanine en djangopackages.com`_."
+
+#: ../../README.rst:217
+msgid "`Cartridge`_ - ecommerce for Mezzanine."
+msgstr "`Cartridge`_ - Comercio electrónico para Mezzanine."
+
+#: ../../README.rst:218
+msgid "`Drum`_ - A `Hacker News`_ / `Reddit`_ clone powered by Mezzanine."
+msgstr ""
+"`Drum`_ - Un clon de `Hacker News`_ / `Reddit`_ construido sobre Mezzanine."
+
+#: ../../README.rst:219
+msgid ""
+"`mezzanine-html5boilerplate`_ - Integrates the `html5boilerplate project`_  "
+"into Mezzanine."
+msgstr ""
+"`mezzanine-html5boilerplate`_ - Integra el `proyecto html5boilerplate`_  en "
+"Mezzanine."
+
+#: ../../README.rst:221
+msgid ""
+"`mezzanine-mdown`_ - Adds `Markdown`_ support to Mezzanine's rich text "
+"editor."
+msgstr ""
+"`mezzanine-mdown`_ - Añade soporte para `Markdown`_ al editor de texto "
+"enriquecido de Mezzanine."
+
+#: ../../README.rst:223
+msgid ""
+"`mezzanine-openshift`_ - Setup for running Mezzanine on `Redhat's "
+"OpenShift`_ cloud platform."
+msgstr ""
+"`mezzanine-openshift`_ - Configuración para ejecutar Mezzanine en la "
+"plataforma `OpenShift de RedHat`_."
+
+#: ../../README.rst:225
+msgid ""
+"`mezzanine-stackato`_ - Setup for running Mezzanine on `ActiveState's "
+"Stackato`_ cloud platform."
+msgstr ""
+"`mezzanine-stackato`_ - Configuración para ejecutar Mezzanine en la "
+"plataforma `Stackato de ActiveState`_."
+
+#: ../../README.rst:227
+msgid "`mezzanine-blocks`_ - A Mezzanine flavored fork of django-flatblocks."
+msgstr ""
+"`mezzanine-blocks`_ - Una variante al estilo Mezzanine de django-flatblocks."
+
+#: ../../README.rst:229
+msgid "`mezzanine-widgets`_ - Widget system for Mezzanine."
+msgstr "`mezzanine-widgets`_ - Sistema de widgets para Mezzanine."
+
+#: ../../README.rst:230
+msgid "`mezzanine-themes`_ - A collection of Django/Mezzanine templates."
+msgstr ""
+"`mezzanine-themes`_ - Una colección de plantillas para Django/Mezzanine."
+
+#: ../../README.rst:231
+msgid ""
+"`mezzanine-twittertopic`_ - Manage multiple Twitter topic feeds from the "
+"Mezzanine admin interface."
+msgstr ""
+"`mezzanine-twittertopic`_ - Permite gestionar múltiples feeds temáticas de "
+"Twitter desde la interfaz administrativa de Mezzanine."
+
+#: ../../README.rst:233
+msgid ""
+"`mezzanine-captcha`_ - Adds CAPTCHA field types to Mezzanine's forms builder "
+"app."
+msgstr ""
+"`mezzanine-captcha`_ - Añade un campo CAPTCHA al creador de formularios de "
+"Mezzanine."
+
+#: ../../README.rst:235
+msgid "`mezzanine-bookmarks`_ - A multi-user bookmark app for Mezzanine."
+msgstr ""
+"`mezzanine-bookmarks`_ - Una aplicación de marcadores con soporte multi-"
+"usuario para Mezzanine."
+
+#: ../../README.rst:236
+msgid ""
+"`mezzanine-events`_ - Events plugin for Mezzanine, with geocoding via Google "
+"Maps, iCalendar files, webcal URLs and directions via Google Calendar/Maps."
+msgstr ""
+"`mezzanine-events`_ - Aplicación de eventos para Mezzanine, con "
+"geocodificación a través de Google Maps, archivos iCalendar, URLs webcal y "
+"direcciones a través de Google Calendar/Maps."
+
+#: ../../README.rst:239
+msgid "`mezzanine-polls`_ - Polls application for Mezzanine."
+msgstr "`mezzanine-polls`_ - Aplicación de encuestas para Mezzanine."
+
+#: ../../README.rst:240
+msgid ""
+"`mezzanine-pagedown`_ - Adds the `Pagedown`_ WYSIWYG editor to Mezzanine."
+msgstr ""
+"`mezzanine-pagedown`_ - Añade el editor LQVELQO `Pagedown`_ a Mezzanine."
+
+#: ../../README.rst:242
+msgid "`mezzanine-careers`_ - Job posting application for Mezzanine."
+msgstr "`mezzanine-careers`_ - Aplicación de plazas laborales para Mezzanine."
+
+#: ../../README.rst:243
+msgid "`mezzanine-recipes`_ - Recipes plugin with built-in REST API."
+msgstr "`mezzanine-recipes`_ - Aplicación de recetas con REST API incluída."
+
+#: ../../README.rst:244
+msgid "`mezzanine-slides`_ - Responsive banner slides app for Mezzanine."
+msgstr ""
+"`mezzanine-slides`_ - Aplicación de sliders responsivos para Mezzanine."
+
+#: ../../README.rst:245
+msgid "`mezzyblocks`_ - Another app for adding blocks/modules to Mezzanine."
+msgstr ""
+"`mezzyblocks`_ - Otra aplicación para añadir bloques/módulos a Mezzanine."
+
+#: ../../README.rst:246
+msgid ""
+"`mezzanine-flexipage`_ - Allows designers to manage content areas in "
+"templates."
+msgstr ""
+"`mezzanine-flexipage`_ - Permite a los diseñadores gestionar áreas de "
+"contenido en las plantillas."
+
+#: ../../README.rst:248
+msgid "`mezzanine-instagram`_ - A simple Instagram app for Mezzanine."
+msgstr ""
+"`mezzanine-instagram`_ - Una sencilla aplicación de Instagram para Mezzanine."
+
+#: ../../README.rst:249
+msgid "`mezzanine-wiki`_ - Wiki app for Mezzanine."
+msgstr "`mezzanine-wiki`_ - Aplicación de Wiki para Mezzanine."
+
+#: ../../README.rst:250
+msgid "`mezzanine-calendar`_ - Calendar pages in Mezzanine"
+msgstr "`mezzanine-calendar`_ - Páginas de calendario en Mezzanine"
+
+#: ../../README.rst:251
+msgid "`mezzanine-facebook`_ - Simple Facebook integration for Mezzanine."
+msgstr "`mezzanine-facebook`_ - Integración simple con Facebook en Mezzanine."
+
+#: ../../README.rst:252
+msgid ""
+"`mezzanine-instagram-gallery`_ - Create Mezzanine galleries using Instagram "
+"images."
+msgstr ""
+"`mezzanine-instagram-gallery`_ - Crea galerías Mezzanine a partir de "
+"imágenes de Instagram."
+
+#: ../../README.rst:254
+msgid "`mezzanine-cli`_ - Command-line interface for Mezzanine."
+msgstr "`mezzanine-cli`_ - Interfaz de línea de comandos para Mezzanine."
+
+#: ../../README.rst:255
+msgid ""
+"`mezzanine-categorylink`_ - Integrates Mezzanine's Link pages with its blog "
+"categories."
+msgstr ""
+"`mezzanine-categorylink`_ - Integración de las páginas de Enlace de "
+"Mezzanine con las categorías de blog."
+
+#: ../../README.rst:257
+msgid ""
+"`mezzanine-podcast`_ - A simple podcast streamer and manager for Mezzanine."
+msgstr ""
+"`mezzanine-podcast`_ - Un sencillo administrador y streamer de podcasts para "
+"Mezzanine."
+
+#: ../../README.rst:259
+msgid ""
+"`mezzanine-linkcollection`_ - Collect links. Feature them. Share them over "
+"RSS."
+msgstr ""
+"`mezzanine-linkcollection`_ - Colecciona enlaces. Destácalos. Comparte por "
+"RSS."
+
+#: ../../README.rst:261
+msgid "`cash-generator`_ - Generate `GnuCash`_ invoices with Mezzanine."
+msgstr "`cash-generator`_ - Genera recibos `GnuCash`_ con Mezzanine."
+
+#: ../../README.rst:262
+msgid "`mezzanine-foundation`_ - `Zurb Foundation`_ theme for Mezzanine."
+msgstr "`mezzanine-foundation`_ - Tema de `Zurb Foundation`_ para Mezzanine."
+
+#: ../../README.rst:263
+msgid ""
+"`mezzanine-file-collections`_ - Simple file collection page type for "
+"Mezzanine."
+msgstr ""
+"`mezzanine-file-collections`_ - Páginas de colección de archivos para "
+"Mezzanine."
+
+#: ../../README.rst:265
+msgid ""
+"`mezzanine-wymeditor`_ - `WYMeditor`_ adapted as the rich text editor for "
+"Mezzanine."
+msgstr ""
+"`mezzanine-wymeditor`_ - Editor `WYMeditor`_ adaptado como el editor de "
+"texto enriquecido de Mezzanine."
+
+#: ../../README.rst:267
+msgid ""
+"`mezzanine-meze`_ - Adds support for `reStructuredText`_, `Pygments`_ and "
+"more, to Mezzanine's rich text editing."
+msgstr ""
+"`mezzanine-meze`_ - Añade soporte de `reStructuredText`_, `Pygments`_ y más "
+"al editor de contenido de Mezzanine."
+
+#: ../../README.rst:269
+msgid ""
+"`mezzanine-pageimages`_ - Add background and banner images per page in "
+"Mezzanine."
+msgstr ""
+"`mezzanine-pageimages`_ - Añade imágenes destacadas y de fondo por cada "
+"página en Mezzanine."
+
+#: ../../README.rst:271
+msgid ""
+"`mezzanine-protected-pages`_ - Restrict access to pages by group membership."
+msgstr ""
+"`mezzanine-protected-pages`_ - Restringe el acceso a páginas según la "
+"pertenencia a un grupo."
+
+#: ../../README.rst:273
+msgid ""
+"`mezzanine-page-auth`_ - A Mezzanine module for add group-level permission "
+"to pages."
+msgstr ""
+"`mezzanine-page-auth`_ - Añade permisos a nivel de grupo a las páginas."
+
+#: ../../README.rst:275
+msgid ""
+"`django-widgy`_ - Widget-oriented content editing. Includes an adapter for "
+"Mezzanine and a powerful form builder."
+msgstr ""
+"`django-widgy`_ - Edición de contenido orientada a widgets. Incluye un "
+"adaptador para Mezzanine y un poderoso creador de formularios."
+
+#: ../../README.rst:277
+msgid ""
+"`mezzanine-admin-backup`_ - Export your Mezzanine database and assets "
+"directly from the admin."
+msgstr ""
+"`mezzanine-admin-backup`_ - Exporta la base de datos y los recursos de "
+"Mezzanine desde la interfaz administrativa."
+
+#: ../../README.rst:279
+msgid ""
+"`mezzanine-mailchimp`_ - Integrate Mezzanine forms with a MailChimp "
+"subscription list."
+msgstr ""
+"`mezzanine-mailchimp`_ - Integra los formularios de Mezzanine con una lista "
+"de suscripción de MailChimp."
+
+#: ../../README.rst:281
+msgid ""
+"`mezzanine-grappelli`_ - Integrates latest upstream grappelli/filebrowser "
+"with Mezzanine."
+msgstr ""
+"`mezzanine-grappelli`_ - Integración de la versión más reciente de grappelli/"
+"filebrowser con Mezzanine."
+
+#: ../../README.rst:283
+msgid "`mezzanine-workout`_ - Store and display FIT data in Mezzanine."
+msgstr "`mezzanine-workout`_ - Almacena y muestra datos FIT en Mezzanine."
+
+#: ../../README.rst:284
+msgid "`mezzanine-agenda`_ - Event functionality for your Mezzanine sites."
+msgstr "`mezzanine-agenda`_ - Funcionalidad de eventos para sitios Mezzanine."
+
+#: ../../README.rst:285
+msgid ""
+"`mezzanine-dpaste`_ - Integrate `dpaste`_, a Django pastebin, into your "
+"Mezzanine site."
+msgstr ""
+"`mezzanine-dpaste`_ - Integración con `dpaste`_, un pastebin Django, en "
+"Mezzanine."
+
+#: ../../README.rst:287
+msgid "`mezzanine-linkdump`_ - Create, display and track links in Mezzanine."
+msgstr ""
+"`mezzanine-linkdump`_ - Permite crear, mostrar y dar seguimiento a enlaces "
+"en Mezzanine."
+
+#: ../../README.rst:288
+msgid "`mezzanine-people`_ - Categorize and list people in Mezzanine."
+msgstr ""
+"`mezzanine-people`_ - Categoriza y muestra listas de personas en Mezzanine."
+
+#: ../../README.rst:289
+msgid "`mezzanine-webf`_ - Fabfile for deploying Mezzanine to Webfaction."
+msgstr "`mezzanine-webf`_ - Fabfile para desplegar Mezzanine a Webfaction."
+
+#: ../../README.rst:290
+msgid ""
+"`mezzanineopenshift`_ Another setup for `Redhat's OpenShift`_ cloud platform."
+msgstr ""
+"`mezzanineopenshift`_ Otra configuración para la plataforma `OpenShift de "
+"RedHat`_."
+
+#: ../../README.rst:292
+msgid ""
+"`mezzanine-bsbanners`_ Add `Twitter Bootstrap`_ Carousels and Jumbotrons to "
+"Mezzanine."
+msgstr ""
+"`mezzanine-bsbanners`_ Añade carruseles y jumbotrons de `Twitter Bootstrap`_ "
+"a Mezzanine."
+
+#: ../../README.rst:296
+msgid "Donating"
+msgstr "Donaciones"
+
+#: ../../README.rst:298
+msgid ""
+"If you would like to make a donation to continue development of Mezzanine, "
+"you can do so via the `Mezzanine Project`_ website."
+msgstr ""
+"Las donaciones continuan el desarrollo de Mezzanine y pueden realizarse a "
+"través del sito oficial del `Proyecto Mezzanine`_."
+
+#: ../../README.rst:302
+msgid "Support"
+msgstr "Soporte"
+
+#: ../../README.rst:304
+msgid ""
+"To report a security issue, please send an email privately to `security@jupo."
+"org`_. This gives us a chance to fix the issue and create an official "
+"release prior to the issue being made public."
+msgstr ""
+"Para reportar un problema de seguridad, debe enviarse un correo electrónico "
+"de manera privada a `security@jupo.org`_. Esto nos da la oportunidad para "
+"crear una nueva versión oficial de Mezzanine antes de hacer público el "
+"problema."
+
+#: ../../README.rst:309
+msgid ""
+"For all other Mezzanine support, the primary channel is the `mezzanine-"
+"users`_ mailing list. Questions, comments, and all related discussions take "
+"place here amongst knowledgeable members of the community."
+msgstr ""
+"Para el resto de soporte relacionado a Mezzanine, el canal principal es la "
+"lista de correo `mezzanine-users`_. Preguntas, comentarios y toda discusión "
+"relacionada se lleva acabo en esa plataforma en compañía de miembros "
+"conocedores de la comunidad."
+
+#: ../../README.rst:314
+msgid ""
+"If you're certain you've come across a bug, then please use the `GitHub "
+"issue tracker`_. It's crucial that enough information is provided to "
+"reproduce the bug. This includes things such as the Python stack trace "
+"generated by error pages, as well as other aspects of the development "
+"environment used, such as operating system, database, Python version, etc. "
+"If you're not sure you've found a reproducable bug, then please try the "
+"mailing list first."
+msgstr ""
+"En caso de encontrar un fallo o error, debe reportarse usando el `sistema de "
+"seguimiento de errores de GitHub`_. Es crucial que se provea la información "
+"suficiente para reproducir el error. Esto incluye cosas como el \"stack trace"
+"\" de Python generado por las páginas de error, al igual que otros aspectos "
+"del entorno de desarrollo en uso, tales como sistema operativo, base de "
+"datos, versión de Python, etc. Si existe duda de si se ha encontrado un "
+"error reproducible o no, entonces lo más prudente es hacer uso de la lista "
+"de correo primero."
+
+#: ../../README.rst:322
+msgid ""
+"Finally, feel free to drop by the `#mezzanine IRC channel`_ on `Freenode`_, "
+"for a chat!"
+msgstr ""
+"Finalmente, animamos a todos los usuarios a visitar el `canal IRC "
+"#mezzanine`_ en `Freenode`_ para chatear un poco."
+
+#: ../../README.rst:325
+msgid ""
+"Communications in all Mezzanine spaces are expected to conform to the "
+"`Django Code of Conduct`_."
+msgstr ""
+"Se espera que la comunicación en todos los espacios relacionados a Mezzanine "
+"siga el `código de conducta de Django`_."
+
+#: ../../README.rst:329
+msgid "Sites Using Mezzanine"
+msgstr "Sitios que usan Mezzanine"
+
+#: ../../README.rst:331
+msgid "`Citrus Agency <http://citrus.com.au/>`_"
+msgstr "`Citrus Agency <http://citrus.com.au/>`_"
+
+#: ../../README.rst:332
+msgid "`Mezzanine Project <http://mezzanine.jupo.org>`_"
+msgstr "`Mezzanine Project <http://mezzanine.jupo.org>`_"
+
+#: ../../README.rst:333
+msgid "`Nick Hagianis <http://hagianis.com>`_"
+msgstr "`Nick Hagianis <http://hagianis.com>`_"
+
+#: ../../README.rst:334
+msgid "`Thomas Johnson <http://tomfmason.net>`_"
+msgstr "`Thomas Johnson <http://tomfmason.net>`_"
+
+#: ../../README.rst:335
+msgid "`Central Mosque Wembley <http://wembley-mosque.co.uk>`_"
+msgstr "`Central Mosque Wembley <http://wembley-mosque.co.uk>`_"
+
+#: ../../README.rst:336
+msgid "`Ovarian Cancer Research Foundation <http://ocrf.com.au/>`_"
+msgstr "`Ovarian Cancer Research Foundation <http://ocrf.com.au/>`_"
+
+#: ../../README.rst:337
+msgid "`The Source Procurement <http://thesource.com.au/>`_"
+msgstr "`The Source Procurement <http://thesource.com.au/>`_"
+
+#: ../../README.rst:338
+msgid "`Imageinary <http://imageinary.com>`_"
+msgstr "`Imageinary <http://imageinary.com>`_"
+
+#: ../../README.rst:339
+msgid "`Brad Montgomery <http://blog.bradmontgomery.net>`_"
+msgstr "`Brad Montgomery <http://blog.bradmontgomery.net>`_"
+
+#: ../../README.rst:340
+msgid "`Jashua Cloutier <http://www.senexcanis.com>`_"
+msgstr "`Jashua Cloutier <http://www.senexcanis.com>`_"
+
+#: ../../README.rst:341
+msgid "`Alpha & Omega Contractors <http://alphaomegacontractors.com>`_"
+msgstr "`Alpha & Omega Contractors <http://alphaomegacontractors.com>`_"
+
+#: ../../README.rst:342
+msgid "`Equity Advance <http://equityadvance.com.au/>`_"
+msgstr "`Equity Advance <http://equityadvance.com.au/>`_"
+
+#: ../../README.rst:343
+msgid "`Head3 Interactive <http://head3.com>`_"
+msgstr "`Head3 Interactive <http://head3.com>`_"
+
+#: ../../README.rst:344
+msgid "`PyLadies <http://www.pyladies.com>`_"
+msgstr "`PyLadies <http://www.pyladies.com>`_"
+
+#: ../../README.rst:345
+msgid "`Ripe Maternity <http://www.ripematernity.com/>`_"
+msgstr "`Ripe Maternity <http://www.ripematernity.com/>`_"
+
+#: ../../README.rst:346
+msgid "`Cotton On <http://shop.cottonon.com/>`_"
+msgstr "`Cotton On <http://shop.cottonon.com/>`_"
+
+#: ../../README.rst:347
+msgid "`List G Barristers <http://www.listgbarristers.com.au>`_"
+msgstr "`List G Barristers <http://www.listgbarristers.com.au>`_"
+
+#: ../../README.rst:348
+msgid "`Tri-Cities Flower Farm <http://www.tricitiesflowerfarm.com>`_"
+msgstr "`Tri-Cities Flower Farm <http://www.tricitiesflowerfarm.com>`_"
+
+#: ../../README.rst:349
+msgid "`daon.ru <http://daon.ru/>`_"
+msgstr "`daon.ru <http://daon.ru/>`_"
+
+#: ../../README.rst:350
+msgid "`autoindeks.ru <http://autoindeks.ru/>`_"
+msgstr "`autoindeks.ru <http://autoindeks.ru/>`_"
+
+#: ../../README.rst:351
+msgid "`immiau.ru <http://immiau.ru/>`_"
+msgstr "`immiau.ru <http://immiau.ru/>`_"
+
+#: ../../README.rst:352
+msgid "`ARA Consultants <http://www.araconsultants.com.au/>`_"
+msgstr "`ARA Consultants <http://www.araconsultants.com.au/>`_"
+
+#: ../../README.rst:353
+msgid "`Boîte à Z'images <http://boiteazimages.com/>`_"
+msgstr "`Boîte à Z'images <http://boiteazimages.com/>`_"
+
+#: ../../README.rst:354
+msgid "`The Melbourne Cup <http://www.melbournecup.com/>`_"
+msgstr "`The Melbourne Cup <http://www.melbournecup.com/>`_"
+
+#: ../../README.rst:355
+msgid "`Diablo News <http://www.diablo-news.com>`_"
+msgstr "`Diablo News <http://www.diablo-news.com>`_"
+
+#: ../../README.rst:356
+msgid "`Goldman Travel <http://www.goldmantravel.com.au/>`_"
+msgstr "`Goldman Travel <http://www.goldmantravel.com.au/>`_"
+
+#: ../../README.rst:357
+msgid "`IJC Digital <http://ijcdigital.com/>`_"
+msgstr "`IJC Digital <http://ijcdigital.com/>`_"
+
+#: ../../README.rst:358
+msgid "`Coopers <http://store.coopers.com.au/>`_"
+msgstr "`Coopers <http://store.coopers.com.au/>`_"
+
+#: ../../README.rst:359
+msgid "`Joe Julian <http://joejulian.name>`_"
+msgstr "`Joe Julian <http://joejulian.name>`_"
+
+#: ../../README.rst:360
+msgid "`Sheer Ethic <http://sheerethic.com/>`_"
+msgstr "`Sheer Ethic <http://sheerethic.com/>`_"
+
+#: ../../README.rst:361
+msgid "`Salt Lake Magazine <http://saltlakemagazine.com/>`_"
+msgstr "`Salt Lake Magazine <http://saltlakemagazine.com/>`_"
+
+#: ../../README.rst:362
+msgid "`Boca Raton Magazine <http://bocamag.com/>`_"
+msgstr "`Boca Raton Magazine <http://bocamag.com/>`_"
+
+#: ../../README.rst:363
+msgid "`Photog.me <http://www.photog.me>`_"
+msgstr "`Photog.me <http://www.photog.me>`_"
+
+#: ../../README.rst:364
+msgid "`Elephant Juice Soup <http://www.elephantjuicesoup.com>`_"
+msgstr "`Elephant Juice Soup <http://www.elephantjuicesoup.com>`_"
+
+#: ../../README.rst:365
+msgid "`National Positions <http://www.nationalpositions.co.uk/>`_"
+msgstr "`National Positions <http://www.nationalpositions.co.uk/>`_"
+
+#: ../../README.rst:366
+msgid "`Like Humans Do <http://www.likehumansdo.com>`_"
+msgstr "`Like Humans Do <http://www.likehumansdo.com>`_"
+
+#: ../../README.rst:367
+msgid "`Connecting Countries <http://connectingcountries.net>`_"
+msgstr "`Connecting Countries <http://connectingcountries.net>`_"
+
+#: ../../README.rst:368
+msgid "`tindie.com <http://tindie.com>`_"
+msgstr "`tindie.com <http://tindie.com>`_"
+
+#: ../../README.rst:369
+msgid "`Environmental World Products <http://ewp-sa.com/>`_"
+msgstr "`Environmental World Products <http://ewp-sa.com/>`_"
+
+#: ../../README.rst:370
+msgid "`Ross A. Laird <http://rosslaird.com>`_"
+msgstr "`Ross A. Laird <http://rosslaird.com>`_"
+
+#: ../../README.rst:371
+msgid "`Etienne B. Roesch <http://etienneroes.ch>`_"
+msgstr "`Etienne B. Roesch <http://etienneroes.ch>`_"
+
+#: ../../README.rst:372
+msgid "`Recruiterbox <http://recruiterbox.com/>`_"
+msgstr "`Recruiterbox <http://recruiterbox.com/>`_"
+
+#: ../../README.rst:373
+msgid "`Mod Productions <http://modprods.com/>`_"
+msgstr "`Mod Productions <http://modprods.com/>`_"
+
+#: ../../README.rst:374
+msgid "`Appsembler <http://appsembler.com/>`_"
+msgstr "`Appsembler <http://appsembler.com/>`_"
+
+#: ../../README.rst:375
+msgid "`Pink Twig <http://www.pinktwig.ca>`_"
+msgstr "`Pink Twig <http://www.pinktwig.ca>`_"
+
+#: ../../README.rst:376
+msgid "`Parfume Planet <http://parfumeplanet.com>`_"
+msgstr "`Parfume Planet <http://parfumeplanet.com>`_"
+
+#: ../../README.rst:377
+msgid "`Trading 4 Us <http://www.trading4.us>`_"
+msgstr "`Trading 4 Us <http://www.trading4.us>`_"
+
+#: ../../README.rst:378
+msgid "`Chris Fleisch <http://chrisfleisch.com>`_"
+msgstr "`Chris Fleisch <http://chrisfleisch.com>`_"
+
+#: ../../README.rst:379
+msgid "`Theneum <http://theneum.com/>`_"
+msgstr "`Theneum <http://theneum.com/>`_"
+
+#: ../../README.rst:380
+msgid "`My Story Chest <http://www.mystorychest.com>`_"
+msgstr "`My Story Chest <http://www.mystorychest.com>`_"
+
+#: ../../README.rst:381
+msgid "`Philip Sahli <http://www.fatrix.ch>`_"
+msgstr "`Philip Sahli <http://www.fatrix.ch>`_"
+
+#: ../../README.rst:382
+msgid "`Raymond Chandler <http://www.codearchaeologist.org>`_"
+msgstr "`Raymond Chandler <http://www.codearchaeologist.org>`_"
+
+#: ../../README.rst:383
+msgid "`Nashsb <http://nashpp.com>`_"
+msgstr "`Nashsb <http://nashpp.com>`_"
+
+#: ../../README.rst:384
+msgid "`AciBASE <http://acinetobacter.bham.ac.uk>`_"
+msgstr "`AciBASE <http://acinetobacter.bham.ac.uk>`_"
+
+#: ../../README.rst:385
+msgid "`Matthe Wahn <http://www.matthewahn.com>`_"
+msgstr "`Matthe Wahn <http://www.matthewahn.com>`_"
+
+#: ../../README.rst:386
+msgid "`Bit of Pixels <http://bitofpixels.com>`_"
+msgstr "`Bit of Pixels <http://bitofpixels.com>`_"
+
+#: ../../README.rst:387
+msgid "`European Crystallographic Meeting <http://ecm29.ecanews.org>`_"
+msgstr "`European Crystallographic Meeting <http://ecm29.ecanews.org>`_"
+
+#: ../../README.rst:388
+msgid "`Dreamperium <http://dreamperium.com>`_"
+msgstr "`Dreamperium <http://dreamperium.com>`_"
+
+#: ../../README.rst:389
+msgid "`UT Dallas <http://utdallasiia.com>`_"
+msgstr "`UT Dallas <http://utdallasiia.com>`_"
+
+#: ../../README.rst:390
+msgid "`Go Yama <http://goyamamusic.com>`_"
+msgstr "`Go Yama <http://goyamamusic.com>`_"
+
+#: ../../README.rst:391
+msgid "`Yeti LLC <http://www.yetihq.com/>`_"
+msgstr "`Yeti LLC <http://www.yetihq.com/>`_"
+
+#: ../../README.rst:392
+msgid "`Li Xiong <http://idhoc.com>`_"
+msgstr "`Li Xiong <http://idhoc.com>`_"
+
+#: ../../README.rst:393
+msgid "`Pageworthy <http://pageworthy.com>`_"
+msgstr "`Pageworthy <http://pageworthy.com>`_"
+
+#: ../../README.rst:394
+msgid "`Prince Jets <http://princejets.com>`_"
+msgstr "`Prince Jets <http://princejets.com>`_"
+
+#: ../../README.rst:395
+msgid "`30 sites in 30 days <http://1inday.com>`_"
+msgstr "`30 sites in 30 days <http://1inday.com>`_"
+
+#: ../../README.rst:396
+msgid "`St Barnabas' Theological College <http://www.sbtc.org.au/>`_"
+msgstr "`St Barnabas' Theological College <http://www.sbtc.org.au/>`_"
+
+#: ../../README.rst:397
+msgid "`Helios 3D <http://helios3d.nl/>`_"
+msgstr "`Helios 3D <http://helios3d.nl/>`_"
+
+#: ../../README.rst:398
+msgid "`Life is Good <http://lifeisgoodforall.co.uk/>`_"
+msgstr "`Life is Good <http://lifeisgoodforall.co.uk/>`_"
+
+#: ../../README.rst:399
+msgid "`Building 92 <http://bldg92.org/>`_"
+msgstr "`Building 92 <http://bldg92.org/>`_"
+
+#: ../../README.rst:400
+msgid "`Pie Monster <http://piemonster.me>`_"
+msgstr "`Pie Monster <http://piemonster.me>`_"
+
+#: ../../README.rst:401
+msgid "`Cotton On Asia <http://asia.cottonon.com/>`_"
+msgstr "`Cotton On Asia <http://asia.cottonon.com/>`_"
+
+#: ../../README.rst:402
+msgid "`Ivan Diao <http://www.adieu.me>`_"
+msgstr "`Ivan Diao <http://www.adieu.me>`_"
+
+#: ../../README.rst:403
+msgid "`Super Top Secret <http://www.wearetopsecret.com/>`_"
+msgstr "`Super Top Secret <http://www.wearetopsecret.com/>`_"
+
+#: ../../README.rst:404
+msgid "`Jaybird Sport <http://www.jaybirdgear.com/>`_"
+msgstr "`Jaybird Sport <http://www.jaybirdgear.com/>`_"
+
+#: ../../README.rst:405
+msgid "`Manai Glitter <https://manai.co.uk>`_"
+msgstr "`Manai Glitter <https://manai.co.uk>`_"
+
+#: ../../README.rst:406
+msgid "`Sri Emas International School <http://www.sriemas.edu.my>`_"
+msgstr "`Sri Emas International School <http://www.sriemas.edu.my>`_"
+
+#: ../../README.rst:407
+msgid "`Boom Perun <http://perunspace.ru>`_"
+msgstr "`Boom Perun <http://perunspace.ru>`_"
+
+#: ../../README.rst:408
+msgid "`Tactical Bags <http://tacticalbags.ru>`_"
+msgstr "`Tactical Bags <http://tacticalbags.ru>`_"
+
+#: ../../README.rst:409
+msgid "`apps.de <http://apps.de>`_"
+msgstr "`apps.de <http://apps.de>`_"
+
+#: ../../README.rst:410
+msgid "`Sunfluence <http://sunfluence.com>`_"
+msgstr "`Sunfluence <http://sunfluence.com>`_"
+
+#: ../../README.rst:411
+msgid "`ggzpreventie.nl <http://ggzpreventie.nl>`_"
+msgstr "`ggzpreventie.nl <http://ggzpreventie.nl>`_"
+
+#: ../../README.rst:412
+msgid "`dakuaiba.com <http://www.dakuaiba.com>`_"
+msgstr "`dakuaiba.com <http://www.dakuaiba.com>`_"
+
+#: ../../README.rst:413
+msgid "`Wdiaz <http://www.wdiaz.org>`_"
+msgstr "`Wdiaz <http://www.wdiaz.org>`_"
+
+#: ../../README.rst:414
+msgid "`Hunted Hive <http://huntedhive.com/>`_"
+msgstr "`Hunted Hive <http://huntedhive.com/>`_"
+
+#: ../../README.rst:415
+msgid "`mjollnir.org <http://mjollnir.org>`_"
+msgstr "`mjollnir.org <http://mjollnir.org>`_"
+
+#: ../../README.rst:416
+msgid "`The Beancat Network <http://www.beancatnet.org>`_"
+msgstr "`The Beancat Network <http://www.beancatnet.org>`_"
+
+#: ../../README.rst:417
+msgid "`Raquel Marón <http://raquelmaron.com/>`_"
+msgstr "`Raquel Marón <http://raquelmaron.com/>`_"
+
+#: ../../README.rst:418
+msgid "`EatLove <http://eatlove.com.au/>`_"
+msgstr "`EatLove <http://eatlove.com.au/>`_"
+
+#: ../../README.rst:419
+msgid "`Hospitality Quotient <http://hospitalityq.com/>`_"
+msgstr "`Hospitality Quotient <http://hospitalityq.com/>`_"
+
+#: ../../README.rst:420
+msgid "`The Andrew Story <http://theandrewstory.com/>`_"
+msgstr "`The Andrew Story <http://theandrewstory.com/>`_"
+
+#: ../../README.rst:421
+msgid "`Charles Koll Jewelry <http://charleskoll.com/>`_"
+msgstr "`Charles Koll Jewelry <http://charleskoll.com/>`_"
+
+#: ../../README.rst:422
+msgid "`Mission Healthcare <http://homewithmission.com/>`_"
+msgstr "`Mission Healthcare <http://homewithmission.com/>`_"
+
+#: ../../README.rst:423
+msgid "`Creuna (com/dk/fi/no/se) <http://www.creuna.com/>`_"
+msgstr "`Creuna (com/dk/fi/no/se) <http://www.creuna.com/>`_"
+
+#: ../../README.rst:424
+msgid "`Coronado School of the Arts <http://www.cosasandiego.com/>`_"
+msgstr "`Coronado School of the Arts <http://www.cosasandiego.com/>`_"
+
+#: ../../README.rst:425
+msgid "`SiteComb <http://www.sitecomb.com>`_"
+msgstr "`SiteComb <http://www.sitecomb.com>`_"
+
+#: ../../README.rst:426
+msgid "`Dashing Collective <http://dashing.tv/>`_"
+msgstr "`Dashing Collective <http://dashing.tv/>`_"
+
+#: ../../README.rst:427
+msgid "`Puraforce Remedies <http://puraforceremedies.com/>`_"
+msgstr "`Puraforce Remedies <http://puraforceremedies.com/>`_"
+
+#: ../../README.rst:428
+msgid "`Google's VetNet <http://www.vetnethq.com/>`_"
+msgstr "`Google's VetNet <http://www.vetnethq.com/>`_"
+
+#: ../../README.rst:429
+msgid "`1800RESPECT <http://www.1800respect.org.au/>`_"
+msgstr "`1800RESPECT <http://www.1800respect.org.au/>`_"
+
+#: ../../README.rst:430
+msgid "`Evenhouse Consulting <http://evenhouseconsulting.com/>`_"
+msgstr "`Evenhouse Consulting <http://evenhouseconsulting.com/>`_"
+
+#: ../../README.rst:431
+msgid "`Humboldt Community Christian School <http://humboldtccs.org>`_"
+msgstr "`Humboldt Community Christian School <http://humboldtccs.org>`_"
+
+#: ../../README.rst:432
+msgid "`Atlanta's Living Legacy <http://gradyhistory.com>`_"
+msgstr "`Atlanta's Living Legacy <http://gradyhistory.com>`_"
+
+#: ../../README.rst:433
+msgid "`Shipgistix <http://shipgistix.com>`_"
+msgstr "`Shipgistix <http://shipgistix.com>`_"
+
+#: ../../README.rst:434
+msgid "`Yuberactive <http://www.yuberactive.asia>`_"
+msgstr "`Yuberactive <http://www.yuberactive.asia>`_"
+
+#: ../../README.rst:435
+msgid "`Medical Myth Busters <http://pogromcymitowmedycznych.pl>`_"
+msgstr "`Medical Myth Busters <http://pogromcymitowmedycznych.pl>`_"
+
+#: ../../README.rst:436
+msgid "`4player Network <http://4playernetwork.com/>`_"
+msgstr "`4player Network <http://4playernetwork.com/>`_"
+
+#: ../../README.rst:437
+msgid "`Top500 Supercomputers <http://top500.org>`_"
+msgstr "`Top500 Supercomputers <http://top500.org>`_"
+
+#: ../../README.rst:438
+msgid "`Die Betroffenen <http://www.zeichnemit.de>`_"
+msgstr "`Die Betroffenen <http://www.zeichnemit.de>`_"
+
+#: ../../README.rst:439
+msgid "`uvena.de <http://uvena.de>`_"
+msgstr "`uvena.de <http://uvena.de>`_"
+
+#: ../../README.rst:440
+msgid "`ezless.com <http://ezless.com>`_"
+msgstr "`ezless.com <http://ezless.com>`_"
+
+#: ../../README.rst:441
+msgid "`Dominican Python <http://python.do>`_"
+msgstr "`Dominican Python <http://python.do>`_"
+
+#: ../../README.rst:442
+msgid "`Stackful.io <http://stackful.io/>`_"
+msgstr "`Stackful.io <http://stackful.io/>`_"
+
+#: ../../README.rst:443
+msgid "`Adrenaline <http://www.adrln.com/>`_"
+msgstr "`Adrenaline <http://www.adrln.com/>`_"
+
+#: ../../README.rst:444
+msgid "`ACE EdVenture Programme <http://aceedventure.com/>`_"
+msgstr "`ACE EdVenture Programme <http://aceedventure.com/>`_"
+
+#: ../../README.rst:445
+msgid "`Butchershop Creative <http://www.butchershopcreative.com/>`_"
+msgstr "`Butchershop Creative <http://www.butchershopcreative.com/>`_"
+
+#: ../../README.rst:446 ../../README.rst:488
+msgid "`Sam Kingston <http://www.sjkingston.com>`_"
+msgstr "`Sam Kingston <http://www.sjkingston.com>`_"
+
+#: ../../README.rst:447
+msgid "`Ludwig von Mises Institute <http://mises.fi>`_"
+msgstr "`Ludwig von Mises Institute <http://mises.fi>`_"
+
+#: ../../README.rst:448
+msgid "`Incendio <http://incendio.no/>`_"
+msgstr "`Incendio <http://incendio.no/>`_"
+
+#: ../../README.rst:449
+msgid "`Alexander Lillevik <http://lillevikdesign.no/>`_"
+msgstr "`Alexander Lillevik <http://lillevikdesign.no/>`_"
+
+#: ../../README.rst:450
+msgid "`Walk In Tromsø <http://www.turitromso.no>`_"
+msgstr "`Walk In Tromsø <http://www.turitromso.no>`_"
+
+#: ../../README.rst:451
+msgid "`Mandrivia Linux <http://www.mandriva.com/>`_"
+msgstr "`Mandrivia Linux <http://www.mandriva.com/>`_"
+
+#: ../../README.rst:452
+msgid "`Crown Preschool <http://crownpreschool.com>`_"
+msgstr "`Crown Preschool <http://crownpreschool.com>`_"
+
+#: ../../README.rst:453
+msgid "`Coronado Pathways Charter School <http://coronadopathways.com>`_"
+msgstr "`Coronado Pathways Charter School <http://coronadopathways.com>`_"
+
+#: ../../README.rst:454
+msgid "`Raindrop Marketing <http://www.raindropads.com>`_"
+msgstr "`Raindrop Marketing <http://www.raindropads.com>`_"
+
+#: ../../README.rst:455
+msgid "`Web4py <http://www.web4py.com>`_"
+msgstr "`Web4py <http://www.web4py.com>`_"
+
+#: ../../README.rst:456
+msgid "`The Peculiar Store <http://thepeculiarstore.com>`_"
+msgstr "`The Peculiar Store <http://thepeculiarstore.com>`_"
+
+#: ../../README.rst:457
+msgid "`GrinDin <http://www.grindin.ru>`_"
+msgstr "`GrinDin <http://www.grindin.ru>`_"
+
+#: ../../README.rst:458
+msgid "`4Gume <http://www.4gume.com>`_"
+msgstr "`4Gume <http://www.4gume.com>`_"
+
+#: ../../README.rst:459
+msgid "`Skydivo <http://skydivo.com>`_"
+msgstr "`Skydivo <http://skydivo.com>`_"
+
+#: ../../README.rst:460
+msgid "`Noshly <http://noshly.com>`_"
+msgstr "`Noshly <http://noshly.com>`_"
+
+#: ../../README.rst:461
+msgid "`Kabu Creative <http://kabucreative.com.au/>`_"
+msgstr "`Kabu Creative <http://kabucreative.com.au/>`_"
+
+#: ../../README.rst:462
+msgid "`KisanHub <http://www.kisanhub.com/>`_"
+msgstr "`KisanHub <http://www.kisanhub.com/>`_"
+
+#: ../../README.rst:463
+msgid "`Your Song Your Story <http://yoursongyourstory.org/>`_"
+msgstr "`Your Song Your Story <http://yoursongyourstory.org/>`_"
+
+#: ../../README.rst:464
+msgid "`Kegbot <http://kegbot.org>`_"
+msgstr "`Kegbot <http://kegbot.org>`_"
+
+#: ../../README.rst:465
+msgid "`Fiz <http://fiz.com/>`_"
+msgstr "`Fiz <http://fiz.com/>`_"
+
+#: ../../README.rst:466
+msgid "`Willborn <http://willbornco.com>`_"
+msgstr "`Willborn <http://willbornco.com>`_"
+
+#: ../../README.rst:467
+msgid "`Copilot Co <http://copilotco.com>`_"
+msgstr "`Copilot Co <http://copilotco.com>`_"
+
+#: ../../README.rst:468
+msgid "`Amblitec <http://www.amblitec.com>`_"
+msgstr "`Amblitec <http://www.amblitec.com>`_"
+
+#: ../../README.rst:469
+msgid "`Gold's Gym Utah <http://www.bestgymever.com/>`_"
+msgstr "`Gold's Gym Utah <http://www.bestgymever.com/>`_"
+
+#: ../../README.rst:470
+msgid "`Appsin - Blog to Native app <http://apps.in/>`_"
+msgstr "`Appsin - Blog to Native app <http://apps.in/>`_"
+
+#: ../../README.rst:471
+msgid "`Take Me East <http://takemeeast.net>`_"
+msgstr "`Take Me East <http://takemeeast.net>`_"
+
+#: ../../README.rst:472
+msgid "`Code Raising <http://www.coderaising.org>`_"
+msgstr "`Code Raising <http://www.coderaising.org>`_"
+
+#: ../../README.rst:473
+msgid "`ZigZag Bags <http://www.zigzagbags.com.au>`_"
+msgstr "`ZigZag Bags <http://www.zigzagbags.com.au>`_"
+
+#: ../../README.rst:474
+msgid "`VerifIP <http://verifip.com/>`_"
+msgstr "`VerifIP <http://verifip.com/>`_"
+
+#: ../../README.rst:475
+msgid "`Clic TV <http://www.clictv.tv/>`_"
+msgstr "`Clic TV <http://www.clictv.tv/>`_"
+
+#: ../../README.rst:476
+msgid "`JE Rivas <http://www.jerivas.com/>`_"
+msgstr "`JE Rivas <http://www.jerivas.com/>`_"
+
+#: ../../README.rst:477
+msgid "`Heather Gregory Nutrition <http://heathergregorynutrition.com>`_"
+msgstr "`Heather Gregory Nutrition <http://heathergregorynutrition.com>`_"
+
+#: ../../README.rst:478
+msgid "`Coronado Island Realty <http://coronado-realty.com>`_"
+msgstr "`Coronado Island Realty <http://coronado-realty.com>`_"
+
+#: ../../README.rst:479
+msgid "`Loans to Homes <http://loanstohomes.com>`_"
+msgstr "`Loans to Homes <http://loanstohomes.com>`_"
+
+#: ../../README.rst:480
+msgid "`Gensler Group <http://genslergroup.com>`_"
+msgstr "`Gensler Group <http://genslergroup.com>`_"
+
+#: ../../README.rst:481
+msgid "`SaniCo <https://sanimedicaltourism.com>`_"
+msgstr "`SaniCo <https://sanimedicaltourism.com>`_"
+
+#: ../../README.rst:482
+msgid "`Grupo Invista <http://grupoinvista.com>`_"
+msgstr "`Grupo Invista <http://grupoinvista.com>`_"
+
+#: ../../README.rst:483
+msgid "`Brooklyn Navy Yard <http://brooklynnavyyard.org/>`_"
+msgstr "`Brooklyn Navy Yard <http://brooklynnavyyard.org/>`_"
+
+#: ../../README.rst:484
+msgid "`MEZZaTHEME <http://mezzathe.me/>`_"
+msgstr "`MEZZaTHEME <http://mezzathe.me/>`_"
+
+#: ../../README.rst:485
+msgid "`Nektra Advanced Computing <http://www.nektra.com/>`_"
+msgstr "`Nektra Advanced Computing <http://www.nektra.com/>`_"
+
+#: ../../README.rst:486
+msgid "`Bootstrap ASAP <https://bootstrapasap.com/>`_"
+msgstr "`Bootstrap ASAP <https://bootstrapasap.com/>`_"
+
+#: ../../README.rst:487
+msgid "`California Center for Jobs <http://www.centerforjobs.org/>`_"
+msgstr "`California Center for Jobs <http://www.centerforjobs.org/>`_"
+
+#: ../../README.rst:489
+msgid "`Code Juggle DJ <http://www.codejuggle.dj>`_"
+msgstr "`Code Juggle DJ <http://www.codejuggle.dj>`_"
+
+#: ../../README.rst:490
+msgid "`Food News <http://food.hypertexthero.com>`_"
+msgstr "`Food News <http://food.hypertexthero.com>`_"
+
+#: ../../README.rst:491
+msgid "`Australian Discworld Conventions <http://ausdwcon.org>`_"
+msgstr "`Australian Discworld Conventions <http://ausdwcon.org>`_"
+
+#: ../../README.rst:492
+msgid "`Distilled <http://www.distilled.net/>`_"
+msgstr "`Distilled <http://www.distilled.net/>`_"
+
+#: ../../README.rst:493
+msgid "`OpenMRP <http://www.openmrp.es>`_"
+msgstr "`OpenMRP <http://www.openmrp.es>`_"
+
+#: ../../README.rst:494
+msgid "`Arkade Snowboarding <http://www.arkadesnowboarding.com/>`_"
+msgstr "`Arkade Snowboarding <http://www.arkadesnowboarding.com/>`_"
+
+#: ../../README.rst:495
+msgid "`Linktective The Link Checker <http://www.linktective.com>`_"
+msgstr "`Linktective The Link Checker <http://www.linktective.com>`_"
+
+#: ../../README.rst:496
+msgid "`Zetalab <http://www.zetalab.de>`_"
+msgstr "`Zetalab <http://www.zetalab.de>`_"
+
+#: ../../README.rst:497
+msgid "`Make-Up Artists & Hair Stylists Guild <http://www.local706.org>`_"
+msgstr "`Make-Up Artists & Hair Stylists Guild <http://www.local706.org>`_"
+
+#: ../../README.rst:498
+msgid "`Anywhereism <http://www.anywhereism.net>`_"
+msgstr "`Anywhereism <http://www.anywhereism.net>`_"
+
+#: ../../README.rst:499
+msgid "`Assistive Listening Device Locator <http://aldlocator.com>`_"
+msgstr "`Assistive Listening Device Locator <http://aldlocator.com>`_"
+
+#: ../../README.rst:500
+msgid "`Frank & Connie Spitzer <http://sdhome4you.com>`_"
+msgstr "`Frank & Connie Spitzer <http://sdhome4you.com>`_"
+
+#: ../../README.rst:501
+msgid "`Coronado Unified School District <http://coronadousd.net>`_"
+msgstr "`Coronado Unified School District <http://coronadousd.net>`_"
+
+#: ../../README.rst:502
+msgid "`Coronado Inn <http://coronadoinn.com>`_"
+msgstr "`Coronado Inn <http://coronadoinn.com>`_"
+
+#: ../../README.rst:503
+msgid "`Coronado Schools Foundation <http://csfkids.org>`_"
+msgstr "`Coronado Schools Foundation <http://csfkids.org>`_"
+
+#: ../../README.rst:504
+msgid ""
+"`Light and Life Christian School <http://www.lightandlifechristianschool."
+"com>`"
+msgstr ""
+"`Light and Life Christian School <http://www.lightandlifechristianschool."
+"com>`"
+
+#: ../../README.rst:505
+msgid "`The Morabito Group <http://themorabitogroup.com>`_"
+msgstr "`The Morabito Group <http://themorabitogroup.com>`_"
+
+#: ../../README.rst:506
+msgid "`Law Offices of Nancy Gardner <http://nancygardnerlaw.com>`_"
+msgstr "`Law Offices of Nancy Gardner <http://nancygardnerlaw.com>`_"
+
+#: ../../README.rst:507
+msgid "`Soden & Steinberger APLC <http://legalmattersllp.com>`_"
+msgstr "`Soden & Steinberger APLC <http://legalmattersllp.com>`_"
+
+#: ../../README.rst:508
+msgid "`Stalwart Communications <http://stalwartcom.com>`_"
+msgstr "`Stalwart Communications <http://stalwartcom.com>`_"
+
+#: ../../README.rst:509
+msgid "`Ubuntu Consultants <http://ubuntuconsultants.com>`_"
+msgstr "`Ubuntu Consultants <http://ubuntuconsultants.com>`_"
+
+#: ../../README.rst:510
+msgid "`Wine a Bit Coronado <http://wineabitcoronado.com>`_"
+msgstr "`Wine a Bit Coronado <http://wineabitcoronado.com>`_"
+
+#: ../../README.rst:511
+msgid "`Mercury Mastering <http://mercurymastering.com>`_"
+msgstr "`Mercury Mastering <http://mercurymastering.com>`_"
+
+#: ../../README.rst:512
+msgid "`Flowgrammable <http://flowgrammable.org>`_"
+msgstr "`Flowgrammable <http://flowgrammable.org>`_"
+
+#: ../../README.rst:513
+msgid "`Shibe Mart <http://shibemart.com>`_"
+msgstr "`Shibe Mart <http://shibemart.com>`_"
+
+#: ../../README.rst:514
+msgid "`Carlos Isaac Balderas <http://caisbalderas.com/>`_"
+msgstr "`Carlos Isaac Balderas <http://caisbalderas.com/>`_"
+
+#: ../../README.rst:515
+msgid "`Enrico Tröger <http://www.pending.io>`_"
+msgstr "`Enrico Tröger <http://www.pending.io>`_"
+
+#: ../../README.rst:516
+msgid "`Perugini <http://peruginicase.it/>`_"
+msgstr "`Perugini <http://peruginicase.it/>`_"
+
+#: ../../README.rst:517
+msgid "`YouPatch <https://www.youpatch.com>`_"
+msgstr "`YouPatch <https://www.youpatch.com>`_"
+
+#: ../../README.rst:518
+msgid "`Batista Peniel <http://batistapeniel.org>`_"
+msgstr "`Batista Peniel <http://batistapeniel.org>`_"
+
+#: ../../README.rst:519
+msgid "`Perceptyx <http://www.perceptyx.com/>`_"
+msgstr "`Perceptyx <http://www.perceptyx.com/>`_"
+
+#: ../../README.rst:520
+msgid "`Guddina Coffee <http://guddina.com>`_"
+msgstr "`Guddina Coffee <http://guddina.com>`_"
+
+#: ../../README.rst:521
+msgid "`Atami Escape Resort <http://www.atami.com.sv>`_"
+msgstr "`Atami Escape Resort <http://www.atami.com.sv>`_"
+
+#: ../../README.rst:522
+msgid "`Philip Southwell <http://www.philipsouthwell.com>`_"
+msgstr "`Philip Southwell <http://www.philipsouthwell.com>`_"
+
+#: ../../README.rst:523
+msgid "`Justine & Katie's Bowtique <http://www.jnkbows.com>`_"
+msgstr "`Justine & Katie's Bowtique <http://www.jnkbows.com>`_"
+
+#: ../../README.rst:524
+msgid "`The Grantwell LLC <https://www.thegrantwell.com>`_"
+msgstr "`The Grantwell LLC <https://www.thegrantwell.com>`_"
+
+#: ../../README.rst:525
+msgid "`PyCon Asia-Pacific <https://tw.pycon.org/>`_"
+msgstr "`PyCon Asia-Pacific <https://tw.pycon.org/>`_"
+
+#: ../../README.rst:526
+msgid "`Nerdot <http://nerdot.com.do>`_"
+msgstr "`Nerdot <http://nerdot.com.do>`_"
+
+#: ../../README.rst:527
+msgid "`Coworking.do <http://coworking.do>`_"
+msgstr "`Coworking.do <http://coworking.do>`_"
+
+#: ../../README.rst:528
+msgid "`Arlette Pichardo <http://arlettepichardo.com>`_"
+msgstr "`Arlette Pichardo <http://arlettepichardo.com>`_"
+
+#: ../../README.rst:529
+msgid "`Sani Dental Group <http://sanidentalgroup.com>`_"
+msgstr "`Sani Dental Group <http://sanidentalgroup.com>`_"
+
+#: ../../README.rst:530
+msgid "`Biocap 06 <http://www.biocap06.fr>`_"
+msgstr "`Biocap 06 <http://www.biocap06.fr>`_"
+
+#: ../../README.rst:531
+msgid "`Python Baja California <http://pythonbc.co/>`_"
+msgstr "`Python Baja California <http://pythonbc.co/>`_"
+
+#: ../../README.rst:532
+msgid "`The Art Rebellion <http://www.theartrebellion.com/>`_"
+msgstr "`The Art Rebellion <http://www.theartrebellion.com/>`_"
+
+#: ../../README.rst:533
+msgid "`Engineered Arts <https://www.engineeredarts.co.uk>`_"
+msgstr "`Engineered Arts <https://www.engineeredarts.co.uk>`_"
+
+#: ../../README.rst:534
+msgid "`Paul Whipp Consulting <http://www.paulwhippconsulting.com>`_"
+msgstr "`Paul Whipp Consulting <http://www.paulwhippconsulting.com>`_"
+
+#: ../../README.rst:535
+msgid "`Lipman Art <https://lipmanart.com/>`_"
+msgstr "`Lipman Art <https://lipmanart.com/>`_"
+
+#: ../../README.rst:536
+msgid "`MODCo Group <http://modcogroup.com/>`_"
+msgstr "`MODCo Group <http://modcogroup.com/>`_"
+
+#: ../../README.rst:537
+msgid "`Terminal Labs <http://www.terminallabs.com>`_"
+msgstr "`Terminal Labs <http://www.terminallabs.com>`_"
+
+#: ../../README.rst:538
+msgid "`Resource Management Companies <http://rmcrecycle.com>`_"
+msgstr "`Resource Management Companies <http://rmcrecycle.com>`_"
+
+#: ../../README.rst:539
+msgid "`DollFires <http://dollfires.com>`_"
+msgstr "`DollFires <http://dollfires.com>`_"
+
+#: ../../README.rst:540
+msgid "`Quantifind <http://quantifind.com/>`_"
+msgstr "`Quantifind <http://quantifind.com/>`_"
+
+#: ../../README.rst:541
+msgid "`ZHackers <https://www.zhackers.com>`_"
+msgstr "`ZHackers <https://www.zhackers.com>`_"
+
+#: ../../README.rst:542
+msgid "`Open ERP Arabia <http://openerparabia.org/>`_"
+msgstr "`Open ERP Arabia <http://openerparabia.org/>`_"
+
+#: ../../README.rst:543
+msgid "`DataKind <http://www.datakind.org/>`_"
+msgstr "`DataKind <http://www.datakind.org/>`_"
+
+#: ../../README.rst:544
+msgid "`New Zealand Institute of Economic Research <http://nzier.org.nz/>`_"
+msgstr "`New Zealand Institute of Economic Research <http://nzier.org.nz/>`_"
+
+#: ../../README.rst:545
+msgid "`CodingHouse <http://thecodinghouse.in>`_"
+msgstr "`CodingHouse <http://thecodinghouse.in>`_"
+
+#: ../../README.rst:546
+msgid "`Triple J Products <http://triplejcoilproducts.com>`_"
+msgstr "`Triple J Products <http://triplejcoilproducts.com>`_"
+
+#: ../../README.rst:547
+msgid "`Aaron E. Balderas <http://abalderas.com>`_"
+msgstr "`Aaron E. Balderas <http://abalderas.com>`_"
+
+#: ../../README.rst:548
+msgid "`DVD.nl <http://dvd.nl/>`_"
+msgstr "`DVD.nl <http://dvd.nl/>`_"
+
+#: ../../README.rst:549
+msgid "`Constantia Fabrics <http://www.constantiafabrics.co.za/>`_"
+msgstr "`Constantia Fabrics <http://www.constantiafabrics.co.za/>`_"
+
+#: ../../README.rst:553
+msgid "Quotes"
+msgstr "Citas"
+
+#: ../../README.rst:555
+msgid ""
+"\"I'm enjoying working with Mezzanine, it's good work\" - `Van Lindberg`_, "
+"`Python Software Foundation`_ chairman"
+msgstr ""
+"\"Estoy disfrutando trabajar con Mezzanine, ¡es buen trabajo!\" - `Van "
+"Lindberg`_, `Python Software Foundation`_ presidente"
+
+#: ../../README.rst:557
+msgid ""
+"\"Mezzanine looks like it may be Django's killer app\" - `Antonio "
+"Rodriguez`_, ex CTO of `Hewlett Packard`_, founder of `Tabblo`_"
+msgstr ""
+"\"Mezzanine parece ser la aplicación ganadora de Django\" - `Antonio "
+"Rodriguez`_, ex CTO de `Hewlett Packard`_, fundador de `Tabblo`_"
+
+#: ../../README.rst:560
+msgid ""
+"\"Mezzanine looks pretty interesting, tempting to get me off Wordpress\" - "
+"`Jesse Noller`_, Python core contributor, `Python Software Foundation`_ "
+"board member"
+msgstr ""
+"\"Mezzanine se ve bastante interesante, me tienta a abandonar Wordpress\" - "
+"`Jesse Noller`_, contribuidor importante de Python, `Python Software "
+"Foundation`_ miembro de la junta"
+
+#: ../../README.rst:563
+msgid ""
+"\"I think I'm your newest fan. Love these frameworks\" - `Emile Petrone`_, "
+"integrations engineer at `Urban Airship`_"
+msgstr ""
+"\"Creo que soy tu más reciente fan. Me encantan estos frameworks\" - `Emile "
+"Petrone`_, ingeniero de integración en `Urban Airship`_"
+
+#: ../../README.rst:565
+msgid ""
+"\"Mezzanine is amazing\" - `Audrey Roy`_, founder of `PyLadies`_ and `Django "
+"Packages`_"
+msgstr ""
+"\"Mezzanine es sorprendente\" - `Audrey Roy`_, fundadora de `PyLadies`_ y "
+"`Django Packages`_"
+
+#: ../../README.rst:567
+msgid ""
+"\"Mezzanine convinced me to switch from the Ruby world over to Python\" - "
+"`Michael Delaney`_, developer"
+msgstr ""
+"\"Mezzanine me convenció de cambiarme del mundo Ruby al de Python\" - "
+"`Michael Delaney`_, desarrollador"
+
+#: ../../README.rst:569
+msgid ""
+"\"Like Linux and Python, Mezzanine just feels right\" - `Phil Hughes`_, "
+"Linux For Dummies author, `The Linux Journal`_ columnist"
+msgstr ""
+"\"Como Linux y Python, Mezzanine simplemente se siente bien\" - `Phil "
+"Hughes`_, autor de \"Linux For Dummies\", `The Linux Journal`_ columnista"
+
+#: ../../README.rst:571
+msgid ""
+"\"Impressed with Mezzanine so far\" - `Brad Montgomery`_, founder of `Work "
+"For Pie`_"
+msgstr ""
+"\"Impresionado por Mezzanine hasta ahora\" - `Brad Montgomery`_, fundador de "
+"`Work For Pie`_"
+
+#: ../../README.rst:573
+msgid ""
+"\"From the moment I installed Mezzanine, I have been delighted, both with "
+"the initial experience and the community involved in its development\" - "
+"`John Campbell`_, founder of `Head3 Interactive`_"
+msgstr ""
+"\"Desde el momento en que instalé Mezzanine, he quedado encantado, tanto por "
+"la experiencia inicial como por la comunidad que lo desarrolla\" - `John "
+"Campbell`_, fundador de `Head3 Interactive`_"
+
+#: ../../README.rst:576
+msgid ""
+"\"You need to check out the open source project Mezzanine. In one word: "
+"Elegant\" - `Nick Hagianis`_, developer"
+msgstr ""
+"\"Tienes que echarle un vistazo al proyecto de código abierto Mezzanine. En "
+"una palabra: Elegante\" - `Nick Hagianis`_, desarrollador"

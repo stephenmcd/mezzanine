@@ -1,0 +1,128 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mezzanine 3.1.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-19 13:59-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../device-handling.rst:3
+msgid "Device Handling"
+msgstr ""
+
+#: ../device-handling.rst:5
+msgid ""
+"Mezzanine comes with the ability to use different sets of templates "
+"depending on the device being used to access the website. For example one "
+"set of templates may be used for desktop browsers with a corresponding set "
+"of templates being used for mobile phones."
+msgstr ""
+
+#: ../device-handling.rst:10
+msgid ""
+"Devices are grouped into types with each type being named after the sub-"
+"directory containing its specific set of templates. Each device is then "
+"defined by a list of strings that could be found in the user agent that "
+"matches the particular device. This mapping of device sub-directory names to"
+" user agent strings is defined in the setting ``DEVICE_USER_AGENTS``::"
+msgstr ""
+
+#: ../device-handling.rst:21
+msgid ""
+"Given the above example value for ``DEVICE_USER_AGENTS``, suppose a view or "
+"template referenced the template ``blog/index.html``. If an iPhone made the "
+"request to the website, the template ``mobile/blog/index.html`` would be "
+"searched for, and if a Windows OS made the request then the template "
+"``desktop/blog/index.html`` would be searched for."
+msgstr ""
+
+#: ../device-handling.rst:29
+msgid ""
+"If the device specific templates don't exist or a user agent isn't matched "
+"to any of the device specific strings, then the original template name "
+"(``blog/index.html`` in the above example) will be used as per usual with "
+"Django. This means that supporting device specific templates is entirely "
+"optional."
+msgstr ""
+
+#: ../device-handling.rst:35
+msgid ""
+"You can also specify which device should be treated as the default by "
+"defining the setting ``DEVICE_DEFAULT``. For example to ensure templates for"
+" the ``mobile`` device group are used even when no matching user agent is "
+"found, simply define the following in your project's ``settings`` module::"
+msgstr ""
+
+#: ../device-handling.rst:44
+msgid "Mobile Theme"
+msgstr ""
+
+#: ../device-handling.rst:46
+msgid ""
+"Mezzanine includes the app ``mezzanine.mobile`` which contains a full set of"
+" default templates and assets for creating a mobile version of your site. "
+"Simply add ``mezzanine.mobile`` to your ``INSTALLED_APPS`` setting to use "
+"it."
+msgstr ""
+
+#: ../device-handling.rst:52
+msgid "Implementation Considerations"
+msgstr ""
+
+#: ../device-handling.rst:54
+msgid ""
+"Using the ``DEVICE_USER_AGENTS`` setting, Mezzanine simply prefixes any "
+"referenced template path with the device specific sub-directory name if a "
+"user agent matches one of the strings specified for the device. For example "
+"if a user agent matches the ``mobile`` device set of templates, a reference "
+"to ``blog/index.html`` will be changed to the list "
+"``[\"mobile/blog/index.html\", \"blog/index.html\"]`` under the hood."
+msgstr ""
+
+#: ../device-handling.rst:61
+msgid ""
+"To achieve this, the middleware "
+"``mezzanine.core.middleware.TemplateForDeviceMiddleware`` catches Django "
+"``TemplateResponse`` responses, and changes the template list prior to the "
+"response being rendered. As such, any views you implement should return "
+"``TemplateResponse`` objects. The table below lists Mezzanine versions of "
+"Django features that can be used to ensure a ``TemplateResponse`` is "
+"returned."
+msgstr ""
+
+#: ../device-handling.rst:70
+msgid "Django"
+msgstr ""
+
+#: ../device-handling.rst:70
+msgid "Mezzanine"
+msgstr ""
+
+#: ../device-handling.rst:72
+msgid "``django.shortcuts.render``"
+msgstr ""
+
+#: ../device-handling.rst:72
+msgid "``mezzanine.utils.views.render``"
+msgstr ""
+
+#: ../device-handling.rst:73
+msgid "``django.template.Library().inclusion_tag``"
+msgstr ""
+
+#: ../device-handling.rst:73
+msgid "``mezzanine.template.Library().inclusion_tag``"
+msgstr ""
+
+#: ../device-handling.rst:74
+msgid "``django.views.generic.simple.direct_to_template``"
+msgstr ""
+
+#: ../device-handling.rst:74
+msgid "``mezzanine.core.views.direct_to_template``"
+msgstr ""
