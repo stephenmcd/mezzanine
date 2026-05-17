@@ -123,6 +123,10 @@ msgstr "Date de naissance"
 msgid "Hidden"
 msgstr "Invisible"
 
+#: fields.py:46
+msgid "Title"
+msgstr "Titre"
+
 #: forms.py:28 forms.py:36 forms.py:42
 msgid "Nothing"
 msgstr "Rien"
